@@ -175,3 +175,59 @@ footer p {
         padding: 15px;
     }
 }
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem; 
+    }
+
+    .hero p {
+        font-size: 1rem; 
+    }
+
+    section {
+        padding: 60px 10px; 
+    }
+
+    header nav ul {
+        flex-direction: column;
+        align-items: flex-start; 
+    }
+
+    header nav ul li {
+        margin: 10px 0;
+    }
+
+    .social-icons {
+        left: 10px;
+        bottom: 10px; 
+    }
+
+    .social-icons a img {
+        width: 35px;
+    }
+
+    header .menu-toggle {
+        display: block;
+        background: #00bcd4;
+        padding: 10px;
+        cursor: pointer;
+        border: none;
+        color: white;
+        font-size: 24px;
+    }
+
+    header nav ul {
+        display: none;
+        flex-direction: column;
+    }
+
+    header nav ul.show {
+        display: flex;
+    }
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
