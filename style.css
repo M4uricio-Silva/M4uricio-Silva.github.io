@@ -7,13 +7,16 @@
 }
 
 body {
-    background-color: #f5f5f5;
-    color: #333;
+    background-color: #e0e6ed;
+    /* Fundo frio e suave */
+    color: #34495e;
+    /* Texto escuro, sem usar branco ou cinza nas letras */
     line-height: 1.6;
 }
 
 header {
-    background-color: #fff;
+    background-color: #34495e;
+    /* Tom de azul escuro para o header */
     padding: 20px 0;
     text-align: center;
     position: fixed;
@@ -40,15 +43,18 @@ header nav ul li {
 }
 
 header nav ul li a {
-    color: #333;
+    color: #ecf0f1;
+    /* Texto claro para o header */
     text-decoration: none;
     font-size: 18px;
     font-weight: 500;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
 header nav ul li a:hover {
-    color: #00bcd4;
+    color: #3498db;
+    /* Azul mais sóbrio para o hover */
+    transform: scale(1.1);
 }
 
 header.shrink {
@@ -68,7 +74,7 @@ html {
     height: 100vh;
     text-align: center;
     background: url('https://source.unsplash.com/1600x900/?technology') no-repeat center center/cover;
-    color: #333;
+    color: #fff;
     padding-top: 100px;
     opacity: 0;
     animation: fadeIn 1.5s ease-in-out forwards;
@@ -80,26 +86,32 @@ html {
     font-weight: bold;
     margin-bottom: 20px;
     animation: slideUp 1s ease-in-out;
+    color: #2c3e50;
+    /* Título "Mauricio Silva" com cor mais escura */
 }
 
 .hero p {
-    font-size: 0.9rem;
+    font-size: 1.2rem;
     margin-bottom: 20px;
+    color: #2c3e50;
+    /* Cor escura para o texto da introdução */
 }
 
 .hero .btn {
-    background-color: #ffcc00;
+    background-color: #2980b9;
+    /* Azul escuro para o botão */
     padding: 12px 24px;
     text-decoration: none;
-    color: black;
+    color: white;
     font-weight: 600;
     border-radius: 5px;
     font-size: 1.1rem;
-    transition: background 0.3s ease;
+    transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .hero .btn:hover {
-    background-color: #e6b800;
+    background-color: #1abc9c;
+    /* Azul esverdeado mais frio para o hover */
     transform: scale(1.05);
 }
 
@@ -114,7 +126,9 @@ section {
 section h1 {
     font-size: 2.5rem;
     margin-bottom: 20px;
-    color: #333;
+    color: #2c3e50;
+    /* Azul escuro para os títulos das seções */
+    font-weight: bold;
 }
 
 section ul {
@@ -126,10 +140,13 @@ section ul {
 section ul li {
     font-size: 1.1rem;
     margin-bottom: 10px;
+    color: #7f8c8d;
+    /* Cinza médio para as listas */
 }
 
 footer {
-    background-color: #222;
+    background-color: #2c3e50;
+    /* Azul escuro para o rodapé */
     color: white;
     padding: 20px;
     text-align: center;
@@ -139,7 +156,6 @@ footer p {
     font-size: 1rem;
 }
 
-/* Estilo para os ícones sociais na seção de contato */
 #contato .social-icons {
     display: flex;
     justify-content: center;
@@ -167,6 +183,7 @@ footer p {
         opacity: 0;
         transform: translateY(-20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -178,6 +195,7 @@ footer p {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
