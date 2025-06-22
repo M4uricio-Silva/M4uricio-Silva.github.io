@@ -270,9 +270,24 @@
             font-size: 1.05em;
             padding: 0.5rem 0.8rem;
             border-radius: var(--border-radius-sm);
-            white-space: nowrap;
             text-align: center;
             font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            span[id^="feedback-"] {
+                display: block;
+                /* Mude para block para ocupar a largura total e permitir quebra de linha */
+                margin-left: 0;
+                margin-top: 0.8rem;
+                text-align: center;
+                width: 100%;
+                /* Garante que ocupe a largura total disponível */
+                white-space: normal;
+                /* Garante que o texto quebre a linha */
+                word-wrap: break-word;
+                /* Para garantir que palavras muito longas também quebrem */
+            }
         }
 
         /* Classes de feedback usadas pelo JavaScript */
@@ -5989,11 +6004,11 @@
             simuladoFeedbackElement.style.display = 'none';
             simuladoFeedbackElement.textContent = '';
 
-           // Uma forma mais robusta para conteúdo dinâmico seria:
-        if (typeof renderMathInElement !== 'undefined') {
-            renderMathInElement(questionTextElement, { delimiters: KaTeXConfig.delimiters, throwOnError: false });
-            renderMathInElement(optionsContainer, { delimiters: KaTeXConfig.delimiters, throwOnError: false });
-        }
+            // Uma forma mais robusta para conteúdo dinâmico seria:
+            if (typeof renderMathInElement !== 'undefined') {
+                renderMathInElement(questionTextElement, { delimiters: KaTeXConfig.delimiters, throwOnError: false });
+                renderMathInElement(optionsContainer, { delimiters: KaTeXConfig.delimiters, throwOnError: false });
+            }
 
             renderQuestionNavBar(); // Atualiza a barra de navegação de questões
         }
