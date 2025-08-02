@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ferramenta de Estudo - Redação ENEM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        #modelo-redacao {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .secao-redacao {
+            background: #fff;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .secao-redacao h2 {
+            color: #0056b3;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .secao-redacao p {
+            margin-bottom: 1rem;
+        }
+
+        .botoes-interativos {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .btn-interacao {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 0.75rem 1.25rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-interacao:hover {
+            background-color: #218838;
+        }
+
+        .btn-toggle-modelo {
+            background-color: #dc3545;
+        }
+
+        .btn-toggle-modelo:hover {
+            background-color: #c82333;
+        }
+
+        /* Cores de destaque para o modelo */
+        .destaque-frase-inicial {
+            background-color: #f7ff00;
+            font-weight: bold;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        .destaque-tese {
+            background-color: #f7b200;
+            font-weight: bold;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        .destaque-agente {
+            background-color: #ff6347;
+            font-weight: bold;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        .destaque-acao {
+            background-color: #3cb371;
+            font-weight: bold;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        .destaque-meio {
+            background-color: #1e90ff;
+            font-weight: bold;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        .destaque-finalidade {
+            background-color: #dda0dd;
+            font-weight: bold;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        .destaque-detalhamento {
+            background-color: #ffdab9;
+            font-weight: bold;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        /* Estilos da área de prática */
+        #pratica-redacao textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            margin-bottom: 1rem;
+        }
+
+        #pratica-redacao p {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Minha Ferramenta de Estudo ENEM</h1>
+        <p>Aprenda a estrutura da redação de forma prática e interativa.</p>
+    </header>
+
+    <main id="modelo-redacao">
+
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <button class="btn-interacao btn-toggle-modelo" id="toggle-modelo">Esconder Modelo</button>
+        </div>
+
+        <div id="container-modelo">
+            <section class="secao-redacao" id="introducao">
+                <h2>Introdução</h2>
+                <p>
+                    <span id="frase-inicial">A frase "Onde todos pensam do mesmo jeito, ninguém pensa muito.", de Walter
+                        Lippmann, ressalta a diversidade de pensamento.</span> Essa variedade nos enriquece sobre
+                    questões
+                    complexas, além de incentivar a questionar e solucionar paradigmas estabelecidos. Paralelamente, no
+                    Brasil, torna-se crucial refletirmos sobre (TEMA), que impacta nossa sociedade e nosso futuro. Além
+                    disso, é fundamental explorarmos fatores como <span id="tese1">(TESE 1)</span> e <span
+                        id="tese2">(TESE
+                        2)</span>.
+                </p>
+                <div class="botoes-interativos">
+                    <button class="btn-interacao" onclick="destacar('frase-inicial')">Frase Inicial</button>
+                    <button class="btn-interacao" onclick="destacar('tese1')">Tese 1</button>
+                    <button class="btn-interacao" onclick="destacar('tese2')">Tese 2</button>
+                </div>
+            </section>
+
+            <section class="secao-redacao" id="desenvolvimento1">
+                <h2>Desenvolvimento 1</h2>
+                <p>
+                    <span id="desenvolvimento1-texto">Primeiramente, segundo a Constituição Federal de 1988, o/a (ÁREA
+                        DO
+                        TEMA) é um direito de todos os cidadãos. [...]</span>
+                </p>
+                <div class="botoes-interativos">
+                    <button class="btn-interacao" onclick="destacar('desenvolvimento1-texto')">Estrutura</button>
+                </div>
+            </section>
+
+            <section class="secao-redacao" id="desenvolvimento2">
+                <h2>Desenvolvimento 2</h2>
+                <p>
+                    <span id="desenvolvimento2-texto">Além disso, outro aspecto a ser mencionado sobre (TEMA), são seus
+                        (TESE). [...]</span>
+                </p>
+                <div class="botoes-interativos">
+                    <button class="btn-interacao" onclick="destacar('desenvolvimento2-texto')">Estrutura</button>
+                </div>
+            </section>
+
+            <section class="secao-redacao" id="conclusao">
+                <h2>Conclusão</h2>
+                <p>
+                    Diante do exposto, é essencial que as partes responsáveis atuem para abordar as questões
+                    mencionadas.
+                    Para isso, é fundamental que o <span id="agente">governo</span>, por meio de <span
+                        id="meio">parceria
+                        com uma ONG especializada em (ÁREA)</span>, adote <span id="acao">campanhas de conscientização
+                        que
+                        promovam (AÇÃO)</span>, destacando seus riscos e a importância de uma visão crítica frente às
+                    informações consumidas. Além disso, é fundamental <span id="detalhamento">investir na
+                        conscientização
+                        por meio de diversos canais de comunicação - televisão, redes sociais e outros meios -</span> e
+                    assim visando <span id="finalidade">sensibilizar a população sobre a importância de uma abordagem
+                        inclusiva e crítica diante das mudanças e desafios econômicos e sociais</span>.
+                </p>
+                <div class="botoes-interativos">
+                    <button class="btn-interacao" onclick="destacar('agente')">Agente</button>
+                    <button class="btn-interacao" onclick="destacar('acao')">Ação</button>
+                    <button class="btn-interacao" onclick="destacar('meio')">Meio</button>
+                    <button class="btn-interacao" onclick="destacar('finalidade')">Finalidade</button>
+                    <button class="btn-interacao" onclick="destacar('detalhamento')">Detalhamento</button>
+                </div>
+            </section>
+        </div>
+
+        <section class="secao-redacao" id="pratica-redacao">
+            <h2>Pratique sua Redação</h2>
+            <p>Escreva sua própria redação e use o modelo acima como guia. Sua redação é salva automaticamente!</p>
+
+            <div style="margin-bottom: 1rem; font-size: 0.9rem;">
+                <span>Palavras: <strong id="contador-palavras">0</strong></span> |
+                <span>Parágrafos: <strong id="contador-paragrafos">0</strong></span>
+            </div>
+
+            <textarea id="campo-redacao" rows="15" placeholder="Digite sua redação aqui..."></textarea>
+        </section>
+    </main>
+
+    <script>
+        // Função para destacar elementos
+        function destacar(idDoElemento) {
+            const elemento = document.getElementById(idDoElemento);
+            // Remove todos os destaques existentes
+            document.querySelectorAll('.secao-redacao span').forEach(el => {
+                el.classList.remove('destaque-frase-inicial', 'destaque-tese', 'destaque-agente', 'destaque-acao', 'destaque-meio', 'destaque-finalidade', 'destaque-detalhamento');
+            });
+            // Adiciona o destaque específico
+            if (elemento) {
+                if (idDoElemento.includes('frase-inicial')) {
+                    elemento.classList.add('destaque-frase-inicial');
+                } else if (idDoElemento.includes('tese') || idDoElemento.includes('desenvolvimento')) {
+                    elemento.classList.add('destaque-tese');
+                } else if (idDoElemento.includes('agente')) {
+                    elemento.classList.add('destaque-agente');
+                } else if (idDoElemento.includes('acao')) {
+                    elemento.classList.add('destaque-acao');
+                } else if (idDoElemento.includes('meio')) {
+                    elemento.classList.add('destaque-meio');
+                } else if (idDoElemento.includes('finalidade')) {
+                    elemento.classList.add('destaque-finalidade');
+                } else if (idDoElemento.includes('detalhamento')) {
+                    elemento.classList.add('destaque-detalhamento');
+                }
+            }
+        }
+
+        // Adiciona as funcionalidades de feedback e salvamento
+        document.addEventListener('DOMContentLoaded', () => {
+            const campoRedacao = document.getElementById('campo-redacao');
+            const contadorPalavras = document.getElementById('contador-palavras');
+            const contadorParagrafos = document.getElementById('contador-paragrafos');
+            const containerModelo = document.getElementById('container-modelo');
+            const toggleModeloBtn = document.getElementById('toggle-modelo');
+            const localStorageKey = 'redacao-enem-draft';
+
+            // Carrega a redação salva do localStorage ao carregar a página
+            const savedText = localStorage.getItem(localStorageKey);
+            if (savedText) {
+                campoRedacao.value = savedText;
+                atualizarContadores();
+            }
+
+            // Atualiza os contadores de palavras e parágrafos
+            function atualizarContadores() {
+                const texto = campoRedacao.value.trim();
+                const palavras = texto === '' ? 0 : texto.split(/\s+/).length;
+                // Conta parágrafos baseando-se em duas quebras de linha consecutivas
+                const paragrafos = texto === '' ? 0 : texto.split(/\n\s*\n/).length;
+
+                contadorPalavras.textContent = palavras;
+                contadorParagrafos.textContent = paragrafos;
+            }
+
+            // Adiciona um listener para atualizar os contadores em tempo real
+            campoRedacao.addEventListener('input', atualizarContadores);
+
+            // Salva a redação no localStorage a cada 3 segundos
+            setInterval(() => {
+                localStorage.setItem(localStorageKey, campoRedacao.value);
+            }, 3000);
+
+            // Alterna a visibilidade do modelo de redação
+            toggleModeloBtn.addEventListener('click', () => {
+                const isHidden = containerModelo.style.display === 'none';
+                if (isHidden) {
+                    containerModelo.style.display = 'block';
+                    toggleModeloBtn.textContent = 'Esconder Modelo';
+                } else {
+                    containerModelo.style.display = 'none';
+                    toggleModeloBtn.textContent = 'Mostrar Modelo';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
