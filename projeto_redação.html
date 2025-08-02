@@ -77,6 +77,33 @@
             background-color: #c82333;
         }
 
+        .btn-limpar {
+            background-color: #ffc107;
+            color: #212529;
+        }
+
+        .btn-limpar:hover {
+            background-color: #e0a800;
+        }
+
+        .btn-principal {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .btn-principal:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-remover {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .btn-remover:hover {
+            background-color: #c82333;
+        }
+
         /* Cores de destaque para o modelo */
         .destaque-frase-inicial {
             background-color: #f7ff00;
@@ -142,6 +169,34 @@
             font-size: 1.1rem;
             margin-bottom: 0.5rem;
         }
+
+        /* Estilo da lista de redações salvas */
+        .lista-redacoes {
+            list-style: none;
+            padding: 0;
+        }
+
+        .item-redacao {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .item-redacao h3 {
+            margin: 0 0 0.5rem 0;
+            color: #0056b3;
+        }
+
+        .item-redacao p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
     </style>
 </head>
 
@@ -154,101 +209,130 @@
 
     <main id="modelo-redacao">
 
-        <div style="text-align: center; margin-bottom: 2rem;">
-            <button class="btn-interacao btn-toggle-modelo" id="toggle-modelo">Esconder Modelo</button>
+        <div style="text-align: center; margin-bottom: 2rem; display: flex; justify-content: center; gap: 10px;">
+            <button class="btn-interacao btn-principal" id="toggle-pratica">Prática</button>
+            <button class="btn-interacao btn-principal" id="toggle-salvas">Minhas Redações</button>
         </div>
 
-        <div id="container-modelo">
-            <section class="secao-redacao" id="introducao">
-                <h2>Introdução</h2>
-                <p>
-                    <span id="frase-inicial">A frase "Onde todos pensam do mesmo jeito, ninguém pensa muito.", de Walter
-                        Lippmann, ressalta a diversidade de pensamento.</span> Essa variedade nos enriquece sobre
-                    questões
-                    complexas, além de incentivar a questionar e solucionar paradigmas estabelecidos. Paralelamente, no
-                    Brasil, torna-se crucial refletirmos sobre (TEMA), que impacta nossa sociedade e nosso futuro. Além
-                    disso, é fundamental explorarmos fatores como <span id="tese1">(TESE 1)</span> e <span
-                        id="tese2">(TESE
-                        2)</span>.
-                </p>
-                <div class="botoes-interativos">
-                    <button class="btn-interacao" onclick="destacar('frase-inicial')">Frase Inicial</button>
-                    <button class="btn-interacao" onclick="destacar('tese1')">Tese 1</button>
-                    <button class="btn-interacao" onclick="destacar('tese2')">Tese 2</button>
-                </div>
-            </section>
-
-            <section class="secao-redacao" id="desenvolvimento1">
-                <h2>Desenvolvimento 1</h2>
-                <p>
-                    <span id="desenvolvimento1-texto">Primeiramente, segundo a Constituição Federal de 1988, o/a (ÁREA
-                        DO
-                        TEMA) é um direito de todos os cidadãos. [...]</span>
-                </p>
-                <div class="botoes-interativos">
-                    <button class="btn-interacao" onclick="destacar('desenvolvimento1-texto')">Estrutura</button>
-                </div>
-            </section>
-
-            <section class="secao-redacao" id="desenvolvimento2">
-                <h2>Desenvolvimento 2</h2>
-                <p>
-                    <span id="desenvolvimento2-texto">Além disso, outro aspecto a ser mencionado sobre (TEMA), são seus
-                        (TESE). [...]</span>
-                </p>
-                <div class="botoes-interativos">
-                    <button class="btn-interacao" onclick="destacar('desenvolvimento2-texto')">Estrutura</button>
-                </div>
-            </section>
-
-            <section class="secao-redacao" id="conclusao">
-                <h2>Conclusão</h2>
-                <p>
-                    Diante do exposto, é essencial que as partes responsáveis atuem para abordar as questões
-                    mencionadas.
-                    Para isso, é fundamental que o <span id="agente">governo</span>, por meio de <span
-                        id="meio">parceria
-                        com uma ONG especializada em (ÁREA)</span>, adote <span id="acao">campanhas de conscientização
-                        que
-                        promovam (AÇÃO)</span>, destacando seus riscos e a importância de uma visão crítica frente às
-                    informações consumidas. Além disso, é fundamental <span id="detalhamento">investir na
-                        conscientização
-                        por meio de diversos canais de comunicação - televisão, redes sociais e outros meios -</span> e
-                    assim visando <span id="finalidade">sensibilizar a população sobre a importância de uma abordagem
-                        inclusiva e crítica diante das mudanças e desafios econômicos e sociais</span>.
-                </p>
-                <div class="botoes-interativos">
-                    <button class="btn-interacao" onclick="destacar('agente')">Agente</button>
-                    <button class="btn-interacao" onclick="destacar('acao')">Ação</button>
-                    <button class="btn-interacao" onclick="destacar('meio')">Meio</button>
-                    <button class="btn-interacao" onclick="destacar('finalidade')">Finalidade</button>
-                    <button class="btn-interacao" onclick="destacar('detalhamento')">Detalhamento</button>
-                </div>
-            </section>
-        </div>
-
-        <section class="secao-redacao" id="pratica-redacao">
-            <h2>Pratique sua Redação</h2>
-            <p>Escreva sua própria redação e use o modelo acima como guia. Sua redação é salva automaticamente!</p>
-
-            <div style="margin-bottom: 1rem; font-size: 0.9rem;">
-                <span>Palavras: <strong id="contador-palavras">0</strong></span> |
-                <span>Parágrafos: <strong id="contador-paragrafos">0</strong></span>
+        <div id="container-pratica">
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <button class="btn-interacao btn-toggle-modelo" id="toggle-modelo">Esconder Modelo</button>
             </div>
 
-            <textarea id="campo-redacao" rows="15" placeholder="Digite sua redação aqui..."></textarea>
-        </section>
+            <div id="container-modelo">
+                <section class="secao-redacao" id="introducao">
+                    <h2>Introdução</h2>
+                    <p>
+                        <span id="frase-inicial">A frase "Onde todos pensam do mesmo jeito, ninguém pensa muito.", de
+                            Walter
+                            Lippmann, ressalta a diversidade de pensamento.</span> Essa variedade nos enriquece sobre
+                        questões
+                        complexas, além de incentivar a questionar e solucionar paradigmas estabelecidos. Paralelamente,
+                        no
+                        Brasil, torna-se crucial refletirmos sobre (TEMA), que impacta nossa sociedade e nosso futuro.
+                        Além
+                        disso, é fundamental explorarmos fatores como <span id="tese1">(TESE 1)</span> e <span
+                            id="tese2">(TESE 2)</span>.
+                    </p>
+                    <div class="botoes-interativos">
+                        <button class="btn-interacao" onclick="destacar('frase-inicial')">Frase Inicial</button>
+                        <button class="btn-interacao" onclick="destacar('tese1')">Tese 1</button>
+                        <button class="btn-interacao" onclick="destacar('tese2')">Tese 2</button>
+                    </div>
+                </section>
+
+                <section class="secao-redacao" id="desenvolvimento1">
+                    <h2>Desenvolvimento 1</h2>
+                    <p>
+                        <span id="desenvolvimento1-texto">Primeiramente, segundo a Constituição Federal de 1988, o/a
+                            (ÁREA
+                            DO
+                            TEMA) é um direito de todos os cidadãos. [...]</span>
+                    </p>
+                    <div class="botoes-interativos">
+                        <button class="btn-interacao" onclick="destacar('desenvolvimento1-texto')">Estrutura</button>
+                    </div>
+                </section>
+
+                <section class="secao-redacao" id="desenvolvimento2">
+                    <h2>Desenvolvimento 2</h2>
+                    <p>
+                        <span id="desenvolvimento2-texto">Além disso, outro aspecto a ser mencionado sobre (TEMA), são
+                            seus
+                            (TESE). [...]</span>
+                    </p>
+                    <div class="botoes-interativos">
+                        <button class="btn-interacao" onclick="destacar('desenvolvimento2-texto')">Estrutura</button>
+                    </div>
+                </section>
+
+                <section class="secao-redacao" id="conclusao">
+                    <h2>Conclusão</h2>
+                    <p>
+                        Diante do exposto, é essencial que as partes responsáveis atuem para abordar as questões
+                        mencionadas.
+                        Para isso, é fundamental que o <span id="agente">governo</span>, por meio de <span
+                            id="meio">parceria
+                            com uma ONG especializada em (ÁREA)</span>, adote <span id="acao">campanhas de
+                            conscientização
+                            que
+                            promovam (AÇÃO)</span>, destacando seus riscos e a importância de uma visão crítica frente
+                        às
+                        informações consumidas. Além disso, é fundamental <span id="detalhamento">investir na
+                            conscientização
+                            por meio de diversos canais de comunicação - televisão, redes sociais e outros meios
+                            -</span> e
+                        assim visando <span id="finalidade">sensibilizar a população sobre a importância de uma
+                            abordagem
+                            inclusiva e crítica diante das mudanças e desafios econômicos e sociais</span>.
+                    </p>
+                    <div class="botoes-interativos">
+                        <button class="btn-interacao" onclick="destacar('agente')">Agente</button>
+                        <button class="btn-interacao" onclick="destacar('acao')">Ação</button>
+                        <button class="btn-interacao" onclick="destacar('meio')">Meio</button>
+                        <button class="btn-interacao" onclick="destacar('finalidade')">Finalidade</button>
+                        <button class="btn-interacao" onclick="destacar('detalhamento')">Detalhamento</button>
+                    </div>
+                </section>
+            </div>
+
+            <section class="secao-redacao" id="pratica-redacao">
+                <h2>Pratique sua Redação</h2>
+                <p>Escreva sua própria redação e use o modelo acima como guia.</p>
+                <input type="text" id="titulo-redacao" placeholder="Dê um título à sua redação"
+                    style="width: 100%; padding: 0.5rem; margin-bottom: 1rem; border: 1px solid #ccc; border-radius: 5px;">
+
+                <div style="margin-bottom: 1rem; font-size: 0.9rem;">
+                    <span>Palavras: <strong id="contador-palavras">0</strong></span> |
+                    <span>Parágrafos: <strong id="contador-paragrafos">0</strong></span>
+                </div>
+
+                <textarea id="campo-redacao" rows="15" placeholder="Digite sua redação aqui..."></textarea>
+
+                <div class="botoes-interativos">
+                    <button id="btn-salvar" class="btn-interacao">Salvar Redação</button>
+                    <button id="btn-limpar" class="btn-interacao btn-limpar">Limpar Campo</button>
+                    <span id="feedback-salvar" style="margin-left: 10px; color: #28a745; display: none;">Salvo!</span>
+                </div>
+            </section>
+        </div>
+
+        <div id="container-salvas" style="display: none;">
+            <section class="secao-redacao">
+                <h2>Minhas Redações Salvas</h2>
+                <ul id="lista-redacoes" class="lista-redacoes">
+                </ul>
+            </section>
+        </div>
     </main>
 
     <script>
         // Função para destacar elementos
         function destacar(idDoElemento) {
             const elemento = document.getElementById(idDoElemento);
-            // Remove todos os destaques existentes
             document.querySelectorAll('.secao-redacao span').forEach(el => {
                 el.classList.remove('destaque-frase-inicial', 'destaque-tese', 'destaque-agente', 'destaque-acao', 'destaque-meio', 'destaque-finalidade', 'destaque-detalhamento');
             });
-            // Adiciona o destaque específico
             if (elemento) {
                 if (idDoElemento.includes('frase-inicial')) {
                     elemento.classList.add('destaque-frase-inicial');
@@ -268,40 +352,97 @@
             }
         }
 
-        // Adiciona as funcionalidades de feedback e salvamento
         document.addEventListener('DOMContentLoaded', () => {
             const campoRedacao = document.getElementById('campo-redacao');
+            const tituloRedacao = document.getElementById('titulo-redacao');
             const contadorPalavras = document.getElementById('contador-palavras');
             const contadorParagrafos = document.getElementById('contador-paragrafos');
             const containerModelo = document.getElementById('container-modelo');
+            const containerPratica = document.getElementById('container-pratica');
+            const containerSalvas = document.getElementById('container-salvas');
             const toggleModeloBtn = document.getElementById('toggle-modelo');
-            const localStorageKey = 'redacao-enem-draft';
+            const togglePraticaBtn = document.getElementById('toggle-pratica');
+            const toggleSalvasBtn = document.getElementById('toggle-salvas');
+            const btnSalvar = document.getElementById('btn-salvar');
+            const btnLimpar = document.getElementById('btn-limpar');
+            const feedbackSalvar = document.getElementById('feedback-salvar');
+            const listaRedacoes = document.getElementById('lista-redacoes');
+            const localStorageKey = 'redacoes-salvas-enem';
 
-            // Carrega a redação salva do localStorage ao carregar a página
-            const savedText = localStorage.getItem(localStorageKey);
-            if (savedText) {
-                campoRedacao.value = savedText;
-                atualizarContadores();
-            }
+            let redacoesSalvas = JSON.parse(localStorage.getItem(localStorageKey)) || [];
+
+            // Alterna entre as seções de Prática e Redações Salvas
+            togglePraticaBtn.addEventListener('click', () => {
+                containerPratica.style.display = 'block';
+                containerSalvas.style.display = 'none';
+            });
+
+            toggleSalvasBtn.addEventListener('click', () => {
+                containerPratica.style.display = 'none';
+                containerSalvas.style.display = 'block';
+                renderizarRedacoesSalvas();
+            });
 
             // Atualiza os contadores de palavras e parágrafos
             function atualizarContadores() {
                 const texto = campoRedacao.value.trim();
                 const palavras = texto === '' ? 0 : texto.split(/\s+/).length;
-                // Conta parágrafos baseando-se em duas quebras de linha consecutivas
                 const paragrafos = texto === '' ? 0 : texto.split(/\n\s*\n/).length;
 
                 contadorPalavras.textContent = palavras;
                 contadorParagrafos.textContent = paragrafos;
             }
 
-            // Adiciona um listener para atualizar os contadores em tempo real
             campoRedacao.addEventListener('input', atualizarContadores);
 
-            // Salva a redação no localStorage a cada 3 segundos
+            // Carrega e salva um rascunho automático a cada 3 segundos
+            function carregarRascunho() {
+                const rascunho = localStorage.getItem('redacao-rascunho');
+                if (rascunho) {
+                    campoRedacao.value = rascunho;
+                    atualizarContadores();
+                }
+            }
+            carregarRascunho();
+
             setInterval(() => {
-                localStorage.setItem(localStorageKey, campoRedacao.value);
+                localStorage.setItem('redacao-rascunho', campoRedacao.value);
             }, 3000);
+
+
+            // Salva a redação na lista
+            function salvarRedacao() {
+                const titulo = tituloRedacao.value.trim() || `Redação Salva em ${new Date().toLocaleString()}`;
+                const conteudo = campoRedacao.value;
+                if (conteudo.trim() === '') {
+                    alert('A redação está vazia!');
+                    return;
+                }
+                const novaRedacao = {
+                    id: Date.now(),
+                    titulo: titulo,
+                    data: new Date().toLocaleString(),
+                    conteudo: conteudo,
+                    palavras: conteudo.trim().split(/\s+/).length,
+                    paragrafos: conteudo.trim().split(/\n\s*\n/).length
+                };
+                redacoesSalvas.unshift(novaRedacao);
+                localStorage.setItem(localStorageKey, JSON.stringify(redacoesSalvas));
+
+                feedbackSalvar.style.display = 'inline';
+                setTimeout(() => {
+                    feedbackSalvar.style.display = 'none';
+                }, 2000);
+            }
+            btnSalvar.addEventListener('click', salvarRedacao);
+
+            // Limpa o campo de texto
+            btnLimpar.addEventListener('click', () => {
+                campoRedacao.value = '';
+                tituloRedacao.value = '';
+                atualizarContadores();
+                localStorage.removeItem('redacao-rascunho');
+            });
 
             // Alterna a visibilidade do modelo de redação
             toggleModeloBtn.addEventListener('click', () => {
@@ -312,6 +453,56 @@
                 } else {
                     containerModelo.style.display = 'none';
                     toggleModeloBtn.textContent = 'Mostrar Modelo';
+                }
+            });
+
+            // Renderiza a lista de redações salvas
+            function renderizarRedacoesSalvas() {
+                listaRedacoes.innerHTML = ''; // Limpa a lista existente
+                if (redacoesSalvas.length === 0) {
+                    listaRedacoes.innerHTML = '<p style="text-align: center;">Nenhuma redação salva ainda.</p>';
+                    return;
+                }
+                redacoesSalvas.forEach(redacao => {
+                    const li = document.createElement('li');
+                    li.className = 'item-redacao';
+                    li.innerHTML = `
+                        <div>
+                            <h3>${redacao.titulo}</h3>
+                            <p>Data: ${redacao.data} | Palavras: ${redacao.palavras} | Parágrafos: ${redacao.paragrafos}</p>
+                        </div>
+                        <div class="botoes-interativos">
+                            <button class="btn-interacao btn-principal btn-carregar" data-id="${redacao.id}">Carregar</button>
+                            <button class="btn-interacao btn-remover" data-id="${redacao.id}">Remover</button>
+                        </div>
+                    `;
+                    listaRedacoes.appendChild(li);
+                });
+            }
+
+            // Manipula cliques na lista de redações salvas
+            listaRedacoes.addEventListener('click', (event) => {
+                const target = event.target;
+                const id = target.getAttribute('data-id');
+
+                if (target.classList.contains('btn-carregar')) {
+                    const redacao = redacoesSalvas.find(r => r.id == id);
+                    if (confirm('Tem certeza que deseja carregar esta redação? O rascunho atual será perdido.')) {
+                        campoRedacao.value = redacao.conteudo;
+                        tituloRedacao.value = redacao.titulo;
+                        atualizarContadores();
+                        containerPratica.style.display = 'block';
+                        containerSalvas.style.display = 'none';
+                        localStorage.setItem('redacao-rascunho', redacao.conteudo); // Atualiza o rascunho
+                    }
+                }
+
+                if (target.classList.contains('btn-remover')) {
+                    if (confirm('Tem certeza que deseja remover esta redação?')) {
+                        redacoesSalvas = redacoesSalvas.filter(r => r.id != id);
+                        localStorage.setItem(localStorageKey, JSON.stringify(redacoesSalvas));
+                        renderizarRedacoesSalvas();
+                    }
                 }
             });
         });
