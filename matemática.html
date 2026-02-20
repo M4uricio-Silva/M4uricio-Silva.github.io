@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathVerse - Seu Universo de Matemática para o ENEM</title>
+    <link rel="stylesheet" href="matemática.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Poppins:wght@400;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <header>
+        <nav class="container">
+            <h1 class="logo">MathVerse</h1>
+            <ul class="nav-links">
+                <li><a href="#home">Início</a></li>
+                <li><a href="#basicas">Operações Básicas</a></li>
+                <li><a href="#">Próximos Tópicos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container">
+                <h2>Seu Universo de Matemática para o ENEM</h2>
+                <p>Aqui, a matemática se torna uma jornada fascinante. Prepare-se para dominar os conceitos e arrebentar
+                    na prova!</p>
+            </div>
+        </section>
+
+        <section id="basicas" class="content-section">
+            <div class="container">
+                <h2 class="section-title">Operações Básicas: A Base de Tudo</h2>
+                <p class="section-subtitle">O ponto de partida para qualquer cálculo complexo. Dominar a adição,
+                    subtração, multiplicação e divisão é o primeiro passo para o sucesso.</p>
+
+                <div class="topic-card" id="adicao">
+                    <h3>1. Adição (Soma)</h3>
+                    <div class="card-content">
+                        <p>A **adição** é a operação que usamos para juntar quantidades. Pense nela como "somar" ou
+                            "adicionar".</p>
+                        <p class="formula">Símbolo: `+`</p>
+                        <p class="example">Exemplo: Se você tem 5 laranjas e compra mais 3, você terá `5 + 3 = 8`
+                            laranjas.</p>
+                        <div class="problem">
+                            <h4>Problema Prático:</h4>
+                            <p>João tinha R$ 15,00 e sua avó lhe deu mais R$ 25,00. Com quanto dinheiro João ficou?</p>
+                            <button onclick="showSolution('adicao')">Ver Solução</button>
+                            <p class="solution" id="solution-adicao" style="display: none;">Solução: R$ 15,00 + R$ 25,00
+                                = R$ 40,00. João ficou com R$ 40,00.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card" id="subtracao">
+                    <h3>2. Subtração (Diferença)</h3>
+                    <div class="card-content">
+                        <p>A **subtração** é a operação de retirar uma quantidade de outra. Ela nos ajuda a encontrar a
+                            diferença entre dois números.</p>
+                        <p class="formula">Símbolo: `-`</p>
+                        <p class="example">Exemplo: Se você tinha 10 biscoitos e comeu 4, você ficará com `10 - 4 = 6`
+                            biscoitos.</p>
+                        <div class="problem">
+                            <h4>Problema Prático:</h4>
+                            <p>Maria tinha 50 figurinhas e perdeu 12. Com quantas figurinhas Maria ficou?</p>
+                            <button onclick="showSolution('subtracao')">Ver Solução</button>
+                            <p class="solution" id="solution-subtracao" style="display: none;">Solução: 50 - 12 = 38.
+                                Maria ficou com 38 figurinhas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card" id="multiplicacao">
+                    <h3>3. Multiplicação (Produto)</h3>
+                    <div class="card-content">
+                        <p>A **multiplicação** é uma forma rápida de somar quantidades iguais. É como uma adição
+                            repetida.</p>
+                        <p class="formula">Símbolo: `x` ou `*`</p>
+                        <p class="example">Exemplo: Se você tem 3 caixas e cada uma tem 5 maçãs, você tem `3 x 5 = 15`
+                            maçãs no total.</p>
+                        <div class="problem">
+                            <h4>Problema Prático:</h4>
+                            <p>Um pacote de canetas custa R$ 8,00. Se você comprar 4 pacotes, quanto gastará?</p>
+                            <button onclick="showSolution('multiplicacao')">Ver Solução</button>
+                            <p class="solution" id="solution-multiplicacao" style="display: none;">Solução: R$ 8,00 x 4
+                                = R$ 32,00. Você gastará R$ 32,00.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="topic-card" id="divisao">
+                    <h3>4. Divisão (Quociente)</h3>
+                    <div class="card-content">
+                        <p>A **divisão** serve para repartir uma quantidade em partes iguais ou para descobrir quantas
+                            vezes um número cabe em outro.</p>
+                        <p class="formula">Símbolo: `÷` ou `/`</p>
+                        <p class="example">Exemplo: Se você tem 12 bolos para dividir entre 4 amigos, cada um receberá
+                            `12 ÷ 4 = 3` bolos.</p>
+                        <div class="problem">
+                            <h4>Problema Prático:</h4>
+                            <p>Uma excursão com 60 alunos será organizada em grupos de 10. Quantos grupos serão
+                                formados?</p>
+                            <button onclick="showSolution('divisao')">Ver Solução</button>
+                            <p class="solution" id="solution-divisao" style="display: none;">Solução: 60 ÷ 10 = 6. Serão
+                                formados 6 grupos.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="container">
+        <p>&copy; 2025 MathVerse. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="matemática.js"></script>
+</body>
+
+</html>
