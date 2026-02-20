@@ -1,404 +1,456 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description"
-        content="Portfólio de Mauricio Silva, desenvolvedor web e designer. Especializado em soluções criativas e funcionais com HTML, CSS, JavaScript.">
-    <meta name="keywords"
-        content="Mauricio Silva, portfólio, desenvolvedor web, designer, front-end, projetos web, HTML, CSS, JavaScript, UX/UI, responsivo">
-    <title>Mauricio Silva | Desenvolvedor Web</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-        integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="style.css">
+        content="Mauricio Silva - Desenvolvedor Web Front-End e Designer focado em gerar resultados reais para o seu negócio.">
+    <title>Mauricio Silva | Soluções Digitais de Alta Conversão</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class', // Habilita o modo escuro por classe
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        dark: '#0f172a',
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Glassmorphism responsivo ao tema */
+        .glass {
+            background: rgba(255, 255, 255, 0.90);
+            backdrop-filter: blur(12px);
+        }
+
+        .dark .glass {
+            background: rgba(15, 23, 42, 0.90);
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        /* Cursor customizado do Typed.js */
+        .typed-cursor {
+            font-size: 1.5em;
+            color: #2563eb;
+        }
+    </style>
 </head>
 
-<body>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 font-sans transition-colors duration-300">
 
-    <header class="header">
-        <div class="container nav-container">
-            <a class="logo" href="#">Mauricio Silva</a>
+    <header
+        class="fixed w-full z-50 glass border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-primary tracking-tighter">MAURICIO<span
+                    class="text-slate-900 dark:text-white transition-colors">SILVA</span></a>
 
-            <nav class="nav-desktop">
-                <ul>
-                    <li><a href="#sobre">Sobre</a></li>
-                    <li><a href="#o-que-faco">O Que Faço</a></li>
-                    <li><a href="#habilidades">Habilidades</a></li>
-                    <li><a href="#projetos">Projetos</a></li>
-                    <li><a href="#formacao">Formação</a></li>
-                    <li><a href="#contato">Contato</a></li>
-                </ul>
-            </nav>
-            <button class="menu-toggle" aria-label="Abrir Menu">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-    </header>
+            <div class="hidden md:flex items-center space-x-8 font-medium">
+                <a href="#sobre" class="hover:text-primary transition">Sobre</a>
+                <a href="#servicos" class="hover:text-primary transition">Serviços</a>
+                <a href="#projetos" class="hover:text-primary transition">Projetos</a>
+                <a href="#contato"
+                    class="bg-primary text-white px-6 py-2 rounded-full hover:shadow-lg hover:shadow-primary/30 transition">Vamos
+                    Conversar?</a>
 
-    <nav class="nav-menu off-canvas-menu">
-        <div class="profile-area">
-            <div class="profile-pic-container">
-                <img src="imagens/foto de perfil.jpeg" alt="Foto de Perfil" class="menu-profile-pic">
-                <button class="toggle-switch-icon" aria-label="Mudar Modo">
-                    <i class="fas fa-sync-alt"></i>
+                <button id="theme-toggle"
+                    class="text-xl text-slate-600 dark:text-slate-300 hover:text-primary transition"
+                    aria-label="Alternar Tema">
+                    <i class="fas fa-moon" id="theme-icon"></i>
                 </button>
             </div>
-            <div class="profile-details">
-                <p class="profile-name">MAURICIO SILVA FARIAS</p>
+
+            <div class="md:hidden flex items-center space-x-4">
+                <button id="theme-toggle-mobile" class="text-xl text-slate-600 dark:text-slate-300"
+                    aria-label="Alternar Tema">
+                    <i class="fas fa-moon" id="theme-icon-mobile"></i>
+                </button>
+                <button class="text-2xl dark:text-white" onclick="toggleMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <div id="mobileMenu"
+        class="fixed inset-0 bg-dark text-white z-[60] hidden flex-col justify-center items-center space-y-8 text-2xl transition-all">
+        <button onclick="toggleMenu()" class="absolute top-6 right-6 text-3xl"><i class="fas fa-times"></i></button>
+        <a href="#sobre" onclick="toggleMenu()" class="hover:text-primary">Sobre</a>
+        <a href="#servicos" onclick="toggleMenu()" class="hover:text-primary">Serviços</a>
+        <a href="#projetos" onclick="toggleMenu()" class="hover:text-primary">Projetos</a>
+        <a href="#contato" onclick="toggleMenu()" class="hover:text-primary">Contato</a>
+    </div>
+
+    <section class="hero-gradient pt-32 pb-20 px-6 overflow-hidden">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between">
+            <div class="md:w-1/2 text-white space-y-6" data-aos="fade-right" data-aos-duration="1000">
+                <span
+                    class="bg-primary/20 text-primary-300 px-4 py-1 rounded-full text-sm font-semibold border border-primary/30 uppercase tracking-widest inline-block mb-2">Disponível
+                    para Projetos</span>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight min-h-[120px] md:min-h-[144px]">
+                    Transformo ideias em <br>
+                    <span id="typed-text" class="text-primary"></span>
+                </h1>
+                <p class="text-slate-400 text-lg max-w-lg" data-aos="fade-up" data-aos-delay="200">
+                    Desenvolvedor Web e Designer focado em UX/UI para conversão. Unindo estratégia administrativa e
+                    código moderno para alavancar negócios.
+                </p>
+                <div class="flex flex-wrap gap-4 pt-4" data-aos="fade-up" data-aos-delay="400">
+                    <a href="#contato"
+                        class="bg-primary hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-xl shadow-primary/20 transition-all transform hover:-translate-y-1">
+                        Iniciar um Projeto <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                    </a>
+                    <a href="#projetos"
+                        class="bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-xl font-bold text-lg backdrop-blur-sm transition">
+                        Ver Portfólio
+                    </a>
+                </div>
+            </div>
+            <div class="md:w-1/2 mt-16 md:mt-0 flex justify-center relative" data-aos="zoom-in"
+                data-aos-duration="1200">
+                <div class="absolute inset-0 bg-primary rounded-full blur-[100px] opacity-20 animate-pulse"></div>
+                <img src="imagens/foto de perfil.png" alt="Mauricio Silva"
+                    class="relative w-64 h-64 md:w-80 md:h-80 object-cover rounded-3xl border-4 border-white/10 shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500">
             </div>
         </div>
-        <ul>
-            <li><a href="#hero"><i class="fas fa-home menu-icon"></i> Início</a></li>
-            <li><a href="#sobre"><i class="fas fa-user menu-icon"></i> Perfil</a></li>
-            <li><a href="#o-que-faco"><i class="fas fa-briefcase menu-icon"></i> O Que Faço</a></li>
-            <li><a href="#habilidades"><i class="fas fa-code menu-icon"></i> Habilidades</a></li>
-            <li><a href="#projetos"><i class="fas fa-folder-open menu-icon"></i> Projetos</a></li>
-            <li><a href="#formacao"><i class="fas fa-graduation-cap menu-icon"></i> Formação</a></li>
-            <li><a href="#contato"><i class="fas fa-envelope menu-icon"></i> Contato</a></li>
-        </ul>
-    </nav>
+    </section>
 
-    <div class="overlay"></div>
-
-    <main id="content">
-        <section id="hero" class="hero-section">
-            <div class="container hero-content">
-                <div class="hero-text">
-                    <p class="hero-greeting">Olá, meu nome é</p>
-                    <h1>Mauricio Silva</h1>
-                    <p class="hero-subtitle">Desenvolvedor Web Front-End e Designer</p>
-                    <p class="hero-description">Transformo ideias em experiências digitais intuitivas e visualmente
-                        atraentes.</p>
-                    <a href="#projetos" class="btn btn-primary">Ver Meus Projetos</a>
-                    <div class="social-links">
-                        <a href="https://github.com/M4uricio-Silva" target="_blank" aria-label="GitHub"><i
-                                class="fab fa-github"></i></a>
-                        <a href="https://www.linkedin.com/in/mauricio-silva-9201942a5" target="_blank"
-                            aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="https://wa.me/5584999465017" target="_blank" aria-label="WhatsApp"><i
-                                class="fab fa-whatsapp"></i></a>
-                        <a href="https://www.instagram.com/_zak._/" target="_blank" aria-label="Instagram"><i
-                                class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <img src="imagens/foto de perfil.jpeg" alt="Foto de Mauricio Silva" class="profile-pic">
-                </div>
+    <div
+        class="bg-white dark:bg-slate-800 py-8 border-y border-slate-100 dark:border-slate-700 shadow-sm transition-colors">
+        <div class="container mx-auto px-6 overflow-hidden">
+            <p class="text-center text-slate-500 dark:text-slate-400 text-sm font-semibold uppercase tracking-widest mb-6"
+                data-aos="fade-up">Expertise em Tecnologias Modernas</p>
+            <div
+                class="flex flex-wrap justify-center gap-8 md:gap-16 text-slate-400 dark:text-slate-500 transition duration-500">
+                <i class="fab fa-html5 text-4xl hover:text-[#E34F26] hover:scale-110 transition cursor-pointer"
+                    data-aos="fade-up" data-aos-delay="100"></i>
+                <i class="fab fa-css3-alt text-4xl hover:text-[#1572B6] hover:scale-110 transition cursor-pointer"
+                    data-aos="fade-up" data-aos-delay="200"></i>
+                <i class="fab fa-js-square text-4xl hover:text-[#F7DF1E] hover:scale-110 transition cursor-pointer"
+                    data-aos="fade-up" data-aos-delay="300"></i>
+                <i class="fab fa-bootstrap text-4xl hover:text-[#7952B3] hover:scale-110 transition cursor-pointer"
+                    data-aos="fade-up" data-aos-delay="400"></i>
+                <i class="fas fa-pencil-ruler text-4xl hover:text-primary hover:scale-110 transition cursor-pointer"
+                    data-aos="fade-up" data-aos-delay="500"></i>
             </div>
-        </section>
+        </div>
+    </div>
 
-        <section id="sobre" class="section-padding">
-            <div class="container">
-                <h2 class="section-title">Sobre Mim</h2>
-                <div class="about-content">
-                    <p>Sou <strong>Mauricio Silva</strong>, um desenvolvedor web apaixonado por criar interfaces que
-                        combinam
-                        estética e funcionalidade. Minha jornada na programação começou com o curso de
-                        <strong>Programador Web
-                            no IFRN</strong>, onde desenvolvi uma base sólida em <strong>HTML, CSS e
-                            JavaScript</strong>. Atualmente, estou
-                        expandindo meus horizontes acadêmicos com a <strong>graduação em Administração na UFRN</strong>,
-                        o que me
-                        proporciona uma visão estratégica para o desenvolvimento de projetos digitais.
+    <section id="sobre" class="py-20 bg-white dark:bg-slate-900 transition-colors overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row gap-12 items-center">
+                <div class="md:w-1/2" data-aos="fade-right">
+                    <h2 class="text-3xl font-bold mb-6">Visão Técnica e <span class="text-primary">Estratégia de
+                            Negócio</span></h2>
+                    <p class="text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
+                        Sou graduando em <strong>Administração na UFRN</strong> e Programador Web pelo
+                        <strong>IFRN</strong>. Essa combinação me permite entender não apenas o código, mas como um site
+                        deve se comportar para gerar lucro e autoridade.
                     </p>
-                    <p>Meu foco é construir experiências de usuário intuitivas e eficientes, sempre buscando as melhores
-                        práticas de <strong>UX/UI</strong>. Sou proativo, detalhista e adoro trabalhar em equipe,
-                        transformando
-                        desafios em soluções criativas. Além do desenvolvimento, também tenho habilidades em
-                        <strong>design
-                            gráfico (Canva)</strong> e <strong>criação de conteúdo</strong>, o que me permite entregar
-                        projetos completos e com
-                        uma identidade visual consistente.
-                    </p>
-                    <p>Estou sempre em busca de novos aprendizados e desafios para aprimorar minhas habilidades e
-                        contribuir para projetos inovadores. Vamos criar algo incrível juntos?</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="o-que-faco" class="section-padding bg-light-gray">
-            <div class="container">
-                <h2 class="section-title">O Que Eu Faço</h2>
-                <div class="services-grid">
-                    <div class="service-item">
-                        <i class="fas fa-laptop-code service-icon"></i>
-                        <h3>Desenvolvimento Front-End</h3>
-                        <p>Crio interfaces de usuário responsivas e interativas com HTML5, CSS3 e JavaScript.</p>
-                    </div>
-                    <div class="service-item">
-                        <i class="fas fa-paint-brush service-icon"></i>
-                        <h3>Web Design & UX/UI</h3>
-                        <p>Desenvolvo layouts modernos e otimizados para uma excelente experiência do usuário.</p>
-                    </div>
-                    <div class="service-item">
-                        <i class="fas fa-mobile-alt service-icon"></i>
-                        <h3>Sites Responsivos</h3>
-                        <p>Garanto que seu projeto se adapte perfeitamente a qualquer tamanho de tela e dispositivo.</p>
-                    </div>
-                    <div class="service-item">
-                        <i class="fas fa-pencil-alt service-icon"></i>
-                        <h3>Design Gráfico & Conteúdo</h3>
-                        <p>Crio elementos visuais e conteúdo envolvente para fortalecer a comunicação digital.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="habilidades" class="section-padding">
-            <div class="container">
-                <h2 class="section-title">Minhas Habilidades</h2>
-                <div class="skills-category">
-                    <h3><i class="fas fa-code"></i> Habilidades Técnicas</h3>
-                    <div class="skills-grid">
-                        <div class="skill-item">
-                            <i class="fab fa-html5 skill-icon"></i>
-                            <span>HTML5</span>
+                    <div class="grid grid-cols-2 gap-4 mt-8">
+                        <div
+                            class="p-4 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700 transition-colors">
+                            <i class="fas fa-check-circle text-primary mb-2 text-xl"></i>
+                            <h4 class="font-bold text-slate-800 dark:text-white italic">Clean Code</h4>
                         </div>
-                        <div class="skill-item">
-                            <i class="fab fa-css3-alt skill-icon"></i>
-                            <span>CSS3</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fab fa-js-square skill-icon"></i>
-                            <span>JavaScript</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fab fa-bootstrap skill-icon"></i>
-                            <span>Bootstrap</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-paint-brush skill-icon"></i>
-                            <span>Canva</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-image skill-icon"></i>
-                            <span>Edição de Imagens</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-keyboard skill-icon"></i>
-                            <span>Copywriting</span>
+                        <div
+                            class="p-4 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700 transition-colors">
+                            <i class="fas fa-bolt text-primary mb-2 text-xl"></i>
+                            <h4 class="font-bold text-slate-800 dark:text-white italic">Fast Load</h4>
                         </div>
                     </div>
                 </div>
-
-                <div class="skills-category">
-                    <h3><i class="fas fa-users"></i> Habilidades Pessoais</h3>
-                    <div class="skills-list">
-                        <ul>
-                            <li><i class="fas fa-comments"></i> Comunicação e Trabalho em Equipe</li>
-                            <li><i class="fas fa-lightbulb"></i> Pensamento Analítico e Criativo</li>
-                            <li><i class="fas fa-tasks"></i> Organização e Gestão de Projetos</li>
-                            <li><i class="fas fa-book-open"></i> Aprendizado Contínuo e Proatividade</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="projetos" class="section-padding bg-light-gray">
-            <div class="container">
-                <h2 class="section-title">Meus Projetos Recentes</h2>
-                <div class="projects-grid">
-                    <div class="project-card">
-                        <img src="imagens/projeto_manga.png" alt="Miniatura do Projeto O Mundo dos Mangás"
-                            class="project-thumbnail">
-                        <div class="project-info">
-                            <h3>O Mundo dos Mangás</h3>
-                            <p>Site interativo para fãs de mangás, com carrosséis dinâmicos e design responsivo.</p>
-                            <div class="project-tech-tags">
-                                <span>HTML</span><span>CSS</span><span>JavaScript</span><span>Bootstrap</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="projeto_manga.html" target="_blank" class="btn btn-secondary">Ver Projeto <i
-                                        class="fas fa-external-link-alt"></i></a>
-                                <a href="https://github.com/M4uricio-Silva/M4uricio-Silva.github.io/blob/main/projeto_manga.html"
-                                    target="_blank" class="btn btn-secondary">Código <i class="fab fa-github"></i></a>
-                            </div>
+                <div class="md:w-1/2 bg-slate-900 dark:bg-slate-800 border dark:border-slate-700 rounded-3xl p-8 text-white shadow-xl"
+                    data-aos="fade-left">
+                    <h3 class="text-xl font-bold mb-6 italic"><i class="fas fa-graduation-cap mr-2 text-primary"></i>
+                        Jornada Acadêmica</h3>
+                    <div class="space-y-6">
+                        <div class="border-l-2 border-primary pl-4 relative">
+                            <div class="absolute w-3 h-3 bg-primary rounded-full -left-[7px] top-1"></div>
+                            <p class="text-sm text-primary-300">2025 - Presente</p>
+                            <p class="font-semibold text-lg mt-1">Bacharelado em Administração</p>
+                            <p class="text-slate-400 text-sm">UFRN</p>
                         </div>
-                    </div>
-                    <div class="project-card">
-                        <img src="imagens/projeto_hajime_no_ippo.png" alt="Miniatura do Projeto Hajime no Ippo"
-                            class="project-thumbnail">
-                        <div class="project-info">
-                            <h3>Hajime no Ippo</h3>
-                            <p>Plataforma imersiva sobre o universo do anime, com foco em UX/UI e interatividade.</p>
-                            <div class="project-tech-tags">
-                                <span>HTML</span><span>CSS</span><span>JavaScript</span><span>UX/UI</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="projeto_hajime_no_ippo.html" target="_blank" class="btn btn-secondary">Ver
-                                    Projeto <i class="fas fa-external-link-alt"></i></a>
-                                <a href="https://github.com/M4uricio-Silva/M4uricio-Silva.github.io/blob/main/projeto_hajime_no_ippo.html"
-                                    target="_blank" class="btn btn-secondary">Código <i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-card">
-                        <img src="imagens/projeto_vortex_digital.png"
-                            alt="Miniatura do Projeto Vortex Digital - Website Institucional" class="project-thumbnail">
-                        <div class="project-info">
-                            <h3>Vortex Digital | Website Institucional</h3>
-                            <p>Desenvolvimento do site institucional responsivo da <strong>Vortex Digital</strong>, com
-                                foco em
-                                design moderno,
-                                experiência do usuário (UX) e animações interativas. Uma vitrine digital que reflete a
-                                essência
-                                inovadora da agência.</p>
-                            <div class="project-tech-tags">
-                                <span>HTML5</span>
-                                <span>CSS3</span>
-                                <span>JavaScript</span>
-                                <span>Design Responsivo</span>
-                                <span>Web Performance</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="projeto_vortex_digital.html" target="_blank" class="btn btn-secondary">Ver
-                                    Projeto
-                                    <i class="fas fa-external-link-alt"></i></a>
-                                <a href="https://github.com/M4uricio-Silva/M4uricio-Silva.github.io/blob/main/projeto_vortex_digital.html"
-                                    target="_blank" class="btn btn-secondary">Código <i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-card">
-                        <img src="imagens/projeto_matematica.png" alt="Miniatura do Projeto de Matemática"
-                            class="project-thumbnail">
-                        <div class="project-info">
-                            <h3>Projeto de Matemática</h3>
-                            <p>Uma aplicação interativa para revisar conteúdos de matemática voltados ao ENEM, com
-                                explicações simples, exercícios e recursos visuais dinâmicos. Desenvolvida
-                                com HTML, CSS e JavaScript.</p>
-                            <div class="project-tech-tags">
-                                <span>HTML</span><span>CSS</span><span>JavaScript</span><span>Local
-                                    Storage</span><span>Algoritmos
-                                    Matemáticos</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="projeto_matematica.html" target="_blank" class="btn btn-secondary">Ver Projeto
-                                    <i class="fas fa-external-link-alt"></i></a>
-                                <a href="https://github.com/M4uricio-Silva/M4uricio-Silva.github.io/blob/main/projeto_matematica.html"
-                                    target="_blank" class="btn btn-secondary">Código <i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-card">
-                        <img src="imagens/projeto_redação.png" alt="Miniatura do Projeto de Redação"
-                            class="project-thumbnail">
-                        <div class="project-info">
-                            <h3>Ferramenta de Estudo Interativa - Redação ENEM</h3>
-                            <p>
-                                Uma ferramenta de estudo interativa para o ENEM, focada em ajudar o usuário a memorizar
-                                a estrutura da
-                                redação dissertativa-argumentativa. O projeto permite visualizar um modelo de redação
-                                com destaque
-                                interativo para suas partes (tese, agente, ação, etc.), além de oferecer uma área de
-                                prática completa com
-                                contadores de palavras e parágrafos. As redações podem ser salvas localmente no
-                                navegador, permitindo que
-                                o usuário retome seus rascunhos e acompanhe o progresso em uma aba dedicada.
-                            </p>
-                            <div class="project-tech-tags">
-                                <span>HTML</span><span>CSS</span><span>JavaScript</span><span>Local Storage</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="projeto_redação.html" target="_blank" class="btn btn-secondary">Ver
-                                    Projeto
-                                    <i class="fas fa-external-link-alt"></i></a>
-                                <a href="https://github.com/M4uricio-Silva/M4uricio-Silva.github.io/blob/main/projeto_redação.html"
-                                    target="_blank" class="btn btn-secondary">Código <i class="fab fa-github"></i></a>
-                            </div>
+                        <div class="border-l-2 border-slate-700 pl-4 relative">
+                            <div class="absolute w-3 h-3 bg-slate-700 rounded-full -left-[7px] top-1"></div>
+                            <p class="text-sm text-slate-400">2025</p>
+                            <p class="font-semibold text-slate-300 text-lg mt-1">Programador Web</p>
+                            <p class="text-slate-500 text-sm">IFRN</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        
-        <section id="formacao" class="section-padding">
-            <div class="container">
-                <h2 class="section-title">Formação e Cursos</h2>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <h4>Graduação em Administração</h4>
-                        <span>UFRN | 2025 - Em Andamento</span>
-                        <p>Desenvolvimento de pensamento estratégico, gestão e liderança.</p>
+    <section id="servicos" class="py-20 bg-slate-50 dark:bg-slate-800/50 transition-colors">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold">O Que Posso Fazer Pelo Seu <span
+                        class="text-primary">Negócio</span></h2>
+                <div class="w-20 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700 group hover:-translate-y-2"
+                    data-aos="fade-up" data-aos-delay="100">
+                    <div
+                        class="w-14 h-14 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center text-primary text-2xl mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
+                        <i class="fas fa-laptop-code"></i>
                     </div>
-                    <div class="timeline-item">
-                        <h4>Formação Inicial e Continuada (FIC) em Programador Web</h4>
-                        <span>IFRN Campus São Paulo do Potengi | Concluído em Abril de 2025</span>
-                        <p>Base sólida em desenvolvimento web front-end: HTML, CSS, JavaScript e princípios de design.
-                        </p>
+                    <h3 class="text-xl font-bold mb-3 dark:text-white">Desenvolvimento Web</h3>
+                    <p class="text-slate-500 dark:text-slate-400">Criação de sites institucionais e landing pages
+                        focadas em conversão, utilizando HTML5, CSS3 e JS moderno.</p>
+                </div>
+                <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700 group hover:-translate-y-2"
+                    data-aos="fade-up" data-aos-delay="200">
+                    <div
+                        class="w-14 h-14 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center text-primary text-2xl mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
+                        <i class="fas fa-pencil-ruler"></i>
                     </div>
-                    <div class="timeline-item">
-                        <h4>Microsoft Excel 2016 - Básico</h4>
-                        <span>Fundação Bradesco | Concluído em Janeiro de 2024</span>
-                        <p>Habilidades básicas com o Microsoft Excel 2016.</p>
+                    <h3 class="text-xl font-bold mb-3 dark:text-white">UI/UX Design</h3>
+                    <p class="text-slate-500 dark:text-slate-400">Design focado na experiência do usuário, garantindo
+                        que a interface seja intuitiva e atraente em qualquer tela.</p>
+                </div>
+                <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700 group hover:-translate-y-2"
+                    data-aos="fade-up" data-aos-delay="300">
+                    <div
+                        class="w-14 h-14 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center text-primary text-2xl mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
+                        <i class="fas fa-mobile-alt"></i>
                     </div>
-                    <div class="timeline-item">
-                        <h4>Microsoft Excel 2016 - Intermediário</h4>
-                        <span>Fundação Bradesco | Fevereiro de 2024</span>
-                        <p>Habilidades intermediárias com o Microsoft Excel 2016.</p>
-                    </div>
-                    <div class="timeline-item">
-                        <h4>Administração Mercado de Trabalho</h4>
-                        <span>Instituto Decolar | Concluído em Abril de 2022</span>
-                        <p>Noção e desenvolvimento sobre administração de mercado de trabalho.</p>
-                    </div>
-                    <div class="timeline-item">
-                        <h4>Curso de Informática Completa</h4>
-                        <span>Compuway | Concluído em Fevereiro de 2020</span>
-                        <p>Domínio de ferramentas essenciais de informática.</p>
-                    </div>
+                    <h3 class="text-xl font-bold mb-3 dark:text-white">Sites Responsivos</h3>
+                    <p class="text-slate-500 dark:text-slate-400">Otimização completa para dispositivos móveis,
+                        garantindo que você nunca perca um cliente que acessa pelo celular.</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="contato" class="section-padding bg-light-gray">
-            <div class="container text-center">
-                <h2 class="section-title">Entre em Contato</h2>
-                <p class="contact-intro">Interessado em trabalhar juntos ou apenas dizer um olá? Ficarei feliz em
-                    conversar!</p>
-                <div class="contact-info">
-                    <p><i class="fas fa-envelope contact-icon"></i> E-mail: <a
-                            href="mailto:mauriciosilvafariasbr@email.com">mauriciosilvafariasbr@email.com</a></p>
-                    <p><i class="fas fa-phone-alt contact-icon"></i> Telefone/WhatsApp: <a
-                            href="https://wa.me/5584999465017" target="_blank">(84) 99946-5017</a></p>
-                </div>
-                <div class="social-links-contact">
-                    <a href="https://github.com/M4uricio-Silva" target="_blank" aria-label="GitHub"><i
-                            class="fab fa-github"></i></a>
-                    <a href="https://www.linkedin.com/in/mauricio-silva-9201942a5" target="_blank"
-                        aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://wa.me/5584999465017" target="_blank" aria-label="WhatsApp"><i
-                            class="fab fa-whatsapp"></i></a>
-                    <a href="https://www.instagram.com/_zak._/" target="_blank" aria-label="Instagram"><i
-                            class="fab fa-instagram"></i></a>
-                </div>
-                <a href="mailto:mauriciosilvafariasbr@email.com" class="btn btn-primary btn-lg mt-4">Envie uma
-                    Mensagem</a>
-            </div>
-            </div>
-        </section>
-    </main>
+    <section id="projetos" class="py-20 bg-white dark:bg-slate-900 transition-colors">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center" data-aos="fade-up">Projetos em <span
+                    class="text-primary">Destaque</span></h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; <span id="current-year"></span> Mauricio Silva. Todos os direitos reservados.</p>
-            <p>Desenvolvido com <i class="fas fa-heart text-red"></i> e muito código.</p>
+                <div class="group relative overflow-hidden rounded-2xl bg-slate-900 h-72 shadow-lg" data-aos="zoom-in"
+                    data-aos-delay="100">
+                    <img src="imagens/projeto_vortex_digital.png"
+                        class="w-full h-full object-cover group-hover:scale-110 transition duration-700 opacity-60 group-hover:opacity-40">
+                    <div
+                        class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <h4 class="text-white font-bold text-xl mb-1">Vortex Digital</h4>
+                        <p
+                            class="text-slate-300 text-sm mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                            Website Institucional & UX Moderno construído com alta performance.</p>
+                        <div class="flex gap-3">
+                            <a href="projeto_vortex_digital.html"
+                                class="bg-primary text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-600 transition">Ver
+                                Site</a>
+                            <a href="https://github.com/M4uricio-Silva/M4uricio-Silva.github.io/blob/main/projeto_vortex_digital.html"
+                                target="_blank"
+                                class="bg-white/20 backdrop-blur-sm text-white text-sm px-4 py-2 rounded-lg hover:bg-white/30 transition"><i
+                                    class="fab fa-github"></i> Código</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group relative overflow-hidden rounded-2xl bg-slate-900 h-72 shadow-lg" data-aos="zoom-in"
+                    data-aos-delay="200">
+                    <img src="imagens/projeto_matematica.png"
+                        class="w-full h-full object-cover group-hover:scale-110 transition duration-700 opacity-60 group-hover:opacity-40">
+                    <div
+                        class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <h4 class="text-white font-bold text-xl mb-1">Math ENEM</h4>
+                        <p
+                            class="text-slate-300 text-sm mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                            Plataforma interativa para revisão de matemática com JS puro.</p>
+                        <div class="flex gap-3">
+                            <a href="projeto_matematica.html"
+                                class="bg-primary text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-600 transition">Ver
+                                Site</a>
+                            <a href="https://github.com/M4uricio-Silva/M4uricio-Silva.github.io/blob/main/projeto_matematica.html"
+                                target="_blank"
+                                class="bg-white/20 backdrop-blur-sm text-white text-sm px-4 py-2 rounded-lg hover:bg-white/30 transition"><i
+                                    class="fab fa-github"></i> Código</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group relative overflow-hidden rounded-2xl bg-slate-900 h-72 shadow-lg" data-aos="zoom-in"
+                    data-aos-delay="300">
+                    <img src="imagens/projeto_redação.png"
+                        class="w-full h-full object-cover group-hover:scale-110 transition duration-700 opacity-60 group-hover:opacity-40">
+                    <div
+                        class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <h4 class="text-white font-bold text-xl mb-1">Redação Express</h4>
+                        <p
+                            class="text-slate-300 text-sm mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                            App de estudo com LocalStorage para rascunhos do ENEM.</p>
+                        <div class="flex gap-3">
+                            <a href="projeto_redação.html"
+                                class="bg-primary text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-600 transition">Ver
+                                Site</a>
+                            <a href="https://github.com/M4uricio-Silva/M4uricio-Silva.github.io/blob/main/projeto_redação.html"
+                                target="_blank"
+                                class="bg-white/20 backdrop-blur-sm text-white text-sm px-4 py-2 rounded-lg hover:bg-white/30 transition"><i
+                                    class="fab fa-github"></i> Código</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="contato" class="py-20 px-6 bg-slate-50 dark:bg-slate-800/50 transition-colors">
+        <div class="container mx-auto max-w-4xl bg-primary rounded-[3rem] p-10 md:p-16 text-center text-white shadow-2xl shadow-primary/40 relative overflow-hidden"
+            data-aos="fade-up">
+            <div class="absolute -top-24 -right-24 w-64 h-64 bg-white opacity-10 rounded-full blur-2xl"></div>
+            <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-black opacity-10 rounded-full blur-2xl"></div>
+
+            <h2 class="text-3xl md:text-5xl font-bold mb-6 relative z-10">Pronto para transformar sua presença digital?
+            </h2>
+            <p class="text-blue-100 text-lg mb-10 relative z-10">Estou disponível para novos projetos. Vamos criar uma
+                solução que converte de verdade.</p>
+
+            <div class="flex flex-col md:flex-row justify-center gap-6 relative z-10">
+                <a href="https://wa.me/5584999465017" target="_blank"
+                    class="bg-white text-primary px-8 py-4 rounded-2xl font-bold hover:bg-blue-50 transition shadow-lg flex items-center justify-center transform hover:scale-105">
+                    <i class="fab fa-whatsapp mr-2 text-xl"></i> Chamar no WhatsApp
+                </a>
+                <a href="mailto:mauriciosilvafariasbr@email.com"
+                    class="bg-primary-dark border-2 border-white/30 text-white px-8 py-4 rounded-2xl font-bold hover:bg-white/10 transition flex items-center justify-center">
+                    <i class="fas fa-envelope mr-2"></i> Enviar E-mail
+                </a>
+            </div>
+
+            <div class="mt-12 flex justify-center space-x-8 text-2xl relative z-10">
+                <a href="https://github.com/M4uricio-Silva" target="_blank"
+                    class="hover:text-blue-200 transition hover:-translate-y-1 transform"><i
+                        class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/mauricio-silva-9201942a5" target="_blank"
+                    class="hover:text-blue-200 transition hover:-translate-y-1 transform"><i
+                        class="fab fa-linkedin"></i></a>
+                <a href="https://www.instagram.com/_zak._/" target="_blank"
+                    class="hover:text-blue-200 transition hover:-translate-y-1 transform"><i
+                        class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <footer
+        class="py-10 text-center text-slate-500 dark:text-slate-400 text-sm bg-white dark:bg-slate-900 transition-colors">
+        <div class="container mx-auto px-6 border-t border-slate-200 dark:border-slate-800 pt-10">
+            <p>&copy; <span id="year"></span> Mauricio Silva. Feito com <i
+                    class="fas fa-heart text-red-500 mx-1 animate-pulse"></i> no Brasil.</p>
         </div>
     </footer>
 
-    <button id="backToTopBtn" title="Voltar ao Topo">↑</button>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-    <script src="script.js"></script>
+    <script>
+        // 1. Atualiza o ano no rodapé
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // 2. Menu Mobile Toggle
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
+        }
+
+        // 3. Smooth scroll for anchors
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // 4. Inicializa Typed.js (Efeito de Máquina de Escrever)
+        const typed = new Typed('#typed-text', {
+            strings: [
+                'Interfaces de Alta Performance',
+                'Soluções Focadas em Conversão',
+                'Experiências Digitais Únicas'
+            ],
+            typeSpeed: 50,
+            backSpeed: 30,
+            backDelay: 2000,
+            loop: true,
+            showCursor: true,
+            cursorChar: '|'
+        });
+
+        // 5. Inicializa AOS (Animações de Scroll)
+        AOS.init({
+            once: true,       // Anima apenas uma vez ao descer
+            offset: 100,      // Começa a animar 100px antes de aparecer na tela
+            duration: 800,    // Duração padrão das animações
+            easing: 'ease-out-cubic'
+        });
+
+        // 6. Lógica de Dark Mode com LocalStorage
+        const htmlClass = document.documentElement.classList;
+        const themeBtnDesktop = document.getElementById('theme-toggle');
+        const themeBtnMobile = document.getElementById('theme-toggle-mobile');
+        const iconDesktop = document.getElementById('theme-icon');
+        const iconMobile = document.getElementById('theme-icon-mobile');
+
+        // Verifica o tema salvo ou a preferência do sistema
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlClass.add('dark');
+            updateIcons(true);
+        } else {
+            htmlClass.remove('dark');
+            updateIcons(false);
+        }
+
+        function toggleTheme() {
+            if (htmlClass.contains('dark')) {
+                htmlClass.remove('dark');
+                localStorage.theme = 'light';
+                updateIcons(false);
+            } else {
+                htmlClass.add('dark');
+                localStorage.theme = 'dark';
+                updateIcons(true);
+            }
+        }
+
+        function updateIcons(isDark) {
+            const className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+            iconDesktop.className = className;
+            iconMobile.className = className;
+        }
+
+        themeBtnDesktop.addEventListener('click', toggleTheme);
+        themeBtnMobile.addEventListener('click', toggleTheme);
+    </script>
 </body>
 
 </html>
