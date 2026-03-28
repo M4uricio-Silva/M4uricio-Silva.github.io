@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Gym Pro</title>
-    
+
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0a0a0a">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -44,6 +44,12 @@
             padding: 1rem 1rem 5rem;
             min-height: 100vh;
             overflow-x: hidden;
+            /* ADIÇÕES PARA O LAYOUT FICAR BOM NO PC: */
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            /* Dá uma sombrinha nas bordas no PC */
         }
 
         /* --- Telas e Animações --- */
@@ -76,6 +82,7 @@
             font-style: italic;
             font-weight: 900;
             letter-spacing: -1px;
+            text-align: center;
         }
 
         h1 span {
@@ -403,6 +410,31 @@
         .tab-content.active {
             display: block;
         }
+
+        footer.site-footer {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            padding: 0.9rem 1rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(6px);
+            z-index: 20;
+        }
+
+        footer.site-footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        footer.site-footer a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 
@@ -410,6 +442,7 @@
 
     <div id="screen-home" class="screen active">
         <h1>Gym<span>Tracker</span></h1>
+
         <div class="menu-grid">
             <button class="menu-btn" onclick="nav('screen-workout'); initWorkoutFlow();">Iniciar Treino
                 <span>▶</span></button>
@@ -417,6 +450,35 @@
             <button class="menu-btn" onclick="nav('screen-history'); loadHistory();">Histórico <span>📅</span></button>
             <button class="menu-btn" onclick="nav('screen-analysis'); populateAnalysisSelect();">Evolução
                 <span>📈</span></button>
+        </div>
+
+        <div class="section-panel" style="margin-top: 2rem; border-color: var(--border);">
+            <h3 style="text-align: center; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">MEU
+                RESUMO</h3>
+
+            <div class="grid-2" style="text-align: center; margin-bottom: 1.5rem;">
+                <div>
+                    <h2 id="dash-total-workouts" style="color: var(--primary); font-size: 2.5rem; line-height: 1;">0
+                    </h2>
+                    <p
+                        style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-top: 0.5rem; font-weight: bold;">
+                        Treinos Feitos</p>
+                </div>
+                <div>
+                    <h2 id="dash-last-workout" style="color: var(--accent); font-size: 1.8rem; line-height: 1.4;">--/--
+                    </h2>
+                    <p
+                        style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-top: 0.5rem; font-weight: bold;">
+                        Último Treino</p>
+                </div>
+            </div>
+
+            <div
+                style="background: #000; padding: 1rem; border-radius: 8px; text-align: center; border: 1px solid var(--border);">
+                <p style="font-size: 0.85rem; color: var(--text); font-style: italic;">
+                    "O único treino ruim é aquele que não aconteceu."
+                </p>
+            </div>
         </div>
     </div>
 
@@ -937,17 +999,45 @@
             reader.readAsText(file);
         }
 
+        // --- 7. ATUALIZAR DASHBOARD DA HOME ---
+        async function updateHomeDashboard() {
+            try {
+                const workouts = await dbGetAll('workouts');
+                const totalElement = document.getElementById('dash-total-workouts');
+                const lastElement = document.getElementById('dash-last-workout');
+
+                totalElement.innerText = workouts.length;
+
+                if (workouts.length > 0) {
+                    // Ordena para pegar o mais recente
+                    workouts.sort((a, b) => new Date(b.date) - new Date(a.date));
+                    const lastDateParts = workouts[0].date.split('-');
+                    lastElement.innerText = `${lastDateParts[2]}/${lastDateParts[1]}`;
+                } else {
+                    lastElement.innerText = '--/--';
+                }
+            } catch (e) {
+                console.error("Erro ao carregar dashboard:", e);
+            }
+        }
+
+        // Alteramos a função nav() para sempre atualizar a home quando voltarmos pra lá
+        const originalNav = nav;
+        nav = function (id) {
+            originalNav(id);
+            if (id === 'screen-home') updateHomeDashboard();
+        };
+
         // Inicializa Banco e Registra Service Worker (PWA)
         initDB();
 
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(reg => console.log('Service Worker registrado com sucesso!'))
-                    .catch(err => console.error('Erro ao registrar Service Worker:', err));
-            });
-        }
+        initDB().then(() => {
+            updateHomeDashboard();
+        });
     </script>
+    <footer class="site-footer">
+        <p>© 2025 <a href="https://m4uricio-silva.github.io/" target="_blank" rel="noopener noreferrer">Mauricio Silva</a>. Todos os direitos reservados.</p>
+    </footer>
 </body>
 
 </html>
