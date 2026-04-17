@@ -4,273 +4,821 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Estudo: Direito Empresarial - UFRN</title>
+  <title>Template — Guia de Estudos</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap');
-
     :root {
-      --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-      --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-      --dark-bg: #0f0f1e;
-      --card-bg: rgba(255, 255, 255, 0.08);
-      --card-border: rgba(255, 255, 255, 0.15);
-      --text-primary: #ffffff;
-      --text-secondary: #b0b0c0;
-      --success: #00d084;
-      --error: #ff6b6b;
-      --warning: #ffa502;
+      --bg: #08101f;
+      --surface: #121b2e;
+      --surface2: #172438;
+      --surface3: #1e2d43;
+      --border: #2e4f77;
+      --accent: #71c7ff;
+      --accent2: #f2a86f;
+      --accent3: #8be0b5;
+      --danger: #ff7c74;
+      --success: #7adca7;
+      --text: #ecf3ff;
+      --text2: #acc4dd;
+      --text3: #6b85a1;
+      --cap1: #71c7ff;
+      --cap2: #f2a86f;
+      --cap3: #8be0b5;
     }
 
-    * {
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
-      font-family: 'Inter', sans-serif;
-      background: var(--dark-bg);
-      color: var(--text-primary);
-      line-height: 1.7;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
       overflow-x: hidden;
-      position: relative;
     }
 
-    /* BACKGROUND ANIMADO */
+    /* ─── BACKGROUND NOISE ─── */
     body::before {
       content: '';
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.1) 0%, transparent 50%);
-      animation: gradientShift 15s ease infinite;
-      z-index: -1;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      padding: 80px 24px 60px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(ellipse, rgba(113, 199, 255, 0.16) 0%, transparent 72%);
       pointer-events: none;
     }
 
-    @keyframes gradientShift {
-
-      0%,
-      100% {
-        filter: hue-rotate(0deg);
-      }
-
-      50% {
-        filter: hue-rotate(20deg);
-      }
-    }
-
-    /* --- ANIMAÇÕES ESTILO FRAMER (SCROLL REVEAL) --- */
-    .reveal {
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
       opacity: 0;
-      transform: translateY(40px) scale(0.98);
-      transition: all 0.8s cubic-bezier(0.17, 0.55, 0.55, 1);
-      /* Curva suave do Framer */
-      filter: blur(10px);
+      animation: fadeUp 0.6s 0.1s forwards;
     }
 
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      filter: blur(0);
-    }
-
-    /* --- HEADER COM EFEITO DIGITAÇÃO --- */
-    header {
-      background: var(--primary-gradient);
-      color: white;
-      padding: 4rem 1.5rem;
-      /* Mais espaço como no Framer */
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
-    }
-
-    /* Detalhes flutuantes no fundo */
-    header::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -10%;
-      width: 300px;
-      height: 300px;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
-      border-radius: 50%;
-      animation: float 20s ease-in-out infinite;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 3rem;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 800;
-      position: relative;
-      z-index: 1;
-      letter-spacing: -1.5px;
-      text-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 6vw, 4.5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 16px;
       opacity: 0;
-      /* Começa invisível para animar */
-      animation: fadeInUp 1s cubic-bezier(0.17, 0.55, 0.55, 1) forwards;
+      animation: fadeUp 0.6s 0.2s forwards;
     }
 
-    /* Efeito de cursor piscando */
-    .typing-effect::after {
-      content: '|';
-      animation: blink 1s infinite;
-      color: var(--accent-gradient);
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
     }
 
-    @keyframes blink {
-
-      0%,
-      100% {
-        opacity: 1;
-      }
-
-      50% {
-        opacity: 0;
-      }
-    }
-
-    header p {
-      margin: 15px 0 0 0;
+    .hero-sub {
+      font-size: 1rem;
+      color: var(--text2);
+      max-width: 480px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
       opacity: 0;
-      font-size: 1.1rem;
-      position: relative;
-      z-index: 1;
-      font-weight: 300;
-      animation: fadeInUp 1s cubic-bezier(0.17, 0.55, 0.55, 1) 0.3s forwards;
-      /* Delay */
+      animation: fadeUp 0.6s 0.3s forwards;
     }
 
-    /* --- MÓDULOS E NAVEGAÇÃO --- */
-    .module-selector {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      padding: 2rem 1rem;
-      background: linear-gradient(180deg, rgba(15, 15, 30, 0.8) 0%, rgba(15, 15, 30, 0.5) 100%);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--card-border);
-      flex-wrap: wrap;
+    /* ─── NAV TABS ─── */
+    .nav-wrap {
       position: sticky;
       top: 0;
-      z-index: 1000;
+      z-index: 100;
+      background: rgba(13, 15, 20, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 16px;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.4s forwards;
     }
 
-    .module-btn {
-      padding: 12px 28px;
-      border: 1px solid var(--card-border);
-      background: rgba(255, 255, 255, 0.03);
-      color: var(--text-secondary);
-      cursor: pointer;
-      font-weight: 600;
-      border-radius: 30px;
-      /* Arredondado estilo Framer */
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      font-family: 'Inter', sans-serif;
-      font-size: 0.95rem;
-    }
-
-    .module-btn:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: white;
-      transform: translateY(-2px);
-    }
-
-    .module-btn.active {
-      background: white;
-      color: black;
-      /* Alto contraste estilo Framer */
-      border-color: white;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-      transform: scale(1.05);
-    }
-
-    .tab-nav {
+    .nav-tabs {
       display: flex;
-      justify-content: center;
-      background: rgba(15, 15, 30, 0.5);
-      backdrop-filter: blur(15px);
-      border-bottom: 1px solid var(--card-border);
-      margin-bottom: 2rem;
-    }
-
-    .tab-nav button {
-      background: none;
-      border: none;
-      color: var(--text-secondary);
-      padding: 18px 28px;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-      font-weight: 500;
-      position: relative;
-      font-family: 'Inter', sans-serif;
-    }
-
-    .tab-nav button::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0;
-      height: 3px;
-      background: var(--accent-gradient);
-      transition: width 0.3s cubic-bezier(0.23, 1, 0.320, 1);
-      border-radius: 3px;
-    }
-
-    .tab-nav button.active {
-      color: var(--text-primary);
-    }
-
-    .tab-nav button.active::after {
-      width: 50%;
-    }
-
-    /* MAIN CONTENT */
-    main {
-      max-width: 1000px;
+      max-width: 900px;
       margin: 0 auto;
-      padding: 0 1rem 4rem 1rem;
-      min-height: 60vh;
+      overflow-x: auto;
+      scrollbar-width: none;
+      gap: 4px;
     }
 
-    .module-content,
-    .tab-content {
+    .nav-tabs::-webkit-scrollbar {
       display: none;
     }
 
-    .module-content.active,
-    .tab-content.active {
+    .nav-tab {
+      flex-shrink: 0;
+      padding: 16px 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: var(--text3);
+      cursor: pointer;
+      border: none;
+      background: none;
+      border-bottom: 2px solid transparent;
+      transition: all 0.25s;
+      white-space: nowrap;
+    }
+
+    .nav-tab:hover {
+      color: var(--text2);
+    }
+
+    .nav-tab.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .nav-tab[data-chapter="2"].active {
+      color: var(--cap2);
+      border-bottom-color: var(--cap2);
+    }
+
+    .nav-tab[data-chapter="3"].active {
+      color: var(--cap3);
+      border-bottom-color: var(--cap3);
+    }
+
+    /* ─── MAIN CONTENT ─── */
+    .main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px 100px;
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
       display: block;
-      /* Animação de troca suave */
-      animation: fadeInSoft 0.5s ease forwards;
+      animation: fadeUp 0.4s forwards;
     }
 
-    @keyframes fadeInSoft {
-      from {
-        opacity: 0;
-        transform: scale(0.99);
-      }
+    /* ─── CHAPTER HEADER ─── */
+    .chapter-header {
+      margin-bottom: 40px;
+      padding: 32px;
+      background: var(--surface);
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
 
-      to {
-        opacity: 1;
-        transform: scale(1);
+    .chapter-header::before {
+      content: attr(data-num);
+      position: absolute;
+      right: -10px;
+      top: -20px;
+      font-family: 'Playfair Display', serif;
+      font-size: 9rem;
+      font-weight: 900;
+      opacity: 0.04;
+      color: var(--text);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .chapter-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 14px;
+    }
+
+    .cap1 .chapter-tag {
+      background: rgba(200, 164, 90, 0.15);
+      color: var(--cap1);
+    }
+
+    .cap2 .chapter-tag {
+      background: rgba(124, 111, 212, 0.15);
+      color: var(--cap2);
+    }
+
+    .cap3 .chapter-tag {
+      background: rgba(79, 168, 155, 0.15);
+      color: var(--cap3);
+    }
+
+    .chapter-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 3.5vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+
+    .chapter-header p {
+      color: var(--text2);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    /* ─── SUBSECTION TABS ─── */
+    .sub-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+
+    .sub-tab {
+      padding: 9px 20px;
+      border-radius: 50px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1.5px solid var(--border);
+      background: transparent;
+      color: var(--text2);
+      transition: all 0.2s;
+    }
+
+    .sub-tab:hover {
+      border-color: var(--text3);
+      color: var(--text);
+    }
+
+    .cap1 .sub-tab.active {
+      background: var(--cap1);
+      border-color: var(--cap1);
+      color: #000;
+    }
+
+    .cap2 .sub-tab.active {
+      background: var(--cap2);
+      border-color: var(--cap2);
+      color: #fff;
+    }
+
+    .cap3 .sub-tab.active {
+      background: var(--cap3);
+      border-bottom-color: var(--cap3);
+      color: #000;
+    }
+
+    .sub-section {
+      display: none;
+    }
+
+    .sub-section.active {
+      display: block;
+    }
+
+    /* ─── SUMMARY CARDS ─── */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .summary-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+      transition: transform 0.2s, border-color 0.2s;
+      min-width: 0;
+    }
+
+    .summary-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--text3);
+    }
+
+    .summary-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-weight: 500;
+    }
+
+    .cap1 .card-num {
+      background: rgba(200, 164, 90, 0.2);
+      color: var(--cap1);
+    }
+
+    .cap2 .card-num {
+      background: rgba(124, 111, 212, 0.2);
+      color: var(--cap2);
+    }
+
+    .cap3 .card-num {
+      background: rgba(79, 168, 155, 0.2);
+      color: var(--cap3);
+    }
+
+    .summary-card p,
+    .summary-card li {
+      color: var(--text2);
+      font-size: 0.88rem;
+      line-height: 1.75;
+    }
+
+    .summary-card ul {
+      padding-left: 18px;
+    }
+
+    .summary-card li {
+      margin-bottom: 4px;
+    }
+
+    .alert-box {
+      margin-top: 14px;
+      padding: 12px 16px;
+      background: rgba(212, 97, 79, 0.1);
+      border-left: 3px solid var(--danger);
+      border-radius: 6px;
+      font-size: 0.82rem;
+      color: #e0a99f;
+      line-height: 1.6;
+    }
+
+    .info-box {
+      margin-top: 14px;
+      padding: 12px 16px;
+      background: rgba(200, 164, 90, 0.08);
+      border-left: 3px solid var(--accent);
+      border-radius: 6px;
+      font-size: 0.82rem;
+      color: #d4be8a;
+      line-height: 1.6;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin-top: 14px;
+      border-radius: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+
+    th {
+      background: var(--surface3);
+      color: var(--text2);
+      font-weight: 600;
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 0.75rem;
+      letter-spacing: 0.5px;
+    }
+
+    td {
+      padding: 9px 14px;
+      border-top: 1px solid var(--border);
+      color: var(--text2);
+    }
+
+    tr:hover td {
+      background: var(--surface2);
+    }
+
+    code-block {
+      display: block;
+      background: var(--surface3);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--accent3);
+      margin-top: 12px;
+      line-height: 1.8;
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    /* ─── FLASHCARDS ─── */
+    .flashcard-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .fc-counter {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--text3);
+    }
+
+    .fc-progress {
+      height: 3px;
+      background: var(--surface3);
+      border-radius: 2px;
+      margin-bottom: 28px;
+      overflow: hidden;
+    }
+
+    .fc-progress-bar {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 0.4s ease;
+    }
+
+    .cap1 .fc-progress-bar {
+      background: var(--cap1);
+    }
+
+    .cap2 .fc-progress-bar {
+      background: var(--cap2);
+    }
+
+    .cap3 .fc-progress-bar {
+      background: var(--cap3);
+    }
+
+    .flashcard-scene {
+      perspective: 1200px;
+      height: 260px;
+      cursor: pointer;
+      margin-bottom: 24px;
+      user-select: none;
+    }
+
+    @media (max-width: 480px) {
+      .flashcard-scene {
+        height: 220px;
       }
     }
 
-    @keyframes fadeInUp {
+    .flashcard-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1);
+    }
+
+    .flashcard-inner.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .flashcard-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      border-radius: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+
+    .flashcard-front {
+      background: var(--surface);
+    }
+
+    .flashcard-back {
+      background: var(--surface2);
+      transform: rotateY(180deg);
+    }
+
+    .fc-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .cap1 .fc-label {
+      background: rgba(200, 164, 90, 0.15);
+      color: var(--cap1);
+    }
+
+    .cap2 .fc-label {
+      background: rgba(124, 111, 212, 0.15);
+      color: var(--cap2);
+    }
+
+    .cap3 .fc-label {
+      background: rgba(79, 168, 155, 0.15);
+      color: var(--cap3);
+    }
+
+    .fc-question {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      font-weight: 700;
+      line-height: 1.4;
+      color: var(--text);
+    }
+
+    .fc-answer {
+      font-size: 0.88rem;
+      color: var(--text2);
+      line-height: 1.7;
+    }
+
+    .fc-hint {
+      margin-top: 14px;
+      font-size: 0.72rem;
+      color: var(--text3);
+      font-style: italic;
+    }
+
+    .fc-nav {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 11px 24px;
+      border-radius: 999px;
+      font-size: 0.83rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1.5px solid var(--border);
+      background: transparent;
+      color: var(--text);
+      transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .btn:hover {
+      background: var(--surface2);
+      border-color: var(--text3);
+    }
+
+    .btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .btn-primary:hover {
+      background: rgba(200, 164, 90, 0.1);
+    }
+
+    .btn-cap2 {
+      border-color: var(--cap2);
+      color: var(--cap2);
+    }
+
+    .btn-cap2:hover {
+      background: rgba(124, 111, 212, 0.1);
+    }
+
+    .btn-cap3 {
+      border-color: var(--cap3);
+      color: var(--cap3);
+    }
+
+    .btn-cap3:hover {
+      background: rgba(79, 168, 155, 0.1);
+    }
+
+    /* ─── QUIZ ─── */
+    .quiz-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .quiz-score-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      padding: 6px 14px;
+      border-radius: 24px;
+      background: var(--surface3);
+      color: var(--text2);
+    }
+
+    .question-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 28px;
+      margin-bottom: 20px;
+      animation: fadeUp 0.35s forwards;
+    }
+
+    .q-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text3);
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+
+    .q-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      font-weight: 700;
+      line-height: 1.5;
+      color: var(--text);
+      margin-bottom: 22px;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 13px 18px;
+      border-radius: 16px;
+      border: 1.5px solid var(--border);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.87rem;
+      color: var(--text2);
+      line-height: 1.5;
+      background: transparent;
+      text-align: left;
+      font-family: 'DM Sans', sans-serif;
+      width: 100%;
+    }
+
+    .option:hover:not(:disabled) {
+      border-color: var(--text3);
+      background: var(--surface2);
+      color: var(--text);
+    }
+
+    .option .opt-letter {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 500;
+      min-width: 26px;
+      height: 26px;
+      border-radius: 10px;
+      background: var(--surface3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text3);
+      flex-shrink: 0;
+      margin-top: 1px;
+      transition: all 0.2s;
+    }
+
+    .option.correct {
+      border-color: var(--success);
+      background: rgba(79, 168, 107, 0.08);
+      color: #a3d9b1;
+    }
+
+    .option.correct .opt-letter {
+      background: var(--success);
+      color: #000;
+    }
+
+    .option.wrong {
+      border-color: var(--danger);
+      background: rgba(212, 97, 79, 0.08);
+      color: #e0a99f;
+    }
+
+    .option.wrong .opt-letter {
+      background: var(--danger);
+      color: #fff;
+    }
+
+    .option:disabled {
+      cursor: default;
+    }
+
+    .explanation {
+      margin-top: 16px;
+      padding: 14px 18px;
+      background: var(--surface2);
+      border-radius: 10px;
+      border-left: 3px solid var(--accent3);
+      font-size: 0.82rem;
+      color: var(--text2);
+      line-height: 1.7;
+      display: none;
+    }
+
+    .explanation.show {
+      display: block;
+      animation: fadeUp 0.3s forwards;
+    }
+
+    .quiz-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .result-card {
+      text-align: center;
+      padding: 48px 28px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      animation: fadeUp 0.5s forwards;
+    }
+
+    .result-score {
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .result-label {
+      font-size: 0.85rem;
+      color: var(--text2);
+      margin-bottom: 24px;
+    }
+
+    .result-msg {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text2);
+      margin-bottom: 28px;
+      max-width: 380px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
       from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(18px);
       }
 
       to {
@@ -279,228 +827,160 @@
       }
     }
 
-    /* CARDS */
-    .summary-card {
-      background: var(--card-bg);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--card-border);
-      padding: 2.5rem;
-      margin-bottom: 1.5rem;
-      border-radius: 24px;
-      /* Bordas mais arredondadas */
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
-      /* Sombra difusa */
-      transition: transform 0.4s cubic-bezier(0.17, 0.55, 0.55, 1), box-shadow 0.4s ease;
-      border-left: 4px solid transparent;
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
     }
 
-    .summary-card:hover {
-      transform: translateY(-5px) scale(1.01);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-      border-color: rgba(255, 255, 255, 0.3);
-    }
-
-    .summary-card h3 {
-      color: var(--text-primary);
-      margin-top: 0;
-      border-bottom: 1px solid var(--card-border);
-      padding-bottom: 12px;
-      font-size: 1.5rem;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    .summary-card h4 {
-      color: #4facfe;
-      /* Cor sólida para melhor leitura no gradiente */
-      margin-bottom: 8px;
-      margin-top: 1.5rem;
-      font-weight: 700;
-      font-size: 1.1rem;
-    }
-
-    .summary-card p,
-    .summary-card li {
-      color: var(--text-secondary);
-      margin-bottom: 12px;
-      line-height: 1.8;
-    }
-
-    /* TAGS */
-    .tag {
-      display: inline-block;
-      background: rgba(45, 156, 219, 0.15);
-      color: #4facfe;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      margin-right: 8px;
-      margin-bottom: 8px;
-      font-weight: 600;
-      border: 1px solid rgba(79, 172, 254, 0.3);
-    }
-
-    /* FLASHCARDS */
-    .flashcard-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 2rem;
-    }
-
-    .flashcard {
+    ::-webkit-scrollbar-track {
       background: transparent;
-      width: 100%;
-      max-width: 650px;
-      height: 350px;
-      perspective: 1000px;
-      cursor: pointer;
-      margin-bottom: 2rem;
     }
 
-    .flashcard-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      text-align: center;
-      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-      /* Flip mais rápido e suave */
-      transform-style: preserve-3d;
-      border-radius: 24px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 10px;
     }
 
-    .flashcard.flipped .flashcard-inner {
-      transform: rotateY(180deg);
+    /* ─── KEY POINT CHIP ─── */
+    .key-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
     }
 
-    .flashcard-front,
-    .flashcard-back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      -webkit-backface-visibility: hidden;
-      backface-visibility: hidden;
+    .chip {
+      font-size: 0.75rem;
+      padding: 5px 12px;
+      border-radius: 20px;
+      background: var(--surface3);
+      color: var(--text2);
+      border: 1px solid var(--border);
+      font-weight: 500;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 28px 0;
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--text3);
+      margin-bottom: 20px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      padding: 40px;
-      border-radius: 24px;
-      flex-direction: column;
-      border: 1px solid var(--card-border);
-      backdrop-filter: blur(20px);
+      gap: 10px;
     }
 
-    .flashcard-front {
-      background: linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, rgba(0, 242, 254, 0.05) 100%);
-      color: white;
-      font-weight: 700;
-      font-size: 1.4rem;
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
     }
 
-    .flashcard-back {
-      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.05) 100%);
-      color: white;
-      transform: rotateY(180deg);
-      font-size: 1.1rem;
-      line-height: 1.6;
+    /* ─── SHUFFLE BTN ─── */
+    .shuffle-icon {
+      display: inline-block;
+      margin-right: 6px;
     }
 
-    /* CONTROLS & BUTTONS */
-    .controls {
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      margin-top: 1.5rem;
-    }
-
-    .btn {
-      padding: 12px 28px;
-      background: white;
-      color: black;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      font-family: 'Inter', sans-serif;
-      box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
-    }
-
-    .btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
-    }
-
-    /* QUIZ */
-    .quiz-question {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      padding: 2rem;
-      border-radius: 24px;
-      margin-bottom: 1.5rem;
-    }
-
-    .option-btn {
-      display: block;
-      width: 100%;
-      padding: 16px 20px;
-      margin-top: 12px;
-      border: 1px solid var(--card-border);
-      background: rgba(255, 255, 255, 0.05);
-      text-align: left;
-      cursor: pointer;
-      border-radius: 12px;
-      transition: all 0.2s ease;
-      color: var(--text-secondary);
-      font-size: 1rem;
-    }
-
-    .option-btn:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: white;
-      transform: translateX(5px);
-    }
-
-    .option-btn.correct {
-      background: rgba(0, 208, 132, 0.2);
-      border-color: var(--success);
-      color: var(--success);
-    }
-
-    .option-btn.wrong {
-      background: rgba(255, 107, 107, 0.2);
-      border-color: var(--error);
-      color: var(--error);
-    }
-
-    .feedback {
-      margin-top: 1.5rem;
-      padding: 1rem;
-      border-radius: 12px;
-      display: none;
-      background: rgba(0, 0, 0, 0.3);
-    }
-
-    footer {
-      text-align: center;
-      padding: 4rem 1.5rem;
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      border-top: 1px solid var(--card-border);
-      margin-top: 4rem;
-    }
-
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 2rem;
+    /* ─── MOBILE TWEAKS ─── */
+    @media (max-width: 800px) {
+      .hero {
+        padding: 60px 16px 40px;
       }
 
-      .module-selector {
+      .hero h1 {
+        font-size: clamp(2rem, 10vw, 3.2rem);
+      }
+
+      .hero-sub {
+        max-width: 100%;
+        margin-bottom: 32px;
+      }
+
+      .nav-wrap {
+        padding: 0 10px;
+      }
+
+      .nav-tab {
+        padding: 12px 14px;
+        font-size: 0.78rem;
+      }
+
+      .main {
+        padding: 24px 12px 80px;
+      }
+
+      .chapter-header {
+        padding: 20px;
+      }
+
+      .chapter-header::before {
+        font-size: 5rem;
+        right: 0;
         top: 0;
       }
 
-      .flashcard {
-        height: 280px;
+      .sub-tabs {
+        gap: 6px;
+      }
+
+      .sub-tab {
+        flex: 1 1 auto;
+        min-width: 0;
+        padding: 10px 14px;
+        font-size: 0.78rem;
+      }
+
+      .summary-card {
+        padding: 18px;
+      }
+
+      .table-wrap {
+        margin-top: 12px;
+      }
+
+      .flashcard-controls,
+      .quiz-nav {
+        justify-content: flex-start;
+      }
+
+      .flashcard-scene {
+        height: 220px;
+      }
+
+      .flashcard-face {
+        padding: 20px;
+      }
+
+      .question-card {
+        padding: 20px;
+      }
+
+      .btn {
+        padding: 10px 16px;
+        font-size: 0.78rem;
+      }
+
+      .option {
+        padding: 12px 16px;
+        gap: 12px;
+      }
+
+      .result-card {
+        padding: 30px 20px;
+      }
+
+      .result-score {
+        font-size: 3.5rem;
       }
     }
   </style>
@@ -508,337 +988,469 @@
 
 <body>
 
-  <header>
-    <h1 id="hero-title">Direito Empresarial</h1>
-    <p id="hero-subtitle">Plataforma de Estudos para Administração UFRN</p>
-  </header>
-
-  <div class="module-selector reveal">
-    <button class="module-btn active" onclick="switchModule('mod1')">1. Títulos de Crédito</button>
-    <button class="module-btn" onclick="switchModule('mod2')">2. Crise e Falência</button>
+  <div class="hero">
+    <div class="hero-eyebrow">Autor ou Referência · Edição · Ano</div>
+    <h1>Nome da<br>sua <em>Disciplina</em></h1>
+    <p class="hero-sub">Material de estudo interativo para avaliação — resumos, flashcards e
+      simulado por módulo.</p>
   </div>
 
-  <nav class="tab-nav reveal">
-    <button class="active" onclick="showTab('resumo')">📚 Resumo</button>
-    <button onclick="showTab('flashcards')">💡 Flashcards</button>
-    <button onclick="showTab('quiz')">✅ Simulado</button>
-  </nav>
-
-  <main>
-    <div id="mod1-content" class="module-content active">
-      <div id="resumo-mod1" class="tab-content active">
-
-        <div class="summary-card reveal" style="border-left-color: #4facfe;">
-          <h3>Fala, Administrador! 🎓</h3>
-          <p>Este material cobre os pontos centrais do PDF, focando na função econômica e nas características
-            operacionais dos títulos.</p>
-        </div>
-
-        <div class="summary-card reveal">
-          <h3>1. O Conceito Fundamental</h3>
-          <p>Definição clássica de <strong>Cesare Vivante</strong>:</p>
-          <blockquote
-            style="background: rgba(102, 126, 234, 0.1); padding: 15px; border-radius: 12px; margin: 1rem 0; font-style: italic;">
-            "Título de crédito é o documento necessário ao exercício do direito literal e autônomo nele mencionado."
-          </blockquote>
-        </div>
-
-        <div class="summary-card reveal">
-          <h3>2. Os 3 Princípios (Pilares)</h3>
-          <ul>
-            <li><strong>Literalidade:</strong> Vale apenas o que está escrito.</li>
-            <li><strong>Cartularidade:</strong> O direito está no documento físico (ou eletrônico hoje em dia).</li>
-            <li><strong>Autonomia:</strong> O direito é novo, independente de quem o portava antes.</li>
-          </ul>
-        </div>
-
-        <div class="summary-card reveal">
-          <h3>3. As Espécies de Títulos</h3>
-          <h4>A. Duplicata (O Título Brasileiro)</h4>
-          <span class="tag">Causal</span> <span class="tag">Mercantil</span>
-          <p>Título vinculado obrigatoriamente a uma nota fiscal de serviço ou venda.</p>
-
-          <h4>B. Cheque</h4>
-          <span class="tag">Ordem de Pagamento</span> <span class="tag">À Vista</span>
-          <p>Ordem de pagamento à vista. A pós-datação é apenas costume comercial.</p>
-        </div>
-      </div>
+  <div class="nav-wrap">
+    <div class="nav-tabs">
+      <button class="nav-tab active" data-chapter="1" onclick="showChapter(1)">Mód. 1 — Título do Módulo</button>
+      <button class="nav-tab" data-chapter="2" onclick="showChapter(2)">Mód. 2 — Título do Módulo</button>
+      <button class="nav-tab" data-chapter="3" onclick="showChapter(3)">Mód. 3 — Título do Módulo</button>
     </div>
+  </div>
 
-    <div id="mod2-content" class="module-content">
-      <div id="resumo-mod2" class="tab-content active">
-        <div class="summary-card reveal" style="border-left-color: #ff6b6b;">
-          <h3>Crise Empresarial</h3>
-          <p>A Lei nº 11.101/2005 visa preservar a empresa viável e liquidar a inviável.</p>
-        </div>
-        <div class="summary-card reveal">
-          <h3>Recuperação vs. Falência</h3>
-          <p><strong>Recuperação:</strong> Tenta salvar a empresa (Stay Period de 180 dias).</p>
-          <p><strong>Falência:</strong> Liquidação dos ativos para pagar credores.</p>
-        </div>
+  <div class="main">
+
+    <div class="section cap1 active" id="chapter-1">
+      <div class="chapter-header cap1" data-num="01">
+        <span class="chapter-tag">Módulo 1</span>
+        <h2>Título Principal do Assunto 1</h2>
+        <p>Breve descrição sobre o que será abordado neste primeiro módulo de estudos.</p>
       </div>
-    </div>
 
-    <div id="flashcards" class="tab-content">
-      <div class="flashcard-container reveal">
-        <div class="flashcard" onclick="this.classList.toggle('flipped')">
-          <div class="flashcard-inner">
-            <div class="flashcard-front">
-              <span id="fc-question">Carregando...</span>
+      <div class="sub-tabs cap1">
+        <button class="sub-tab active" onclick="showSub('c1','resumo')">📋 Resumo</button>
+        <button class="sub-tab" onclick="showSub('c1','flashcard')">🃏 Flashcards</button>
+        <button class="sub-tab" onclick="showSub('c1','quiz')">✏️ Questões</button>
+      </div>
+
+      <div class="sub-section active" id="c1-resumo">
+        <div class="section-label">Pontos Principais</div>
+        <div class="summary-grid">
+
+          <div class="summary-card cap1">
+            <h3><span class="card-num">01</span>Tópico de Exemplo com Código</h3>
+            <p>Insira aqui o texto explicativo principal. Você pode usar formatação em <strong>negrito</strong> para
+              destacar informações.</p>
+            <code-block>Passo 1: Ação inicial
+              Passo 2: Processamento
+              Passo 3: Conclusão</code-block>
+            <p style="margin-top:12px">Parágrafo adicional para concluir o pensamento do tópico.</p>
+          </div>
+
+          <div class="summary-card cap1">
+            <h3><span class="card-num">02</span>Tópico de Exemplo com Tabela</h3>
+            <p>Descrição introdutória antes de apresentar dados estruturados:</p>
+            <div class="table-wrap">
+              <table>
+                <tr>
+                  <th>Conceito</th>
+                  <th>Definição</th>
+                </tr>
+                <tr>
+                  <td><strong>Item A</strong></td>
+                  <td>Explicação correspondente ao primeiro item da tabela.</td>
+                </tr>
+                <tr>
+                  <td><strong>Item B</strong></td>
+                  <td>Explicação correspondente ao segundo item da tabela.</td>
+                </tr>
+              </table>
             </div>
-            <div class="flashcard-back">
-              <span id="fc-answer">Carregando...</span>
+            <div class="info-box">💡 Exemplo de caixa de informação: Insira aqui uma dica ou nota importante.</div>
+          </div>
+
+          <div class="summary-card cap1">
+            <h3><span class="card-num">03</span>Tópico de Exemplo com Alerta e Chips</h3>
+            <p>Texto explicativo que pode anteceder uma lista de palavras-chave ou conceitos soltos.</p>
+            <div class="key-chips">
+              <span class="chip">Palavra-Chave 1</span>
+              <span class="chip">Conceito 2</span>
+              <span class="chip">Tag de Exemplo 3</span>
+            </div>
+            <div class="alert-box">⚠️ Exemplo de caixa de alerta: Insira aqui um aviso sobre erros comuns ou exceções à
+              regra.</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="sub-section" id="c1-flashcard">
+        <div class="section-label">Flashcards — Clique para revelar</div>
+        <div class="flashcard-controls cap1">
+          <span class="fc-counter" id="c1-fc-counter">1 / 1</span>
+          <button class="btn btn-primary" onclick="shuffleCards('c1')">⇄ Embaralhar</button>
+        </div>
+        <div class="fc-progress cap1">
+          <div class="fc-progress-bar" id="c1-fc-bar" style="width:100%"></div>
+        </div>
+        <div class="flashcard-scene" onclick="flipCard('c1')">
+          <div class="flashcard-inner" id="c1-card">
+            <div class="flashcard-face flashcard-front cap1">
+              <span class="fc-label">Pergunta</span>
+              <div class="fc-question" id="c1-front"></div>
+              <div class="fc-hint">Toque para ver a resposta</div>
+            </div>
+            <div class="flashcard-face flashcard-back cap1">
+              <span class="fc-label">Resposta</span>
+              <div class="fc-answer" id="c1-back"></div>
             </div>
           </div>
         </div>
-        <div class="controls">
-          <button class="btn" onclick="prevCard()">⬅ Anterior</button>
-          <button class="btn" onclick="nextCard()">Próximo ➡</button>
+        <div class="fc-nav">
+          <button class="btn" onclick="prevCard('c1')">← Anterior</button>
+          <button class="btn btn-primary" onclick="nextCard('c1')">Próximo →</button>
         </div>
       </div>
-    </div>
 
-    <div id="quiz" class="tab-content">
-      <div class="score-board reveal" style="text-align:center; font-size:1.5rem; margin-bottom:20px;">Pontuação: <span
-          id="score">0</span></div>
-      <div id="quiz-container"></div>
-      <div style="text-align: center; margin-top: 2rem;" class="reveal">
-        <button class="btn" onclick="restartQuiz()">Reiniciar</button>
+      <div class="sub-section" id="c1-quiz">
+        <div class="section-label">Simulado — Módulo 1</div>
+        <div id="c1-quiz-content"></div>
       </div>
     </div>
-  </main>
 
-  <footer>
-    <p>Ferramenta de estudo personalizada para Administração - UFRN.</p>
-  </footer>
+    <div class="section cap2" id="chapter-2">
+      <div class="chapter-header cap2" data-num="02">
+        <span class="chapter-tag">Módulo 2</span>
+        <h2>Título Principal do Assunto 2</h2>
+        <p>Breve descrição sobre o que será abordado neste segundo módulo de estudos.</p>
+      </div>
 
+      <div class="sub-tabs cap2">
+        <button class="sub-tab active" onclick="showSub('c2','resumo')">📋 Resumo</button>
+        <button class="sub-tab" onclick="showSub('c2','flashcard')">🃏 Flashcards</button>
+        <button class="sub-tab" onclick="showSub('c2','quiz')">✏️ Questões</button>
+      </div>
+
+      <div class="sub-section active" id="c2-resumo">
+        <div class="section-label">Pontos Principais</div>
+        <div class="summary-grid">
+          <div class="summary-card cap2">
+            <h3><span class="card-num">01</span>Novo Tópico</h3>
+            <p>Insira seu conteúdo estruturado aqui copiando as estruturas (tabelas, alertas) do módulo 1.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="sub-section" id="c2-flashcard">
+        <div class="section-label">Flashcards — Clique para revelar</div>
+        <div class="flashcard-controls cap2">
+          <span class="fc-counter" id="c2-fc-counter">1 / 1</span>
+          <button class="btn btn-cap2" onclick="shuffleCards('c2')">⇄ Embaralhar</button>
+        </div>
+        <div class="fc-progress cap2">
+          <div class="fc-progress-bar" id="c2-fc-bar" style="width:100%"></div>
+        </div>
+        <div class="flashcard-scene" onclick="flipCard('c2')">
+          <div class="flashcard-inner" id="c2-card">
+            <div class="flashcard-face flashcard-front cap2">
+              <span class="fc-label">Pergunta</span>
+              <div class="fc-question" id="c2-front"></div>
+              <div class="fc-hint">Toque para ver a resposta</div>
+            </div>
+            <div class="flashcard-face flashcard-back cap2">
+              <span class="fc-label">Resposta</span>
+              <div class="fc-answer" id="c2-back"></div>
+            </div>
+          </div>
+        </div>
+        <div class="fc-nav">
+          <button class="btn" onclick="prevCard('c2')">← Anterior</button>
+          <button class="btn btn-cap2" onclick="nextCard('c2')">Próximo →</button>
+        </div>
+      </div>
+
+      <div class="sub-section" id="c2-quiz">
+        <div class="section-label">Simulado — Módulo 2</div>
+        <div id="c2-quiz-content"></div>
+      </div>
+    </div>
+
+    <div class="section cap3" id="chapter-3">
+      <div class="chapter-header cap3" data-num="03">
+        <span class="chapter-tag">Módulo 3</span>
+        <h2>Título Principal do Assunto 3</h2>
+        <p>Breve descrição sobre o que será abordado neste terceiro módulo de estudos.</p>
+      </div>
+
+      <div class="sub-tabs cap3">
+        <button class="sub-tab active" onclick="showSub('c3','resumo')">📋 Resumo</button>
+        <button class="sub-tab" onclick="showSub('c3','flashcard')">🃏 Flashcards</button>
+        <button class="sub-tab" onclick="showSub('c3','quiz')">✏️ Questões</button>
+      </div>
+
+      <div class="sub-section active" id="c3-resumo">
+        <div class="section-label">Pontos Principais</div>
+        <div class="summary-grid">
+          <div class="summary-card cap3">
+            <h3><span class="card-num">01</span>Novo Tópico</h3>
+            <p>Insira seu conteúdo estruturado aqui copiando as estruturas (tabelas, alertas) do módulo 1.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="sub-section" id="c3-flashcard">
+        <div class="section-label">Flashcards — Clique para revelar</div>
+        <div class="flashcard-controls cap3">
+          <span class="fc-counter" id="c3-fc-counter">1 / 1</span>
+          <button class="btn btn-cap3" onclick="shuffleCards('c3')">⇄ Embaralhar</button>
+        </div>
+        <div class="fc-progress cap3">
+          <div class="fc-progress-bar" id="c3-fc-bar" style="width:100%"></div>
+        </div>
+        <div class="flashcard-scene" onclick="flipCard('c3')">
+          <div class="flashcard-inner" id="c3-card">
+            <div class="flashcard-face flashcard-front cap3">
+              <span class="fc-label">Pergunta</span>
+              <div class="fc-question" id="c3-front"></div>
+              <div class="fc-hint">Toque para ver a resposta</div>
+            </div>
+            <div class="flashcard-face flashcard-back cap3">
+              <span class="fc-label">Resposta</span>
+              <div class="fc-answer" id="c3-back"></div>
+            </div>
+          </div>
+        </div>
+        <div class="fc-nav">
+          <button class="btn" onclick="prevCard('c3')">← Anterior</button>
+          <button class="btn btn-cap3" onclick="nextCard('c3')">Próximo →</button>
+        </div>
+      </div>
+
+      <div class="sub-section" id="c3-quiz">
+        <div class="section-label">Simulado — Módulo 3</div>
+        <div id="c3-quiz-content"></div>
+      </div>
+    </div>
+
+  </div>
   <script>
-    // --- 1. ANIMAÇÃO TIPO FRAMER (SCROLL REVEAL) ---
-    // Isso faz os elementos "subirem" e aparecerem suavemente quando você rola a tela
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: "0px 0px -50px 0px"
+    // ════════════════════════════════════════
+    // DATA (Substitua pelos seus conteúdos)
+    // ════════════════════════════════════════
+
+    const FLASHCARDS = {
+      c1: [
+        { q: "Insira aqui a primeira pergunta do Módulo 1?", a: "E aqui vai a resposta correspondente à primeira pergunta." },
+        { q: "Qual é o segundo conceito chave abordado no Módulo 1?", a: "A definição ou explicação do segundo conceito chave." },
+      ],
+      c2: [
+        { q: "Insira aqui a pergunta principal do Módulo 2?", a: "Resposta explicativa para a pergunta do Módulo 2." },
+      ],
+      c3: [
+        { q: "Como aplicar os conceitos do Módulo 3?", a: "Exemplo prático de aplicação ou resposta teórica." },
+      ]
     };
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-        }
-      });
-    }, observerOptions);
-
-    // Função para aplicar observador em novos elementos (quando troca de aba)
-    function refreshObserver() {
-      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    }
-
-    // --- 2. ANIMAÇÃO DE DIGITAÇÃO NO HEADER ---
-    const titleText = "Direito Empresarial";
-    const subtitleText = "Plataforma de Estudos Integrada";
-    const titleEl = document.getElementById('hero-title');
-    const subEl = document.getElementById('hero-subtitle');
-
-    // Limpa texto inicial para o efeito
-    titleEl.innerHTML = '<span class="typing-effect"></span>';
-    subEl.innerHTML = '';
-    titleEl.style.opacity = 1; // Remove a opacidade do CSS para o JS controlar
-
-    let i = 0;
-    function typeWriter() {
-      if (i < titleText.length) {
-        document.querySelector('.typing-effect').textContent += titleText.charAt(i);
-        i++;
-        setTimeout(typeWriter, 50); // Velocidade da digitação
-      } else {
-        // Quando termina o título, mostra o subtítulo
-        document.querySelector('.typing-effect').classList.remove('typing-effect'); // Para de piscar
-        subEl.innerText = subtitleText;
-        subEl.style.opacity = 1;
-      }
-    }
-    // Inicia digitação após carregar
-    setTimeout(typeWriter, 500);
-
-
-    // --- DADOS E LÓGICA DO SISTEMA (Igual ao anterior) ---
-
-    const dataMod1 = {
-      flashcards: [
-        { q: "Qual a definição de Título de Crédito?", a: "Documento necessário ao exercício do direito literal e autônomo nele mencionado." },
-        { q: "Princípio da Literalidade?", a: "Só vale o que está escrito no título." },
-        { q: "Duplicata é causal ou abstrata?", a: "Causal (exige venda ou serviço)." },
-        { q: "Quem paga o Cheque (Sacado)?", a: "O Banco." }
-      ],
-      quiz: [
+    const QUIZ = {
+      c1: [
         {
-          question: "A Duplicata exige qual documento prévio?",
-          options: ["Contrato verbal", "Nota Fiscal / Fatura", "Recibo simples", "Nenhum"],
-          correct: 1,
-          explanation: "A Duplicata é um título causal vinculado à fatura."
+          q: "Insira o enunciado da sua primeira questão aqui. O que é correto afirmar?",
+          opts: ["A) Primeira alternativa (Incorreta)", "B) Segunda alternativa (Correta)", "C) Terceira alternativa (Incorreta)", "D) Quarta alternativa (Incorreta)", "E) Quinta alternativa (Incorreta)"],
+          correct: 1, // O índice começa no zero, então '1' corresponde à opção B
+          exp: "Comentário explicando o motivo da alternativa B ser a resposta correta."
         },
         {
-          question: "O cheque pré-datado está na lei?",
-          options: ["Sim, artigo 5º", "Não, é costume comercial", "Sim, mas só para empresas", "Não existe"],
-          correct: 1,
-          explanation: "Legalmente o cheque é ordem de pagamento à vista."
+          q: "Enunciado da segunda questão de múltipla escolha.",
+          opts: ["A) Alternativa correta", "B) Alternativa incorreta", "C) Alternativa incorreta", "D) Alternativa incorreta"],
+          correct: 0, // '0' corresponde à opção A
+          exp: "Explicação breve do motivo para reforçar o aprendizado."
         }
-      ]
-    };
-
-    const dataMod2 = {
-      flashcards: [
-        { q: "Objetivo da Lei 11.101?", a: "Preservar a empresa viável." },
-        { q: "Stay Period?", a: "Suspensão de ações por 180 dias na recuperação." }
       ],
-      quiz: [
+      c2: [
         {
-          question: "Quem administra na Falência?",
-          options: ["O dono", "O Síndico (Administrador Judicial)", "O Banco", "O Juiz"],
-          correct: 1,
-          explanation: "Na falência, o devedor é afastado e o Síndico assume."
+          q: "Questão de exemplo para o Módulo 2.",
+          opts: ["A) Opção 1", "B) Opção 2", "C) Opção correta 3", "D) Opção 4"],
+          correct: 2,
+          exp: "Explicação da questão do Módulo 2."
+        }
+      ],
+      c3: [
+        {
+          q: "Questão de exemplo para o Módulo 3.",
+          opts: ["A) Verdadeiro", "B) Falso"],
+          correct: 0,
+          exp: "Porque os dados comprovam a afirmação."
         }
       ]
     };
 
-    let currentModule = 'mod1';
-    let currentFlashcards = dataMod1.flashcards;
-    let currentQuiz = dataMod1.quiz;
+    // ════════════════════════════════════════
+    // STATE
+    // ════════════════════════════════════════
+    const state = {
+      c1: { cards: [...FLASHCARDS.c1], idx: 0, flipped: false, quizAnswered: [], quizScore: 0, quizDone: false, qIdx: 0 },
+      c2: { cards: [...FLASHCARDS.c2], idx: 0, flipped: false, quizAnswered: [], quizScore: 0, quizDone: false, qIdx: 0 },
+      c3: { cards: [...FLASHCARDS.c3], idx: 0, flipped: false, quizAnswered: [], quizScore: 0, quizDone: false, qIdx: 0 },
+    };
 
-    function switchModule(modId) {
-      currentModule = modId;
-      // Atualiza botões
-      document.querySelectorAll('.module-btn').forEach(btn => btn.classList.remove('active'));
+    // ════════════════════════════════════════
+    // CHAPTER / SUB-SECTION NAV
+    // ════════════════════════════════════════
+    function showChapter(n) {
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      document.getElementById('chapter-' + n).classList.add('active');
+      document.querySelector(`.nav-tab[data-chapter="${n}"]`).classList.add('active');
+    }
+
+    function showSub(cap, sub) {
+      const section = document.getElementById('chapter-' + cap.replace('c', ''));
+      section.querySelectorAll('.sub-section').forEach(s => s.classList.remove('active'));
+      section.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
+      document.getElementById(cap + '-' + sub).classList.add('active');
       event.target.classList.add('active');
 
-      // Atualiza conteúdo
-      document.querySelectorAll('.module-content').forEach(div => div.classList.remove('active'));
-      document.getElementById(modId + '-content').classList.add('active');
+      if (sub === 'flashcard') initFlashcard(cap);
+      if (sub === 'quiz') initQuiz(cap);
+    }
 
-      // Carrega dados corretos
-      if (modId === 'mod1') {
-        currentFlashcards = dataMod1.flashcards;
-        currentQuiz = dataMod1.quiz;
-      } else {
-        currentFlashcards = dataMod2.flashcards;
-        currentQuiz = dataMod2.quiz;
+    // ════════════════════════════════════════
+    // FLASHCARDS
+    // ════════════════════════════════════════
+    function initFlashcard(cap) {
+      const s = state[cap];
+      s.flipped = false;
+      renderCard(cap);
+    }
+
+    function renderCard(cap) {
+      const s = state[cap];
+      const card = s.cards[s.idx];
+      document.getElementById(cap + '-front').textContent = card.q;
+      document.getElementById(cap + '-back').textContent = card.a;
+      document.getElementById(cap + '-fc-counter').textContent = `${s.idx + 1} / ${s.cards.length}`;
+      document.getElementById(cap + '-fc-bar').style.width = ((s.idx + 1) / s.cards.length * 100) + '%';
+      const inner = document.getElementById(cap + '-card');
+      inner.classList.remove('flipped');
+      s.flipped = false;
+    }
+
+    function flipCard(cap) {
+      const s = state[cap];
+      s.flipped = !s.flipped;
+      document.getElementById(cap + '-card').classList.toggle('flipped', s.flipped);
+    }
+
+    function nextCard(cap) {
+      const s = state[cap];
+      if (s.idx < s.cards.length - 1) { s.idx++; renderCard(cap); }
+    }
+
+    function prevCard(cap) {
+      const s = state[cap];
+      if (s.idx > 0) { s.idx--; renderCard(cap); }
+    }
+
+    function shuffleCards(cap) {
+      const s = state[cap];
+      for (let i = s.cards.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [s.cards[i], s.cards[j]] = [s.cards[j], s.cards[i]];
+      }
+      s.idx = 0;
+      renderCard(cap);
+    }
+
+    // ════════════════════════════════════════
+    // QUIZ
+    // ════════════════════════════════════════
+    function initQuiz(cap) {
+      const s = state[cap];
+      s.quizAnswered = new Array(QUIZ[cap].length).fill(null);
+      s.quizScore = 0;
+      s.quizDone = false;
+      s.qIdx = 0;
+      renderQuiz(cap);
+    }
+
+    function renderQuiz(cap) {
+      const s = state[cap];
+      const questions = QUIZ[cap];
+      const container = document.getElementById(cap + '-quiz-content');
+
+      if (s.quizDone) {
+        const pct = Math.round(s.quizScore / questions.length * 100);
+        let msg = pct >= 80 ? '🎉 Excelente! Você domina o conteúdo deste capítulo.' :
+          pct >= 60 ? '📚 Bom resultado! Revise os pontos que errou.' :
+            '🔄 Continue estudando! Releia o resumo e tente novamente.';
+        let color = pct >= 80 ? 'var(--success)' : pct >= 60 ? 'var(--accent)' : 'var(--danger)';
+        container.innerHTML = `
+      <div class="result-card">
+        <div class="result-score" style="color:${color}">${s.quizScore}/${questions.length}</div>
+        <div class="result-label">${pct}% de aproveitamento</div>
+        <div class="result-msg">${msg}</div>
+        <button class="btn btn-primary" onclick="initQuiz('${cap}')">Tentar Novamente</button>
+      </div>`;
+        return;
       }
 
-      // Reseta abas para Resumo
-      showTab('resumo');
-      currentCard = 0;
-      loadCard();
-      loadQuiz();
+      const q = questions[s.qIdx];
+      const letters = ['A', 'B', 'C', 'D', 'E'];
+      const answered = s.quizAnswered[s.qIdx];
 
-      // Reativa animações nos novos elementos
-      setTimeout(refreshObserver, 100);
+      let optsHTML = q.opts.map((opt, i) => {
+        let cls = '';
+        if (answered !== null) {
+          if (i === q.correct) cls = 'correct';
+          else if (i === answered && i !== q.correct) cls = 'wrong';
+        }
+        return `<button class="option ${cls}" onclick="answerQuiz('${cap}', ${i})" ${answered !== null ? 'disabled' : ''}>
+      <span class="opt-letter">${letters[i]}</span>
+      <span>${opt.replace(/^[A-E]\) /, '')}</span>
+    </button>`;
+      }).join('');
+
+      const expDisplay = answered !== null ? 'show' : '';
+
+      container.innerHTML = `
+    <div class="quiz-header">
+      <span class="fc-counter" style="font-family:'DM Mono',monospace;font-size:.8rem;color:var(--text3)">${s.qIdx + 1} de ${questions.length}</span>
+      <span class="quiz-score-badge">Acertos: ${s.quizScore}</span>
+    </div>
+    <div class="fc-progress ${cap}"><div class="fc-progress-bar" style="width:${(s.qIdx / questions.length) * 100}%"></div></div>
+    <div class="question-card">
+      <div class="q-num">QUESTÃO ${String(s.qIdx + 1).padStart(2, '0')}</div>
+      <div class="q-text">${q.q}</div>
+      <div class="options">${optsHTML}</div>
+      <div class="explanation ${expDisplay}">
+        <strong>💡 Comentário:</strong> ${q.exp}
+      </div>
+    </div>
+    <div class="quiz-nav">
+      <button class="btn" onclick="prevQuestion('${cap}')" ${s.qIdx === 0 ? 'disabled' : ''}>← Anterior</button>
+      ${answered !== null
+          ? s.qIdx < questions.length - 1
+            ? `<button class="btn btn-primary" onclick="nextQuestion('${cap}')">Próxima →</button>`
+            : `<button class="btn btn-primary" onclick="finishQuiz('${cap}')">Ver Resultado ✓</button>`
+          : `<span style="font-size:.78rem;color:var(--text3)">Selecione uma alternativa</span>`
+        }
+    </div>`;
     }
 
-    function showTab(tabId) {
-      // Esconde tudo
-      document.getElementById('resumo-mod1').classList.remove('active');
-      document.getElementById('resumo-mod2').classList.remove('active');
-      document.getElementById('flashcards').classList.remove('active');
-      document.getElementById('quiz').classList.remove('active');
-
-      // Tira active dos botões
-      document.querySelectorAll('.tab-nav button').forEach(b => b.classList.remove('active'));
-      event.target.classList.add('active');
-
-      // Mostra o certo
-      if (tabId === 'resumo') {
-        document.getElementById('resumo-' + currentModule).classList.add('active');
-      } else {
-        document.getElementById(tabId).classList.add('active');
-      }
-
-      // Reativa animações
-      setTimeout(refreshObserver, 50);
+    function answerQuiz(cap, chosen) {
+      const s = state[cap];
+      if (s.quizAnswered[s.qIdx] !== null) return;
+      s.quizAnswered[s.qIdx] = chosen;
+      if (chosen === QUIZ[cap][s.qIdx].correct) s.quizScore++;
+      renderQuiz(cap);
     }
 
-    // Lógica Flashcards
-    let currentCard = 0;
-    const cardFront = document.getElementById('fc-question');
-    const cardBack = document.getElementById('fc-answer');
-
-    function loadCard() {
-      const cardEl = document.querySelector('.flashcard');
-      cardEl.classList.remove('flipped');
-      setTimeout(() => {
-        cardFront.textContent = currentFlashcards[currentCard].q;
-        cardBack.textContent = currentFlashcards[currentCard].a;
-      }, 200);
+    function nextQuestion(cap) {
+      state[cap].qIdx++;
+      renderQuiz(cap);
     }
 
-    function nextCard() {
-      currentCard = (currentCard < currentFlashcards.length - 1) ? currentCard + 1 : 0;
-      loadCard();
+    function prevQuestion(cap) {
+      if (state[cap].qIdx > 0) { state[cap].qIdx--; renderQuiz(cap); }
     }
 
-    function prevCard() {
-      currentCard = (currentCard > 0) ? currentCard - 1 : currentFlashcards.length - 1;
-      loadCard();
+    function finishQuiz(cap) {
+      state[cap].quizDone = true;
+      renderQuiz(cap);
     }
 
-    // Lógica Quiz
-    let score = 0;
-    function loadQuiz() {
-      const container = document.getElementById('quiz-container');
-      container.innerHTML = '';
-      score = 0;
-      document.getElementById('score').textContent = score;
-
-      currentQuiz.forEach((item, index) => {
-        const div = document.createElement('div');
-        div.className = 'quiz-question reveal'; // Adiciona classe de animação
-        let opts = '';
-        item.options.forEach((opt, i) => {
-          opts += `<button class="option-btn" onclick="checkAnswer(this, ${index}, ${i})">${opt}</button>`;
-        });
-        div.innerHTML = `<h4>${index + 1}. ${item.question}</h4>${opts}<div class="feedback" id="feed-${index}"></div>`;
-        container.appendChild(div);
-      });
-      refreshObserver();
-    }
-
-    function checkAnswer(btn, qIndex, optIndex) {
-      const q = currentQuiz[qIndex];
-      const feed = document.getElementById(`feed-${qIndex}`);
-      const parent = btn.parentElement;
-
-      if (btn.disabled) return; // Evita duplo clique
-
-      const all = parent.querySelectorAll('.option-btn');
-      all.forEach(b => b.disabled = true);
-
-      if (optIndex === q.correct) {
-        btn.classList.add('correct');
-        feed.style.display = 'block';
-        feed.style.color = '#00d084';
-        feed.innerHTML = `<strong>Correto!</strong> ${q.explanation}`;
-        score++;
-        document.getElementById('score').textContent = score;
-      } else {
-        btn.classList.add('wrong');
-        all[q.correct].classList.add('correct'); // Mostra a certa
-        feed.style.display = 'block';
-        feed.style.color = '#ff6b6b';
-        feed.innerHTML = `<strong>Incorreto.</strong> ${q.explanation}`;
-      }
-    }
-
-    function restartQuiz() {
-      loadQuiz();
-      document.getElementById('quiz').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    // Inicialização
-    loadCard();
-    loadQuiz();
-    refreshObserver(); // Ativa animações iniciais
-
+    // ════════════════════════════════════════
+    // INIT
+    // ════════════════════════════════════════
+    initFlashcard('c1');
+    initFlashcard('c2');
+    initFlashcard('c3');
   </script>
-
 </body>
 
 </html>
