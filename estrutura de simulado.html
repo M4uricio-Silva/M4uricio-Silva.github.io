@@ -2,843 +2,630 @@
 <html lang="pt-BR">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Estudo: Direito Empresarial - UFRN</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulado UFRN — Custos e Fome de Poder</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #08101f;
+            --surface: #121b2e;
+            --surface2: #172438;
+            --surface3: #1e2d43;
+            --border: #2e4f77;
+            --accent: #ff8bc6;
+            /* Rosa choque para o simulado final */
+            --danger: #ff7c74;
+            --success: #7adca7;
+            --text: #ecf3ff;
+            --text2: #acc4dd;
+            --text3: #6b85a1;
+        }
 
-    :root {
-      --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-      --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-      --dark-bg: #0f0f1e;
-      --card-bg: rgba(255, 255, 255, 0.08);
-      --card-border: rgba(255, 255, 255, 0.15);
-      --text-primary: #ffffff;
-      --text-secondary: #b0b0c0;
-      --success: #00d084;
-      --error: #ff6b6b;
-      --warning: #ffa502;
-    }
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--dark-bg);
-      color: var(--text-primary);
-      line-height: 1.7;
-      overflow-x: hidden;
-      position: relative;
-    }
+        /* ─── BACKGROUND NOISE ─── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+        }
 
-    /* BACKGROUND ANIMADO */
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.1) 0%, transparent 50%);
-      animation: gradientShift 15s ease infinite;
-      z-index: -1;
-      pointer-events: none;
-    }
+        /* ─── HERO ─── */
+        .hero {
+            position: relative;
+            padding: 60px 24px 40px;
+            text-align: center;
+        }
 
-    @keyframes gradientShift {
+        .hero-eyebrow {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
 
-      0%,
-      100% {
-        filter: hue-rotate(0deg);
-      }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
 
-      50% {
-        filter: hue-rotate(20deg);
-      }
-    }
+        .hero h1 em {
+            font-style: italic;
+            color: var(--accent);
+        }
 
-    /* --- ANIMAÇÕES ESTILO FRAMER (SCROLL REVEAL) --- */
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px) scale(0.98);
-      transition: all 0.8s cubic-bezier(0.17, 0.55, 0.55, 1);
-      /* Curva suave do Framer */
-      filter: blur(10px);
-    }
+        /* ─── MAIN CONTENT ─── */
+        .main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px 20px 100px;
+            position: relative;
+            z-index: 10;
+        }
 
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      filter: blur(0);
-    }
+        /* ─── QUIZ STYLES ─── */
+        .quiz-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
 
-    /* --- HEADER COM EFEITO DIGITAÇÃO --- */
-    header {
-      background: var(--primary-gradient);
-      color: white;
-      padding: 4rem 1.5rem;
-      /* Mais espaço como no Framer */
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
-    }
+        .quiz-score-badge {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.8rem;
+            padding: 6px 14px;
+            border-radius: 24px;
+            background: var(--surface3);
+            color: var(--text2);
+        }
 
-    /* Detalhes flutuantes no fundo */
-    header::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -10%;
-      width: 300px;
-      height: 300px;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
-      border-radius: 50%;
-      animation: float 20s ease-in-out infinite;
-    }
+        .progress-bar-container {
+            height: 4px;
+            background: var(--surface3);
+            border-radius: 2px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
 
-    header h1 {
-      margin: 0;
-      font-size: 3rem;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 800;
-      position: relative;
-      z-index: 1;
-      letter-spacing: -1.5px;
-      text-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      opacity: 0;
-      /* Começa invisível para animar */
-      animation: fadeInUp 1s cubic-bezier(0.17, 0.55, 0.55, 1) forwards;
-    }
+        .progress-bar {
+            height: 100%;
+            background: var(--accent);
+            transition: width 0.4s ease;
+        }
 
-    /* Efeito de cursor piscando */
-    .typing-effect::after {
-      content: '|';
-      animation: blink 1s infinite;
-      color: var(--accent-gradient);
-    }
+        .question-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.4s ease;
+        }
 
-    @keyframes blink {
+        .q-num {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text3);
+            margin-bottom: 16px;
+            letter-spacing: 1.5px;
+        }
 
-      0%,
-      100% {
-        opacity: 1;
-      }
+        .q-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            line-height: 1.6;
+            color: var(--text);
+            margin-bottom: 28px;
+        }
 
-      50% {
-        opacity: 0;
-      }
-    }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
 
-    header p {
-      margin: 15px 0 0 0;
-      opacity: 0;
-      font-size: 1.1rem;
-      position: relative;
-      z-index: 1;
-      font-weight: 300;
-      animation: fadeInUp 1s cubic-bezier(0.17, 0.55, 0.55, 1) 0.3s forwards;
-      /* Delay */
-    }
+        .option {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px 20px;
+            border-radius: 16px;
+            border: 1.5px solid var(--border);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+            color: var(--text2);
+            line-height: 1.5;
+            background: transparent;
+            text-align: left;
+            font-family: 'DM Sans', sans-serif;
+            width: 100%;
+        }
 
-    /* --- MÓDULOS E NAVEGAÇÃO --- */
-    .module-selector {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      padding: 2rem 1rem;
-      background: linear-gradient(180deg, rgba(15, 15, 30, 0.8) 0%, rgba(15, 15, 30, 0.5) 100%);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--card-border);
-      flex-wrap: wrap;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
+        .option:hover:not(:disabled) {
+            border-color: var(--text3);
+            background: var(--surface2);
+            color: var(--text);
+        }
 
-    .module-btn {
-      padding: 12px 28px;
-      border: 1px solid var(--card-border);
-      background: rgba(255, 255, 255, 0.03);
-      color: var(--text-secondary);
-      cursor: pointer;
-      font-weight: 600;
-      border-radius: 30px;
-      /* Arredondado estilo Framer */
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      font-family: 'Inter', sans-serif;
-      font-size: 0.95rem;
-    }
+        .option .opt-letter {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 600;
+            min-width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: var(--surface3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text3);
+            flex-shrink: 0;
+        }
 
-    .module-btn:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: white;
-      transform: translateY(-2px);
-    }
+        /* Status das Respostas */
+        .option.correct {
+            border-color: var(--success);
+            background: rgba(122, 220, 167, 0.08);
+            color: #a3d9b1;
+        }
 
-    .module-btn.active {
-      background: white;
-      color: black;
-      /* Alto contraste estilo Framer */
-      border-color: white;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-      transform: scale(1.05);
-    }
+        .option.correct .opt-letter {
+            background: var(--success);
+            color: #000;
+        }
 
-    .tab-nav {
-      display: flex;
-      justify-content: center;
-      background: rgba(15, 15, 30, 0.5);
-      backdrop-filter: blur(15px);
-      border-bottom: 1px solid var(--card-border);
-      margin-bottom: 2rem;
-    }
+        .option.wrong {
+            border-color: var(--danger);
+            background: rgba(255, 124, 116, 0.08);
+            color: #ffb3ae;
+        }
 
-    .tab-nav button {
-      background: none;
-      border: none;
-      color: var(--text-secondary);
-      padding: 18px 28px;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-      font-weight: 500;
-      position: relative;
-      font-family: 'Inter', sans-serif;
-    }
+        .option.wrong .opt-letter {
+            background: var(--danger);
+            color: #000;
+        }
 
-    .tab-nav button::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0;
-      height: 3px;
-      background: var(--accent-gradient);
-      transition: width 0.3s cubic-bezier(0.23, 1, 0.320, 1);
-      border-radius: 3px;
-    }
+        .option:disabled {
+            cursor: default;
+        }
 
-    .tab-nav button.active {
-      color: var(--text-primary);
-    }
+        .explanation {
+            margin-top: 24px;
+            padding: 18px 24px;
+            background: var(--surface2);
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+            font-size: 0.9rem;
+            color: var(--text2);
+            line-height: 1.7;
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
 
-    .tab-nav button.active::after {
-      width: 50%;
-    }
+        .explanation.show {
+            display: block;
+        }
 
-    /* MAIN CONTENT */
-    main {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 0 1rem 4rem 1rem;
-      min-height: 60vh;
-    }
+        .explanation strong {
+            color: var(--text);
+        }
 
-    .module-content,
-    .tab-content {
-      display: none;
-    }
+        .quiz-nav {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 24px;
+        }
 
-    .module-content.active,
-    .tab-content.active {
-      display: block;
-      /* Animação de troca suave */
-      animation: fadeInSoft 0.5s ease forwards;
-    }
+        .btn {
+            padding: 12px 28px;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1.5px solid var(--accent);
+            background: var(--accent);
+            color: #000;
+            transition: all 0.2s;
+            font-family: 'DM Sans', sans-serif;
+            box-shadow: 0 4px 15px rgba(255, 139, 198, 0.3);
+        }
 
-    @keyframes fadeInSoft {
-      from {
-        opacity: 0;
-        transform: scale(0.99);
-      }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 139, 198, 0.4);
+        }
 
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
+        /* ─── RESULTADO FINAL ─── */
+        .result-card {
+            text-align: center;
+            padding: 60px 40px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.5s ease;
+        }
 
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
+        .result-score {
+            font-family: 'Playfair Display', serif;
+            font-size: 6rem;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 12px;
+        }
 
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+        .result-label {
+            font-size: 1rem;
+            color: var(--text2);
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
 
-    /* CARDS */
-    .summary-card {
-      background: var(--card-bg);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--card-border);
-      padding: 2.5rem;
-      margin-bottom: 1.5rem;
-      border-radius: 24px;
-      /* Bordas mais arredondadas */
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
-      /* Sombra difusa */
-      transition: transform 0.4s cubic-bezier(0.17, 0.55, 0.55, 1), box-shadow 0.4s ease;
-      border-left: 4px solid transparent;
-    }
+        .result-msg {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text);
+            margin-bottom: 40px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
-    .summary-card:hover {
-      transform: translateY(-5px) scale(1.01);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-      border-color: rgba(255, 255, 255, 0.3);
-    }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
 
-    .summary-card h3 {
-      color: var(--text-primary);
-      margin-top: 0;
-      border-bottom: 1px solid var(--card-border);
-      padding-bottom: 12px;
-      font-size: 1.5rem;
-      font-family: 'Poppins', sans-serif;
-    }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    .summary-card h4 {
-      color: #4facfe;
-      /* Cor sólida para melhor leitura no gradiente */
-      margin-bottom: 8px;
-      margin-top: 1.5rem;
-      font-weight: 700;
-      font-size: 1.1rem;
-    }
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
 
-    .summary-card p,
-    .summary-card li {
-      color: var(--text-secondary);
-      margin-bottom: 12px;
-      line-height: 1.8;
-    }
+            .question-card {
+                padding: 24px 20px;
+            }
 
-    /* TAGS */
-    .tag {
-      display: inline-block;
-      background: rgba(45, 156, 219, 0.15);
-      color: #4facfe;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      margin-right: 8px;
-      margin-bottom: 8px;
-      font-weight: 600;
-      border: 1px solid rgba(79, 172, 254, 0.3);
-    }
-
-    /* FLASHCARDS */
-    .flashcard-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 2rem;
-    }
-
-    .flashcard {
-      background: transparent;
-      width: 100%;
-      max-width: 650px;
-      height: 350px;
-      perspective: 1000px;
-      cursor: pointer;
-      margin-bottom: 2rem;
-    }
-
-    .flashcard-inner {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      text-align: center;
-      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-      /* Flip mais rápido e suave */
-      transform-style: preserve-3d;
-      border-radius: 24px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-    }
-
-    .flashcard.flipped .flashcard-inner {
-      transform: rotateY(180deg);
-    }
-
-    .flashcard-front,
-    .flashcard-back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      -webkit-backface-visibility: hidden;
-      backface-visibility: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 40px;
-      border-radius: 24px;
-      flex-direction: column;
-      border: 1px solid var(--card-border);
-      backdrop-filter: blur(20px);
-    }
-
-    .flashcard-front {
-      background: linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, rgba(0, 242, 254, 0.05) 100%);
-      color: white;
-      font-weight: 700;
-      font-size: 1.4rem;
-    }
-
-    .flashcard-back {
-      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.05) 100%);
-      color: white;
-      transform: rotateY(180deg);
-      font-size: 1.1rem;
-      line-height: 1.6;
-    }
-
-    /* CONTROLS & BUTTONS */
-    .controls {
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      margin-top: 1.5rem;
-    }
-
-    .btn {
-      padding: 12px 28px;
-      background: white;
-      color: black;
-      border: none;
-      border-radius: 30px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.3s ease;
-      font-family: 'Inter', sans-serif;
-      box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
-    }
-
-    .btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
-    }
-
-    /* QUIZ */
-    .quiz-question {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      padding: 2rem;
-      border-radius: 24px;
-      margin-bottom: 1.5rem;
-    }
-
-    .option-btn {
-      display: block;
-      width: 100%;
-      padding: 16px 20px;
-      margin-top: 12px;
-      border: 1px solid var(--card-border);
-      background: rgba(255, 255, 255, 0.05);
-      text-align: left;
-      cursor: pointer;
-      border-radius: 12px;
-      transition: all 0.2s ease;
-      color: var(--text-secondary);
-      font-size: 1rem;
-    }
-
-    .option-btn:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: white;
-      transform: translateX(5px);
-    }
-
-    .option-btn.correct {
-      background: rgba(0, 208, 132, 0.2);
-      border-color: var(--success);
-      color: var(--success);
-    }
-
-    .option-btn.wrong {
-      background: rgba(255, 107, 107, 0.2);
-      border-color: var(--error);
-      color: var(--error);
-    }
-
-    .feedback {
-      margin-top: 1.5rem;
-      padding: 1rem;
-      border-radius: 12px;
-      display: none;
-      background: rgba(0, 0, 0, 0.3);
-    }
-
-    footer {
-      text-align: center;
-      padding: 4rem 1.5rem;
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      border-top: 1px solid var(--card-border);
-      margin-top: 4rem;
-    }
-
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 2rem;
-      }
-
-      .module-selector {
-        top: 0;
-      }
-
-      .flashcard {
-        height: 280px;
-      }
-    }
-  </style>
+            .option {
+                padding: 14px 16px;
+                gap: 12px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-  <header>
-    <h1 id="hero-title">Direito Empresarial</h1>
-    <p id="hero-subtitle">Plataforma de Estudos para Administração UFRN</p>
-  </header>
-
-  <div class="module-selector reveal">
-    <button class="module-btn active" onclick="switchModule('mod1')">1. Títulos de Crédito</button>
-    <button class="module-btn" onclick="switchModule('mod2')">2. Crise e Falência</button>
-  </div>
-
-  <nav class="tab-nav reveal">
-    <button class="active" onclick="showTab('resumo')">📚 Resumo</button>
-    <button onclick="showTab('flashcards')">💡 Flashcards</button>
-    <button onclick="showTab('quiz')">✅ Simulado</button>
-  </nav>
-
-  <main>
-    <div id="mod1-content" class="module-content active">
-      <div id="resumo-mod1" class="tab-content active">
-
-        <div class="summary-card reveal" style="border-left-color: #4facfe;">
-          <h3>Fala, Administrador! 🎓</h3>
-          <p>Este material cobre os pontos centrais do PDF, focando na função econômica e nas características
-            operacionais dos títulos.</p>
-        </div>
-
-        <div class="summary-card reveal">
-          <h3>1. O Conceito Fundamental</h3>
-          <p>Definição clássica de <strong>Cesare Vivante</strong>:</p>
-          <blockquote
-            style="background: rgba(102, 126, 234, 0.1); padding: 15px; border-radius: 12px; margin: 1rem 0; font-style: italic;">
-            "Título de crédito é o documento necessário ao exercício do direito literal e autônomo nele mencionado."
-          </blockquote>
-        </div>
-
-        <div class="summary-card reveal">
-          <h3>2. Os 3 Princípios (Pilares)</h3>
-          <ul>
-            <li><strong>Literalidade:</strong> Vale apenas o que está escrito.</li>
-            <li><strong>Cartularidade:</strong> O direito está no documento físico (ou eletrônico hoje em dia).</li>
-            <li><strong>Autonomia:</strong> O direito é novo, independente de quem o portava antes.</li>
-          </ul>
-        </div>
-
-        <div class="summary-card reveal">
-          <h3>3. As Espécies de Títulos</h3>
-          <h4>A. Duplicata (O Título Brasileiro)</h4>
-          <span class="tag">Causal</span> <span class="tag">Mercantil</span>
-          <p>Título vinculado obrigatoriamente a uma nota fiscal de serviço ou venda.</p>
-
-          <h4>B. Cheque</h4>
-          <span class="tag">Ordem de Pagamento</span> <span class="tag">À Vista</span>
-          <p>Ordem de pagamento à vista. A pós-datação é apenas costume comercial.</p>
-        </div>
-      </div>
+    <div class="hero">
+        <div class="hero-eyebrow">Preparatório Final — Prova 16/04</div>
+        <h1>Simulado <em>UFRN</em></h1>
     </div>
 
-    <div id="mod2-content" class="module-content">
-      <div id="resumo-mod2" class="tab-content active">
-        <div class="summary-card reveal" style="border-left-color: #ff6b6b;">
-          <h3>Crise Empresarial</h3>
-          <p>A Lei nº 11.101/2005 visa preservar a empresa viável e liquidar a inviável.</p>
-        </div>
-        <div class="summary-card reveal">
-          <h3>Recuperação vs. Falência</h3>
-          <p><strong>Recuperação:</strong> Tenta salvar a empresa (Stay Period de 180 dias).</p>
-          <p><strong>Falência:</strong> Liquidação dos ativos para pagar credores.</p>
-        </div>
-      </div>
+    <div class="main" id="app-container">
     </div>
 
-    <div id="flashcards" class="tab-content">
-      <div class="flashcard-container reveal">
-        <div class="flashcard" onclick="this.classList.toggle('flipped')">
-          <div class="flashcard-inner">
-            <div class="flashcard-front">
-              <span id="fc-question">Carregando...</span>
-            </div>
-            <div class="flashcard-back">
-              <span id="fc-answer">Carregando...</span>
-            </div>
-          </div>
-        </div>
-        <div class="controls">
-          <button class="btn" onclick="prevCard()">⬅ Anterior</button>
-          <button class="btn" onclick="nextCard()">Próximo ➡</button>
-        </div>
-      </div>
-    </div>
+    <script>
+        // ════════════════════════════════════════
+        // DADOS DO SIMULADO (14 Questões)
+        // ════════════════════════════════════════
+        const QUESTIONS = [
+            {
+                q: "A IFRS 18 introduz categorias rigorosas para classificação na Demonstração do Resultado do Exercício. Considerando o impacto gerencial dessas normas e a granularidade do sistema de custeio, assinale a alternativa correta:",
+                opts: [
+                    "A) A granularidade do sistema gerencial deve ser sempre maximizada para atender estritamente aos novos relatórios da IFRS 18, ignorando a relação de custos operacionais do sistema.",
+                    "B) A IFRS 18 padroniza a DRE em cinco categorias principais, enquanto a definição da granularidade interna para gestão de custos deve respeitar o equilíbrio estrito da relação Custo versus Benefício.",
+                    "C) Entidades intermediárias de custeio representam o destino final e obrigatório das alocações da IFRS 18 voltadas ao mercado de capitais.",
+                    "D) A perspectiva da contabilidade gerencial atua de forma subordinada à perspectiva tributária, adotando os mesmos parâmetros rígidos de classificação."
+                ],
+                correct: 1,
+                exp: "A norma estrutura a DRE (Operacional, Investimento, Financiamento, Tributos, Descontinuadas) para comparabilidade externa. Porém, na contabilidade gerencial, o nível de detalhamento (granularidade) interno depende estritamente da relação Custo x Benefício."
+            },
+            {
+                q: "Com a transição da Era Mercantilista para a Revolução Industrial, o modo de avaliar os estoques no Balanço Patrimonial sofreu profunda alteração. O que exigiu o surgimento formal da Contabilidade de Custos nesse cenário?",
+                opts: [
+                    "A) A consolidação das partidas dobradas por Luca Pacioli, que exigiu que os comerciantes marítimos rateassem suas viagens em produtos.",
+                    "B) A necessidade tributária de calcular o Custo das Mercadorias Vendidas (CMV) utilizando apenas os inventários inicial e final.",
+                    "C) A substituição da simples compra para revenda pela necessidade de valorar internamente os fatores de produção consumidos na transformação.",
+                    "D) A imposição de auditores independentes para mensurar o Dano Emergente causado pelo sucateamento das manufaturas."
+                ],
+                correct: 2,
+                exp: "A conta 'Compras' da era comercial perdeu sentido. A indústria passou a fabricar, precisando mensurar e ativar no estoque os pilares do custo: Materiais Diretos, Mão de Obra e Custos Indiretos."
+            },
+            {
+                q: "Analise o fluxo contábil temporal e espacial da aquisição de uma grande remessa de matéria-prima até a venda final do produto acabado. Qual a sequência técnica correta de transição?",
+                opts: [
+                    "A) Desembolso, seguido de Despesa, convertendo-se em Custo e encerrando-se como Perda.",
+                    "B) Gasto, seguido de Investimento no almoxarifado, transformando-se em Custo na fábrica e baixado como Despesa na venda.",
+                    "C) Gasto, seguido imediatamente de Custo, estocado como Investimento final e resultando no Desembolso.",
+                    "D) Investimento inicial, gerando um Gasto na produção, baixado como Despesa e finalizando como Custo irrecuperável."
+                ],
+                correct: 1,
+                exp: "O sacrifício financeiro original é o Gasto. Ao entrar no almoxarifado vira Investimento (Ativo). Ao ser requisitado pela fábrica vira Custo de Produção (Ativo). Ao ser vendido, afeta o resultado como Despesa (CPV)."
+            },
+            {
+                q: "Durante a produção de mesas, uma quantidade previsível de serragem é gerada no corte. Na semana seguinte, uma pane elétrica externa paralisa a fábrica, causando ociosidade da mão de obra. Na teoria de custos, como esses consumos são classificados, respectivamente?",
+                opts: [
+                    "A) Como Despesa de Produção e Perda Patrimonial.",
+                    "B) Como Perda Anormal e Despesa Extraordinária.",
+                    "C) Como Custo de Produção e Perda.",
+                    "D) Como Custo Indireto e Custo Direto da Ociosidade."
+                ],
+                correct: 2,
+                exp: "A serragem é uma perda normal (inerente e intencional do processo), logo compõe o Custo de Produção. A pane elétrica é um evento anormal, involuntário e externo, sendo lançada diretamente na DRE como Perda."
+            },
+            {
+                q: "O Princípio do Custo Histórico é a base de registro de ativos, mas em economias com alto índice inflacionário sua aplicação sem correção gera uma distorção perigosa. Assinale a consequência direta dessa manutenção rígida:",
+                opts: [
+                    "A) Subavaliação do lucro bruto, prejudicando os repasses de dividendos aos acionistas minoritários.",
+                    "B) Confrontação de um CPV superavaliado com receitas de poder aquisitivo baixo.",
+                    "C) Surgimento de lucros operacionais ilusórios, pois confronta-se uma receita em moeda atualizada com um custo consumido em moeda defasada.",
+                    "D) Aumento drástico da Margem de Contribuição, blindando a empresa de despesas operacionais."
+                ],
+                correct: 2,
+                exp: "Ao vender hoje (preço alto inflacionado) um produto feito meses atrás (custo histórico baixo sem correção), a diferença cria um 'Lucro Ilusório' gigantesco, tributando a empresa sobre um ganho irreal."
+            },
+            {
+                q: "A regra oficial e conservadora para a valoração dos estoques no encerramento do Balanço Patrimonial determina que o estoque deve figurar pelo:",
+                opts: [
+                    "A) Valor Realizável Líquido em todas as circunstâncias, ajustando sempre para valor de mercado.",
+                    "B) Custo de Aquisição ou Valor Realizável Líquido, devendo prevalecer dos dois o menor.",
+                    "C) Custo Histórico somado à correção integral do Imposto de Renda.",
+                    "D) Custo de Reposição ou Margem de Contribuição, prevalecendo o maior."
+                ],
+                correct: 1,
+                exp: "Essa é a aplicação prática da Convenção da Prudência. Se o preço estimado de venda líquido (VRL) cair abaixo do custo de fabricação/aquisição, o contador deve assumir a perda e registrar o menor valor."
+            },
+            {
+                q: "O Princípio da Realização da Receita (alinhado à Competência) estabelece o momento em que a contabilidade diverge da visão econômica pura. O lucro, na contabilidade oficial, apenas é reconhecido:",
+                opts: [
+                    "A) Durante o avanço físico do processo de fabricação (agregação de valor).",
+                    "B) No momento da venda (transferência de riscos/benefícios para terceiros), independente do fluxo de caixa.",
+                    "C) Na compensação efetiva do recebimento na conta bancária.",
+                    "D) Após a entrega física no almoxarifado de Produtos Acabados."
+                ],
+                correct: 1,
+                exp: "Para a Contabilidade, o lucro não é gerado na prateleira da fábrica. Ele exige o momento de realização (venda/transferência), ocasião em que as despesas são confrontadas (Competência)."
+            },
+            {
+                q: "O tratamento contábil obrigatório para as operações de arrendamento mercantil financeiro (Leasing) é um exemplo clássico de que princípio/convenção?",
+                opts: [
+                    "A) Princípio da Realização da Receita.",
+                    "B) Prevalência da Essência Econômica sobre a Forma Jurídica.",
+                    "C) Convenção da Consistência.",
+                    "D) Convenção da Materialidade."
+                ],
+                correct: 1,
+                exp: "A 'forma jurídica' do Leasing é um aluguel, mas a 'essência econômica' é a de uma compra financiada (a empresa detém os riscos e benefícios do bem). A Contabilidade exige contabilizar a essência (Ativo + Passivo)."
+            },
+            {
+                q: "O Custeio por Absorção é o método exigido pela Legislação Fiscal Brasileira. Sua premissa central exige que:",
+                opts: [
+                    "A) Absolutamente todos os custos relativos ao esforço fabril (fixos/variáveis, diretos/indiretos) sejam alocados aos estoques produzidos, jamais estocando despesas.",
+                    "B) O produto absorva proporcionalmente as despesas financeiras caso o dinheiro tenha sido levantado para comprar matéria-prima.",
+                    "C) Somente a parcela variável dos fatores de produção acompanhe o produto, isolando os fixos na DRE.",
+                    "D) As despesas com pesquisa e publicidade sejam retidas no Ativo da Ordem de Produção."
+                ],
+                correct: 0,
+                exp: "Regra de Ouro do Absorção: Tudo o que é gasto da porta da fábrica para dentro (Custo) vai para o produto. Tudo o que é escritório/vendas/financeiro (Despesa) vai direto para a DRE."
+            },
+            {
+                q: "Para evitar um rateio excessivamente arbitrário e irreal, caso o gasto com honorários da Diretoria Global precise ser rateado, a contabilidade utiliza a restrição da prudência para:",
+                opts: [
+                    "A) Apropriar a maior parte aos produtos em elaboração para resguardar a margem bruta global.",
+                    "B) Aplicar o método ABC ignorando as restrições hierárquicas.",
+                    "C) Lançar todo o valor questionável integralmente como Despesa, evitando a retenção do gasto fictício no Ativo.",
+                    "D) Repassar os honorários inteiramente como Perda Anormal Operacional."
+                ],
+                correct: 2,
+                exp: "Na dúvida entre jogar a carga para o resultado do mês (Despesa) ou ativar para o futuro (Custo), o conservadorismo manda reconhecer a Despesa imediatamente, impedindo a superavaliação ilusória dos estoques."
+            },
+            {
+                q: "Ao utilizar o método do Custeio Variável em relatórios internos, o gestor exclui a carga fixa do custo dos produtos fabricados. Essa divisão tem como finalidade apurar de imediato:",
+                opts: [
+                    "A) A viabilidade dos estoques pelo método BR GAAP antes da publicação obrigatória.",
+                    "B) A Margem de Contribuição, evidenciando o quanto cada unidade vendida gera de ganho livre para quitar os Custos Fixos em busca do lucro.",
+                    "C) O Custo de Reposição alinhado à Convenção da Materialidade.",
+                    "D) A taxa de retorno (ROI) exigida pelos auditores independentes."
+                ],
+                correct: 1,
+                exp: "A Margem de Contribuição (Receita - Gastos Variáveis) é o coração da gestão interna de preços. Ela responde o quanto sobra da venda do produto para ajudar a pagar a estrutura fixa da empresa."
+            },
+            {
+                q: "Uma vez que o Custo de Produção encerra-se quando a mercadoria final está pronta, qual a classificação aplicável a embalagens de manuseio externo e displays expositores encomendados para entregar nos revendedores parceiros?",
+                opts: [
+                    "A) Integram normalmente os Custos Indiretos de Fabricação da OP.",
+                    "B) Representam Perdas Normais na logística promocional.",
+                    "C) Constituem Despesas Comerciais e de Vendas, indo integralmente à DRE.",
+                    "D) Tornam-se Investimentos Intangíveis."
+                ],
+                correct: 2,
+                exp: "O limite técnico do custo é a fábrica. Esforços logísticos, de distribuição e exposição em ponto de venda ocorrem após a produção e objetivam gerar receita, classificando-se como Despesas de Vendas."
+            },
+            {
+                q: "No filme Fome de Poder (The Founder), a inovação do 'Speedee Service System' desenhou rigorosamente uma nova cozinha. Traduzindo isso para a contabilidade de custos, o que essa coreografia buscou eliminar?",
+                opts: [
+                    "A) A imposição legal de usar o Custeio Baseado em Atividades na Califórnia.",
+                    "B) A Margem de Contribuição dos lanches e o retorno sobre o investimento imobiliário.",
+                    "C) O 'custo inimigo' e os desperdícios gerados pela ociosidade, maximizando a eficiência da Mão de Obra para diluir os CIFs em altíssimo volume.",
+                    "D) A aplicação do Princípio da Competência sobre perdas anormais de pão."
+                ],
+                correct: 2,
+                exp: "Tempo é dinheiro (literalmente MOD ociosa). A eliminação de passos em falso e cruzamentos na cozinha visava extirpar gargalos, permitindo produzir muito mais unidades no mesmo espaço de tempo, diluindo os custos fixos."
+            },
+            {
+                q: "A maior guinada em Fome de Poder ocorre quando Harry Sonneborn muda o foco: 'Você não está no negócio de hambúrgueres'. Como a fundação da Franchise Realty Corp solucionou a fragilidade financeira da operação por uma visão patrimonial?",
+                opts: [
+                    "A) A empresa passou a dominar os fornecedores ativando passivos ocultos.",
+                    "B) Evitou o rateio forçado pelo Custeio Variável que Kroc pagava à vista.",
+                    "C) Substituiu um modelo dependente de margens ilusórias de frações de lanches por Ativos Imobilizados tangíveis e receitas previsíveis de arrendamento de terrenos.",
+                    "D) Permitiu apurar Custos Históricos isentos de inflação retroativa nas cozinhas."
+                ],
+                correct: 2,
+                exp: "Kroc tinha problemas de fluxo de caixa porque dependia de uma ínfima porcentagem sobre lanches (difícil controle). Comprar os terrenos e arrendá-los aos franqueados criou um Ativo Imobilizado poderoso, dando garantia para empréstimos bancários e fluxo de caixa certo."
+            }
+        ];
 
-    <div id="quiz" class="tab-content">
-      <div class="score-board reveal" style="text-align:center; font-size:1.5rem; margin-bottom:20px;">Pontuação: <span
-          id="score">0</span></div>
-      <div id="quiz-container"></div>
-      <div style="text-align: center; margin-top: 2rem;" class="reveal">
-        <button class="btn" onclick="restartQuiz()">Reiniciar</button>
-      </div>
-    </div>
-  </main>
+        // ════════════════════════════════════════
+        // ESTADO DO APLICATIVO
+        // ════════════════════════════════════════
+        let currentQuestion = 0;
+        let score = 0;
+        let hasAnsweredCurrent = false;
 
-  <footer>
-    <p>Ferramenta de estudo personalizada para Administração - UFRN.</p>
-  </footer>
+        const container = document.getElementById('app-container');
 
-  <script>
-    // --- 1. ANIMAÇÃO TIPO FRAMER (SCROLL REVEAL) ---
-    // Isso faz os elementos "subirem" e aparecerem suavemente quando você rola a tela
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: "0px 0px -50px 0px"
-    };
+        function renderQuestion() {
+            if (currentQuestion >= QUESTIONS.length) {
+                renderResult();
+                return;
+            }
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
+            const q = QUESTIONS[currentQuestion];
+            const letters = ['A', 'B', 'C', 'D'];
+            const progressPct = ((currentQuestion) / QUESTIONS.length) * 100;
+
+            let html = `
+                <div class="quiz-header">
+                    <span class="q-num">QUESTÃO ${String(currentQuestion + 1).padStart(2, '0')} DE 14</span>
+                    <span class="quiz-score-badge">Acertos: ${score}</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: ${progressPct}%"></div>
+                </div>
+
+                <div class="question-card">
+                    <div class="q-text">${q.q}</div>
+                    <div class="options" id="options-container">
+                        ${q.opts.map((opt, i) => `
+                            <button class="option" id="opt-${i}" onclick="selectAnswer(${i})">
+                                <span class="opt-letter">${letters[i]}</span>
+                                <span>${opt.substring(3)}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div class="explanation" id="explanation">
+                        <strong>🎯 Resolução:</strong> <span id="exp-text"></span>
+                    </div>
+                    <div class="quiz-nav">
+                        <button class="btn" id="next-btn" style="display: none;" onclick="nextQuestion()">Próxima Questão →</button>
+                    </div>
+                </div>
+            `;
+            container.innerHTML = html;
+            hasAnsweredCurrent = false;
         }
-      });
-    }, observerOptions);
 
-    // Função para aplicar observador em novos elementos (quando troca de aba)
-    function refreshObserver() {
-      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    }
+        window.selectAnswer = function (index) {
+            if (hasAnsweredCurrent) return;
+            hasAnsweredCurrent = true;
 
-    // --- 2. ANIMAÇÃO DE DIGITAÇÃO NO HEADER ---
-    const titleText = "Direito Empresarial";
-    const subtitleText = "Plataforma de Estudos Integrada";
-    const titleEl = document.getElementById('hero-title');
-    const subEl = document.getElementById('hero-subtitle');
+            const q = QUESTIONS[currentQuestion];
+            const buttons = document.querySelectorAll('.option');
+            const explanation = document.getElementById('explanation');
+            const expText = document.getElementById('exp-text');
+            const nextBtn = document.getElementById('next-btn');
 
-    // Limpa texto inicial para o efeito
-    titleEl.innerHTML = '<span class="typing-effect"></span>';
-    subEl.innerHTML = '';
-    titleEl.style.opacity = 1; // Remove a opacidade do CSS para o JS controlar
+            // Desabilita botões
+            buttons.forEach(btn => btn.disabled = true);
 
-    let i = 0;
-    function typeWriter() {
-      if (i < titleText.length) {
-        document.querySelector('.typing-effect').textContent += titleText.charAt(i);
-        i++;
-        setTimeout(typeWriter, 50); // Velocidade da digitação
-      } else {
-        // Quando termina o título, mostra o subtítulo
-        document.querySelector('.typing-effect').classList.remove('typing-effect'); // Para de piscar
-        subEl.innerText = subtitleText;
-        subEl.style.opacity = 1;
-      }
-    }
-    // Inicia digitação após carregar
-    setTimeout(typeWriter, 500);
+            // Verifica acerto
+            if (index === q.correct) {
+                document.getElementById(`opt-${index}`).classList.add('correct');
+                score++;
+                document.querySelector('.quiz-score-badge').textContent = `Acertos: ${score}`;
+            } else {
+                document.getElementById(`opt-${index}`).classList.add('wrong');
+                document.getElementById(`opt-${q.correct}`).classList.add('correct');
+            }
 
+            // Mostra explicação
+            expText.textContent = q.exp;
+            explanation.classList.add('show');
 
-    // --- DADOS E LÓGICA DO SISTEMA (Igual ao anterior) ---
-
-    const dataMod1 = {
-      flashcards: [
-        { q: "Qual a definição de Título de Crédito?", a: "Documento necessário ao exercício do direito literal e autônomo nele mencionado." },
-        { q: "Princípio da Literalidade?", a: "Só vale o que está escrito no título." },
-        { q: "Duplicata é causal ou abstrata?", a: "Causal (exige venda ou serviço)." },
-        { q: "Quem paga o Cheque (Sacado)?", a: "O Banco." }
-      ],
-      quiz: [
-        {
-          question: "A Duplicata exige qual documento prévio?",
-          options: ["Contrato verbal", "Nota Fiscal / Fatura", "Recibo simples", "Nenhum"],
-          correct: 1,
-          explanation: "A Duplicata é um título causal vinculado à fatura."
-        },
-        {
-          question: "O cheque pré-datado está na lei?",
-          options: ["Sim, artigo 5º", "Não, é costume comercial", "Sim, mas só para empresas", "Não existe"],
-          correct: 1,
-          explanation: "Legalmente o cheque é ordem de pagamento à vista."
+            // Ajusta botão
+            if (currentQuestion === QUESTIONS.length - 1) {
+                nextBtn.textContent = "Ver Resultado Final ✓";
+            }
+            nextBtn.style.display = 'block';
         }
-      ]
-    };
 
-    const dataMod2 = {
-      flashcards: [
-        { q: "Objetivo da Lei 11.101?", a: "Preservar a empresa viável." },
-        { q: "Stay Period?", a: "Suspensão de ações por 180 dias na recuperação." }
-      ],
-      quiz: [
-        {
-          question: "Quem administra na Falência?",
-          options: ["O dono", "O Síndico (Administrador Judicial)", "O Banco", "O Juiz"],
-          correct: 1,
-          explanation: "Na falência, o devedor é afastado e o Síndico assume."
+        window.nextQuestion = function () {
+            currentQuestion++;
+            renderQuestion();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-      ]
-    };
 
-    let currentModule = 'mod1';
-    let currentFlashcards = dataMod1.flashcards;
-    let currentQuiz = dataMod1.quiz;
+        function renderResult() {
+            const pct = Math.round((score / QUESTIONS.length) * 100);
+            let msg, color;
 
-    function switchModule(modId) {
-      currentModule = modId;
-      // Atualiza botões
-      document.querySelectorAll('.module-btn').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
+            if (pct >= 85) {
+                msg = "Excepcional! Você tem pleno domínio da Teoria Contábil, métodos de custeio e pegadinhas da banca. Vai amassar a prova do dia 16!";
+                color = "var(--success)";
+            } else if (pct >= 70) {
+                msg = "Ótimo resultado! Seu conhecimento dos pilares de custos está sólido. Revise apenas os pequenos detalhes sobre Custo Histórico e VRL.";
+                color = "var(--accent)";
+            } else {
+                msg = "Continue treinando! Faltou pouco. Aproveite essas 48 horas até a prova para reler os resumos de Custo por Absorção e a Regra Espacial.";
+                color = "var(--danger)";
+            }
 
-      // Atualiza conteúdo
-      document.querySelectorAll('.module-content').forEach(div => div.classList.remove('active'));
-      document.getElementById(modId + '-content').classList.add('active');
+            container.innerHTML = `
+                <div class="result-card">
+                    <div class="result-score" style="color: ${color}">${score}/14</div>
+                    <div class="result-label">APROVEITAMENTO DE ${pct}%</div>
+                    <div class="result-msg">${msg}</div>
+                    <button class="btn" onclick="restartQuiz()">Refazer Simulado ↺</button>
+                </div>
+            `;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
-      // Carrega dados corretos
-      if (modId === 'mod1') {
-        currentFlashcards = dataMod1.flashcards;
-        currentQuiz = dataMod1.quiz;
-      } else {
-        currentFlashcards = dataMod2.flashcards;
-        currentQuiz = dataMod2.quiz;
-      }
+        window.restartQuiz = function () {
+            currentQuestion = 0;
+            score = 0;
+            renderQuestion();
+        }
 
-      // Reseta abas para Resumo
-      showTab('resumo');
-      currentCard = 0;
-      loadCard();
-      loadQuiz();
-
-      // Reativa animações nos novos elementos
-      setTimeout(refreshObserver, 100);
-    }
-
-    function showTab(tabId) {
-      // Esconde tudo
-      document.getElementById('resumo-mod1').classList.remove('active');
-      document.getElementById('resumo-mod2').classList.remove('active');
-      document.getElementById('flashcards').classList.remove('active');
-      document.getElementById('quiz').classList.remove('active');
-
-      // Tira active dos botões
-      document.querySelectorAll('.tab-nav button').forEach(b => b.classList.remove('active'));
-      event.target.classList.add('active');
-
-      // Mostra o certo
-      if (tabId === 'resumo') {
-        document.getElementById('resumo-' + currentModule).classList.add('active');
-      } else {
-        document.getElementById(tabId).classList.add('active');
-      }
-
-      // Reativa animações
-      setTimeout(refreshObserver, 50);
-    }
-
-    // Lógica Flashcards
-    let currentCard = 0;
-    const cardFront = document.getElementById('fc-question');
-    const cardBack = document.getElementById('fc-answer');
-
-    function loadCard() {
-      const cardEl = document.querySelector('.flashcard');
-      cardEl.classList.remove('flipped');
-      setTimeout(() => {
-        cardFront.textContent = currentFlashcards[currentCard].q;
-        cardBack.textContent = currentFlashcards[currentCard].a;
-      }, 200);
-    }
-
-    function nextCard() {
-      currentCard = (currentCard < currentFlashcards.length - 1) ? currentCard + 1 : 0;
-      loadCard();
-    }
-
-    function prevCard() {
-      currentCard = (currentCard > 0) ? currentCard - 1 : currentFlashcards.length - 1;
-      loadCard();
-    }
-
-    // Lógica Quiz
-    let score = 0;
-    function loadQuiz() {
-      const container = document.getElementById('quiz-container');
-      container.innerHTML = '';
-      score = 0;
-      document.getElementById('score').textContent = score;
-
-      currentQuiz.forEach((item, index) => {
-        const div = document.createElement('div');
-        div.className = 'quiz-question reveal'; // Adiciona classe de animação
-        let opts = '';
-        item.options.forEach((opt, i) => {
-          opts += `<button class="option-btn" onclick="checkAnswer(this, ${index}, ${i})">${opt}</button>`;
-        });
-        div.innerHTML = `<h4>${index + 1}. ${item.question}</h4>${opts}<div class="feedback" id="feed-${index}"></div>`;
-        container.appendChild(div);
-      });
-      refreshObserver();
-    }
-
-    function checkAnswer(btn, qIndex, optIndex) {
-      const q = currentQuiz[qIndex];
-      const feed = document.getElementById(`feed-${qIndex}`);
-      const parent = btn.parentElement;
-
-      if (btn.disabled) return; // Evita duplo clique
-
-      const all = parent.querySelectorAll('.option-btn');
-      all.forEach(b => b.disabled = true);
-
-      if (optIndex === q.correct) {
-        btn.classList.add('correct');
-        feed.style.display = 'block';
-        feed.style.color = '#00d084';
-        feed.innerHTML = `<strong>Correto!</strong> ${q.explanation}`;
-        score++;
-        document.getElementById('score').textContent = score;
-      } else {
-        btn.classList.add('wrong');
-        all[q.correct].classList.add('correct'); // Mostra a certa
-        feed.style.display = 'block';
-        feed.style.color = '#ff6b6b';
-        feed.innerHTML = `<strong>Incorreto.</strong> ${q.explanation}`;
-      }
-    }
-
-    function restartQuiz() {
-      loadQuiz();
-      document.getElementById('quiz').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    // Inicialização
-    loadCard();
-    loadQuiz();
-    refreshObserver(); // Ativa animações iniciais
-
-  </script>
-
+        // Inicia o Simulado
+        renderQuestion();
+    </script>
 </body>
 
 </html>

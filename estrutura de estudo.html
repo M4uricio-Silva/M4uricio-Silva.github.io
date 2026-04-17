@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estudo: Direito Empresarial - UFRN</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap');
+
+    :root {
+      --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      --dark-bg: #0f0f1e;
+      --card-bg: rgba(255, 255, 255, 0.08);
+      --card-border: rgba(255, 255, 255, 0.15);
+      --text-primary: #ffffff;
+      --text-secondary: #b0b0c0;
+      --success: #00d084;
+      --error: #ff6b6b;
+      --warning: #ffa502;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--dark-bg);
+      color: var(--text-primary);
+      line-height: 1.7;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* BACKGROUND ANIMADO */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.1) 0%, transparent 50%);
+      animation: gradientShift 15s ease infinite;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    @keyframes gradientShift {
+
+      0%,
+      100% {
+        filter: hue-rotate(0deg);
+      }
+
+      50% {
+        filter: hue-rotate(20deg);
+      }
+    }
+
+    /* --- ANIMAÇÕES ESTILO FRAMER (SCROLL REVEAL) --- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px) scale(0.98);
+      transition: all 0.8s cubic-bezier(0.17, 0.55, 0.55, 1);
+      /* Curva suave do Framer */
+      filter: blur(10px);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+
+    /* --- HEADER COM EFEITO DIGITAÇÃO --- */
+    header {
+      background: var(--primary-gradient);
+      color: white;
+      padding: 4rem 1.5rem;
+      /* Mais espaço como no Framer */
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+    }
+
+    /* Detalhes flutuantes no fundo */
+    header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent);
+      border-radius: 50%;
+      animation: float 20s ease-in-out infinite;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 3rem;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      position: relative;
+      z-index: 1;
+      letter-spacing: -1.5px;
+      text-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      /* Começa invisível para animar */
+      animation: fadeInUp 1s cubic-bezier(0.17, 0.55, 0.55, 1) forwards;
+    }
+
+    /* Efeito de cursor piscando */
+    .typing-effect::after {
+      content: '|';
+      animation: blink 1s infinite;
+      color: var(--accent-gradient);
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
+    }
+
+    header p {
+      margin: 15px 0 0 0;
+      opacity: 0;
+      font-size: 1.1rem;
+      position: relative;
+      z-index: 1;
+      font-weight: 300;
+      animation: fadeInUp 1s cubic-bezier(0.17, 0.55, 0.55, 1) 0.3s forwards;
+      /* Delay */
+    }
+
+    /* --- MÓDULOS E NAVEGAÇÃO --- */
+    .module-selector {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 2rem 1rem;
+      background: linear-gradient(180deg, rgba(15, 15, 30, 0.8) 0%, rgba(15, 15, 30, 0.5) 100%);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--card-border);
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .module-btn {
+      padding: 12px 28px;
+      border: 1px solid var(--card-border);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-weight: 600;
+      border-radius: 30px;
+      /* Arredondado estilo Framer */
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+    }
+
+    .module-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .module-btn.active {
+      background: white;
+      color: black;
+      /* Alto contraste estilo Framer */
+      border-color: white;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+
+    .tab-nav {
+      display: flex;
+      justify-content: center;
+      background: rgba(15, 15, 30, 0.5);
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid var(--card-border);
+      margin-bottom: 2rem;
+    }
+
+    .tab-nav button {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      padding: 18px 28px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      position: relative;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .tab-nav button::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 3px;
+      background: var(--accent-gradient);
+      transition: width 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+      border-radius: 3px;
+    }
+
+    .tab-nav button.active {
+      color: var(--text-primary);
+    }
+
+    .tab-nav button.active::after {
+      width: 50%;
+    }
+
+    /* MAIN CONTENT */
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 1rem 4rem 1rem;
+      min-height: 60vh;
+    }
+
+    .module-content,
+    .tab-content {
+      display: none;
+    }
+
+    .module-content.active,
+    .tab-content.active {
+      display: block;
+      /* Animação de troca suave */
+      animation: fadeInSoft 0.5s ease forwards;
+    }
+
+    @keyframes fadeInSoft {
+      from {
+        opacity: 0;
+        transform: scale(0.99);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* CARDS */
+    .summary-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      padding: 2.5rem;
+      margin-bottom: 1.5rem;
+      border-radius: 24px;
+      /* Bordas mais arredondadas */
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+      /* Sombra difusa */
+      transition: transform 0.4s cubic-bezier(0.17, 0.55, 0.55, 1), box-shadow 0.4s ease;
+      border-left: 4px solid transparent;
+    }
+
+    .summary-card:hover {
+      transform: translateY(-5px) scale(1.01);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .summary-card h3 {
+      color: var(--text-primary);
+      margin-top: 0;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 12px;
+      font-size: 1.5rem;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .summary-card h4 {
+      color: #4facfe;
+      /* Cor sólida para melhor leitura no gradiente */
+      margin-bottom: 8px;
+      margin-top: 1.5rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .summary-card p,
+    .summary-card li {
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+      line-height: 1.8;
+    }
+
+    /* TAGS */
+    .tag {
+      display: inline-block;
+      background: rgba(45, 156, 219, 0.15);
+      color: #4facfe;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      margin-right: 8px;
+      margin-bottom: 8px;
+      font-weight: 600;
+      border: 1px solid rgba(79, 172, 254, 0.3);
+    }
+
+    /* FLASHCARDS */
+    .flashcard-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 2rem;
+    }
+
+    .flashcard {
+      background: transparent;
+      width: 100%;
+      max-width: 650px;
+      height: 350px;
+      perspective: 1000px;
+      cursor: pointer;
+      margin-bottom: 2rem;
+    }
+
+    .flashcard-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      /* Flip mais rápido e suave */
+      transform-style: preserve-3d;
+      border-radius: 24px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .flashcard.flipped .flashcard-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flashcard-front,
+    .flashcard-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      border-radius: 24px;
+      flex-direction: column;
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(20px);
+    }
+
+    .flashcard-front {
+      background: linear-gradient(135deg, rgba(79, 172, 254, 0.1) 0%, rgba(0, 242, 254, 0.05) 100%);
+      color: white;
+      font-weight: 700;
+      font-size: 1.4rem;
+    }
+
+    .flashcard-back {
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.05) 100%);
+      color: white;
+      transform: rotateY(180deg);
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    /* CONTROLS & BUTTONS */
+    .controls {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+
+    .btn {
+      padding: 12px 28px;
+      background: white;
+      color: black;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+    }
+
+    /* QUIZ */
+    .quiz-question {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 2rem;
+      border-radius: 24px;
+      margin-bottom: 1.5rem;
+    }
+
+    .option-btn {
+      display: block;
+      width: 100%;
+      padding: 16px 20px;
+      margin-top: 12px;
+      border: 1px solid var(--card-border);
+      background: rgba(255, 255, 255, 0.05);
+      text-align: left;
+      cursor: pointer;
+      border-radius: 12px;
+      transition: all 0.2s ease;
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    .option-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      transform: translateX(5px);
+    }
+
+    .option-btn.correct {
+      background: rgba(0, 208, 132, 0.2);
+      border-color: var(--success);
+      color: var(--success);
+    }
+
+    .option-btn.wrong {
+      background: rgba(255, 107, 107, 0.2);
+      border-color: var(--error);
+      color: var(--error);
+    }
+
+    .feedback {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      border-radius: 12px;
+      display: none;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    footer {
+      text-align: center;
+      padding: 4rem 1.5rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      border-top: 1px solid var(--card-border);
+      margin-top: 4rem;
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+
+      .module-selector {
+        top: 0;
+      }
+
+      .flashcard {
+        height: 280px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1 id="hero-title">Direito Empresarial</h1>
+    <p id="hero-subtitle">Plataforma de Estudos para Administração UFRN</p>
+  </header>
+
+  <div class="module-selector reveal">
+    <button class="module-btn active" onclick="switchModule('mod1')">1. Títulos de Crédito</button>
+    <button class="module-btn" onclick="switchModule('mod2')">2. Crise e Falência</button>
+  </div>
+
+  <nav class="tab-nav reveal">
+    <button class="active" onclick="showTab('resumo')">📚 Resumo</button>
+    <button onclick="showTab('flashcards')">💡 Flashcards</button>
+    <button onclick="showTab('quiz')">✅ Simulado</button>
+  </nav>
+
+  <main>
+    <div id="mod1-content" class="module-content active">
+      <div id="resumo-mod1" class="tab-content active">
+
+        <div class="summary-card reveal" style="border-left-color: #4facfe;">
+          <h3>Fala, Administrador! 🎓</h3>
+          <p>Este material cobre os pontos centrais do PDF, focando na função econômica e nas características
+            operacionais dos títulos.</p>
+        </div>
+
+        <div class="summary-card reveal">
+          <h3>1. O Conceito Fundamental</h3>
+          <p>Definição clássica de <strong>Cesare Vivante</strong>:</p>
+          <blockquote
+            style="background: rgba(102, 126, 234, 0.1); padding: 15px; border-radius: 12px; margin: 1rem 0; font-style: italic;">
+            "Título de crédito é o documento necessário ao exercício do direito literal e autônomo nele mencionado."
+          </blockquote>
+        </div>
+
+        <div class="summary-card reveal">
+          <h3>2. Os 3 Princípios (Pilares)</h3>
+          <ul>
+            <li><strong>Literalidade:</strong> Vale apenas o que está escrito.</li>
+            <li><strong>Cartularidade:</strong> O direito está no documento físico (ou eletrônico hoje em dia).</li>
+            <li><strong>Autonomia:</strong> O direito é novo, independente de quem o portava antes.</li>
+          </ul>
+        </div>
+
+        <div class="summary-card reveal">
+          <h3>3. As Espécies de Títulos</h3>
+          <h4>A. Duplicata (O Título Brasileiro)</h4>
+          <span class="tag">Causal</span> <span class="tag">Mercantil</span>
+          <p>Título vinculado obrigatoriamente a uma nota fiscal de serviço ou venda.</p>
+
+          <h4>B. Cheque</h4>
+          <span class="tag">Ordem de Pagamento</span> <span class="tag">À Vista</span>
+          <p>Ordem de pagamento à vista. A pós-datação é apenas costume comercial.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="mod2-content" class="module-content">
+      <div id="resumo-mod2" class="tab-content active">
+        <div class="summary-card reveal" style="border-left-color: #ff6b6b;">
+          <h3>Crise Empresarial</h3>
+          <p>A Lei nº 11.101/2005 visa preservar a empresa viável e liquidar a inviável.</p>
+        </div>
+        <div class="summary-card reveal">
+          <h3>Recuperação vs. Falência</h3>
+          <p><strong>Recuperação:</strong> Tenta salvar a empresa (Stay Period de 180 dias).</p>
+          <p><strong>Falência:</strong> Liquidação dos ativos para pagar credores.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="flashcards" class="tab-content">
+      <div class="flashcard-container reveal">
+        <div class="flashcard" onclick="this.classList.toggle('flipped')">
+          <div class="flashcard-inner">
+            <div class="flashcard-front">
+              <span id="fc-question">Carregando...</span>
+            </div>
+            <div class="flashcard-back">
+              <span id="fc-answer">Carregando...</span>
+            </div>
+          </div>
+        </div>
+        <div class="controls">
+          <button class="btn" onclick="prevCard()">⬅ Anterior</button>
+          <button class="btn" onclick="nextCard()">Próximo ➡</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="quiz" class="tab-content">
+      <div class="score-board reveal" style="text-align:center; font-size:1.5rem; margin-bottom:20px;">Pontuação: <span
+          id="score">0</span></div>
+      <div id="quiz-container"></div>
+      <div style="text-align: center; margin-top: 2rem;" class="reveal">
+        <button class="btn" onclick="restartQuiz()">Reiniciar</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Ferramenta de estudo personalizada para Administração - UFRN.</p>
+  </footer>
+
+  <script>
+    // --- 1. ANIMAÇÃO TIPO FRAMER (SCROLL REVEAL) ---
+    // Isso faz os elementos "subirem" e aparecerem suavemente quando você rola a tela
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px"
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, observerOptions);
+
+    // Função para aplicar observador em novos elementos (quando troca de aba)
+    function refreshObserver() {
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    }
+
+    // --- 2. ANIMAÇÃO DE DIGITAÇÃO NO HEADER ---
+    const titleText = "Direito Empresarial";
+    const subtitleText = "Plataforma de Estudos Integrada";
+    const titleEl = document.getElementById('hero-title');
+    const subEl = document.getElementById('hero-subtitle');
+
+    // Limpa texto inicial para o efeito
+    titleEl.innerHTML = '<span class="typing-effect"></span>';
+    subEl.innerHTML = '';
+    titleEl.style.opacity = 1; // Remove a opacidade do CSS para o JS controlar
+
+    let i = 0;
+    function typeWriter() {
+      if (i < titleText.length) {
+        document.querySelector('.typing-effect').textContent += titleText.charAt(i);
+        i++;
+        setTimeout(typeWriter, 50); // Velocidade da digitação
+      } else {
+        // Quando termina o título, mostra o subtítulo
+        document.querySelector('.typing-effect').classList.remove('typing-effect'); // Para de piscar
+        subEl.innerText = subtitleText;
+        subEl.style.opacity = 1;
+      }
+    }
+    // Inicia digitação após carregar
+    setTimeout(typeWriter, 500);
+
+
+    // --- DADOS E LÓGICA DO SISTEMA (Igual ao anterior) ---
+
+    const dataMod1 = {
+      flashcards: [
+        { q: "Qual a definição de Título de Crédito?", a: "Documento necessário ao exercício do direito literal e autônomo nele mencionado." },
+        { q: "Princípio da Literalidade?", a: "Só vale o que está escrito no título." },
+        { q: "Duplicata é causal ou abstrata?", a: "Causal (exige venda ou serviço)." },
+        { q: "Quem paga o Cheque (Sacado)?", a: "O Banco." }
+      ],
+      quiz: [
+        {
+          question: "A Duplicata exige qual documento prévio?",
+          options: ["Contrato verbal", "Nota Fiscal / Fatura", "Recibo simples", "Nenhum"],
+          correct: 1,
+          explanation: "A Duplicata é um título causal vinculado à fatura."
+        },
+        {
+          question: "O cheque pré-datado está na lei?",
+          options: ["Sim, artigo 5º", "Não, é costume comercial", "Sim, mas só para empresas", "Não existe"],
+          correct: 1,
+          explanation: "Legalmente o cheque é ordem de pagamento à vista."
+        }
+      ]
+    };
+
+    const dataMod2 = {
+      flashcards: [
+        { q: "Objetivo da Lei 11.101?", a: "Preservar a empresa viável." },
+        { q: "Stay Period?", a: "Suspensão de ações por 180 dias na recuperação." }
+      ],
+      quiz: [
+        {
+          question: "Quem administra na Falência?",
+          options: ["O dono", "O Síndico (Administrador Judicial)", "O Banco", "O Juiz"],
+          correct: 1,
+          explanation: "Na falência, o devedor é afastado e o Síndico assume."
+        }
+      ]
+    };
+
+    let currentModule = 'mod1';
+    let currentFlashcards = dataMod1.flashcards;
+    let currentQuiz = dataMod1.quiz;
+
+    function switchModule(modId) {
+      currentModule = modId;
+      // Atualiza botões
+      document.querySelectorAll('.module-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      // Atualiza conteúdo
+      document.querySelectorAll('.module-content').forEach(div => div.classList.remove('active'));
+      document.getElementById(modId + '-content').classList.add('active');
+
+      // Carrega dados corretos
+      if (modId === 'mod1') {
+        currentFlashcards = dataMod1.flashcards;
+        currentQuiz = dataMod1.quiz;
+      } else {
+        currentFlashcards = dataMod2.flashcards;
+        currentQuiz = dataMod2.quiz;
+      }
+
+      // Reseta abas para Resumo
+      showTab('resumo');
+      currentCard = 0;
+      loadCard();
+      loadQuiz();
+
+      // Reativa animações nos novos elementos
+      setTimeout(refreshObserver, 100);
+    }
+
+    function showTab(tabId) {
+      // Esconde tudo
+      document.getElementById('resumo-mod1').classList.remove('active');
+      document.getElementById('resumo-mod2').classList.remove('active');
+      document.getElementById('flashcards').classList.remove('active');
+      document.getElementById('quiz').classList.remove('active');
+
+      // Tira active dos botões
+      document.querySelectorAll('.tab-nav button').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+
+      // Mostra o certo
+      if (tabId === 'resumo') {
+        document.getElementById('resumo-' + currentModule).classList.add('active');
+      } else {
+        document.getElementById(tabId).classList.add('active');
+      }
+
+      // Reativa animações
+      setTimeout(refreshObserver, 50);
+    }
+
+    // Lógica Flashcards
+    let currentCard = 0;
+    const cardFront = document.getElementById('fc-question');
+    const cardBack = document.getElementById('fc-answer');
+
+    function loadCard() {
+      const cardEl = document.querySelector('.flashcard');
+      cardEl.classList.remove('flipped');
+      setTimeout(() => {
+        cardFront.textContent = currentFlashcards[currentCard].q;
+        cardBack.textContent = currentFlashcards[currentCard].a;
+      }, 200);
+    }
+
+    function nextCard() {
+      currentCard = (currentCard < currentFlashcards.length - 1) ? currentCard + 1 : 0;
+      loadCard();
+    }
+
+    function prevCard() {
+      currentCard = (currentCard > 0) ? currentCard - 1 : currentFlashcards.length - 1;
+      loadCard();
+    }
+
+    // Lógica Quiz
+    let score = 0;
+    function loadQuiz() {
+      const container = document.getElementById('quiz-container');
+      container.innerHTML = '';
+      score = 0;
+      document.getElementById('score').textContent = score;
+
+      currentQuiz.forEach((item, index) => {
+        const div = document.createElement('div');
+        div.className = 'quiz-question reveal'; // Adiciona classe de animação
+        let opts = '';
+        item.options.forEach((opt, i) => {
+          opts += `<button class="option-btn" onclick="checkAnswer(this, ${index}, ${i})">${opt}</button>`;
+        });
+        div.innerHTML = `<h4>${index + 1}. ${item.question}</h4>${opts}<div class="feedback" id="feed-${index}"></div>`;
+        container.appendChild(div);
+      });
+      refreshObserver();
+    }
+
+    function checkAnswer(btn, qIndex, optIndex) {
+      const q = currentQuiz[qIndex];
+      const feed = document.getElementById(`feed-${qIndex}`);
+      const parent = btn.parentElement;
+
+      if (btn.disabled) return; // Evita duplo clique
+
+      const all = parent.querySelectorAll('.option-btn');
+      all.forEach(b => b.disabled = true);
+
+      if (optIndex === q.correct) {
+        btn.classList.add('correct');
+        feed.style.display = 'block';
+        feed.style.color = '#00d084';
+        feed.innerHTML = `<strong>Correto!</strong> ${q.explanation}`;
+        score++;
+        document.getElementById('score').textContent = score;
+      } else {
+        btn.classList.add('wrong');
+        all[q.correct].classList.add('correct'); // Mostra a certa
+        feed.style.display = 'block';
+        feed.style.color = '#ff6b6b';
+        feed.innerHTML = `<strong>Incorreto.</strong> ${q.explanation}`;
+      }
+    }
+
+    function restartQuiz() {
+      loadQuiz();
+      document.getElementById('quiz').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Inicialização
+    loadCard();
+    loadQuiz();
+    refreshObserver(); // Ativa animações iniciais
+
+  </script>
+
+</body>
+
+</html>
