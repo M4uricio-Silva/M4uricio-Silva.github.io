@@ -1,0 +1,260 @@
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none;
+        }
+
+        body {
+            background: #050505;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        canvas {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* LOADER */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: #050505;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #loader-text {
+            letter-spacing: 5px;
+            font-size: 12px;
+            color: #777;
+            font-family: monospace;
+        }
+
+        .loader-line {
+            margin-top: 30px;
+            width: 250px;
+            height: 1px;
+            background: #222;
+            overflow: hidden;
+        }
+
+        .loader-progress {
+            height: 100%;
+            width: 0;
+            background: white;
+        }
+
+        /* CUSTOM CURSOR */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            mix-blend-mode: difference;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background-color 0.3s;
+        }
+
+        .cursor.hover-effect {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        /* HUD & INTERFACE */
+        .hud-text {
+            color: #555;
+            letter-spacing: 4px;
+            font-size: 12px;
+            font-family: monospace;
+            z-index: 100;
+        }
+
+        #archive-interface {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            right: 30px;
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
+        }
+
+        /* TERMINAL MELHORADO */
+        #terminal {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(0, 0, 0, .7);
+            border: 1px solid #222;
+            padding: 20px;
+            color: #777;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+            max-height: 120px;
+            width: 320px;
+            overflow-y: auto;
+            pointer-events: auto;
+            scrollbar-width: none;
+        }
+
+        #terminal::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* MENU BUTTON */
+        #menu-trigger {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            z-index: 100;
+            background: transparent;
+            border: none;
+            color: white;
+            transition: color 0.3s;
+        }
+
+        #menu-trigger:hover {
+            color: #aaa;
+        }
+
+        /* RESPONSIVIDADE MOBILE */
+        @media (max-width: 768px) {
+            #terminal {
+                bottom: 80px;
+                left: 20px;
+                width: calc(100vw - 40px);
+                max-height: 100px;
+            }
+
+            #menu-trigger {
+                bottom: 25px;
+                right: 20px;
+            }
+
+            #archive-interface {
+                top: 20px;
+                left: 20px;
+                right: 20px;
+            }
+
+            .content-container {
+                max-height: 75vh;
+            }
+        }
+
+        /* TYPOGRAPHY STYLES */
+        .name-style-0 .main-name {
+            background: linear-gradient(90deg, #ffffff, #666666);
+            -webkit-background-clip: text;
+            color: transparent;
+            font-weight: 900;
+        }
+
+        .name-style-1 .main-name {
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.8);
+            font-weight: 900;
+        }
+
+        .name-style-2 .main-name {
+            color: #fff;
+            font-weight: 300;
+            letter-spacing: 15px;
+            transform: scale(0.9);
+        }
+
+        .main-name {
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* FULLSCREEN OVERLAYS */
+        .fullscreen-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 5, 5, 0.98);
+            backdrop-filter: blur(15px);
+            z-index: 500;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .overlay-active {
+            pointer-events: auto;
+        }
+
+        .menu-link {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: transparent;
+            -webkit-text-stroke: 1px #555;
+            margin: 12px 0;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+        }
+
+        @media (min-width: 768px) {
+            .menu-link {
+                font-size: 3rem;
+            }
+        }
+
+        .menu-link:hover {
+            color: white;
+            -webkit-text-stroke: 0px;
+            padding-left: 20px;
+        }
+
+        .content-container {
+            max-width: 900px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            opacity: 0;
+            transform: translateY(30px);
+            scrollbar-width: none;
+            padding-right: 10px;
+        }
+
+        .content-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            font-size: 14px;
+            font-family: monospace;
+            letter-spacing: 2px;
+            color: white;
+            border: 1px solid #333;
+            padding: 10px 20px;
+            border-radius: 30px;
+            background: transparent;
+            transition: 0.3s;
+            z-index: 510;
+        }
+
+        .close-btn:hover {
+            background: white;
+            color: black;
+        }
