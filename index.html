@@ -6,16 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mauricio Silva — Digital Freelancer & Creator</title>
 
+    <!-- CDNs -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="src/styles/global.css">
-    
+
+    <!-- Seu CSS Separado -->
+    <link rel="stylesheet" href="./src/styles/global.css">
 </head>
 
 <body>
-
+    <!-- (MANTENHA TODO O CONTEÚDO HTML DO BODY EXATAMENTE COMO ESTAVA) -->
     <div id="loader">
         <div id="loader-text">INITIALIZING CORE_SYS...</div>
         <div class="loader-line">
@@ -33,7 +35,6 @@
         <p>> origin: Natal, RN_</p>
         <p>> awaiting command...</p>
     </div>
-
     <button id="menu-trigger" class="hud-text hover-target" onclick="toggleMenu()">[ OPEN ARCHIVE ]</button>
 
     <div class="cursor"></div>
@@ -42,18 +43,12 @@
     <main class="w-full h-full flex flex-col items-center justify-center px-6 relative z-10" id="hero-section">
         <div class="text-center name-style-0" id="name-container">
             <p class="tracking-[.6em] text-gray-500 mb-8 text-xs md:text-sm uppercase">Versatile Digital Freelancer</p>
-            <h1 class="main-name text-6xl md:text-9xl tracking-tighter leading-none mb-4">
-                MAURICIO<br>SILVA
-            </h1>
-            <p class="mt-8 text-lg md:text-xl text-gray-400 h-8 font-light">
-                <span id="typing"></span><span class="animate-pulse">_</span>
-            </p>
-
+            <h1 class="main-name text-6xl md:text-9xl tracking-tighter leading-none mb-4">MAURICIO<br>SILVA</h1>
+            <p class="mt-8 text-lg md:text-xl text-gray-400 h-8 font-light"><span id="typing"></span><span
+                    class="animate-pulse">_</span></p>
             <button
                 class="hover-target mt-16 px-8 py-3 border border-gray-700 rounded-full hover:bg-white hover:text-black transition duration-500 tracking-widest text-xs uppercase"
-                onclick="changeEnvironment()">
-                Shift Environment
-            </button>
+                onclick="changeEnvironment()">Shift Environment</button>
         </div>
     </main>
 
@@ -70,12 +65,11 @@
 
     <div id="content-overlay" class="fullscreen-overlay">
         <button class="close-btn hover-target" onclick="closeContent()">[ RETURN ]</button>
-        <div id="dynamic-content" class="content-container">
-        </div>
+        <div id="dynamic-content" class="content-container"></div>
     </div>
 
-    <script src="src/scripts/main.js"></script>
-
+    <!-- O SEGREDO: TYPE MODULE -->
+    <script type="module" src="./src/scripts/main.js"></script>
 </body>
 
 </html>
