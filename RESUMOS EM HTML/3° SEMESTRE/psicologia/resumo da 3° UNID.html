@@ -1,0 +1,1767 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Estudos - Psicologia Social</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Outfit:wght@300;400;500;600&family=Space+Grotesk:wght@500;700;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            /* Paleta Tecnológica / Cyber-Acadêmica */
+            --bg: #050505;
+            --surface: #0e0e11;
+            --surface2: #16161a;
+            --surface3: #202025;
+            --border: #2a2a35;
+
+            --accent: #6366f1;
+            /* Indigo Tech */
+            --accent-glow: rgba(99, 102, 241, 0.4);
+            --accent2: #ec4899;
+            /* Rosa Neon */
+            --accent3: #14b8a6;
+            /* Teal Criativo */
+
+            --danger: #ef4444;
+            --success: #10b981;
+
+            --text: #f8fafc;
+            --text2: #94a3b8;
+            --text3: #64748b;
+
+            --cap1: #818cf8;
+            --cap2: #f472b6;
+            --cap3: #2dd4bf;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg);
+            /* Grid Blueprint Tecnológico */
+            background-image: radial-gradient(var(--border) 1px, transparent 1px);
+            background-size: 24px 24px;
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ─── HERO ─── */
+        .hero {
+            position: relative;
+            padding: 80px 24px 60px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
+            pointer-events: none;
+            filter: blur(40px);
+        }
+
+        .hero-eyebrow {
+            font-family: 'Fira Code', monospace;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent3);
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeUp 0.6s 0.1s forwards;
+        }
+
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            color: var(--text);
+            margin-bottom: 16px;
+            opacity: 0;
+            animation: fadeUp 0.6s 0.2s forwards;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-sub {
+            font-size: 1.05rem;
+            color: var(--text2);
+            max-width: 500px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+            opacity: 0;
+            animation: fadeUp 0.6s 0.3s forwards;
+        }
+
+        /* ─── NAV TABS ─── */
+        .nav-wrap {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 16px;
+            opacity: 0;
+            animation: fadeUp 0.6s 0.4s forwards;
+        }
+
+        .nav-tabs {
+            display: flex;
+            max-width: 900px;
+            margin: 0 auto;
+            overflow-x: auto;
+            scrollbar-width: none;
+            gap: 16px;
+        }
+
+        .nav-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-tab {
+            flex-shrink: 0;
+            padding: 16px 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: var(--text3);
+            cursor: pointer;
+            border: none;
+            background: none;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-tab:hover {
+            color: var(--text);
+        }
+
+        .nav-tab.active {
+            color: var(--text);
+            border-bottom-color: var(--accent);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .nav-tab[data-chapter="2"].active {
+            border-bottom-color: var(--cap2);
+            text-shadow: 0 0 10px rgba(236, 72, 153, 0.4);
+        }
+
+        /* ─── MAIN CONTENT ─── */
+        .main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px 100px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeUp 0.4s forwards;
+        }
+
+        /* ─── CHAPTER HEADER ─── */
+        .chapter-header {
+            margin-bottom: 40px;
+            padding: 40px;
+            background: linear-gradient(145deg, var(--surface), var(--bg));
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .chapter-header::before {
+            content: attr(data-num);
+            position: absolute;
+            right: -10px;
+            bottom: -30px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 10rem;
+            font-weight: 900;
+            opacity: 0.03;
+            color: #fff;
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        .chapter-tag {
+            font-family: 'Fira Code', monospace;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 6px 12px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 16px;
+            border: 1px solid;
+        }
+
+        .cap1 .chapter-tag {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--cap1);
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+
+        .cap2 .chapter-tag {
+            background: rgba(236, 72, 153, 0.1);
+            color: var(--cap2);
+            border-color: rgba(236, 72, 153, 0.3);
+        }
+
+        .chapter-header h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .chapter-header p {
+            color: var(--text2);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* ─── SUBSECTION TABS ─── */
+        .sub-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 36px;
+            flex-wrap: wrap;
+        }
+
+        .sub-tab {
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text2);
+            transition: all 0.2s ease;
+        }
+
+        .sub-tab:hover {
+            border-color: var(--text3);
+            color: var(--text);
+            transform: translateY(-2px);
+        }
+
+        .cap1 .sub-tab.active {
+            background: var(--cap1);
+            border-color: var(--cap1);
+            color: #000;
+            font-weight: 600;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .cap2 .sub-tab.active {
+            background: var(--cap2);
+            border-color: var(--cap2);
+            color: #000;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+        }
+
+        .sub-section {
+            display: none;
+        }
+
+        .sub-section.active {
+            display: block;
+        }
+
+        /* ─── SUMMARY CARDS ─── */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .summary-card {
+            background: rgba(14, 14, 17, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            min-width: 0;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--text3);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .summary-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-num {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.7rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .cap1 .card-num {
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--cap1);
+        }
+
+        .cap2 .card-num {
+            background: rgba(236, 72, 153, 0.15);
+            color: var(--cap2);
+        }
+
+        .summary-card p,
+        .summary-card li {
+            color: var(--text2);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .summary-card ul {
+            padding-left: 18px;
+        }
+
+        .summary-card li {
+            margin-bottom: 6px;
+        }
+
+        .alert-box,
+        .info-box {
+            margin-top: 16px;
+            padding: 14px 18px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .alert-box {
+            background: rgba(239, 68, 68, 0.08);
+            border-left: 3px solid var(--danger);
+            color: #fca5a5;
+        }
+
+        .info-box {
+            background: rgba(99, 102, 241, 0.08);
+            border-left: 3px solid var(--accent);
+            color: #a5b4fc;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            margin-top: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        th {
+            background: var(--surface2);
+            color: var(--text);
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            padding: 12px 16px;
+            text-align: left;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 12px 16px;
+            border-top: 1px solid var(--border);
+            color: var(--text2);
+        }
+
+        tr:hover td {
+            background: var(--surface3);
+        }
+
+        code-block {
+            display: block;
+            background: #000;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            color: var(--accent3);
+            margin-top: 14px;
+            line-height: 1.7;
+            white-space: pre;
+            overflow-x: auto;
+        }
+
+        /* ─── FLASHCARDS ─── */
+        .flashcard-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .fc-counter {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            color: var(--text3);
+        }
+
+        .fc-progress {
+            height: 4px;
+            background: var(--surface3);
+            border-radius: 4px;
+            margin-bottom: 32px;
+            overflow: hidden;
+        }
+
+        .fc-progress-bar {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.4s ease;
+            box-shadow: 0 0 10px currentColor;
+        }
+
+        .cap1 .fc-progress-bar {
+            background: var(--cap1);
+            color: var(--cap1);
+        }
+
+        .cap2 .fc-progress-bar {
+            background: var(--cap2);
+            color: var(--cap2);
+        }
+
+        .flashcard-scene {
+            perspective: 1500px;
+            height: 280px;
+            cursor: pointer;
+            margin-bottom: 32px;
+            user-select: none;
+        }
+
+        @media (max-width: 480px) {
+            .flashcard-scene {
+                height: 240px;
+            }
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+        }
+
+        .flashcard-inner.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-face {
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 32px;
+            text-align: center;
+            border: 1px solid var(--border);
+            background: linear-gradient(180deg, var(--surface2), var(--surface));
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .flashcard-back {
+            transform: rotateY(180deg);
+            border-color: var(--text3);
+        }
+
+        .fc-label {
+            font-family: 'Fira Code', monospace;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            padding: 4px 12px;
+            border-radius: 4px;
+        }
+
+        .cap1 .fc-label {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--cap1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .cap2 .fc-label {
+            background: rgba(236, 72, 153, 0.1);
+            color: var(--cap2);
+            border: 1px solid rgba(236, 72, 153, 0.2);
+        }
+
+        .fc-question {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            font-weight: 700;
+            line-height: 1.4;
+            color: var(--text);
+        }
+
+        .fc-answer {
+            font-size: 0.95rem;
+            color: var(--text2);
+            line-height: 1.6;
+        }
+
+        .fc-hint {
+            margin-top: 16px;
+            font-size: 0.75rem;
+            color: var(--text3);
+            font-style: italic;
+        }
+
+        .fc-nav {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        /* ─── BOTOES TECH ─── */
+        .btn {
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: var(--surface2);
+            color: var(--text);
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            background: var(--surface3);
+            border-color: var(--text3);
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-primary {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .btn-cap2 {
+            border-color: var(--cap2);
+            color: var(--cap2);
+        }
+
+        .btn-cap2:hover {
+            background: var(--cap2);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+        }
+
+        /* ─── QUIZ ─── */
+        .quiz-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .quiz-score-badge {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            padding: 6px 16px;
+            border-radius: 4px;
+            background: var(--surface3);
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .question-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 24px;
+            animation: fadeUp 0.35s forwards;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .q-num {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            color: var(--text3);
+            margin-bottom: 16px;
+            letter-spacing: 1.5px;
+        }
+
+        .q-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1rem, 2vw, 1.15rem);
+            font-weight: 700;
+            line-height: 1.5;
+            color: var(--text);
+            margin-bottom: 28px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+            color: var(--text2);
+            line-height: 1.4;
+            background: rgba(22, 22, 26, 0.5);
+            text-align: left;
+            font-family: 'Outfit', sans-serif;
+            width: 100%;
+        }
+
+        .option:hover:not(:disabled) {
+            border-color: var(--accent);
+            background: var(--surface3);
+            color: var(--text);
+            transform: translateX(4px);
+        }
+
+        .option .opt-letter {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            font-weight: 600;
+            min-width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            background: var(--surface3);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text3);
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .option.correct {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+            color: #a7f3d0;
+        }
+
+        .option.correct .opt-letter {
+            background: var(--success);
+            border-color: var(--success);
+            color: #000;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+        }
+
+        .option.wrong {
+            border-color: var(--danger);
+            background: rgba(239, 68, 68, 0.1);
+            color: #fecaca;
+        }
+
+        .option.wrong .opt-letter {
+            background: var(--danger);
+            border-color: var(--danger);
+            color: #fff;
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+        }
+
+        .option:disabled {
+            cursor: default;
+        }
+
+        .explanation {
+            margin-top: 20px;
+            padding: 16px 20px;
+            background: var(--surface2);
+            border-radius: 8px;
+            border-left: 3px solid var(--accent3);
+            font-size: 0.85rem;
+            color: var(--text2);
+            line-height: 1.6;
+            display: none;
+        }
+
+        .explanation.show {
+            display: block;
+            animation: fadeUp 0.3s forwards;
+        }
+
+        .quiz-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .result-card {
+            text-align: center;
+            padding: 56px 32px;
+            background: linear-gradient(180deg, var(--surface2), var(--surface));
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            animation: fadeUp 0.5s forwards;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .result-score {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 6rem;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 12px;
+            text-shadow: 0 0 30px currentColor;
+        }
+
+        .result-label {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            color: var(--text2);
+            margin-bottom: 24px;
+            letter-spacing: 1px;
+        }
+
+        .result-msg {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: var(--text);
+            margin-bottom: 32px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ─── ANIMATIONS ─── */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ─── SCROLLBAR ─── */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text3);
+        }
+
+        /* ─── KEY POINT CHIP ─── */
+        .key-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .chip {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            padding: 6px 14px;
+            border-radius: 4px;
+            background: var(--surface2);
+            color: var(--text2);
+            border: 1px solid var(--border);
+            font-weight: 500;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 40px 0;
+        }
+
+        .section-label {
+            font-family: 'Fira Code', monospace;
+            font-size: 11px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--text3);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* ─── MARKETING ─── */
+        .marketing-banner {
+            margin-top: 60px;
+            padding: 48px 32px;
+            background: linear-gradient(135deg, var(--surface2), var(--surface));
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            animation: fadeUp 0.6s 0.5s forwards;
+            opacity: 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .marketing-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+        }
+
+        .marketing-banner h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: 16px;
+            color: var(--text);
+        }
+
+        .marketing-banner p {
+            color: var(--text2);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 32px;
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .marketing-links {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ─── MOBILE TWEAKS ─── */
+        @media (max-width: 800px) {
+            .hero {
+                padding: 60px 16px 40px;
+            }
+
+            .hero h1 {
+                font-size: clamp(2.2rem, 10vw, 3.2rem);
+            }
+
+            .nav-wrap {
+                padding: 0 8px;
+            }
+
+            .nav-tab {
+                padding: 16px 12px;
+                font-size: 0.85rem;
+            }
+
+            .main {
+                padding: 24px 16px 80px;
+            }
+
+            .chapter-header {
+                padding: 24px;
+            }
+
+            .chapter-header::before {
+                font-size: 6rem;
+                right: 0;
+                bottom: -20px;
+            }
+
+            .sub-tab {
+                flex: 1 1 auto;
+                min-width: 0;
+                padding: 12px;
+                font-size: 0.8rem;
+                text-align: center;
+            }
+
+            .summary-card {
+                padding: 20px;
+            }
+
+            .flashcard-scene {
+                height: 240px;
+            }
+
+            .question-card {
+                padding: 24px;
+            }
+
+            .marketing-banner {
+                padding: 32px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="hero">
+        <a href="https://wa.me/5584999465017?text=Olá,%20Mauricio!%20Gostei%20do%20seu%20guia%20de%20estudos%20e%20gostaria%20de%20falar%20sobre%20seus%20serviços."
+            target="_blank"
+            style="display: inline-block; font-family: 'Fira Code', monospace; font-size: 0.75rem; color: var(--accent); border: 1px solid var(--border); padding: 8px 16px; border-radius: 4px; text-decoration: none; margin-bottom: 32px; transition: all 0.2s; background: rgba(99,102,241,0.1);">
+            > Desenvolvido por Mauricio Silva_
+        </a>
+
+        <div class="hero-eyebrow">Thiago Laurentino · 3ª Unidade · 2026</div>
+        <h1>Psicologia<br><em>Social</em></h1>
+        <p class="hero-sub">A engrenagem por trás da avaliação humana, construção de crenças e a influência do
+            comportamento na sociedade.</p>
+    </div>
+
+    <div class="nav-wrap">
+        <div class="nav-tabs">
+            <button class="nav-tab active" data-chapter="1" onclick="showChapter(1)">Mód. 1 — Teoria das
+                Atitudes</button>
+            <button class="nav-tab" data-chapter="2" onclick="showChapter(2)">Mód. 2 — Preconceito, Discriminação e
+                Estereótipo</button>
+        </div>
+    </div>
+
+    <div class="main">
+
+        <div class="section cap1 active" id="chapter-1">
+            <div class="chapter-header cap1" data-num="01">
+                <span class="chapter-tag">Módulo 1</span>
+                <h2>A Natureza das Atitudes</h2>
+                <p>Destrinchando a teoria pura para entender a lógica acadêmica por trás das avaliações humanas na
+                    Psicologia Social.</p>
+            </div>
+
+            <div class="sub-tabs cap1">
+                <button class="sub-tab active" onclick="showSub('c1','resumo')">Resumo</button>
+                <button class="sub-tab" onclick="showSub('c1','flashcard')">Flashcards</button>
+                <button class="sub-tab" onclick="showSub('c1','quiz')">Simulado</button>
+            </div>
+
+            <div class="sub-section active" id="c1-resumo">
+                <div class="section-label">Pontos Principais</div>
+                <div class="summary-grid">
+
+                    <div class="summary-card cap1">
+                        <h3><span class="card-num">01</span>Conceitos-Chaves</h3>
+                        <p>Em Psicologia Social, <strong>atitude</strong> não significa "tomar uma iniciativa". É uma
+                            predisposição ou tendência interna de avaliar um objeto social (uma pessoa, ideia ou
+                            política) de forma favorável ou desfavorável.</p>
+                        <ul>
+                            <li><strong>Estrutura Tripartite:</strong> Cognitivo (o que você pensa), Afetivo (o que você
+                                sente) e Comportamental (como você age).</li>
+                            <li><strong>Crenças:</strong> São afirmações factuais (na visão do indivíduo) sobre a
+                                realidade, moldadas pela experiência. São a matéria-prima do componente cognitivo.</li>
+                            <li><strong>Mudança de Atitude:</strong> Nossas avaliações podem ser alteradas por novas
+                                informações, influência do grupo, experiências diretas ou pelo desconforto da
+                                dissonância cognitiva.</li>
+                        </ul>
+                    </div>
+
+                    <div class="summary-card cap1">
+                        <h3><span class="card-num">02</span>Glossário de Gatilhos</h3>
+                        <p>Revisão rápida para memorização nas vésperas da prova:</p>
+                        <div class="table-wrap">
+                            <table>
+                                <tr>
+                                    <th>Conceito</th>
+                                    <th>Gatilho Mental</th>
+                                </tr>
+                                <tr>
+                                    <td><strong>Atitude</strong></td>
+                                    <td>Avaliação Interna (pró ou contra)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Comp. Cognitivo</strong></td>
+                                    <td>O que eu PENSO (crenças)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Comp. Afetivo</strong></td>
+                                    <td>O que eu SINTO (emoções)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Comp. Comportamental</strong></td>
+                                    <td>Como eu AJO (intenção/ação)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Crenças</strong></td>
+                                    <td>Verdade Pessoal (empírica)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Dissonância Cognitiva</strong></td>
+                                    <td>Hipocrisia Desconfortável</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="summary-card cap1">
+                        <h3><span class="card-num">03</span>Mapeamento de Relações (Causa e Efeito)</h3>
+                        <p>Como os conceitos interagem para resolução de questões complexas:</p>
+                        <code-block>Crença (Causa inicial)
+                            ↳ Atitude (Avaliação)
+                            ↳ Comportamento (Ação)</code-block>
+
+                        <div class="info-box">> <strong>Mensuração Indireta:</strong> Como as atitudes são processos
+                            mentais internos (inobserváveis), psicólogos dependem de causas secundárias (comportamento,
+                            fisiologia, relatos) para medi-las.</div>
+
+                        <div class="alert-box">[!] <strong>Dissonância Cognitiva:</strong> A tensão de quando a Atitude
+                            "A" se choca com o Comportamento "B". O efeito inevitável é a necessidade de alívio,
+                            resultando frequentemente em <em>mudança de atitude</em> ou revisão de crenças.</div>
+                    </div>
+
+                    <div class="summary-card cap1">
+                        <h3><span class="card-num">04</span>Exemplos do Mundo Real</h3>
+                        <p>Materializando conceitos para repertório discursivo:</p>
+                        <ul>
+                            <li><strong>Estrutura Tripartite:</strong> Um eleitor lê as propostas econômicas falhas de
+                                um candidato (<em>Cognitivo/Crença</em>), sente raiva ao vê-lo na TV
+                                (<em>Afetivo/Emoção</em>) e, por isso, não vota nele (<em>Comportamental/Ação</em>).
+                            </li>
+                            <li><strong>Dissonância Cognitiva:</strong> Profissional de saúde que sabe que o cigarro é
+                                letal (<em>Atitude negativa</em>) mas fuma (<em>Comportamento</em>). Para reduzir o
+                                estresse mental, minimiza a culpa dizendo: "A poluição mata mais" (revisão de crenças).
+                            </li>
+                            <li><strong>Mudança de Atitude:</strong> Pode ocorrer por <em>Experiência Direta</em>
+                                (vivência real quebrando preconceitos) ou por <em>Influência Social</em> (mudança para
+                                se adequar e pertencer a um novo grupo).</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="sub-section" id="c1-flashcard">
+                <div class="section-label">Flashcards — Clique para revelar</div>
+                <div class="flashcard-controls cap1">
+                    <span class="fc-counter" id="c1-fc-counter">1 / 1</span>
+                    <button class="btn btn-primary" onclick="shuffleCards('c1')">⇄ Embaralhar</button>
+                </div>
+                <div class="fc-progress cap1">
+                    <div class="fc-progress-bar" id="c1-fc-bar" style="width:100%"></div>
+                </div>
+                <div class="flashcard-scene" onclick="flipCard('c1')">
+                    <div class="flashcard-inner" id="c1-card">
+                        <div class="flashcard-face flashcard-front cap1">
+                            <span class="fc-label">Pergunta</span>
+                            <div class="fc-question" id="c1-front"></div>
+                            <div class="fc-hint">Toque para ver a resposta</div>
+                        </div>
+                        <div class="flashcard-face flashcard-back cap1">
+                            <span class="fc-label">Resposta</span>
+                            <div class="fc-answer" id="c1-back"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fc-nav">
+                    <button class="btn" onclick="prevCard('c1')">← Anterior</button>
+                    <button class="btn btn-primary" onclick="nextCard('c1')">Próximo →</button>
+                </div>
+            </div>
+
+            <div class="sub-section" id="c1-quiz">
+                <div class="section-label">Simulado — Módulo 1</div>
+                <div id="c1-quiz-content"></div>
+            </div>
+        </div>
+
+        <div class="section cap2" id="chapter-2">
+            <div class="chapter-header cap2" data-num="02">
+                <span class="chapter-tag">Módulo 2</span>
+                <h2>Título Principal do Assunto 2</h2>
+                <p>Breve descrição sobre o que será abordado neste segundo módulo de estudos.</p>
+            </div>
+
+            <div class="sub-tabs cap2">
+                <button class="sub-tab active" onclick="showSub('c2','resumo')">Resumo</button>
+                <button class="sub-tab" onclick="showSub('c2','flashcard')">Flashcards</button>
+                <button class="sub-tab" onclick="showSub('c2','quiz')">Simulado</button>
+            </div>
+
+            <div class="sub-section active" id="c2-resumo">
+                <div class="section-label">Pontos Principais</div>
+                <div class="summary-grid">
+
+                    <div class="summary-card cap2">
+                        <h3><span class="card-num">01</span>Conceitos-Chaves: A Tríade</h3>
+                        <p>A relação intergrupal problemática nasce de uma <strong>Sequência Psicológica</strong>
+                            interligada:</p>
+                        <ul>
+                            <li><strong>Categorização:</strong> Agrupamos pessoas para viabilizar a interação (primeiro
+                                passo).</li>
+                            <li><strong>Estereótipo (Cognição):</strong> Componente cognitivo com crenças
+                                compartilhadas. Simplificam a realidade e poupam energia mental. Podem destruir a
+                                autoimagem do alvo.</li>
+                            <li><strong>Preconceito (Afeto/Avaliação):</strong> Atitude hostil voltada à pertença
+                                grupal, visando legitimar posições hierárquicas e poder.</li>
+                            <li><strong>Discriminação (Comportamento/Ação):</strong> O julgamento materializado em ações
+                                de exclusão.</li>
+                        </ul>
+                        <p style="margin-top:16px"><strong>Estratégia de Intervenção:</strong> A reflexão crítica
+                            questiona o naturalizado, mas a <em>mudança afetiva</em> é muito mais eficaz que a
+                            cognitiva.</p>
+                    </div>
+
+                    <div class="summary-card cap2">
+                        <h3><span class="card-num">02</span>Glossário de Gatilhos</h3>
+                        <p>Revise antes da prova, forçando a memória através das associações:</p>
+                        <div class="table-wrap">
+                            <table>
+                                <tr>
+                                    <th>Conceito</th>
+                                    <th>Gatilho / Função</th>
+                                </tr>
+                                <tr>
+                                    <td><strong>Estereótipo</strong></td>
+                                    <td>O que eu PENSO / Rótulo Mental</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Preconceito</strong></td>
+                                    <td>O que eu SINTO / Rejeição Emocional</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Discriminação</strong></td>
+                                    <td>Como eu AJO / Exclusão Prática</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Identidade Social</strong></td>
+                                    <td>"Meu grupo é melhor"</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Hipótese do Contato</strong></td>
+                                    <td>Convivência com Propósito</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="summary-card cap2">
+                        <h3><span class="card-num">03</span>Mapeamento de Relações</h3>
+                        <p>O efeito dominó nas relações intergrupais:</p>
+                        <code-block>Economia Cognitiva ➔ Estereotipização
+                            Poder Político/Social ➔ Preconceito Institucional
+                            Preconceito ➔ Desigualdade Estrutural</code-block>
+                        <div class="info-box">> <strong>Viés de Atribuição (Fracassos):</strong> Se a minoria erra, a
+                            culpa é interna ("caráter"). Se a maioria erra, a culpa é externa ("circunstâncias").</div>
+                        <div class="alert-box">[!] <strong>Emoção > Razão:</strong> Tentar reduzir o preconceito apenas
+                            com dados estatísticos (cognição) não funciona. A mudança real exige a mobilização
+                            emocional/afetiva.</div>
+                    </div>
+
+                    <div class="summary-card cap2">
+                        <h3><span class="card-num">04</span>Exemplos do Mundo Real</h3>
+                        <p>Aplicações práticas para redação discursiva:</p>
+                        <ul>
+                            <li><strong>Armadilha da Explicação:</strong> A mídia frequentemente enquadra o jovem branco
+                                rico flagrado com drogas como "vítima das circunstâncias", mas trata o jovem periférico
+                                na mesma situação apenas pelo defeito de caráter.</li>
+                            <li><strong>Discriminação Institucional:</strong> Softwares de triagem de currículo que
+                                descartam automaticamente idosos (+55 anos) operam um preconceito sistêmico, silencioso
+                                e enraizado, sem que ocorra uma agressão verbal direta.</li>
+                            <li><strong>Hipótese do Contato:</strong> Para reduzir preconceito, não basta juntar
+                                pessoas. É preciso colocá-las para <em>cooperar em projetos conjuntos</em>, visando
+                                objetivos comuns e com respaldo da instituição.</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="sub-section" id="c2-flashcard">
+                <div class="section-label">Flashcards — Clique para revelar</div>
+                <div class="flashcard-controls cap2">
+                    <span class="fc-counter" id="c2-fc-counter">1 / 1</span>
+                    <button class="btn btn-cap2" onclick="shuffleCards('c2')">⇄ Embaralhar</button>
+                </div>
+                <div class="fc-progress cap2">
+                    <div class="fc-progress-bar" id="c2-fc-bar" style="width:100%"></div>
+                </div>
+                <div class="flashcard-scene" onclick="flipCard('c2')">
+                    <div class="flashcard-inner" id="c2-card">
+                        <div class="flashcard-face flashcard-front cap2">
+                            <span class="fc-label">Pergunta</span>
+                            <div class="fc-question" id="c2-front"></div>
+                            <div class="fc-hint">Toque para ver a resposta</div>
+                        </div>
+                        <div class="flashcard-face flashcard-back cap2">
+                            <span class="fc-label">Resposta</span>
+                            <div class="fc-answer" id="c2-back"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fc-nav">
+                    <button class="btn" onclick="prevCard('c2')">← Anterior</button>
+                    <button class="btn btn-cap2" onclick="nextCard('c2')">Próximo →</button>
+                </div>
+            </div>
+
+            <div class="sub-section" id="c2-quiz">
+                <div class="section-label">Simulado — Módulo 2</div>
+                <div id="c2-quiz-content"></div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+        <div class="marketing-banner">
+            <h3>Gostou deste material interativo?</h3>
+            <p>Este guia de estudos foi desenvolvido por <strong>Mauricio Silva</strong>. Precisa dos resumos das
+                próximas
+                unidades, quer encomendar um simulado específico ou criar um template personalizado?</p>
+            <div class="marketing-links">
+                <a href="https://wa.me/5584999465017?text=Opa, Mauricio! Eu vi seu material de estudo e gostaria de encomedar um projeto."
+                    target="_blank" class="btn btn-primary">Falar no WhatsApp</a>
+            </div>
+        </div>
+
+    </div>
+    <script>
+
+        const FLASHCARDS = {
+            c1: [
+                { q: "O que é uma atitude na Psicologia Social?", a: "Um construto psicológico, uma predisposição ou tendência interna de avaliar um objeto social de forma favorável ou desfavorável." },
+                { q: "Quais são os três componentes da Estrutura Tripartite das Atitudes?", a: "Componente Cognitivo (pensamentos/crenças), Componente Afetivo (emoções) e Componente Comportamental (ação/intenção)." },
+                { q: "O que define o Componente Cognitivo de uma atitude?", a: "É o conjunto de crenças, informações e percepções que estruturam o que sabemos sobre o objeto (o que eu penso)." },
+                { q: "Como o Componente Afetivo se manifesta?", a: "Através das emoções, sentimentos e afetos despertados quando entramos em contato com o objeto avaliado (o que eu sinto)." },
+                { q: "Qual é a diferença fundamental entre crenças e atitudes?", a: "Crenças são afirmações factuais (na visão do indivíduo) que formam a base cognitiva, enquanto a atitude é a avaliação final (pró/contra) baseada nelas." },
+                { q: "Qual é o papel do Componente Comportamental?", a: "Ele dita a tendência, intenção ou ação concreta direcionada ao objeto avaliado (como eu ajo)." },
+                { q: "O que é Dissonância Cognitiva?", a: "É a tensão e o desconforto mental gerados quando o comportamento de um indivíduo entra em conflito com suas atitudes ou crenças." },
+                { q: "Como um indivíduo costuma resolver a Dissonância Cognitiva?", a: "Para aliviar a tensão psicológica, o indivíduo frequentemente altera sua atitude ou revisa suas crenças originais para justificar o comportamento." },
+                { q: "Por que os psicólogos utilizam a 'mensuração indireta' para avaliar atitudes?", a: "Porque atitudes são processos mentais internos (inobserváveis), exigindo a análise de comportamentos, reações fisiológicas ou relatos autodescritivos." },
+                { q: "Quais são os dois fatores principais citados que podem causar mudança de atitude?", a: "A vivência de experiências diretas com o objeto (quebra de preconceitos empírica) e a influência do grupo social (adequação às normas)." }
+            ],
+            c2: [
+                { q: "Qual é a 'Tríade Fundamental' (sequência psicológica) das relações intergrupais problemáticas?", a: "Cognição (Categorização/Estereótipo), Afeto (Avaliação/Preconceito) e Comportamento (Ação/Discriminação)." },
+                { q: "O que é a Categorização e qual sua consequência principal?", a: "É o agrupamento mental de pessoas para viabilizar a interação rápida, sendo o primeiro passo que origina os estereótipos." },
+                { q: "Como a teoria define os estereótipos?", a: "Como o componente cognitivo do processo; um conjunto de crenças compartilhadas que têm função adaptativa (simplificar a realidade e reduzir esforço mental)." },
+                { q: "O que diferencia o preconceito de um simples erro cognitivo (estereótipo)?", a: "O preconceito é uma atitude hostil/emocional direcionada ao indivíduo apenas por sua pertença grupal, servindo para legitimar posições de poder e desigualdades." },
+                { q: "O que é a Discriminação no contexto da Tríade Fundamental?", a: "É o componente comportamental impulsionado pelo julgamento negativo, manifestando-se por ações de exclusão e opressão institucional." },
+                { q: "Qual é a premissa central da Teoria da Identidade Social?", a: "Que os indivíduos buscam formar uma identidade positiva através da valorização extrema de seu próprio grupo em detrimento de outros grupos." },
+                { q: "O que dita a 'Hipótese do Contato' sobre a redução de preconceitos?", a: "A premissa de que juntar grupos só reduz o preconceito se houver cooperação obrigatória, objetivos compartilhados e forte valorização/punição institucional." },
+                { q: "Como o viés cognitivo atua na explicação de fracassos de minorias vs. maiorias?", a: "Fracassos de minorias são explicados por falhas internas (defeitos de caráter do indivíduo), enquanto fracassos de maiorias são justificados por circunstâncias externas." },
+                { q: "Como o racismo ou machismo opera na 'Discriminação Institucional'?", a: "De forma silenciosa e sistemática, embutida nas regras da instituição (como algoritmos de recrutamento restritivos), sem depender de agressões diretas de um indivíduo." },
+                { q: "Qual é a estratégia de intervenção mais eficaz para combater atitudes preconceituosas?", a: "A mudança afetiva (mobilizar e alterar emoções), pois focar apenas em alterar informações cognitivas ou estatísticas tem baixíssimo impacto em crenças arraigadas." }
+            ]
+        };
+
+        const QUIZ = {
+            c1: [
+                {
+                    q: "Em Psicologia Social, o conceito de 'atitude' diverge do senso comum. Assinale a alternativa que melhor descreve esse construto acadêmico:",
+                    opts: [
+                        "A formulação consciente de estratégias de enfrentamento diante de um desafio social crônico.",
+                        "A predisposição psicológica interna para avaliar um objeto social de forma favorável ou desfavorável.",
+                        "O conjunto de traços de personalidade imutáveis que são estabelecidos durante a primeira infância.",
+                        "A manifestação exclusivamente comportamental e observável de um sujeito frente a estímulos externos."
+                    ],
+                    correct: 1, // Letra B
+                    exp: "Na Psicologia Social, atitude não é 'tomar atitude' (comportamento), mas sim a ponte invisível e avaliativa (pró ou contra) entre um estímulo e a possível ação."
+                },
+                {
+                    q: "Um pesquisador avalia a reação de eleitores a um candidato medindo seus batimentos cardíacos e níveis de tensão ao verem a foto dele. Qual componente da atitude está sendo focado?",
+                    opts: [
+                        "Componente Estrutural, focado na percepção e interpretação lógica do estímulo.",
+                        "Componente Comportamental, focado na probabilidade de ação motora futura.",
+                        "Componente Cognitivo, focado nas crenças empíricas e processos de racionalização.",
+                        "Componente Afetivo, focado nas respostas emocionais e excitação fisiológica."
+                    ],
+                    correct: 3, // Letra D
+                    exp: "O componente afetivo diz respeito às emoções e sentimentos despertados pelo objeto, que frequentemente geram reações fisiológicas quantificáveis."
+                },
+                {
+                    q: "Um indivíduo afirma: 'Políticas de cotas reduzem o mérito acadêmico'. Na estrutura das atitudes, essa afirmação factual (na perspectiva do indivíduo) classifica-se primariamente como:",
+                    opts: [
+                        "Uma crença (matéria-prima do Componente Cognitivo).",
+                        "Uma emoção implícita (núcleo do Componente Afetivo).",
+                        "Uma resposta operante (base do Componente Comportamental).",
+                        "Uma dissonância reativa (resultado de tensão psicológica)."
+                    ],
+                    correct: 0, // Letra A
+                    exp: "Crenças são recortes da realidade baseados na experiência empírica do indivíduo, servindo como matéria-prima para o componente cognitivo do que ele 'pensa' ou 'sabe'."
+                },
+                {
+                    q: "A Teoria da Dissonância Cognitiva, ao analisar o conflito entre atitude e comportamento, postula que o desconforto resultante leva o indivíduo a:",
+                    opts: [
+                        "Racionalizar o comportamento problemático, separando completamente o componente afetivo do cognitivo.",
+                        "Ignorar as consequências do comportamento e reforçar publicamente a atitude original sem alterações.",
+                        "Buscar a restauração da coerência interna, frequentemente alterando a atitude ou a crença original.",
+                        "Manter a contradição permanentemente, desenvolvendo mecanismos de defesa como a projeção emocional."
+                    ],
+                    correct: 2, // Letra C
+                    exp: "A dissonância gera uma tensão mental intolerável. O efeito inevitável dessa tensão é a necessidade de alívio, restaurando a coerência ao mudar a atitude para 'encaixar' no comportamento emitido."
+                },
+                {
+                    q: "Uma limitação metodológica inerente ao estudo empírico das atitudes é a sua inobservabilidade direta. Qual das estratégias abaixo reflete a necessidade de uma 'mensuração indireta' autodescritiva?",
+                    opts: [
+                        "A aplicação de questionários onde o sujeito relata seu grau de concordância com certas afirmações.",
+                        "O monitoramento contínuo da dilatação pupilar do participante diante de estímulos visuais específicos.",
+                        "A contagem rigorosa da frequência com que o sujeito emite sorrisos durante uma interação social.",
+                        "O rastreamento de microexpressões faciais por meio de softwares de reconhecimento automatizado."
+                    ],
+                    correct: 0, // Letra A
+                    exp: "Como as atitudes estão 'dentro da cabeça', precisamos inferi-las indiretamente. O relato autodescritivo (questionários/escalas) pede que o próprio sujeito traduza seu construto interno."
+                },
+                {
+                    q: "Um calouro universitário, inicialmente indiferente a questões ambientais, passa a adotar atitudes ativistas após ingressar em um coletivo ecologista. Esse fenômeno ilustra a mudança de atitude motivada primariamente por:",
+                    opts: [
+                        "Vivência de experiência prática e direta, sem a mediação de terceiros.",
+                        "Modificação biológica associada ao desenvolvimento tardio do córtex pré-frontal.",
+                        "Resolução de traumas reprimidos durante a fase de socialização secundária.",
+                        "Influência social normativa e busca por pertencimento ao novo grupo de convivência."
+                    ],
+                    correct: 3, // Letra D
+                    exp: "O exemplo ilustra como a necessidade de ser aceito e pertencer a um grupo faz com que o indivíduo internalize as normas avaliativas desse núcleo social."
+                },
+                {
+                    q: "Analise a relação de causa e efeito: 'Acredito que programas sociais reduzem a desigualdade (X), logo, sou amplamente a favor deles (Y)'. Os elementos X e Y correspondem, respectivamente, a:",
+                    opts: [
+                        "Afeto e Atitude.",
+                        "Crença e Atitude.",
+                        "Atitude e Comportamento.",
+                        "Comportamento e Crença."
+                    ],
+                    correct: 1, // Letra B
+                    exp: "A crença (X) é o que o sujeito toma como fato ou conhecimento estruturado. A atitude (Y) é a avaliação final (ser a favor/contra) que deriva diretamente dessa base cognitiva."
+                },
+                {
+                    q: "Qual exemplo prático melhor ilustra a resolução de uma dissonância cognitiva através da revisão e alteração de crenças?",
+                    opts: [
+                        "Um estudante reprovado decide abandonar o curso por acreditar que o sistema de avaliação é injusto e falho.",
+                        "Um ativista dos direitos animais abandona o uso de couro e passa a adotar um estilo de vida estritamente vegano.",
+                        "Um médico fumante passa a argumentar que 'a poluição urbana é muito mais letal que o tabagismo esporádico'.",
+                        "Um atleta de alto rendimento mantém sua rotina diária de treinos rigorosos mesmo sofrendo com lesões crônicas."
+                    ],
+                    correct: 2, // Letra C
+                    exp: "O médico altera sua crença sobre os riscos (minimizando o perigo do cigarro frente à poluição) para aliviar a tensão de manter um comportamento nocivo que vai contra sua atitude de promoção de saúde."
+                },
+                {
+                    q: "Na estrutura tripartite conceitual, o componente comportamental da atitude é mais bem definido como:",
+                    opts: [
+                        "A intenção prévia, tendência avaliativa ou ação concreta diretamente relacionada ao objeto social.",
+                        "O somatório das memórias factuais e das inferências lógicas armazenadas pelo indivíduo ao longo da vida.",
+                        "O conjunto de reações puramente instintivas de luta ou fuga geradas pelo sistema nervoso simpático.",
+                        "O estado de excitação fisiológica que antecede o reconhecimento cognitivo de uma demanda ambiental."
+                    ],
+                    correct: 0, // Letra A
+                    exp: "O componente comportamental ('Como eu ajo') não precisa ser apenas a ação já executada no passado; ele abrange também a intenção e a predisposição de agir de certa forma no futuro."
+                },
+                {
+                    q: "A mudança de atitude promovida por 'experiência direta' (como no convívio prolongado com grupos marginalizados) é estruturalmente poderosa porque:",
+                    opts: [
+                        "É imposta de forma coercitiva por figuras de autoridade inquestionáveis, garantindo submissão imediata.",
+                        "Baseia-se no contato real e empírico, o que frequentemente refuta crenças infundadas e quebra preconceitos.",
+                        "Substitui a dissonância cognitiva por recompensas financeiras ou status social ampliado para o indivíduo.",
+                        "Condiciona o cérebro a suprimir indefinidamente as emoções negativas associadas ao grupo focal analisado."
+                    ],
+                    correct: 1, // Letra B
+                    exp: "A experiência direta insere novas percepções factuais na vivência da pessoa. O contato empírico refuta crenças antigas que eram baseadas na ausência de informação, alterando a atitude de forma mais profunda."
+                }
+            ],
+            c2: [
+                {
+                    q: "A literatura psicológica propõe uma 'Tríade Fundamental' para explicar as relações intergrupais problemáticas. Considerando essa perspectiva teórica, assinale a correlação estrutural mais adequada:",
+                    opts: [
+                        "A categorização origina o preconceito primário, enquanto a discriminação surge exclusivamente de falhas biológicas inatas.",
+                        "O preconceito representa o julgamento comportamental, sendo o estereótipo a emoção fisiológica associada ao estímulo.",
+                        "O estereótipo atua no nível cognitivo, o preconceito no nível afetivo e a discriminação no nível comportamental.",
+                        "A discriminação fundamenta o componente cognitivo, antecedendo a categorização afetiva na consolidação das crenças humanas."
+                    ],
+                    correct: 2,
+                    exp: "A tríade segue a sequência exata da atitude: Pensamento e Crença (Estereótipo), Sentimento e Emoção (Preconceito) e Ação/Exclusão (Discriminação)."
+                },
+                {
+                    q: "Longe de serem meros erros de raciocínio lógico, os estereótipos possuem um caráter funcional no aparato mental humano. Qual é a principal função adaptativa dessa cognição social?",
+                    opts: [
+                        "Simplificar a complexidade da realidade e reduzir severamente o esforço cognitivo exigido para o processamento rápido de novos estímulos.",
+                        "Promover o estabelecimento obrigatório de atitudes afetivas positivas, universais e imparciais em relação a grupos culturalmente distantes.",
+                        "Extinguir completamente os vieses de atribuição intergrupal para garantir um julgamento perfeitamente racional em situações de estresse.",
+                        "Eliminar a necessidade de qualquer categorização social durante as interações interpessoais realizadas em ambientes institucionais restritos."
+                    ],
+                    correct: 0,
+                    exp: "O cérebro precisa lidar com excesso de estímulos constantes. O estereótipo cria categorias 'prontas' que exigem muito menos energia mental do que processar cada pessoa individualmente."
+                },
+                {
+                    q: "De acordo com a premissa central da Teoria da Identidade Social, as dinâmicas de favoritismo endogrupal e discriminação de exogrupos são originadas pela necessidade humana de:",
+                    opts: [
+                        "Evitar o esgotamento cognitivo através da supressão intencional de emoções primárias em contextos de conflito sociopolítico continuado.",
+                        "Desconstruir ativamente as categorizações primitivas de sobrevivência a fim de atingir um estado psicológico de total imparcialidade e desinteresse.",
+                        "Assegurar submissão irrestrita aos líderes institucionais hierárquicos com o objetivo primordial de obter recompensas tangíveis e imediatas.",
+                        "Construir e manter uma autoimagem positiva e fortalecida por meio da valorização e do enaltecimento comparativo do próprio grupo de pertença."
+                    ],
+                    correct: 3,
+                    exp: "A identidade de uma pessoa está atrelada aos grupos dos quais ela faz parte. Logo, ao enaltecer seu próprio grupo em detrimento de outros, o indivíduo busca elevar indiretamente seu próprio valor."
+                },
+                {
+                    q: "Um gestor decide misturar grupos de diferentes origens em um ambiente laboral acreditando que a mera convivência diária extinguirá preconceitos. Segundo a Hipótese do Contato, essa intervenção é falha porque:",
+                    opts: [
+                        "A proximidade contínua, independentemente de fatores mediadores, intensifica a dissonância cognitiva e resulta em atitudes hostis crônicas e imutáveis.",
+                        "A efetiva atenuação das atitudes preconceituosas exige condições específicas e rigorosas, como cooperação interdependente, objetivos comuns e respaldo institucional.",
+                        "O contato indiscriminado induz ao sobrecarregamento heurístico complexo, o que prejudica irremediavelmente a capacidade laboral e acentua vieses genéticos.",
+                        "A interação entre exogrupos deve ser inicialmente restrita a espaços virtuais para minimizar as reações neurofisiológicas defensivas diante do desconhecido."
+                    ],
+                    correct: 1,
+                    exp: "Colocar as pessoas no mesmo espaço físico não é suficiente; a ciência mostra que elas podem até se isolar em subgrupos. A redução real demanda que eles dependam um do outro (cooperação) rumo a um fim comum."
+                },
+                {
+                    q: "O fenômeno do viés de atribuição evidencia-se claramente nas avaliações sobre sucesso e fracasso na estrutura social. Frente aos erros e falhas cometidos por membros de diferentes grupos, a tendência analítica costuma justificar as falhas de grupos:",
+                    opts: [
+                        "Dominantes através de causas biológicas imutáveis, enquanto as transgreções perpetradas pelas minorias são interpretadas como falhas de infraestrutura.",
+                        "Periféricos recorrendo primariamente ao viés de confirmação benéfico, e justificando as falhas da elite hegemônica por análise comportamental profunda.",
+                        "Excluídos baseando-se estritamente em emoções empáticas reparadoras, enquanto as classes dominantes são processadas sem utilização de atalhos heurísticos.",
+                        "Minoritários apelando para fatores inerentes e falhas de caráter, enquanto as falhas de maiorias são externalizadas como decorrentes das circunstâncias."
+                    ],
+                    correct: 3,
+                    exp: "Essa distorção mental é conhecida como 'erro fundamental de atribuição intergrupal', protegendo a imagem do grupo hegemônico (culpando o ambiente) e penalizando o grupo inferiorizado (culpando a essência)."
+                },
+                {
+                    q: "Estudos acadêmicos advertem que o preconceito transcende largamente o status de mera limitação lógica. Em sua manifestação macrossocial e sistêmica, esse julgamento negativo operaciona-se com a intenção fundamental de:",
+                    opts: [
+                        "Racionalizar a naturalidade imposta às posições hierárquicas vigentes, garantindo a manutenção do status quo e perpetuando desigualdades nas relações de poder.",
+                        "Desvalidar o mecanismo cerebral de categorização imediata, forçando os grupos sociais a executarem uma verificação pormenorizada em todo encontro interpessoal.",
+                        "Incentivar dinâmicas de colaboração transversal entre classes antagônicas, acelerando o processo de mobilidade social através da regulação do estresse psicológico.",
+                        "Neutralizar sumariamente as estratégias primitivas de economia cognitiva nas tomadas de decisão governamentais que envolvam riscos sanitários diretos."
+                    ],
+                    correct: 0,
+                    exp: "O preconceito não existe de forma aleatória no vácuo; ele atua ativamente como uma ferramenta de subordinação social que dita quem tem privilégios e quem tem restrições."
+                },
+                {
+                    q: "Projetos de intervenção que buscam suprimir atitudes preconceituosas com a mera apresentação de estatísticas e raciocínios silogísticos frequentemente fracassam. A fundamentação teórica atribui tal ineficiência ao fato de que:",
+                    opts: [
+                        "Populações afetadas exibem resistência orgânica e genética a processar abstrações algorítmicas, rejeitando intencionalmente o rigor científico.",
+                        "O instinto de conservação de energia impede a recepção de variáveis quantitativas, convertendo fluxogramas e dados em respostas comportamentais aleatórias.",
+                        "Intervenções limitadas ao escopo cognitivo raramente desestabilizam crenças cristalizadas, sendo a via de mudança baseada em mobilização afetiva significativamente mais eficaz.",
+                        "O componente motor da tríade estrutural bloqueia instantaneamente todos os comandos exógenos se as normas corporativas locais não estiverem formalizadas."
+                    ],
+                    correct: 2,
+                    exp: "Tentativas de reverter estereótipos apenas com 'aulas teóricas' são insuficientes porque o preconceito tem um componente afetivo/emocional forte, e emoção se combate criando empatia, não apenas lendo números."
+                },
+                {
+                    q: "No arcabouço das relações assimétricas, o conceito de 'discriminação institucional' consolida dinâmicas que diferem substancialmente do conflito interpessoal de cunho individual. Caracteriza-se o caráter institucional pela:",
+                    opts: [
+                        "Operacionalização insidiosa por intermédio das normativas operacionais de rotina, algoritmos e políticas sistêmicas aplicadas indistintamente, independentemente do agente pessoal.",
+                        "Condição mandatória de intenção agressiva pré-estabelecida por cada indivíduo da base hierárquica durante o atendimento presencial contínuo aos cidadãos minoritários.",
+                        "Limitação de suas ocorrências aos setores de economia informal ou organizações desprovidas de quaisquer diretrizes padronizadas e regulamentações contratuais.",
+                        "Exigência estrita de pronunciamentos verbais hostis declarados publicamente por autoridades máximas representativas de instituições corporativas transnacionais."
+                    ],
+                    correct: 0,
+                    exp: "A força nociva do racismo ou etarismo institucional reside no fato de que o funcionário que aperta o botão não precisa ser abertamente maldoso, basta ele seguir a regra invisivelmente enviesada da instituição."
+                },
+                {
+                    q: "Ao esquematizar o surgimento das atitudes enviesadas, a Psicologia Social destaca a categorização como o mecanismo cognitivo originário. No desenvolvimento ontogenético e interacional, a motivação primária para tal esquema reside na:",
+                    opts: [
+                        "Iniciativa deliberada de desmantelar redes de identificação macrossocial para inibir manifestações políticas baseadas na similaridade afetiva orgânica entre concidadãos.",
+                        "Necessidade de indexar a pluralidade social em nichos reconhecíveis, estruturando a percepção de modo a garantir a viabilidade e agilidade das interações ordinárias.",
+                        "Intenção biológica de sobrepor uma uniformidade comportamental impositiva, erradicando traços singulares em favor de um sistema neural de reatividade simétrica global.",
+                        "Instrução herdada focada em acionar o eixo endócrino do estresse quando perante exogrupos, condicionando uma reação defensiva constante frente à diversidade."
+                    ],
+                    correct: 1,
+                    exp: "Categorizar é organizar. Sem a categorização para dizer 'quem é professor' e 'quem é aluno', nossas interações demandariam muito esforço para recalcular constantemente as normas aplicáveis."
+                },
+                {
+                    q: "As ramificações decorrentes das crenças compartilhadas (estereótipos) não incidem unicamente no grupo avaliador dominante. Analisando o efeito direto sobre a cognição do alvo rotulado, a literatura constata que ocorre:",
+                    opts: [
+                        "A maturação instantânea da inteligência emocional coletiva, induzida fisiologicamente pelo estresse decorrente do julgamento e distanciamento sociopolítico.",
+                        "A neutralização proativa e definitiva dos reflexos discriminatórios operacionais, dado que a minoria assume um papel pacifista como mecanismo universal de enfrentamento.",
+                        "A internalização sub-reptícia dessas generalizações negativas pelos membros do grupo focado, o que sabota cronicamente o desenvolvimento do seu senso de autoeficácia.",
+                        "A potencialização das rotinas heurísticas dos próprios oprimidos, os quais assimilam a aversão alheia como uma diretriz instrumental vantajosa no mercado competitivo atual."
+                    ],
+                    correct: 2,
+                    exp: "Este é um dos efeitos mais perigosos: membros de grupos estereotipados de forma negativa acabam acreditando, de fato, nessas crenças sobre si mesmos, gerando síndromes de impostor e minando a autoimagem."
+                }
+            ]
+        };
+
+        // ════════════════════════════════════════
+        // STATE
+        // ════════════════════════════════════════
+        const state = {
+            c1: { cards: [...FLASHCARDS.c1], idx: 0, flipped: false, quizAnswered: [], quizScore: 0, quizDone: false, qIdx: 0 },
+            c2: { cards: [...FLASHCARDS.c2], idx: 0, flipped: false, quizAnswered: [], quizScore: 0, quizDone: false, qIdx: 0 }
+        };
+
+        // ════════════════════════════════════════
+        // CHAPTER / SUB-SECTION NAV
+        // ════════════════════════════════════════
+        function showChapter(n) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('chapter-' + n).classList.add('active');
+            document.querySelector(`.nav-tab[data-chapter="${n}"]`).classList.add('active');
+        }
+
+        function showSub(cap, sub) {
+            const section = document.getElementById('chapter-' + cap.replace('c', ''));
+            section.querySelectorAll('.sub-section').forEach(s => s.classList.remove('active'));
+            section.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(cap + '-' + sub).classList.add('active');
+            event.target.classList.add('active');
+
+            if (sub === 'flashcard') initFlashcard(cap);
+            if (sub === 'quiz') initQuiz(cap);
+        }
+
+        // ════════════════════════════════════════
+        // FLASHCARDS
+        // ════════════════════════════════════════
+        function initFlashcard(cap) {
+            const s = state[cap];
+            s.flipped = false;
+            renderCard(cap);
+        }
+
+        function renderCard(cap) {
+            const s = state[cap];
+            const card = s.cards[s.idx];
+            document.getElementById(cap + '-front').textContent = card.q;
+            document.getElementById(cap + '-back').textContent = card.a;
+            document.getElementById(cap + '-fc-counter').textContent = `${s.idx + 1} / ${s.cards.length}`;
+            document.getElementById(cap + '-fc-bar').style.width = ((s.idx + 1) / s.cards.length * 100) + '%';
+            const inner = document.getElementById(cap + '-card');
+            inner.classList.remove('flipped');
+            s.flipped = false;
+        }
+
+        function flipCard(cap) {
+            const s = state[cap];
+            s.flipped = !s.flipped;
+            document.getElementById(cap + '-card').classList.toggle('flipped', s.flipped);
+        }
+
+        function nextCard(cap) {
+            const s = state[cap];
+            if (s.idx < s.cards.length - 1) { s.idx++; renderCard(cap); }
+        }
+
+        function prevCard(cap) {
+            const s = state[cap];
+            if (s.idx > 0) { s.idx--; renderCard(cap); }
+        }
+
+        function shuffleCards(cap) {
+            const s = state[cap];
+            for (let i = s.cards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [s.cards[i], s.cards[j]] = [s.cards[j], s.cards[i]];
+            }
+            s.idx = 0;
+            renderCard(cap);
+        }
+
+        // ════════════════════════════════════════
+        // QUIZ
+        // ════════════════════════════════════════
+        function initQuiz(cap) {
+            const s = state[cap];
+            s.quizAnswered = new Array(QUIZ[cap].length).fill(null);
+            s.quizScore = 0;
+            s.quizDone = false;
+            s.qIdx = 0;
+            renderQuiz(cap);
+        }
+
+        function renderQuiz(cap) {
+            const s = state[cap];
+            const questions = QUIZ[cap];
+            const container = document.getElementById(cap + '-quiz-content');
+
+            if (s.quizDone) {
+                const pct = Math.round(s.quizScore / questions.length * 100);
+                let msg = pct >= 80 ? 'Excelente! Você domina o conteúdo deste capítulo.' :
+                    pct >= 60 ? 'Bom resultado! Revise os pontos que errou.' :
+                        'Continue estudando! Releia o resumo e tente novamente.';
+                let color = pct >= 80 ? 'var(--success)' : pct >= 60 ? 'var(--accent)' : 'var(--danger)';
+                let shadow = pct >= 80 ? 'rgba(16,185,129,0.4)' : pct >= 60 ? 'rgba(99,102,241,0.4)' : 'rgba(239,68,68,0.4)';
+
+                container.innerHTML = `
+      <div class="result-card">
+        <div class="result-score" style="color:${color}; text-shadow: 0 0 30px ${shadow};">${s.quizScore}/${questions.length}</div>
+        <div class="result-label">${pct}% DE APROVEITAMENTO</div>
+        <div class="result-msg">${msg}</div>
+        <button class="btn btn-primary" onclick="initQuiz('${cap}')">Tentar Novamente</button>
+      </div>`;
+                return;
+            }
+
+            const q = questions[s.qIdx];
+            const letters = ['A', 'B', 'C', 'D', 'E'];
+            const answered = s.quizAnswered[s.qIdx];
+
+            let optsHTML = q.opts.map((opt, i) => {
+                let cls = '';
+                if (answered !== null) {
+                    if (i === q.correct) cls = 'correct';
+                    else if (i === answered && i !== q.correct) cls = 'wrong';
+                }
+                return `<button class="option ${cls}" onclick="answerQuiz('${cap}', ${i})" ${answered !== null ? 'disabled' : ''}>
+      <span class="opt-letter">${letters[i]}</span>
+      <span>${opt.replace(/^[A-E]\) /, '')}</span>
+    </button>`;
+            }).join('');
+
+            const expDisplay = answered !== null ? 'show' : '';
+
+            container.innerHTML = `
+    <div class="quiz-header">
+      <span class="fc-counter">${s.qIdx + 1} DE ${questions.length}</span>
+      <span class="quiz-score-badge">ACERTOS: ${s.quizScore}</span>
+    </div>
+    <div class="fc-progress ${cap}"><div class="fc-progress-bar" style="width:${((s.qIdx) / questions.length) * 100}%"></div></div>
+    <div class="question-card">
+      <div class="q-num">QUESTÃO ${String(s.qIdx + 1).padStart(2, '0')}</div>
+      <div class="q-text">${q.q}</div>
+      <div class="options">${optsHTML}</div>
+      <div class="explanation ${expDisplay}">
+        <strong style="color: var(--accent3)">> Comentário:</strong> ${q.exp}
+      </div>
+    </div>
+    <div class="quiz-nav">
+      <button class="btn" onclick="prevQuestion('${cap}')" ${s.qIdx === 0 ? 'disabled' : ''}>← Anterior</button>
+      ${answered !== null
+                    ? s.qIdx < questions.length - 1
+                        ? `<button class="btn btn-primary" onclick="nextQuestion('${cap}')">Próxima →</button>`
+                        : `<button class="btn btn-primary" onclick="finishQuiz('${cap}')">Ver Resultado ✓</button>`
+                    : `<span style="font-family:'Fira Code', monospace; font-size:.75rem; color:var(--text3)">Aguardando seleção...</span>`
+                }
+    </div>`;
+        }
+
+        function answerQuiz(cap, chosen) {
+            const s = state[cap];
+            if (s.quizAnswered[s.qIdx] !== null) return;
+            s.quizAnswered[s.qIdx] = chosen;
+            if (chosen === QUIZ[cap][s.qIdx].correct) s.quizScore++;
+            renderQuiz(cap);
+        }
+
+        function nextQuestion(cap) {
+            state[cap].qIdx++;
+            renderQuiz(cap);
+        }
+
+        function prevQuestion(cap) {
+            if (state[cap].qIdx > 0) { state[cap].qIdx--; renderQuiz(cap); }
+        }
+
+        function finishQuiz(cap) {
+            state[cap].quizDone = true;
+            renderQuiz(cap);
+        }
+
+        // ════════════════════════════════════════
+        // INIT
+        // ════════════════════════════════════════
+        initFlashcard('c1');
+        initFlashcard('c2');
+    </script>
+</body>
+
+</html>

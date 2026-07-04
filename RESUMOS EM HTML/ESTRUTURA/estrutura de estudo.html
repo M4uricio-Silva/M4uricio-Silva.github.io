@@ -4,28 +4,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Template — Guia de Estudos</title>
+  <title>Template — Guia de Estudos Premium</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Outfit:wght@300;400;500;600&family=Space+Grotesk:wght@500;700;900&display=swap"
     rel="stylesheet">
   <style>
     :root {
-      --bg: #08101f;
-      --surface: #121b2e;
-      --surface2: #172438;
-      --surface3: #1e2d43;
-      --border: #2e4f77;
-      --accent: #71c7ff;
-      --accent2: #f2a86f;
-      --accent3: #8be0b5;
-      --danger: #ff7c74;
-      --success: #7adca7;
-      --text: #ecf3ff;
-      --text2: #acc4dd;
-      --text3: #6b85a1;
-      --cap1: #71c7ff;
-      --cap2: #f2a86f;
-      --cap3: #8be0b5;
+      /* Paleta Tecnológica / Cyber-Acadêmica */
+      --bg: #050505;
+      --surface: #0e0e11;
+      --surface2: #16161a;
+      --surface3: #202025;
+      --border: #2a2a35;
+
+      --accent: #6366f1;
+      /* Indigo Tech */
+      --accent-glow: rgba(99, 102, 241, 0.4);
+      --accent2: #ec4899;
+      /* Rosa Neon */
+      --accent3: #14b8a6;
+      /* Teal Criativo */
+
+      --danger: #ef4444;
+      --success: #10b981;
+
+      --text: #f8fafc;
+      --text2: #94a3b8;
+      --text3: #64748b;
+
+      --cap1: #818cf8;
+      --cap2: #f472b6;
+      --cap3: #2dd4bf;
     }
 
     *,
@@ -41,21 +52,14 @@
     }
 
     body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--bg);
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--bg);
+      /* Grid Blueprint Tecnológico */
+      background-image: radial-gradient(var(--border) 1px, transparent 1px);
+      background-size: 24px 24px;
       color: var(--text);
       min-height: 100vh;
       overflow-x: hidden;
-    }
-
-    /* ─── BACKGROUND NOISE ─── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
     }
 
     /* ─── HERO ─── */
@@ -69,48 +73,52 @@
     .hero::before {
       content: '';
       position: absolute;
-      top: -120px;
+      top: -150px;
       left: 50%;
       transform: translateX(-50%);
-      width: 700px;
-      height: 700px;
-      background: radial-gradient(ellipse, rgba(113, 199, 255, 0.16) 0%, transparent 72%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
       pointer-events: none;
+      filter: blur(40px);
     }
 
     .hero-eyebrow {
-      font-family: 'DM Mono', monospace;
+      font-family: 'Fira Code', monospace;
       font-size: 11px;
-      letter-spacing: 3px;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--accent3);
       margin-bottom: 20px;
       opacity: 0;
       animation: fadeUp 0.6s 0.1s forwards;
     }
 
     .hero h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.2rem, 6vw, 4.5rem);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
       font-weight: 900;
-      line-height: 1.05;
+      line-height: 1.1;
       color: var(--text);
       margin-bottom: 16px;
       opacity: 0;
       animation: fadeUp 0.6s 0.2s forwards;
+      letter-spacing: -1px;
     }
 
     .hero h1 em {
-      font-style: italic;
-      color: var(--accent);
+      font-style: normal;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .hero-sub {
-      font-size: 1rem;
+      font-size: 1.05rem;
       color: var(--text2);
-      max-width: 480px;
+      max-width: 500px;
       margin: 0 auto 40px;
-      line-height: 1.7;
+      line-height: 1.6;
       opacity: 0;
       animation: fadeUp 0.6s 0.3s forwards;
     }
@@ -120,8 +128,8 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(13, 15, 20, 0.92);
-      backdrop-filter: blur(16px);
+      background: rgba(5, 5, 5, 0.8);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       padding: 0 16px;
       opacity: 0;
@@ -134,7 +142,7 @@
       margin: 0 auto;
       overflow-x: auto;
       scrollbar-width: none;
-      gap: 4px;
+      gap: 16px;
     }
 
     .nav-tabs::-webkit-scrollbar {
@@ -143,36 +151,38 @@
 
     .nav-tab {
       flex-shrink: 0;
-      padding: 16px 20px;
-      font-size: 0.82rem;
+      padding: 16px 8px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem;
       font-weight: 600;
       letter-spacing: 0.5px;
       color: var(--text3);
       cursor: pointer;
       border: none;
       background: none;
-      border-bottom: 2px solid transparent;
-      transition: all 0.25s;
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s ease;
       white-space: nowrap;
     }
 
     .nav-tab:hover {
-      color: var(--text2);
+      color: var(--text);
     }
 
     .nav-tab.active {
-      color: var(--accent);
+      color: var(--text);
       border-bottom-color: var(--accent);
+      text-shadow: 0 0 10px var(--accent-glow);
     }
 
     .nav-tab[data-chapter="2"].active {
-      color: var(--cap2);
       border-bottom-color: var(--cap2);
+      text-shadow: 0 0 10px rgba(236, 72, 153, 0.4);
     }
 
     .nav-tab[data-chapter="3"].active {
-      color: var(--cap3);
       border-bottom-color: var(--cap3);
+      text-shadow: 0 0 10px rgba(20, 184, 166, 0.4);
     }
 
     /* ─── MAIN CONTENT ─── */
@@ -194,109 +204,122 @@
     /* ─── CHAPTER HEADER ─── */
     .chapter-header {
       margin-bottom: 40px;
-      padding: 32px;
-      background: var(--surface);
-      border-radius: 24px;
+      padding: 40px;
+      background: linear-gradient(145deg, var(--surface), var(--bg));
+      border-radius: 16px;
       border: 1px solid var(--border);
       position: relative;
       overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
 
     .chapter-header::before {
       content: attr(data-num);
       position: absolute;
       right: -10px;
-      top: -20px;
-      font-family: 'Playfair Display', serif;
-      font-size: 9rem;
+      bottom: -30px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 10rem;
       font-weight: 900;
-      opacity: 0.04;
-      color: var(--text);
+      opacity: 0.03;
+      color: #fff;
       line-height: 1;
       pointer-events: none;
     }
 
     .chapter-tag {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 2.5px;
+      font-family: 'Fira Code', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      padding: 4px 10px;
-      border-radius: 20px;
+      padding: 6px 12px;
+      border-radius: 4px;
       display: inline-block;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
+      border: 1px solid;
     }
 
     .cap1 .chapter-tag {
-      background: rgba(200, 164, 90, 0.15);
+      background: rgba(99, 102, 241, 0.1);
       color: var(--cap1);
+      border-color: rgba(99, 102, 241, 0.3);
     }
 
     .cap2 .chapter-tag {
-      background: rgba(124, 111, 212, 0.15);
+      background: rgba(236, 72, 153, 0.1);
       color: var(--cap2);
+      border-color: rgba(236, 72, 153, 0.3);
     }
 
     .cap3 .chapter-tag {
-      background: rgba(79, 168, 155, 0.15);
+      background: rgba(20, 184, 166, 0.1);
       color: var(--cap3);
+      border-color: rgba(20, 184, 166, 0.3);
     }
 
     .chapter-header h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.4rem, 3.5vw, 2rem);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
       font-weight: 700;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       line-height: 1.2;
     }
 
     .chapter-header p {
       color: var(--text2);
-      font-size: 0.9rem;
-      line-height: 1.7;
+      font-size: 0.95rem;
+      line-height: 1.6;
     }
 
     /* ─── SUBSECTION TABS ─── */
     .sub-tabs {
       display: flex;
-      gap: 8px;
-      margin-bottom: 32px;
+      gap: 12px;
+      margin-bottom: 36px;
       flex-wrap: wrap;
     }
 
     .sub-tab {
-      padding: 9px 20px;
-      border-radius: 50px;
-      font-size: 0.82rem;
-      font-weight: 600;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
       cursor: pointer;
-      border: 1.5px solid var(--border);
-      background: transparent;
+      border: 1px solid var(--border);
+      background: var(--surface);
       color: var(--text2);
-      transition: all 0.2s;
+      transition: all 0.2s ease;
     }
 
     .sub-tab:hover {
       border-color: var(--text3);
       color: var(--text);
+      transform: translateY(-2px);
     }
 
     .cap1 .sub-tab.active {
       background: var(--cap1);
       border-color: var(--cap1);
       color: #000;
+      font-weight: 600;
+      box-shadow: 0 4px 15px var(--accent-glow);
     }
 
     .cap2 .sub-tab.active {
       background: var(--cap2);
       border-color: var(--cap2);
-      color: #fff;
+      color: #000;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
     }
 
     .cap3 .sub-tab.active {
       background: var(--cap3);
-      border-bottom-color: var(--cap3);
+      border-color: var(--cap3);
       color: #000;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(20, 184, 166, 0.3);
     }
 
     .sub-section {
@@ -310,62 +333,64 @@
     /* ─── SUMMARY CARDS ─── */
     .summary-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
     }
 
     .summary-card {
-      background: var(--surface);
+      background: rgba(14, 14, 17, 0.7);
+      backdrop-filter: blur(10px);
       border: 1px solid var(--border);
-      border-radius: 20px;
+      border-radius: 12px;
       padding: 24px;
-      transition: transform 0.2s, border-color 0.2s;
+      transition: all 0.3s ease;
       min-width: 0;
     }
 
     .summary-card:hover {
-      transform: translateY(-2px);
+      transform: translateY(-4px);
       border-color: var(--text3);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
     }
 
     .summary-card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.05rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
       font-weight: 700;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
     .card-num {
-      font-family: 'DM Mono', monospace;
+      font-family: 'Fira Code', monospace;
       font-size: 0.7rem;
-      padding: 3px 8px;
-      border-radius: 6px;
-      font-weight: 500;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-weight: 600;
     }
 
     .cap1 .card-num {
-      background: rgba(200, 164, 90, 0.2);
+      background: rgba(99, 102, 241, 0.15);
       color: var(--cap1);
     }
 
     .cap2 .card-num {
-      background: rgba(124, 111, 212, 0.2);
+      background: rgba(236, 72, 153, 0.15);
       color: var(--cap2);
     }
 
     .cap3 .card-num {
-      background: rgba(79, 168, 155, 0.2);
+      background: rgba(20, 184, 166, 0.15);
       color: var(--cap3);
     }
 
     .summary-card p,
     .summary-card li {
       color: var(--text2);
-      font-size: 0.88rem;
-      line-height: 1.75;
+      font-size: 0.9rem;
+      line-height: 1.7;
     }
 
     .summary-card ul {
@@ -373,73 +398,75 @@
     }
 
     .summary-card li {
-      margin-bottom: 4px;
+      margin-bottom: 6px;
+    }
+
+    .alert-box,
+    .info-box {
+      margin-top: 16px;
+      padding: 14px 18px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      line-height: 1.6;
     }
 
     .alert-box {
-      margin-top: 14px;
-      padding: 12px 16px;
-      background: rgba(212, 97, 79, 0.1);
+      background: rgba(239, 68, 68, 0.08);
       border-left: 3px solid var(--danger);
-      border-radius: 6px;
-      font-size: 0.82rem;
-      color: #e0a99f;
-      line-height: 1.6;
+      color: #fca5a5;
     }
 
     .info-box {
-      margin-top: 14px;
-      padding: 12px 16px;
-      background: rgba(200, 164, 90, 0.08);
+      background: rgba(99, 102, 241, 0.08);
       border-left: 3px solid var(--accent);
-      border-radius: 6px;
-      font-size: 0.82rem;
-      color: #d4be8a;
-      line-height: 1.6;
+      color: #a5b4fc;
     }
 
     .table-wrap {
       overflow-x: auto;
-      margin-top: 14px;
-      border-radius: 10px;
+      margin-top: 16px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.82rem;
+      font-size: 0.85rem;
     }
 
     th {
-      background: var(--surface3);
-      color: var(--text2);
+      background: var(--surface2);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
       font-weight: 600;
-      padding: 10px 14px;
+      padding: 12px 16px;
       text-align: left;
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       letter-spacing: 0.5px;
     }
 
     td {
-      padding: 9px 14px;
+      padding: 12px 16px;
       border-top: 1px solid var(--border);
       color: var(--text2);
     }
 
     tr:hover td {
-      background: var(--surface2);
+      background: var(--surface3);
     }
 
     code-block {
       display: block;
-      background: var(--surface3);
+      background: #000;
+      border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 14px 16px;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.78rem;
+      padding: 16px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.8rem;
       color: var(--accent3);
-      margin-top: 12px;
-      line-height: 1.8;
+      margin-top: 14px;
+      line-height: 1.7;
       white-space: pre;
       overflow-x: auto;
     }
@@ -455,48 +482,52 @@
     }
 
     .fc-counter {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.8rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
       color: var(--text3);
     }
 
     .fc-progress {
-      height: 3px;
+      height: 4px;
       background: var(--surface3);
-      border-radius: 2px;
-      margin-bottom: 28px;
+      border-radius: 4px;
+      margin-bottom: 32px;
       overflow: hidden;
     }
 
     .fc-progress-bar {
       height: 100%;
-      border-radius: 2px;
+      border-radius: 4px;
       transition: width 0.4s ease;
+      box-shadow: 0 0 10px currentColor;
     }
 
     .cap1 .fc-progress-bar {
       background: var(--cap1);
+      color: var(--cap1);
     }
 
     .cap2 .fc-progress-bar {
       background: var(--cap2);
+      color: var(--cap2);
     }
 
     .cap3 .fc-progress-bar {
       background: var(--cap3);
+      color: var(--cap3);
     }
 
     .flashcard-scene {
-      perspective: 1200px;
-      height: 260px;
+      perspective: 1500px;
+      height: 280px;
       cursor: pointer;
-      margin-bottom: 24px;
+      margin-bottom: 32px;
       user-select: none;
     }
 
     @media (max-width: 480px) {
       .flashcard-scene {
-        height: 220px;
+        height: 240px;
       }
     }
 
@@ -505,7 +536,7 @@
       width: 100%;
       height: 100%;
       transform-style: preserve-3d;
-      transition: transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1);
+      transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
     }
 
     .flashcard-inner.flipped {
@@ -516,98 +547,104 @@
       position: absolute;
       inset: 0;
       backface-visibility: hidden;
-      border-radius: 28px;
+      border-radius: 16px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 28px;
+      padding: 32px;
       text-align: center;
       border: 1px solid var(--border);
-    }
-
-    .flashcard-front {
-      background: var(--surface);
+      background: linear-gradient(180deg, var(--surface2), var(--surface));
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
     }
 
     .flashcard-back {
-      background: var(--surface2);
       transform: rotateY(180deg);
+      border-color: var(--text3);
     }
 
     .fc-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 9px;
+      font-family: 'Fira Code', monospace;
+      font-size: 10px;
       letter-spacing: 2px;
       text-transform: uppercase;
-      margin-bottom: 16px;
-      padding: 4px 10px;
-      border-radius: 20px;
+      margin-bottom: 20px;
+      padding: 4px 12px;
+      border-radius: 4px;
     }
 
     .cap1 .fc-label {
-      background: rgba(200, 164, 90, 0.15);
+      background: rgba(99, 102, 241, 0.1);
       color: var(--cap1);
+      border: 1px solid rgba(99, 102, 241, 0.2);
     }
 
     .cap2 .fc-label {
-      background: rgba(124, 111, 212, 0.15);
+      background: rgba(236, 72, 153, 0.1);
       color: var(--cap2);
+      border: 1px solid rgba(236, 72, 153, 0.2);
     }
 
     .cap3 .fc-label {
-      background: rgba(79, 168, 155, 0.15);
+      background: rgba(20, 184, 166, 0.1);
       color: var(--cap3);
+      border: 1px solid rgba(20, 184, 166, 0.2);
     }
 
     .fc-question {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
       font-weight: 700;
       line-height: 1.4;
       color: var(--text);
     }
 
     .fc-answer {
-      font-size: 0.88rem;
+      font-size: 0.95rem;
       color: var(--text2);
-      line-height: 1.7;
+      line-height: 1.6;
     }
 
     .fc-hint {
-      margin-top: 14px;
-      font-size: 0.72rem;
+      margin-top: 16px;
+      font-size: 0.75rem;
       color: var(--text3);
       font-style: italic;
     }
 
     .fc-nav {
       display: flex;
-      gap: 12px;
+      gap: 16px;
       justify-content: center;
     }
 
+    /* ─── BOTOES TECH ─── */
     .btn {
-      padding: 11px 24px;
-      border-radius: 999px;
-      font-size: 0.83rem;
-      font-weight: 600;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
       cursor: pointer;
-      border: 1.5px solid var(--border);
-      background: transparent;
+      border: 1px solid var(--border);
+      background: var(--surface2);
       color: var(--text);
-      transition: all 0.2s;
-      font-family: 'DM Sans', sans-serif;
+      transition: all 0.2s ease;
     }
 
     .btn:hover {
-      background: var(--surface2);
+      background: var(--surface3);
       border-color: var(--text3);
+      transform: translateY(-2px);
     }
 
     .btn:disabled {
-      opacity: 0.3;
+      opacity: 0.4;
       cursor: not-allowed;
+      transform: none;
     }
 
     .btn-primary {
@@ -616,7 +653,9 @@
     }
 
     .btn-primary:hover {
-      background: rgba(200, 164, 90, 0.1);
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 15px var(--accent-glow);
     }
 
     .btn-cap2 {
@@ -625,7 +664,9 @@
     }
 
     .btn-cap2:hover {
-      background: rgba(124, 111, 212, 0.1);
+      background: var(--cap2);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
     }
 
     .btn-cap3 {
@@ -634,7 +675,9 @@
     }
 
     .btn-cap3:hover {
-      background: rgba(79, 168, 155, 0.1);
+      background: var(--cap3);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(20, 184, 166, 0.4);
     }
 
     /* ─── QUIZ ─── */
@@ -642,113 +685,120 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       flex-wrap: wrap;
       gap: 12px;
     }
 
     .quiz-score-badge {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.75rem;
-      padding: 6px 14px;
-      border-radius: 24px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.8rem;
+      padding: 6px 16px;
+      border-radius: 4px;
       background: var(--surface3);
-      color: var(--text2);
+      border: 1px solid var(--border);
+      color: var(--text);
     }
 
     .question-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 28px;
-      margin-bottom: 20px;
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 24px;
       animation: fadeUp 0.35s forwards;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     }
 
     .q-num {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.75rem;
       color: var(--text3);
-      margin-bottom: 12px;
-      letter-spacing: 1px;
+      margin-bottom: 16px;
+      letter-spacing: 1.5px;
     }
 
     .q-text {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1rem, 2vw, 1.15rem);
       font-weight: 700;
       line-height: 1.5;
       color: var(--text);
-      margin-bottom: 22px;
+      margin-bottom: 28px;
     }
 
     .options {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
 
     .option {
       display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      padding: 13px 18px;
-      border-radius: 16px;
-      border: 1.5px solid var(--border);
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
       cursor: pointer;
-      transition: all 0.2s;
-      font-size: 0.87rem;
+      transition: all 0.2s ease;
+      font-size: 0.9rem;
       color: var(--text2);
-      line-height: 1.5;
-      background: transparent;
+      line-height: 1.4;
+      background: rgba(22, 22, 26, 0.5);
       text-align: left;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Outfit', sans-serif;
       width: 100%;
     }
 
     .option:hover:not(:disabled) {
-      border-color: var(--text3);
-      background: var(--surface2);
+      border-color: var(--accent);
+      background: var(--surface3);
       color: var(--text);
+      transform: translateX(4px);
     }
 
     .option .opt-letter {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      font-weight: 500;
-      min-width: 26px;
-      height: 26px;
-      border-radius: 10px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.75rem;
+      font-weight: 600;
+      min-width: 28px;
+      height: 28px;
+      border-radius: 4px;
       background: var(--surface3);
+      border: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--text3);
       flex-shrink: 0;
-      margin-top: 1px;
       transition: all 0.2s;
     }
 
     .option.correct {
       border-color: var(--success);
-      background: rgba(79, 168, 107, 0.08);
-      color: #a3d9b1;
+      background: rgba(16, 185, 129, 0.1);
+      color: #a7f3d0;
     }
 
     .option.correct .opt-letter {
       background: var(--success);
+      border-color: var(--success);
       color: #000;
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
     }
 
     .option.wrong {
       border-color: var(--danger);
-      background: rgba(212, 97, 79, 0.08);
-      color: #e0a99f;
+      background: rgba(239, 68, 68, 0.1);
+      color: #fecaca;
     }
 
     .option.wrong .opt-letter {
       background: var(--danger);
+      border-color: var(--danger);
       color: #fff;
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
     }
 
     .option:disabled {
@@ -756,14 +806,14 @@
     }
 
     .explanation {
-      margin-top: 16px;
-      padding: 14px 18px;
+      margin-top: 20px;
+      padding: 16px 20px;
       background: var(--surface2);
-      border-radius: 10px;
+      border-radius: 8px;
       border-left: 3px solid var(--accent3);
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       color: var(--text2);
-      line-height: 1.7;
+      line-height: 1.6;
       display: none;
     }
 
@@ -783,33 +833,37 @@
 
     .result-card {
       text-align: center;
-      padding: 48px 28px;
-      background: var(--surface);
+      padding: 56px 32px;
+      background: linear-gradient(180deg, var(--surface2), var(--surface));
       border: 1px solid var(--border);
       border-radius: 16px;
       animation: fadeUp 0.5s forwards;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
     }
 
     .result-score {
-      font-family: 'Playfair Display', serif;
-      font-size: 5rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 6rem;
       font-weight: 900;
       line-height: 1;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
+      text-shadow: 0 0 30px currentColor;
     }
 
     .result-label {
-      font-size: 0.85rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
       color: var(--text2);
       margin-bottom: 24px;
+      letter-spacing: 1px;
     }
 
     .result-msg {
-      font-size: 1rem;
-      line-height: 1.7;
-      color: var(--text2);
-      margin-bottom: 28px;
-      max-width: 380px;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: var(--text);
+      margin-bottom: 32px;
+      max-width: 400px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -818,7 +872,7 @@
     @keyframes fadeUp {
       from {
         opacity: 0;
-        transform: translateY(18px);
+        transform: translateY(20px);
       }
 
       to {
@@ -829,12 +883,12 @@
 
     /* ─── SCROLLBAR ─── */
     ::-webkit-scrollbar {
-      width: 5px;
-      height: 5px;
+      width: 6px;
+      height: 6px;
     }
 
     ::-webkit-scrollbar-track {
-      background: transparent;
+      background: var(--bg);
     }
 
     ::-webkit-scrollbar-thumb {
@@ -842,19 +896,24 @@
       border-radius: 10px;
     }
 
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text3);
+    }
+
     /* ─── KEY POINT CHIP ─── */
     .key-chips {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 14px;
+      margin-top: 16px;
     }
 
     .chip {
+      font-family: 'Fira Code', monospace;
       font-size: 0.75rem;
-      padding: 5px 12px;
-      border-radius: 20px;
-      background: var(--surface3);
+      padding: 6px 14px;
+      border-radius: 4px;
+      background: var(--surface2);
       color: var(--text2);
       border: 1px solid var(--border);
       font-weight: 500;
@@ -863,19 +922,19 @@
     .divider {
       border: none;
       border-top: 1px solid var(--border);
-      margin: 28px 0;
+      margin: 40px 0;
     }
 
     .section-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
+      font-family: 'Fira Code', monospace;
+      font-size: 11px;
       letter-spacing: 2.5px;
       text-transform: uppercase;
       color: var(--text3);
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
     .section-label::after {
@@ -885,10 +944,53 @@
       background: var(--border);
     }
 
-    /* ─── SHUFFLE BTN ─── */
-    .shuffle-icon {
-      display: inline-block;
-      margin-right: 6px;
+    /* ─── CAVALO DE TROIA (MARKETING) ─── */
+    .marketing-banner {
+      margin-top: 60px;
+      padding: 48px 32px;
+      background: linear-gradient(135deg, var(--surface2), var(--surface));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp 0.6s 0.5s forwards;
+      opacity: 0;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .marketing-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+    }
+
+    .marketing-banner h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .marketing-banner p {
+      color: var(--text2);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 32px;
+      max-width: 550px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .marketing-links {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
     }
 
     /* ─── MOBILE TWEAKS ─── */
@@ -898,89 +1000,54 @@
       }
 
       .hero h1 {
-        font-size: clamp(2rem, 10vw, 3.2rem);
-      }
-
-      .hero-sub {
-        max-width: 100%;
-        margin-bottom: 32px;
+        font-size: clamp(2.2rem, 10vw, 3.2rem);
       }
 
       .nav-wrap {
-        padding: 0 10px;
+        padding: 0 8px;
       }
 
       .nav-tab {
-        padding: 12px 14px;
-        font-size: 0.78rem;
+        padding: 16px 12px;
+        font-size: 0.85rem;
       }
 
       .main {
-        padding: 24px 12px 80px;
+        padding: 24px 16px 80px;
       }
 
       .chapter-header {
-        padding: 20px;
+        padding: 24px;
       }
 
       .chapter-header::before {
-        font-size: 5rem;
+        font-size: 6rem;
         right: 0;
-        top: 0;
-      }
-
-      .sub-tabs {
-        gap: 6px;
+        bottom: -20px;
       }
 
       .sub-tab {
         flex: 1 1 auto;
         min-width: 0;
-        padding: 10px 14px;
-        font-size: 0.78rem;
+        padding: 12px;
+        font-size: 0.8rem;
+        text-align: center;
       }
 
       .summary-card {
-        padding: 18px;
-      }
-
-      .table-wrap {
-        margin-top: 12px;
-      }
-
-      .flashcard-controls,
-      .quiz-nav {
-        justify-content: flex-start;
+        padding: 20px;
       }
 
       .flashcard-scene {
-        height: 220px;
-      }
-
-      .flashcard-face {
-        padding: 20px;
+        height: 240px;
       }
 
       .question-card {
-        padding: 20px;
+        padding: 24px;
       }
 
-      .btn {
-        padding: 10px 16px;
-        font-size: 0.78rem;
-      }
-
-      .option {
-        padding: 12px 16px;
-        gap: 12px;
-      }
-
-      .result-card {
-        padding: 30px 20px;
-      }
-
-      .result-score {
-        font-size: 3.5rem;
+      .marketing-banner {
+        padding: 32px 20px;
       }
     }
   </style>
@@ -989,10 +1056,15 @@
 <body>
 
   <div class="hero">
+    <a href="https://wa.me/5584999465017?text=Olá,%20Mauricio!%20Gostei%20do%20seu%20guia%20de%20estudos%20e%20gostaria%20de%20falar%20sobre%20seus%20serviços."
+      target="_blank"
+      style="display: inline-block; font-family: 'Fira Code', monospace; font-size: 0.75rem; color: var(--accent); border: 1px solid var(--border); padding: 8px 16px; border-radius: 4px; text-decoration: none; margin-bottom: 32px; transition: all 0.2s; background: rgba(99,102,241,0.1);">
+      > Desenvolvido por Mauricio Silva_
+    </a>
+
     <div class="hero-eyebrow">Autor ou Referência · Edição · Ano</div>
     <h1>Nome da<br>sua <em>Disciplina</em></h1>
-    <p class="hero-sub">Material de estudo interativo para avaliação — resumos, flashcards e
-      simulado por módulo.</p>
+    <p class="hero-sub">Material de estudo interativo para avaliação — resumos, flashcards e simulado por módulo.</p>
   </div>
 
   <div class="nav-wrap">
@@ -1013,9 +1085,9 @@
       </div>
 
       <div class="sub-tabs cap1">
-        <button class="sub-tab active" onclick="showSub('c1','resumo')">📋 Resumo</button>
-        <button class="sub-tab" onclick="showSub('c1','flashcard')">🃏 Flashcards</button>
-        <button class="sub-tab" onclick="showSub('c1','quiz')">✏️ Questões</button>
+        <button class="sub-tab active" onclick="showSub('c1','resumo')">Resumo</button>
+        <button class="sub-tab" onclick="showSub('c1','flashcard')">Flashcards</button>
+        <button class="sub-tab" onclick="showSub('c1','quiz')">Simulado</button>
       </div>
 
       <div class="sub-section active" id="c1-resumo">
@@ -1029,7 +1101,7 @@
             <code-block>Passo 1: Ação inicial
               Passo 2: Processamento
               Passo 3: Conclusão</code-block>
-            <p style="margin-top:12px">Parágrafo adicional para concluir o pensamento do tópico.</p>
+            <p style="margin-top:16px">Parágrafo adicional para concluir o pensamento do tópico.</p>
           </div>
 
           <div class="summary-card cap1">
@@ -1051,18 +1123,18 @@
                 </tr>
               </table>
             </div>
-            <div class="info-box">💡 Exemplo de caixa de informação: Insira aqui uma dica ou nota importante.</div>
+            <div class="info-box">> Exemplo de caixa de informação: Insira aqui uma dica ou nota importante.</div>
           </div>
 
           <div class="summary-card cap1">
-            <h3><span class="card-num">03</span>Tópico de Exemplo com Alerta e Chips</h3>
+            <h3><span class="card-num">03</span>Tópico com Alerta e Chips</h3>
             <p>Texto explicativo que pode anteceder uma lista de palavras-chave ou conceitos soltos.</p>
             <div class="key-chips">
               <span class="chip">Palavra-Chave 1</span>
               <span class="chip">Conceito 2</span>
               <span class="chip">Tag de Exemplo 3</span>
             </div>
-            <div class="alert-box">⚠️ Exemplo de caixa de alerta: Insira aqui um aviso sobre erros comuns ou exceções à
+            <div class="alert-box">[!] Exemplo de caixa de alerta: Insira aqui um aviso sobre erros comuns ou exceções à
               regra.</div>
           </div>
 
@@ -1111,9 +1183,9 @@
       </div>
 
       <div class="sub-tabs cap2">
-        <button class="sub-tab active" onclick="showSub('c2','resumo')">📋 Resumo</button>
-        <button class="sub-tab" onclick="showSub('c2','flashcard')">🃏 Flashcards</button>
-        <button class="sub-tab" onclick="showSub('c2','quiz')">✏️ Questões</button>
+        <button class="sub-tab active" onclick="showSub('c2','resumo')">Resumo</button>
+        <button class="sub-tab" onclick="showSub('c2','flashcard')">Flashcards</button>
+        <button class="sub-tab" onclick="showSub('c2','quiz')">Simulado</button>
       </div>
 
       <div class="sub-section active" id="c2-resumo">
@@ -1168,9 +1240,9 @@
       </div>
 
       <div class="sub-tabs cap3">
-        <button class="sub-tab active" onclick="showSub('c3','resumo')">📋 Resumo</button>
-        <button class="sub-tab" onclick="showSub('c3','flashcard')">🃏 Flashcards</button>
-        <button class="sub-tab" onclick="showSub('c3','quiz')">✏️ Questões</button>
+        <button class="sub-tab active" onclick="showSub('c3','resumo')">Resumo</button>
+        <button class="sub-tab" onclick="showSub('c3','flashcard')">Flashcards</button>
+        <button class="sub-tab" onclick="showSub('c3','quiz')">Simulado</button>
       </div>
 
       <div class="sub-section active" id="c3-resumo">
@@ -1217,6 +1289,18 @@
       </div>
     </div>
 
+    <div class="divider"></div>
+    <div class="marketing-banner">
+      <h3>Gostou deste material interativo?</h3>
+      <p>Este guia de estudos foi desenvolvido por <strong>Mauricio Silva</strong>. Precisa dos resumos das próximas
+        unidades, quer encomendar um simulado específico ou criar um projeto web como freelancer?</p>
+      <div class="marketing-links">
+        <a href="https://wa.me/5584999465017?text=Olá,%20Mauricio!%20Vi%20o%20seu%20material%20de%20estudos%20e%20tenho%20interesse%20em%20encomendar%20um%20projeto."
+          target="_blank" class="btn btn-primary">Falar no WhatsApp</a>
+        <a href="#" target="_blank" class="btn">Ver meu Portfólio</a>
+      </div>
+    </div>
+
   </div>
   <script>
     // ════════════════════════════════════════
@@ -1240,13 +1324,13 @@
       c1: [
         {
           q: "Insira o enunciado da sua primeira questão aqui. O que é correto afirmar?",
-          opts: ["A) Primeira alternativa (Incorreta)", "B) Segunda alternativa (Correta)", "C) Terceira alternativa (Incorreta)", "D) Quarta alternativa (Incorreta)", "E) Quinta alternativa (Incorreta)"],
+          opts: ["Primeira alternativa (Incorreta)", "Segunda alternativa (Correta)", "Terceira alternativa (Incorreta)", "Quarta alternativa (Incorreta)", "Quinta alternativa (Incorreta)"],
           correct: 1, // O índice começa no zero, então '1' corresponde à opção B
           exp: "Comentário explicando o motivo da alternativa B ser a resposta correta."
         },
         {
           q: "Enunciado da segunda questão de múltipla escolha.",
-          opts: ["A) Alternativa correta", "B) Alternativa incorreta", "C) Alternativa incorreta", "D) Alternativa incorreta"],
+          opts: ["Alternativa correta", "Alternativa incorreta", "Alternativa incorreta", "Alternativa incorreta"],
           correct: 0, // '0' corresponde à opção A
           exp: "Explicação breve do motivo para reforçar o aprendizado."
         }
@@ -1254,7 +1338,7 @@
       c2: [
         {
           q: "Questão de exemplo para o Módulo 2.",
-          opts: ["A) Opção 1", "B) Opção 2", "C) Opção correta 3", "D) Opção 4"],
+          opts: ["Opção 1", "Opção 2", "Opção correta 3", "Opção 4"],
           correct: 2,
           exp: "Explicação da questão do Módulo 2."
         }
@@ -1262,7 +1346,7 @@
       c3: [
         {
           q: "Questão de exemplo para o Módulo 3.",
-          opts: ["A) Verdadeiro", "B) Falso"],
+          opts: ["Verdadeiro", "Falso"],
           correct: 0,
           exp: "Porque os dados comprovam a afirmação."
         }
@@ -1365,14 +1449,16 @@
 
       if (s.quizDone) {
         const pct = Math.round(s.quizScore / questions.length * 100);
-        let msg = pct >= 80 ? '🎉 Excelente! Você domina o conteúdo deste capítulo.' :
-          pct >= 60 ? '📚 Bom resultado! Revise os pontos que errou.' :
-            '🔄 Continue estudando! Releia o resumo e tente novamente.';
+        let msg = pct >= 80 ? 'Excelente! Você domina o conteúdo deste capítulo.' :
+          pct >= 60 ? 'Bom resultado! Revise os pontos que errou.' :
+            'Continue estudando! Releia o resumo e tente novamente.';
         let color = pct >= 80 ? 'var(--success)' : pct >= 60 ? 'var(--accent)' : 'var(--danger)';
+        let shadow = pct >= 80 ? 'rgba(16,185,129,0.4)' : pct >= 60 ? 'rgba(99,102,241,0.4)' : 'rgba(239,68,68,0.4)';
+
         container.innerHTML = `
       <div class="result-card">
-        <div class="result-score" style="color:${color}">${s.quizScore}/${questions.length}</div>
-        <div class="result-label">${pct}% de aproveitamento</div>
+        <div class="result-score" style="color:${color}; text-shadow: 0 0 30px ${shadow};">${s.quizScore}/${questions.length}</div>
+        <div class="result-label">${pct}% DE APROVEITAMENTO</div>
         <div class="result-msg">${msg}</div>
         <button class="btn btn-primary" onclick="initQuiz('${cap}')">Tentar Novamente</button>
       </div>`;
@@ -1399,16 +1485,16 @@
 
       container.innerHTML = `
     <div class="quiz-header">
-      <span class="fc-counter" style="font-family:'DM Mono',monospace;font-size:.8rem;color:var(--text3)">${s.qIdx + 1} de ${questions.length}</span>
-      <span class="quiz-score-badge">Acertos: ${s.quizScore}</span>
+      <span class="fc-counter">${s.qIdx + 1} DE ${questions.length}</span>
+      <span class="quiz-score-badge">ACERTOS: ${s.quizScore}</span>
     </div>
-    <div class="fc-progress ${cap}"><div class="fc-progress-bar" style="width:${(s.qIdx / questions.length) * 100}%"></div></div>
+    <div class="fc-progress ${cap}"><div class="fc-progress-bar" style="width:${((s.qIdx) / questions.length) * 100}%"></div></div>
     <div class="question-card">
       <div class="q-num">QUESTÃO ${String(s.qIdx + 1).padStart(2, '0')}</div>
       <div class="q-text">${q.q}</div>
       <div class="options">${optsHTML}</div>
       <div class="explanation ${expDisplay}">
-        <strong>💡 Comentário:</strong> ${q.exp}
+        <strong style="color: var(--accent3)">> Comentário:</strong> ${q.exp}
       </div>
     </div>
     <div class="quiz-nav">
@@ -1417,7 +1503,7 @@
           ? s.qIdx < questions.length - 1
             ? `<button class="btn btn-primary" onclick="nextQuestion('${cap}')">Próxima →</button>`
             : `<button class="btn btn-primary" onclick="finishQuiz('${cap}')">Ver Resultado ✓</button>`
-          : `<span style="font-size:.78rem;color:var(--text3)">Selecione uma alternativa</span>`
+          : `<span style="font-family:'Fira Code', monospace; font-size:.75rem; color:var(--text3)">Aguardando seleção...</span>`
         }
     </div>`;
     }

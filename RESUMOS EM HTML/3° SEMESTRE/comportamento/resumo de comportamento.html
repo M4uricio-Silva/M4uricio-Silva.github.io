@@ -1,0 +1,4654 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Template — Guia de Estudos</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+
+            --bg: #08101f;
+
+            --surface: #121b2e;
+
+            --surface2: #172438;
+
+            --surface3: #1e2d43;
+
+            --border: #2e4f77;
+
+            --accent: #71c7ff;
+
+            --accent2: #f2a86f;
+
+            --accent3: #8be0b5;
+
+            --danger: #ff7c74;
+
+            --success: #7adca7;
+
+            --text: #ecf3ff;
+
+            --text2: #acc4dd;
+
+            --text3: #6b85a1;
+
+            --cap1: #71c7ff;
+
+            --cap2: #f2a86f;
+
+            --cap3: #8be0b5;
+
+            --cap4: #f37be4;
+
+            --cap5: #c77dff;
+
+        }
+
+
+
+        *,
+
+        *::before,
+
+        *::after {
+
+            box-sizing: border-box;
+
+            margin: 0;
+
+            padding: 0;
+
+        }
+
+
+
+        html {
+
+            scroll-behavior: smooth;
+
+        }
+
+
+
+        body {
+
+            font-family: 'DM Sans', sans-serif;
+
+            background: var(--bg);
+
+            color: var(--text);
+
+            min-height: 100vh;
+
+            overflow-x: hidden;
+
+        }
+
+
+
+        /* ─── BACKGROUND NOISE ─── */
+
+        body::before {
+
+            content: '';
+
+            position: fixed;
+
+            inset: 0;
+
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+
+            pointer-events: none;
+
+            z-index: 0;
+
+        }
+
+
+
+        /* ─── HERO ─── */
+
+        .hero {
+
+            position: relative;
+
+            padding: 80px 24px 60px;
+
+            text-align: center;
+
+            overflow: hidden;
+
+        }
+
+
+
+        .hero::before {
+
+            content: '';
+
+            position: absolute;
+
+            top: -120px;
+
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            width: 700px;
+
+            height: 700px;
+
+            background: radial-gradient(ellipse, rgba(113, 199, 255, 0.16) 0%, transparent 72%);
+
+            pointer-events: none;
+
+        }
+
+
+
+        .hero-eyebrow {
+
+            font-family: 'DM Mono', monospace;
+
+            font-size: 11px;
+
+            letter-spacing: 3px;
+
+            text-transform: uppercase;
+
+            color: var(--accent);
+
+            margin-bottom: 20px;
+
+            opacity: 0;
+
+            animation: fadeUp 0.6s 0.1s forwards;
+
+        }
+
+
+
+        .hero h1 {
+
+            font-family: 'Playfair Display', serif;
+
+            font-size: clamp(2.2rem, 6vw, 4.5rem);
+
+            font-weight: 900;
+
+            line-height: 1.05;
+
+            color: var(--text);
+
+            margin-bottom: 16px;
+
+            opacity: 0;
+
+            animation: fadeUp 0.6s 0.2s forwards;
+
+        }
+
+
+
+        .hero h1 em {
+
+            font-style: italic;
+
+            color: var(--accent);
+
+        }
+
+
+
+        .hero-sub {
+
+            font-size: 1rem;
+
+            color: var(--text2);
+
+            max-width: 480px;
+
+            margin: 0 auto 40px;
+
+            line-height: 1.7;
+
+            opacity: 0;
+
+            animation: fadeUp 0.6s 0.3s forwards;
+
+        }
+
+
+
+        /* ─── NAV TABS ─── */
+
+        .nav-wrap {
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+
+            background: rgba(13, 15, 20, 0.92);
+
+            backdrop-filter: blur(16px);
+
+            border-bottom: 1px solid var(--border);
+
+            padding: 0 16px;
+
+            opacity: 0;
+
+            animation: fadeUp 0.6s 0.4s forwards;
+
+        }
+
+
+
+        .nav-tabs {
+
+            display: flex;
+
+            max-width: 900px;
+
+            margin: 0 auto;
+
+            overflow-x: auto;
+
+            scrollbar-width: none;
+
+            gap: 4px;
+
+        }
+
+
+
+        .nav-tabs::-webkit-scrollbar {
+
+            display: none;
+
+        }
+
+
+
+        .nav-tab {
+
+            flex-shrink: 0;
+
+            padding: 16px 20px;
+
+            font-size: 0.82rem;
+
+            font-weight: 600;
+
+            letter-spacing: 0.5px;
+
+            color: var(--text3);
+
+            cursor: pointer;
+
+            border: none;
+
+            background: none;
+
+            border-bottom: 2px solid transparent;
+
+            transition: all 0.25s;
+
+            white-space: nowrap;
+
+        }
+
+
+
+        .nav-tab:hover {
+
+            color: var(--text2);
+
+        }
+
+
+
+        .nav-tab.active {
+
+            color: var(--accent);
+
+            border-bottom-color: var(--accent);
+
+        }
+
+
+
+        .nav-tab[data-chapter="2"].active {
+
+            color: var(--cap2);
+
+            border-bottom-color: var(--cap2);
+
+        }
+
+
+
+        .nav-tab[data-chapter="3"].active {
+
+            color: var(--cap3);
+
+            border-bottom-color: var(--cap3);
+
+        }
+
+
+
+        .nav-tab[data-chapter="4"].active {
+
+            color: var(--cap4);
+
+            border-bottom-color: var(--cap4);
+
+        }
+
+
+
+        .nav-tab[data-chapter="5"].active {
+
+            color: var(--cap5);
+
+            border-bottom-color: var(--cap5);
+
+        }
+
+
+
+        /* ─── MAIN CONTENT ─── */
+
+        .main {
+
+            max-width: 900px;
+
+            margin: 0 auto;
+
+            padding: 40px 20px 100px;
+
+        }
+
+
+
+        .section {
+
+            display: none;
+
+        }
+
+
+
+        .section.active {
+
+            display: block;
+
+            animation: fadeUp 0.4s forwards;
+
+        }
+
+
+
+        /* ─── CHAPTER HEADER ─── */
+
+        .chapter-header {
+
+            margin-bottom: 40px;
+
+            padding: 32px;
+
+            background: var(--surface);
+
+            border-radius: 24px;
+
+            border: 1px solid var(--border);
+
+            position: relative;
+
+            overflow: hidden;
+
+        }
+
+
+
+        .chapter-header::before {
+
+            content: attr(data-num);
+
+            position: absolute;
+
+            right: -10px;
+
+            top: -20px;
+
+            font-family: 'Playfair Display', serif;
+
+            font-size: 9rem;
+
+            font-weight: 900;
+
+            opacity: 0.04;
+
+            color: var(--text);
+
+            line-height: 1;
+
+            pointer-events: none;
+
+        }
+
+
+
+        .chapter-tag {
+
+            font-family: 'DM Mono', monospace;
+
+            font-size: 10px;
+
+            letter-spacing: 2.5px;
+
+            text-transform: uppercase;
+
+            padding: 4px 10px;
+
+            border-radius: 20px;
+
+            display: inline-block;
+
+            margin-bottom: 14px;
+
+        }
+
+
+
+        .cap1 .chapter-tag {
+
+            background: rgba(200, 164, 90, 0.15);
+
+            color: var(--cap1);
+
+        }
+
+
+
+        .cap2 .chapter-tag {
+
+            background: rgba(124, 111, 212, 0.15);
+
+            color: var(--cap2);
+
+        }
+
+
+
+        .cap3 .chapter-tag {
+
+            background: rgba(79, 168, 155, 0.15);
+
+            color: var(--cap3);
+
+        }
+
+
+
+        .cap4 .chapter-tag {
+
+            background: rgba(243, 123, 228, 0.15);
+
+            color: var(--cap4);
+
+        }
+
+
+
+        .cap5 .chapter-tag {
+
+            background: rgba(199, 125, 255, 0.15);
+
+            color: var(--cap5);
+
+        }
+
+
+
+        .chapter-header h2 {
+
+            font-family: 'Playfair Display', serif;
+
+            font-size: clamp(1.4rem, 3.5vw, 2rem);
+
+            font-weight: 700;
+
+            margin-bottom: 10px;
+
+            line-height: 1.2;
+
+        }
+
+
+
+        .chapter-header p {
+
+            color: var(--text2);
+
+            font-size: 0.9rem;
+
+            line-height: 1.7;
+
+        }
+
+
+
+        /* ─── SUBSECTION TABS ─── */
+
+        .sub-tabs {
+
+            display: flex;
+
+            gap: 8px;
+
+            margin-bottom: 32px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+
+        .sub-tab {
+
+            padding: 9px 20px;
+
+            border-radius: 50px;
+
+            font-size: 0.82rem;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            border: 1.5px solid var(--border);
+
+            background: transparent;
+
+            color: var(--text2);
+
+            transition: all 0.2s;
+
+        }
+
+
+
+        .sub-tab:hover {
+
+            border-color: var(--text3);
+
+            color: var(--text);
+
+        }
+
+
+
+        .cap1 .sub-tab.active {
+
+            background: var(--cap1);
+
+            border-color: var(--cap1);
+
+            color: #000;
+
+        }
+
+
+
+        .cap2 .sub-tab.active {
+
+            background: var(--cap2);
+
+            border-color: var(--cap2);
+
+            color: #fff;
+
+        }
+
+
+
+        .cap3 .sub-tab.active {
+
+            background: var(--cap3);
+
+            border-bottom-color: var(--cap3);
+
+            color: #000;
+
+        }
+
+
+
+        .cap4 .sub-tab.active {
+
+            background: var(--cap4);
+
+            border-color: var(--cap4);
+
+            color: #000;
+
+        }
+
+
+
+        .cap5 .sub-tab.active {
+
+            background: var(--cap5);
+
+            border-color: var(--cap5);
+
+            color: #fff;
+
+        }
+
+
+
+        .sub-section {
+
+            display: none;
+
+        }
+
+
+
+        .sub-section.active {
+
+            display: block;
+
+        }
+
+
+
+        /* ─── SUMMARY CARDS ─── */
+
+        .summary-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+
+            gap: 16px;
+
+        }
+
+
+
+        .summary-card {
+
+            background: var(--surface);
+
+            border: 1px solid var(--border);
+
+            border-radius: 20px;
+
+            padding: 24px;
+
+            transition: transform 0.2s, border-color 0.2s;
+
+            min-width: 0;
+
+        }
+
+
+
+        .summary-card:hover {
+
+            transform: translateY(-2px);
+
+            border-color: var(--text3);
+
+        }
+
+
+
+        .summary-card h3 {
+
+            font-family: 'Playfair Display', serif;
+
+            font-size: 1.05rem;
+
+            font-weight: 700;
+
+            margin-bottom: 14px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+        }
+
+
+
+        .card-num {
+
+            font-family: 'DM Mono', monospace;
+
+            font-size: 0.7rem;
+
+            padding: 3px 8px;
+
+            border-radius: 6px;
+
+            font-weight: 500;
+
+        }
+
+
+
+        .cap1 .card-num {
+
+            background: rgba(200, 164, 90, 0.2);
+
+            color: var(--cap1);
+
+        }
+
+
+
+        .cap2 .card-num {
+
+            background: rgba(124, 111, 212, 0.2);
+
+            color: var(--cap2);
+
+        }
+
+
+
+        .cap3 .card-num {
+
+            background: rgba(79, 168, 155, 0.2);
+
+            color: var(--cap3);
+
+        }
+
+
+
+        .cap4 .card-num {
+
+            background: rgba(243, 123, 228, 0.2);
+
+            color: var(--cap4);
+
+        }
+
+
+
+        .cap5 .card-num {
+
+            background: rgba(199, 125, 255, 0.2);
+
+            color: var(--cap5);
+
+        }
+
+
+
+        .summary-card p,
+
+        .summary-card li {
+
+            color: var(--text2);
+
+            font-size: 0.88rem;
+
+            line-height: 1.75;
+
+        }
+
+
+
+        .summary-card ul {
+
+            padding-left: 18px;
+
+        }
+
+
+
+        .summary-card li {
+
+            margin-bottom: 4px;
+
+        }
+
+
+
+        .alert-box {
+
+            margin-top: 14px;
+
+            padding: 12px 16px;
+
+            background: rgba(212, 97, 79, 0.1);
+
+            border-left: 3px solid var(--danger);
+
+            border-radius: 6px;
+
+            font-size: 0.82rem;
+
+            color: #e0a99f;
+
+            line-height: 1.6;
+
+        }
+
+
+
+        .info-box {
+
+            margin-top: 14px;
+
+            padding: 12px 16px;
+
+            background: rgba(200, 164, 90, 0.08);
+
+            border-left: 3px solid var(--accent);
+
+            border-radius: 6px;
+
+            font-size: 0.82rem;
+
+            color: #d4be8a;
+
+            line-height: 1.6;
+
+        }
+
+
+
+        .table-wrap {
+
+            overflow-x: auto;
+
+            margin-top: 14px;
+
+            border-radius: 10px;
+
+        }
+
+
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            font-size: 0.82rem;
+
+        }
+
+
+
+        th {
+
+            background: var(--surface3);
+
+            color: var(--text2);
+
+            font-weight: 600;
+
+            padding: 10px 14px;
+
+            text-align: left;
+
+            font-size: 0.75rem;
+
+            letter-spacing: 0.5px;
+
+        }
+
+
+
+        td {
+
+            padding: 9px 14px;
+
+            border-top: 1px solid var(--border);
+
+            color: var(--text2);
+
+        }
+
+
+
+        tr:hover td {
+
+            background: var(--surface2);
+
+        }
+
+
+
+        code-block {
+
+            display: block;
+
+            background: var(--surface3);
+
+            border-radius: 8px;
+
+            padding: 14px 16px;
+
+            font-family: 'DM Mono', monospace;
+
+            font-size: 0.78rem;
+
+            color: var(--accent3);
+
+            margin-top: 12px;
+
+            line-height: 1.8;
+
+            white-space: pre;
+
+            overflow-x: auto;
+
+        }
+
+
+
+        /* ─── FLASHCARDS ─── */
+
+        .flashcard-controls {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 24px;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+
+        }
+
+
+
+        .fc-counter {
+
+            font-family: 'DM Mono', monospace;
+
+            font-size: 0.8rem;
+
+            color: var(--text3);
+
+        }
+
+
+
+        .fc-progress {
+
+            height: 3px;
+
+            background: var(--surface3);
+
+            border-radius: 2px;
+
+            margin-bottom: 28px;
+
+            overflow: hidden;
+
+        }
+
+
+
+        .fc-progress-bar {
+
+            height: 100%;
+
+            border-radius: 2px;
+
+            transition: width 0.4s ease;
+
+        }
+
+
+
+        .cap1 .fc-progress-bar {
+
+            background: var(--cap1);
+
+        }
+
+
+
+        .cap2 .fc-progress-bar {
+
+            background: var(--cap2);
+
+        }
+
+
+
+        .cap3 .fc-progress-bar {
+
+            background: var(--cap3);
+
+        }
+
+
+
+        .cap4 .fc-progress-bar {
+
+            background: var(--cap4);
+
+        }
+
+
+
+        .cap5 .fc-progress-bar {
+
+            background: var(--cap5);
+
+        }
+
+
+
+        .flashcard-scene {
+
+            perspective: 1200px;
+
+            height: 260px;
+
+            cursor: pointer;
+
+            margin-bottom: 24px;
+
+            user-select: none;
+
+        }
+
+
+
+        @media (max-width: 480px) {
+
+            .flashcard-scene {
+
+                height: 220px;
+
+            }
+
+        }
+
+
+
+        .flashcard-inner {
+
+            position: relative;
+
+            width: 100%;
+
+            height: 100%;
+
+            transform-style: preserve-3d;
+
+            transition: transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1);
+
+        }
+
+
+
+        .flashcard-inner.flipped {
+
+            transform: rotateY(180deg);
+
+        }
+
+
+
+        .flashcard-face {
+
+            position: absolute;
+
+            inset: 0;
+
+            backface-visibility: hidden;
+
+            border-radius: 28px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 28px;
+
+            text-align: center;
+
+            border: 1px solid var(--border);
+
+        }
+
+
+
+        .flashcard-front {
+
+            background: var(--surface);
+
+        }
+
+
+
+        .flashcard-back {
+
+            background: var(--surface2);
+
+            transform: rotateY(180deg);
+
+        }
+
+
+
+        .fc-label {
+
+            font-family: 'DM Mono', monospace;
+
+            font-size: 9px;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 16px;
+
+            padding: 4px 10px;
+
+            border-radius: 20px;
+
+        }
+
+
+
+        .cap1 .fc-label {
+
+            background: rgba(200, 164, 90, 0.15);
+
+            color: var(--cap1);
+
+        }
+
+
+
+        .cap2 .fc-label {
+
+            background: rgba(124, 111, 212, 0.15);
+
+            color: var(--cap2);
+
+        }
+
+
+
+        .cap3 .fc-label {
+
+            background: rgba(79, 168, 155, 0.15);
+
+            color: var(--cap3);
+
+        }
+
+
+
+        .cap4 .fc-label {
+
+            background: rgba(243, 123, 228, 0.15);
+
+            color: var(--cap4);
+
+        }
+
+
+
+        .cap5 .fc-label {
+
+            background: rgba(199, 125, 255, 0.15);
+
+            color: var(--cap5);
+
+        }
+
+
+
+        .fc-question {
+
+            font-family: 'Playfair Display', serif;
+
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+
+            font-weight: 700;
+
+            line-height: 1.4;
+
+            color: var(--text);
+
+        }
+
+
+
+        .fc-answer {
+
+            font-size: 0.88rem;
+
+            color: var(--text2);
+
+            line-height: 1.7;
+
+        }
+
+
+
+        .fc-hint {
+
+            margin-top: 14px;
+
+            font-size: 0.72rem;
+
+            color: var(--text3);
+
+            font-style: italic;
+
+        }
+
+
+
+        .fc-nav {
+
+            display: flex;
+
+            gap: 12px;
+
+            justify-content: center;
+
+        }
+
+
+
+        .btn {
+
+            padding: 11px 24px;
+
+            border-radius: 999px;
+
+            font-size: 0.83rem;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            border: 1.5px solid var(--border);
+
+            background: transparent;
+
+            color: var(--text);
+
+            transition: all 0.2s;
+
+            font-family: 'DM Sans', sans-serif;
+
+        }
+
+
+
+        .btn:hover {
+
+            background: var(--surface2);
+
+            border-color: var(--text3);
+
+        }
+
+
+
+        .btn:disabled {
+
+            opacity: 0.3;
+
+            cursor: not-allowed;
+
+        }
+
+
+
+        .btn-primary {
+
+            border-color: var(--accent);
+
+            color: var(--accent);
+
+        }
+
+
+
+        .btn-primary:hover {
+
+            background: rgba(200, 164, 90, 0.1);
+
+        }
+
+
+
+        .btn-cap2 {
+
+            border-color: var(--cap2);
+
+            color: var(--cap2);
+
+        }
+
+
+
+        .btn-cap2:hover {
+
+            background: rgba(124, 111, 212, 0.1);
+
+        }
+
+
+
+        .btn-cap3 {
+
+            border-color: var(--cap3);
+
+            color: var(--cap3);
+
+        }
+
+
+
+        .btn-cap3:hover {
+
+            background: rgba(79, 168, 155, 0.1);
+
+        }
+
+
+
+        /* ─── QUIZ ─── */
+
+        .quiz-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 20px;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+
+        }
+
+
+
+        .quiz-score-badge {
+
+            font-family: 'DM Mono', monospace;
+
+            font-size: 0.75rem;
+
+            padding: 6px 14px;
+
+            border-radius: 24px;
+
+            background: var(--surface3);
+
+            color: var(--text2);
+
+        }
+
+
+
+        .question-card {
+
+            background: var(--surface);
+
+            border: 1px solid var(--border);
+
+            border-radius: 24px;
+
+            padding: 28px;
+
+            margin-bottom: 20px;
+
+            animation: fadeUp 0.35s forwards;
+
+        }
+
+
+
+        .q-num {
+
+            font-family: 'DM Mono', monospace;
+
+            font-size: 0.72rem;
+
+            color: var(--text3);
+
+            margin-bottom: 12px;
+
+            letter-spacing: 1px;
+
+        }
+
+
+
+        .q-text {
+
+            font-family: 'Playfair Display', serif;
+
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
+
+            font-weight: 700;
+
+            line-height: 1.5;
+
+            color: var(--text);
+
+            margin-bottom: 22px;
+
+        }
+
+
+
+        .options {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+
+        }
+
+
+
+        .option {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 14px;
+
+            padding: 13px 18px;
+
+            border-radius: 16px;
+
+            border: 1.5px solid var(--border);
+
+            cursor: pointer;
+
+            transition: all 0.2s;
+
+            font-size: 0.87rem;
+
+            color: var(--text2);
+
+            line-height: 1.5;
+
+            background: transparent;
+
+            text-align: left;
+
+            font-family: 'DM Sans', sans-serif;
+
+            width: 100%;
+
+        }
+
+
+
+        .option:hover:not(:disabled) {
+
+            border-color: var(--text3);
+
+            background: var(--surface2);
+
+            color: var(--text);
+
+        }
+
+
+
+        .option .opt-letter {
+
+            font-family: 'DM Mono', monospace;
+
+            font-size: 0.72rem;
+
+            font-weight: 500;
+
+            min-width: 26px;
+
+            height: 26px;
+
+            border-radius: 10px;
+
+            background: var(--surface3);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: var(--text3);
+
+            flex-shrink: 0;
+
+            margin-top: 1px;
+
+            transition: all 0.2s;
+
+        }
+
+
+
+        .option.correct {
+
+            border-color: var(--success);
+
+            background: rgba(79, 168, 107, 0.08);
+
+            color: #a3d9b1;
+
+        }
+
+
+
+        .option.correct .opt-letter {
+
+            background: var(--success);
+
+            color: #000;
+
+        }
+
+
+
+        .option.wrong {
+
+            border-color: var(--danger);
+
+            background: rgba(212, 97, 79, 0.08);
+
+            color: #e0a99f;
+
+        }
+
+
+
+        .option.wrong .opt-letter {
+
+            background: var(--danger);
+
+            color: #fff;
+
+        }
+
+
+
+        .option:disabled {
+
+            cursor: default;
+
+        }
+
+
+
+        .explanation {
+
+            margin-top: 16px;
+
+            padding: 14px 18px;
+
+            background: var(--surface2);
+
+            border-radius: 10px;
+
+            border-left: 3px solid var(--accent3);
+
+            font-size: 0.82rem;
+
+            color: var(--text2);
+
+            line-height: 1.7;
+
+            display: none;
+
+        }
+
+
+
+        .explanation.show {
+
+            display: block;
+
+            animation: fadeUp 0.3s forwards;
+
+        }
+
+
+
+        .quiz-nav {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-top: 24px;
+
+            flex-wrap: wrap;
+
+            gap: 12px;
+
+        }
+
+
+
+        .result-card {
+
+            text-align: center;
+
+            padding: 48px 28px;
+
+            background: var(--surface);
+
+            border: 1px solid var(--border);
+
+            border-radius: 16px;
+
+            animation: fadeUp 0.5s forwards;
+
+        }
+
+
+
+        .result-score {
+
+            font-family: 'Playfair Display', serif;
+
+            font-size: 5rem;
+
+            font-weight: 900;
+
+            line-height: 1;
+
+            margin-bottom: 8px;
+
+        }
+
+
+
+        .result-label {
+
+            font-size: 0.85rem;
+
+            color: var(--text2);
+
+            margin-bottom: 24px;
+
+        }
+
+
+
+        .result-msg {
+
+            font-size: 1rem;
+
+            line-height: 1.7;
+
+            color: var(--text2);
+
+            margin-bottom: 28px;
+
+            max-width: 380px;
+
+            margin-left: auto;
+
+            margin-right: auto;
+
+        }
+
+
+
+        /* ─── ANIMATIONS ─── */
+
+        @keyframes fadeUp {
+
+            from {
+
+                opacity: 0;
+
+                transform: translateY(18px);
+
+            }
+
+
+
+            to {
+
+                opacity: 1;
+
+                transform: translateY(0);
+
+            }
+
+        }
+
+
+
+        /* ─── SCROLLBAR ─── */
+
+        ::-webkit-scrollbar {
+
+            width: 5px;
+
+            height: 5px;
+
+        }
+
+
+
+        ::-webkit-scrollbar-track {
+
+            background: transparent;
+
+        }
+
+
+
+        ::-webkit-scrollbar-thumb {
+
+            background: var(--border);
+
+            border-radius: 10px;
+
+        }
+
+
+
+        /* ─── KEY POINT CHIP ─── */
+
+        .key-chips {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+
+            margin-top: 14px;
+
+        }
+
+
+
+        .chip {
+
+            font-size: 0.75rem;
+
+            padding: 5px 12px;
+
+            border-radius: 20px;
+
+            background: var(--surface3);
+
+            color: var(--text2);
+
+            border: 1px solid var(--border);
+
+            font-weight: 500;
+
+        }
+
+
+
+        .divider {
+
+            border: none;
+
+            border-top: 1px solid var(--border);
+
+            margin: 28px 0;
+
+        }
+
+
+
+        .section-label {
+
+            font-family: 'DM Mono', monospace;
+
+            font-size: 10px;
+
+            letter-spacing: 2.5px;
+
+            text-transform: uppercase;
+
+            color: var(--text3);
+
+            margin-bottom: 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+        }
+
+
+
+        .section-label::after {
+
+            content: '';
+
+            flex: 1;
+
+            height: 1px;
+
+            background: var(--border);
+
+        }
+
+
+
+        /* ─── SHUFFLE BTN ─── */
+
+        .shuffle-icon {
+
+            display: inline-block;
+
+            margin-right: 6px;
+
+        }
+
+
+
+        /* ─── MOBILE TWEAKS ─── */
+
+        @media (max-width: 800px) {
+
+            .hero {
+
+                padding: 60px 16px 40px;
+
+            }
+
+
+
+            .hero h1 {
+
+                font-size: clamp(2rem, 10vw, 3.2rem);
+
+            }
+
+
+
+            .hero-sub {
+
+                max-width: 100%;
+
+                margin-bottom: 32px;
+
+            }
+
+
+
+            .nav-wrap {
+
+                padding: 0 10px;
+
+            }
+
+
+
+            .nav-tab {
+
+                padding: 12px 14px;
+
+                font-size: 0.78rem;
+
+            }
+
+
+
+            .main {
+
+                padding: 24px 12px 80px;
+
+            }
+
+
+
+            .chapter-header {
+
+                padding: 20px;
+
+            }
+
+
+
+            .chapter-header::before {
+
+                font-size: 5rem;
+
+                right: 0;
+
+                top: 0;
+
+            }
+
+
+
+            .sub-tabs {
+
+                gap: 6px;
+
+            }
+
+
+
+            .sub-tab {
+
+                flex: 1 1 auto;
+
+                min-width: 0;
+
+                padding: 10px 14px;
+
+                font-size: 0.78rem;
+
+            }
+
+
+
+            .summary-card {
+
+                padding: 18px;
+
+            }
+
+
+
+            .table-wrap {
+
+                margin-top: 12px;
+
+            }
+
+
+
+            .flashcard-controls,
+
+            .quiz-nav {
+
+                justify-content: flex-start;
+
+            }
+
+
+
+            .flashcard-scene {
+
+                height: 220px;
+
+            }
+
+
+
+            .flashcard-face {
+
+                padding: 20px;
+
+            }
+
+
+
+            .question-card {
+
+                padding: 20px;
+
+            }
+
+
+
+            .btn {
+
+                padding: 10px 16px;
+
+                font-size: 0.78rem;
+
+            }
+
+
+
+            .option {
+
+                padding: 12px 16px;
+
+                gap: 12px;
+
+            }
+
+
+
+            .result-card {
+
+                padding: 30px 20px;
+
+            }
+
+
+
+            .result-score {
+
+                font-size: 3.5rem;
+
+            }
+
+        }
+    </style>
+
+</head>
+
+
+
+<body>
+
+
+
+    <div class="hero">
+
+        <div class="hero-eyebrow">Fundamentos de Comportamento Organizacional</div>
+
+        <h1>Comportamento<br><em>Organizacional</em></h1>
+
+        <p class="hero-sub">Estrutura de estudo para revisar definição, níveis de análise, bases científicas, papéis
+
+            gerenciais e habilidades essenciais.</p>
+
+    </div>
+
+
+
+    <div class="nav-wrap">
+
+        <div class="nav-tabs">
+
+            <button class="nav-tab active" data-chapter="1" onclick="showChapter(1)">Mód. 1 — CO: Fundamentos</button>
+
+            <button class="nav-tab" data-chapter="2" onclick="showChapter(2)">Mód. 2 — Atitudes e Satisfação</button>
+
+            <button class="nav-tab" data-chapter="3" onclick="showChapter(3)">Mód. 3 — Emoções e IE</button>
+
+            <button class="nav-tab" data-chapter="4" onclick="showChapter(4)">Mód. 4 — Personalidade</button>
+
+            <button class="nav-tab" data-chapter="5" onclick="showChapter(5)">Mód. 5 — Percepção e Decisão</button>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="main">
+
+
+
+        <div class="section cap1 active" id="chapter-1">
+
+            <div class="chapter-header cap1" data-num="01">
+
+                <span class="chapter-tag">Módulo 1</span>
+
+                <h2>Comportamento Organizacional</h2>
+
+                <p>Conceitos e fundamentos para entender como indivíduos, grupos e a estrutura impactam a eficácia
+
+                    organizacional.</p>
+
+            </div>
+
+
+
+            <div class="sub-tabs cap1">
+
+                <button class="sub-tab active" onclick="showSub('c1','resumo')">📋 Resumo</button>
+
+                <button class="sub-tab" onclick="showSub('c1','flashcard')">🃏 Flashcards</button>
+
+                <button class="sub-tab" onclick="showSub('c1','quiz')">✏️ Questões</button>
+
+            </div>
+
+
+
+            <div class="sub-section active" id="c1-resumo">
+
+                <div class="section-label">Pontos Principais</div>
+
+                <div class="summary-grid">
+
+
+
+                    <div class="summary-card cap1">
+
+                        <h3><span class="card-num">01</span>Conceito de Comportamento Organizacional</h3>
+
+                        <p>O Comportamento Organizacional não é baseado em achismos ou apenas no bom senso. Trata-se de
+
+                            uma ciência.</p>
+
+                        <p><strong>Definição Formal:</strong> CO é o campo de estudos que investiga o impacto que
+
+                            indivíduos, grupos e a própria estrutura organizacional têm sobre o comportamento das
+
+                            pessoas dentro das empresas.</p>
+
+                        <p><strong>Grande Propósito:</strong> aplicar o conhecimento adquirido para melhorar a eficácia
+
+                            da organização, entendendo o que as pessoas fazem e como isso afeta produtividade,
+
+                            absenteísmo, rotatividade e resultados.</p>
+
+                        <div class="info-box">💡 Administração baseada em evidências: o administrador deve tomar
+
+                            decisões com a melhor evidência científica disponível, assim como um médico usa dados para
+
+                            tratar pacientes.</div>
+
+                    </div>
+
+
+
+                    <div class="summary-card cap1">
+
+                        <h3><span class="card-num">02</span>Níveis de Análise no CO</h3>
+
+                        <p>O modelo de estudo do CO funciona como blocos de construção: cada nível se apoia no anterior
+
+                            e a complexidade aumenta gradativamente.</p>
+
+                        <ul>
+
+                            <li><strong>Nível Individual:</strong> base do estudo. Analisa idade, percepção, motivação,
+
+                                personalidade, aprendizagem e tomada de decisão individual.</li>
+
+                            <li><strong>Nível de Grupo:</strong> foca em padrões de comunicação, estilos de liderança,
+
+                                poder, política e conflitos que moldam o comportamento coletivo.</li>
+
+                            <li><strong>Nível de Sistema Organizacional (Estrutura):</strong> considera cultura,
+
+                                políticas de RH, práticas de contratação e desenho do trabalho.</li>
+
+                        </ul>
+
+                        <div class="info-box">💡 Dica de memorização: pense na academia. Nível Individual = sua
+
+                            motivação e força. Nível de Grupo = como você treina com o time. Nível Organizacional =
+
+                            regras, cultura e equipamentos da academia.</div>
+
+                    </div>
+
+
+
+                    <div class="summary-card cap1">
+
+                        <h3><span class="card-num">03</span>A Natureza do CO</h3>
+
+                        <p>CO é uma ciência aplicada interdisciplinar que empresta conceitos de várias ciências sociais
+
+                            para entender o comportamento humano no trabalho.</p>
+
+                        <ul>
+
+                            <li><strong>Psicologia:</strong> estuda o indivíduo (micro), incluindo aprendizagem,
+
+                                percepção, emoções, personalidade e motivação.</li>
+
+                            <li><strong>Psicologia Social:</strong> estuda como as pessoas influenciam umas às outras,
+
+                                mudanças de comportamento, atitudes e comunicação.</li>
+
+                            <li><strong>Sociologia:</strong> analisa o sistema social, poder, conflito e cultura
+
+                                organizacional.</li>
+
+                            <li><strong>Antropologia:</strong> estuda valores, atitudes e comportamentos entre culturas
+
+                                diferentes.</li>
+
+                        </ul>
+
+                        <div class="alert-box">⚠️ Regra da Contingência: em CO existem poucas verdades absolutas. A
+
+                            fórmula é “x leva a y, mas apenas sob as condições z”.</div>
+
+                    </div>
+
+
+
+                    <div class="summary-card cap1">
+
+                        <h3><span class="card-num">04</span>Papéis Gerenciais (Mintzberg)</h3>
+
+                        <div class="table-wrap">
+
+                            <table>
+
+                                <tr>
+
+                                    <th>Categoria</th>
+
+                                    <th>Papel</th>
+
+                                    <th>Descrição</th>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td rowspan="3">Interpessoais</td>
+
+                                    <td>Símbolo</td>
+
+                                    <td>Representação cerimonial, legal ou social (ex: entrega de diplomas).</td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td>Líder</td>
+
+                                    <td>Motiva, treina e dirige os subordinados.</td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td>Ligação</td>
+
+                                    <td>Mantém rede de contatos internos e externos para acessar informações.</td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td rowspan="3">Informacionais</td>
+
+                                    <td>Monitor</td>
+
+                                    <td>Recebe e capta informações do ambiente interno e externo.</td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td>Disseminador</td>
+
+                                    <td>Transmite informações para dentro da organização.</td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td>Porta-voz</td>
+
+                                    <td>Comunica planos e dados da organização para o meio externo.</td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td rowspan="3">Decisórios</td>
+
+                                    <td>Empreendedor</td>
+
+                                    <td>Busca oportunidades e inicia projetos de mudança.</td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td>Gerenciador de Turbulências</td>
+
+                                    <td>Resolve distúrbios e problemas imprevistos.</td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td>Alocador de Recursos / Negociador</td>
+
+                                    <td>Distribui recursos e representa a organização em negociações.</td>
+
+                                </tr>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="summary-card cap1">
+
+                        <h3><span class="card-num">05</span>Habilidades Gerenciais</h3>
+
+                        <p>Para subir na carreira, gestores precisam desenvolver capacidades técnicas, humanas e
+
+                            conceituais.</p>
+
+                        <ul>
+
+                            <li><strong>Técnicas:</strong> conhecimento específico da profissão e uso de práticas
+
+                                formais.</li>
+
+                            <li><strong>Humanas:</strong> saber ouvir, motivar equipes e gerir conflitos.</li>
+
+                            <li><strong>Conceituais:</strong> capacidade de analisar situações complexas, tomar decisões
+
+                                e inovar.</li>
+
+                        </ul>
+
+                        <div class="info-box">💡 Estudo de Fred Luthans: gestores eficazes focam em comunicação e RH,
+
+                            enquanto gestores bem-sucedidos em promoção rápida investem mais em networking e política
+
+                            interna.</div>
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+
+
+            <div class="sub-section" id="c1-flashcard">
+
+                <div class="section-label">Flashcards — Clique para revelar</div>
+
+                <div class="flashcard-controls cap1">
+
+                    <span class="fc-counter" id="c1-fc-counter">1 / 1</span>
+
+                    <button class="btn btn-primary" onclick="shuffleCards('c1')">⇄ Embaralhar</button>
+
+                </div>
+
+                <div class="fc-progress cap1">
+
+                    <div class="fc-progress-bar" id="c1-fc-bar" style="width:100%"></div>
+
+                </div>
+
+                <div class="flashcard-scene" onclick="flipCard('c1')">
+
+                    <div class="flashcard-inner" id="c1-card">
+
+                        <div class="flashcard-face flashcard-front cap1">
+
+                            <span class="fc-label">Pergunta</span>
+
+                            <div class="fc-question" id="c1-front"></div>
+
+                            <div class="fc-hint">Toque para ver a resposta</div>
+
+                        </div>
+
+                        <div class="flashcard-face flashcard-back cap1">
+
+                            <span class="fc-label">Resposta</span>
+
+                            <div class="fc-answer" id="c1-back"></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="fc-nav">
+
+                    <button class="btn" onclick="prevCard('c1')">← Anterior</button>
+
+                    <button class="btn btn-primary" onclick="nextCard('c1')">Próximo →</button>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="sub-section" id="c1-quiz">
+
+                <div class="section-label">Simulado — Módulo 1</div>
+
+                <div id="c1-quiz-content"></div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="section cap2" id="chapter-2">
+
+            <div class="chapter-header cap2" data-num="02">
+
+                <span class="chapter-tag">Módulo 2</span>
+
+                <h2>Atitudes e Satisfação no Trabalho</h2>
+
+                <p>Capítulo 3: definição de atitudes, componentes, comprometimento, satisfação e o modelo
+
+                    Saída-Voz-Lealdade-Negligência.</p>
+
+            </div>
+
+
+
+            <div class="sub-tabs cap2">
+
+                <button class="sub-tab active" onclick="showSub('c2','resumo')">📋 Resumo</button>
+
+                <button class="sub-tab" onclick="showSub('c2','flashcard')">🃏 Flashcards</button>
+
+                <button class="sub-tab" onclick="showSub('c2','quiz')">✏️ Questões</button>
+
+            </div>
+
+
+
+            <div class="sub-section active" id="c2-resumo">
+
+                <div class="section-label">Pontos Principais</div>
+
+                <div class="summary-grid">
+
+                    <div class="summary-card cap2">
+
+                        <h3><span class="card-num">01</span>Conceito de Atitudes</h3>
+
+                        <p>Atitudes são avaliações favoráveis ou desfavoráveis sobre objetos, pessoas ou eventos. Elas
+
+                            mostram predisposições e sentimentos em relação a uma situação.</p>
+
+                        <p>Exemplo: “Eu gosto muito de criar sites e atuar como freelancer.” Essa frase revela uma
+
+                            atitude sobre seu modelo de trabalho.</p>
+
+                        <div class="info-box">💡 Gestores estudam atitudes para entender as motivações por trás das
+
+                            ações das pessoas nas empresas.</div>
+
+                    </div>
+
+
+
+                    <div class="summary-card cap2">
+
+                        <h3><span class="card-num">02</span>Componentes das Atitudes</h3>
+
+                        <ul>
+
+                            <li><strong>Cognitivo:</strong> avaliação racional, crença ou opinião. Ex: “Esse cliente
+
+                                paga abaixo da média”.</li>
+
+                            <li><strong>Afetivo:</strong> sentimento gerado pela avaliação. Ex: “Estou frustrado e com
+
+                                raiva”.</li>
+
+                            <li><strong>Comportamental:</strong> intenção de agir. Ex: “Vou recusar a proposta e buscar
+
+                                clientes novos”.</li>
+
+                        </ul>
+
+                        <div class="alert-box">⚠️ Dissonância Cognitiva: quando as ações contradizem crenças, gera
+
+                            desconforto e força ajuste na atitude ou no comportamento.</div>
+
+                    </div>
+
+
+
+                    <div class="summary-card cap2">
+
+                        <h3><span class="card-num">03</span>Comprometimento Organizacional</h3>
+
+                        <p>Medida do quanto o trabalhador se identifica com a empresa, deseja continuar nela e aceita
+
+                            seus objetivos.</p>
+
+                        <ul>
+
+                            <li><strong>Afetivo:</strong> permanência porque quer, por vínculo emocional e identificação
+
+                                com valores.</li>
+
+                            <li><strong>Instrumental:</strong> permanência porque precisa do salário ou não encontrou
+
+                                melhor opção.</li>
+
+                            <li><strong>Normativo:</strong> permanência porque se sente moralmente obrigado a não
+
+                                abandonar o grupo.</li>
+
+                        </ul>
+
+                    </div>
+
+
+
+                    <div class="summary-card cap2">
+
+                        <h3><span class="card-num">04</span>Satisfação no Trabalho</h3>
+
+                        <p>Satisfação é o sentimento positivo sobre o trabalho, resultado de uma avaliação geral das
+
+                            suas características.</p>
+
+                        <ul>
+
+                            <li><strong>Medidas:</strong> classificação única global ou somatório de facetas do
+
+                                trabalho.</li>
+
+                            <li><strong>Principais geradores:</strong> desafios intelectuais, autonomia, treinamento e
+
+                                interação social positiva.</li>
+
+                            <li><strong>Dinheiro:</strong> motiva até certo ponto; depois de necessidades básicas
+
+                                atendidas, a relação com satisfação cai.</li>
+
+                        </ul>
+
+                        <div class="info-box">💡 Pessoas com autoavaliação positiva tendem a ser mais satisfeitas,
+
+                            independentemente do salário alto.</div>
+
+                    </div>
+
+
+
+                    <div class="summary-card cap2">
+
+                        <h3><span class="card-num">05</span>Modelo Saída-Voz-Lealdade-Negligência</h3>
+
+                        <div class="table-wrap">
+
+                            <table>
+
+                                <tr>
+
+                                    <th>Resposta</th>
+
+                                    <th>Tipo</th>
+
+                                    <th>O que significa</th>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td>Saída</td>
+
+                                    <td>Ativa/Destrutiva</td>
+
+                                    <td>Buscar outro emprego ou pedir demissão.</td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td>Voz</td>
+
+                                    <td>Ativa/Construtiva</td>
+
+                                    <td>Tentar consertar o ambiente com sugestões ou diálogo.</td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td>Lealdade</td>
+
+                                    <td>Passiva/Construtiva</td>
+
+                                    <td>Esperar calado e confiar que a direção fará a coisa certa.</td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td>Negligência</td>
+
+                                    <td>Passiva/Destrutiva</td>
+
+                                    <td>Desistir, aumentar faltas e reduzir esforço no trabalho.</td>
+
+                                </tr>
+
+                            </table>
+
+                        </div>
+
+                        <div class="info-box">💡 Impactos práticos: satisfação melhora desempenho, CCO, satisfação do
+
+                            cliente e reduz turnover.</div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="sub-section" id="c2-flashcard">
+
+                <div class="section-label">Flashcards — Clique para revelar</div>
+
+                <div class="flashcard-controls cap2">
+
+                    <span class="fc-counter" id="c2-fc-counter">1 / 1</span>
+
+                    <button class="btn btn-cap2" onclick="shuffleCards('c2')">⇄ Embaralhar</button>
+
+                </div>
+
+                <div class="fc-progress cap2">
+
+                    <div class="fc-progress-bar" id="c2-fc-bar" style="width:100%"></div>
+
+                </div>
+
+                <div class="flashcard-scene" onclick="flipCard('c2')">
+
+                    <div class="flashcard-inner" id="c2-card">
+
+                        <div class="flashcard-face flashcard-front cap2">
+
+                            <span class="fc-label">Pergunta</span>
+
+                            <div class="fc-question" id="c2-front"></div>
+
+                            <div class="fc-hint">Toque para ver a resposta</div>
+
+                        </div>
+
+                        <div class="flashcard-face flashcard-back cap2">
+
+                            <span class="fc-label">Resposta</span>
+
+                            <div class="fc-answer" id="c2-back"></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="fc-nav">
+
+                    <button class="btn" onclick="prevCard('c2')">← Anterior</button>
+
+                    <button class="btn btn-cap2" onclick="nextCard('c2')">Próximo →</button>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="sub-section" id="c2-quiz">
+
+                <div class="section-label">Simulado — Módulo 2</div>
+
+                <div id="c2-quiz-content"></div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="section cap3" id="chapter-3">
+
+            <div class="chapter-header cap3" data-num="03">
+
+                <span class="chapter-tag">Módulo 3</span>
+
+                <h2>Emoções, Trabalho Emocional e Inteligência Emocional</h2>
+
+                <p>Capítulo 4: afeto, emoções versus humores, trabalho emocional e o papel da inteligência emocional nas
+
+                    organizações.</p>
+
+            </div>
+
+
+
+            <div class="sub-tabs cap3">
+
+                <button class="sub-tab active" onclick="showSub('c3','resumo')">📋 Resumo</button>
+
+                <button class="sub-tab" onclick="showSub('c3','flashcard')">🃏 Flashcards</button>
+
+                <button class="sub-tab" onclick="showSub('c3','quiz')">✏️ Questões</button>
+
+            </div>
+
+
+
+            <div class="sub-section active" id="c3-resumo">
+
+                <div class="section-label">Pontos Principais</div>
+
+                <div class="summary-grid">
+
+                    <div class="summary-card cap3">
+
+                        <h3><span class="card-num">01</span>Afeto: Emoções e Sentimentos</h3>
+
+                        <p>Afeto é o guarda-chuva que inclui emoções e sentimentos (humores/estados de ânimo).</p>
+
+                        <div class="table-wrap">
+
+                            <table>
+
+                                <tr>
+
+                                    <th>Característica</th>
+
+                                    <th>Emoções</th>
+
+                                    <th>Sentimentos (Humores)</th>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td>Causa</td>
+
+                                    <td>Evento ou pessoa específica</td>
+
+                                    <td>Causa geral e pouco clara</td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td>Duração</td>
+
+                                    <td>Segundos ou minutos</td>
+
+                                    <td>Horas ou dias</td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td>Intensidade</td>
+
+                                    <td>Muito intensas</td>
+
+                                    <td>Menos intensas</td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td>Expressão</td>
+
+                                    <td>Expressões faciais claras</td>
+
+                                    <td>Geralmente sem sinais físicos distintos</td>
+
+                                </tr>
+
+                                <tr>
+
+                                    <td>Natureza</td>
+
+                                    <td>Orientadas para ação</td>
+
+                                    <td>Orientadas para cognição</td>
+
+                                </tr>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="summary-card cap3">
+
+                        <h3><span class="card-num">02</span>Trabalho Emocional</h3>
+
+                        <p>Além do esforço físico e mental, algumas funções exigem também a expressão de emoções
+
+                            desejadas pela organização.</p>
+
+                        <ul>
+
+                            <li><strong>Emoções Sentidas:</strong> emoções reais e genuínas do indivíduo.</li>
+
+                            <li><strong>Emoções Demonstradas:</strong> emoções exigidas pela empresa, aprendidas e
+
+                                esperadas para o cargo.</li>
+
+                        </ul>
+
+                        <div class="alert-box">⚠️ Dissonância Emocional: quando o que se sente difere do que a empresa
+
+                            exige ser demonstrado, aumentando estresse e risco de burnout.</div>
+
+                    </div>
+
+
+
+                    <div class="summary-card cap3">
+
+                        <h3><span class="card-num">03</span>Atuação Superficial vs. Profunda</h3>
+
+                        <ul>
+
+                            <li><strong>Atuação Superficial:</strong> fingir a emoção exigida sem mudar o sentimento
+
+                                real. A pessoa “coloca máscara”.</li>
+
+                            <li><strong>Atuação Profunda:</strong> tentar mudar o sentimento interno para que ele se
+
+                                alinhe à emoção demonstrada.</li>
+
+                        </ul>
+
+                        <div class="info-box">💡 A atuação superficial costuma gerar mais estresse, enquanto a profunda
+
+                            pode ser menos danosa se a pessoa realmente conseguir ajustar seus sentimentos.</div>
+
+                    </div>
+
+
+
+                    <div class="summary-card cap3">
+
+                        <h3><span class="card-num">04</span>Inteligência Emocional</h3>
+
+                        <p>IE é a capacidade de identificar e gerenciar pistas emocionais próprias e dos outros.</p>
+
+                        <ul>
+
+                            <li><strong>Perceber Emoções:</strong> autoconsciência sobre o que você e os outros sentem.
+
+                            </li>
+
+                            <li><strong>Compreender o Significado:</strong> interpretar o que as emoções significam e
+
+                                sua origem.</li>
+
+                            <li><strong>Regular as Emoções:</strong> agir adequadamente gerindo emoções para a situação.
+
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+
+
+                    <div class="summary-card cap3">
+
+                        <h3><span class="card-num">05</span>Debate sobre IE</h3>
+
+                        <p>Apesar de sua popularidade, a IE tem defensores e críticos acadêmicos.</p>
+
+                        <ul>
+
+                            <li><strong>A favor:</strong> faz sentido prático, tem base biológica e prevê desempenho
+
+                                gerencial melhor que o QI em algumas áreas.</li>
+
+                            <li><strong>Contra:</strong> pode ser visto como conceito vago, difícil de medir e similar a
+
+                                traços de personalidade antigos.</li>
+
+                        </ul>
+
+                        <div class="info-box">💡 Para a prova: a administração moderna considera IE crucial na seleção e
+
+                            eficácia de gestores.</div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="sub-section" id="c3-flashcard">
+
+                <div class="section-label">Flashcards — Clique para revelar</div>
+
+                <div class="flashcard-controls cap3">
+
+                    <span class="fc-counter" id="c3-fc-counter">1 / 1</span>
+
+                    <button class="btn btn-cap3" onclick="shuffleCards('c3')">⇄ Embaralhar</button>
+
+                </div>
+
+                <div class="fc-progress cap3">
+
+                    <div class="fc-progress-bar" id="c3-fc-bar" style="width:100%"></div>
+
+                </div>
+
+                <div class="flashcard-scene" onclick="flipCard('c3')">
+
+                    <div class="flashcard-inner" id="c3-card">
+
+                        <div class="flashcard-face flashcard-front cap3">
+
+                            <span class="fc-label">Pergunta</span>
+
+                            <div class="fc-question" id="c3-front"></div>
+
+                            <div class="fc-hint">Toque para ver a resposta</div>
+
+                        </div>
+
+                        <div class="flashcard-face flashcard-back cap3">
+
+                            <span class="fc-label">Resposta</span>
+
+                            <div class="fc-answer" id="c3-back"></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="fc-nav">
+
+                    <button class="btn" onclick="prevCard('c3')">← Anterior</button>
+
+                    <button class="btn btn-cap3" onclick="nextCard('c3')">Próximo →</button>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="sub-section" id="c3-quiz">
+
+                <div class="section-label">Simulado — Módulo 3</div>
+
+                <div id="c3-quiz-content"></div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="section cap4" id="chapter-4">
+
+            <div class="chapter-header cap4" data-num="04">
+
+                <span class="chapter-tag">Módulo 4</span>
+
+                <h2>Personalidade, MBTI, Big Five e Tríade Sombria</h2>
+
+                <p>Capítulo 5: diferenças entre personalidade e valores, MBTI, Big Five e os traços da Tríade Sombria.
+
+                </p>
+
+            </div>
+
+
+
+            <div class="sub-tabs cap4">
+
+                <button class="sub-tab active" onclick="showSub('c4','resumo')">📋 Resumo</button>
+
+                <button class="sub-tab" onclick="showSub('c4','flashcard')">🃏 Flashcards</button>
+
+                <button class="sub-tab" onclick="showSub('c4','quiz')">✏️ Questões</button>
+
+            </div>
+
+
+
+            <div class="sub-section active" id="c4-resumo">
+
+                <div class="section-label">Pontos Principais</div>
+
+                <div class="summary-grid">
+
+                    <div class="summary-card cap4">
+
+                        <h3><span class="card-num">01</span>Personalidade e Valores</h3>
+
+                        <p>Personalidade é a soma das maneiras como uma pessoa reage e interage com os outros, observada
+
+                            em traços consistentes.</p>
+
+                        <p>Valores são convicções sobre o que é preferível ou importante, com conteúdo (o que importa) e
+
+                            intensidade (o quanto importa).</p>
+
+                        <div class="info-box">💡 Personalidade é tendência de comportamento; valores são o sistema
+
+                            hierárquico de crenças que guiam escolhas.</div>
+
+                    </div>
+
+
+
+                    <div class="summary-card cap4">
+
+                        <h3><span class="card-num">02</span>Modelo MBTI</h3>
+
+                        <p>O MBTI classifica pessoas em 16 tipos usando quatro dicotomias: E-I, S-N, T-F e J-P.</p>
+
+                        <ul>
+
+                            <li><strong>Extrovertidos vs Introvertidos</strong>: sociáveis versus mais reservados.</li>
+
+                            <li><strong>Sensoriais vs Intuitivos</strong>: práticos e detalhistas versus orientados ao
+
+                                todo e ao processo.</li>
+
+                            <li><strong>Racionais vs Emocionais</strong>: lógica e análise versus valores e sentimentos.
+
+                            </li>
+
+                            <li><strong>Julgadores vs Perceptivos</strong>: estruturados e controladores versus
+
+                                espontâneos e flexíveis.</li>
+
+                        </ul>
+
+                        <div class="alert-box">⚠️ MBTI tem limitações: força o extremo, é pouco confiável e não prevê
+
+                            bem o desempenho no trabalho.</div>
+
+                    </div>
+
+
+
+                    <div class="summary-card cap4">
+
+                        <h3><span class="card-num">03</span>Big Five – Conscienciosidade</h3>
+
+                        <p>Conscienciosidade indica responsabilidade, organização, persistência e confiabilidade.</p>
+
+                        <p>Impacto organizacional: é o melhor preditor de desempenho no trabalho em muitas funções,
+
+                            embora em excesso possa gerar perfeccionismo e falta de criatividade.</p>
+
+                    </div>
+
+
+
+                    <div class="summary-card cap4">
+
+                        <h3><span class="card-num">04</span>Big Five – Outras Dimensões</h3>
+
+                        <ul>
+
+                            <li><strong>Estabilidade Emocional:</strong> calma, confiança e resistência ao estresse
+
+                                (oposto do neuroticismo).</li>
+
+                            <li><strong>Extroversão:</strong> sociabilidade, assertividade e conforto em interações.
+
+                            </li>
+
+                            <li><strong>Abertura:</strong> curiosidade, criatividade e tolerância à ambiguidade.</li>
+
+                            <li><strong>Agradabilidade:</strong> cooperação, empatia e receptividade.</li>
+
+                        </ul>
+
+                        <div class="info-box">💡 Impactos: estabilidade reduz burnout e turnover; extroversão ajuda em
+
+                            trabalhos sociais; abertura facilita mudanças; agradabilidade melhora colaboração.</div>
+
+                    </div>
+
+
+
+                    <div class="summary-card cap4">
+
+                        <h3><span class="card-num">05</span>Tríade Sombria</h3>
+
+                        <p>Traços socialmente indesejáveis que influenciam negativamente o comportamento organizacional.
+
+                        </p>
+
+                        <ul>
+
+                            <li><strong>Maquiavelismo:</strong> manipulação e pragmatismo extremo; os fins justificam os
+
+                                meios.</li>
+
+                            <li><strong>Narcisismo:</strong> arrogância, busca de admiração e exploração dos outros.
+
+                            </li>
+
+                            <li><strong>Psicopatia:</strong> falta de empatia, impulsividade e indiferença a danos
+
+                                causados a colegas.</li>
+
+                        </ul>
+
+                        <div class="alert-box">⚠️ Use o Big Five como base de evidência e contraste com a Tríade Sombria
+
+                            quando o professor pedir análise prática.</div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="sub-section" id="c4-flashcard">
+
+                <div class="section-label">Flashcards — Clique para revelar</div>
+
+                <div class="flashcard-controls cap4">
+
+                    <span class="fc-counter" id="c4-fc-counter">1 / 1</span>
+
+                    <button class="btn btn-cap4" onclick="shuffleCards('c4')">⇄ Embaralhar</button>
+
+                </div>
+
+                <div class="fc-progress cap4">
+
+                    <div class="fc-progress-bar" id="c4-fc-bar" style="width:100%"></div>
+
+                </div>
+
+                <div class="flashcard-scene" onclick="flipCard('c4')">
+
+                    <div class="flashcard-inner" id="c4-card">
+
+                        <div class="flashcard-face flashcard-front cap4">
+
+                            <span class="fc-label">Pergunta</span>
+
+                            <div class="fc-question" id="c4-front"></div>
+
+                            <div class="fc-hint">Toque para ver a resposta</div>
+
+                        </div>
+
+                        <div class="flashcard-face flashcard-back cap4">
+
+                            <span class="fc-label">Resposta</span>
+
+                            <div class="fc-answer" id="c4-back"></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="fc-nav">
+
+                    <button class="btn" onclick="prevCard('c4')">← Anterior</button>
+
+                    <button class="btn btn-cap4" onclick="nextCard('c4')">Próximo →</button>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="sub-section" id="c4-quiz">
+
+                <div class="section-label">Simulado — Módulo 4</div>
+
+                <div id="c4-quiz-content"></div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="section cap5" id="chapter-5">
+
+            <div class="chapter-header cap5" data-num="05">
+
+                <span class="chapter-tag">Módulo 5</span>
+
+                <h2>Percepção e Tomada de Decisão</h2>
+
+                <p>Capítulo 6: percepção, heurísticas, vieses, racionalidade limitada e fatores que afetam decisões.</p>
+
+            </div>
+
+
+
+            <div class="sub-tabs cap5">
+
+                <button class="sub-tab active" onclick="showSub('c5', 'resumo')">📋 Resumo</button>
+
+                <button class="sub-tab" onclick="showSub('c5', 'flashcard')">🃏 Flashcards</button>
+
+                <button class="sub-tab" onclick="showSub('c5', 'quiz')">✏️ Questões</button>
+
+            </div>
+
+
+
+            <div class="sub-section active" id="c5-resumo">
+
+                <div class="section-label">Ponto principais</div>
+
+                <div class="summary-grid">
+
+
+
+                    <div class="summary-card cap5">
+
+                        <h3><span class="card-num">01</span>Percepção e Tomada de Decisão</h3>
+
+                        <p><strong>Percepção:</strong> Processo de organizar e interpretar impressões sensoriais.</p>
+
+                        <ul>
+
+                            <li>Comportamento baseado na percepção, não na realidade objetiva.</li>
+
+                            <li>A percepção é a realidade em que agimos.</li>
+
+                        </ul>
+
+                        <p><strong>Decisão:</strong> Escolhas entre alternativas em resposta a um problema.</p>
+
+                        <ul>
+
+                            <li>Reconhecer problema depende da percepção.</li>
+
+                            <li>Qualidade da decisão sofre influência das percepções.</li>
+
+                        </ul>
+
+                    </div>
+
+
+
+                    <div class="summary-card cap5">
+
+                        <h3><span class="card-num">02</span>Heurísticas e Atalhos</h3>
+
+                        <p>Usamos atalhos para julgar rapidamente, mas resultam em erros frequentes.</p>
+
+                        <ul>
+
+                            <li><strong>Percepção Seletiva:</strong> Selecionamos por interesses e atitudes.</li>
+
+                            <li><strong>Efeito Halo:</strong> Uma característica gera impressão geral positiva.</li>
+
+                            <li><strong>Efeito Horns:</strong> Uma característica gera impressão geral negativa.</li>
+
+                            <li><strong>Contraste:</strong> Comparação recente afeta avaliação.</li>
+
+                            <li><strong>Estereótipo:</strong> Julgamos pelo grupo, não pelo indivíduo.</li>
+
+                        </ul>
+
+                    </div>
+
+
+
+                    <div class="summary-card cap5">
+
+                        <h3><span class="card-num">03</span>Vieses em Decisões</h3>
+
+                        <p>Erros sistemáticos que distorcem julgamentos.</p>
+
+                        <ul>
+
+                            <li><strong>Excesso de Confiança:</strong> Superestimar capacidades.</li>
+
+                            <li><strong>Ancoragem:</strong> Fixar em informação inicial.</li>
+
+                            <li><strong>Confirmação:</strong> Buscar dados que reafirmem opiniões.</li>
+
+                            <li><strong>Disponibilidade:</strong> Julgar pelo que está na memória.</li>
+
+                            <li><strong>Intensificação:</strong> Apego a decisão errada anterior.</li>
+
+                            <li><strong>Aversão ao Risco:</strong> Preferir certo a arriscado.</li>
+
+                            <li><strong>Retrospectivo:</strong> Acreditar que poderíamos ter previsto.</li>
+
+                        </ul>
+
+                    </div>
+
+
+
+                    <div class="summary-card cap5">
+
+                        <h3><span class="card-num">04</span>Modelo Racional vs. Realidade</h3>
+
+                        <p>Teoria pressupõe decisão racional para maximizar valor.</p>
+
+                        <ul>
+
+                            <li><strong>6 Etapas:</strong> Definir problema → Identificar critérios → Atribuir pesos →
+
+                                Desenvolver alternativas → Avaliar → Escolher.</li>
+
+                            <li><strong>Premissas:</strong> Acesso total a informações, avaliação imparcial, busca pelo
+
+                                máximo.</li>
+
+                            <li><strong>Realidade:</strong> Raramente funcionam assim na prática.</li>
+
+                        </ul>
+
+                    </div>
+
+
+
+                    <div class="summary-card cap5">
+
+                        <h3><span class="card-num">05</span>Racionalidade Limitada</h3>
+
+                        <p>Operamos com restrições cognitivas e organizacionais.</p>
+
+                        <ul>
+
+                            <li><strong>Satisficing:</strong> Buscamos "bom o suficiente", não perfeito.</li>
+
+                            <li><strong>Diferenças Individuais:</strong> Personalidade, gênero, cultura, capacidade.
+                            </li>
+
+                            <li><strong>Restrições Org:</strong> Recompensas, regulamentações, prazos, precedentes.</li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="sub-section" id="c5-flashcard">
+
+                <div class="section-label">Flashcards — Clique para revelar</div>
+
+                <div class="flashcard-controls cap5">
+
+                    <span class="fc-counter" id="c5-fc-counter">1 / 5</span>
+
+                    <button class="btn btn-cap5" onclick="shuffleCards('c5')">⇄ Embaralhar</button>
+
+                </div>
+
+                <div class="fc-progress cap5">
+
+                    <div class="fc-progress-bar" id="c5-fc-bar" style="width:100%"></div>
+
+                </div>
+
+                <div class="flashcard-scene" onclick="flipCard('c5')">
+
+                    <div class="flashcard-inner" id="c5-card">
+
+                        <div class="flashcard-face flashcard-front cap5">
+
+                            <span class="fc-label">Pergunta</span>
+
+                            <div class="fc-question" id="c5-front"></div>
+
+                            <div class="fc-hint">Toque para ver a resposta</div>
+
+                        </div>
+
+                        <div class="flashcard-face flashcard-back cap5">
+
+                            <span class="fc-label">Resposta</span>
+
+                            <div class="fc-answer" id="c5-back"></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="fc-nav">
+
+                    <button class="btn" onclick="prevCard('c5')">← Anterior</button>
+
+                    <button class="btn btn-cap5" onclick="nextCard('c5')">Próximo →</button>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="sub-section" id="c5-quiz">
+
+                <div class="section-label">SIMULADO — Módulo 5</div>
+
+                <div id="c5-quiz-content"></div>
+
+            </div>
+
+        </div>
+
+        <script>
+
+            // ════════════════════════════════════════
+
+            // DATA (Substitua pelos seus conteúdos)
+
+            // ════════════════════════════════════════
+
+
+
+            const FLASHCARDS = {
+
+                c1: [
+
+                    { q: "O que é Comportamento Organizacional?", a: "É o estudo do impacto de indivíduos, grupos e estruturas organizacionais sobre o comportamento das pessoas no trabalho." },
+
+                    { q: "Por que CO não é baseado apenas em bom senso?", a: "Porque CO exige estudo sistemático, relações de causa e efeito e evidências científicas, não somente intuição." },
+
+                    { q: "Quais são os três níveis de análise em CO?", a: "Individual, de grupo e de sistema organizacional (estrutura)." },
+
+                    { q: "O que a psicologia social contribui para CO?", a: "Estuda como indivíduos influenciam uns aos outros, atitudes, mudança de comportamento e comunicação." },
+
+                    { q: "Qual é a diferença entre gestores eficazes e bem-sucedidos segundo Luthans?", a: "Eficazes focam em comunicação e RH; bem-sucedidos focam em networking e política interna." },
+
+                    { q: "O que é a Regra da Contingência em CO?", a: "Significa que ações e efeitos dependem do contexto — não existe uma única solução válida para todos os casos." },
+
+                    { q: "Quais indicadores ajudam a avaliar a eficácia organizacional?", a: "Produtividade, satisfação do cliente, rotatividade, absenteísmo e cumprimento de metas." },
+
+                    { q: "Quais são os papéis interpessoais de Mintzberg?", a: "Símbolo, Líder e Ligação — papéis que envolvem relações humanas e redes de contato." },
+
+                    { q: "O que é administração baseada em evidências?", a: "Tomar decisões usando as melhores evidências científicas disponíveis, dados e avaliação crítica." },
+
+                    { q: "Quais são as três habilidades gerenciais clássicas?", a: "Técnicas, Humanas e Conceituais — necessárias em diferentes níveis hierárquicos." }
+
+                ],
+
+                c2: [
+
+                    { q: "O que são atitudes?", a: "São avaliações favoráveis ou desfavoráveis sobre objetos, pessoas ou eventos, que refletem predisposições e sentimentos." },
+
+                    { q: "Qual é o componente afetivo da atitude?", a: "É o sentimento ou emoção gerado pela avaliação cognitiva de uma situação." },
+
+                    { q: "Qual tipo de comprometimento organiza a permanência porque o trabalhador se identifica emocionalmente?", a: "Comprometimento afetivo." },
+
+                    { q: "O que representa a resposta \"Voz\" no modelo Saída-Voz-Lealdade-Negligência?", a: "É uma reação ativa e construtiva, tentando melhorar o ambiente de trabalho com sugestões." },
+
+                    { q: "Por que o dinheiro nem sempre aumenta a satisfação no trabalho?", a: "Porque ele só motiva até as necessidades básicas serem atendidas; depois, a correlação com satisfação diminui." },
+
+                    { q: "O que é comprometimento normativo?", a: "É a permanência motivada por um senso de obrigação moral ou lealdade ao empregador." },
+
+                    { q: "Qual componente da atitude é a crença ou opinião sobre um objeto?", a: "O componente cognitivo." },
+
+                    { q: "O que significa resposta Saída no modelo EVLN?", a: "Buscar outro emprego ou pedir demissão." },
+
+                    { q: "Quando a satisfação no trabalho é medida por facetas?", a: "Quando se avaliam diferentes dimensões do trabalho, como salário, tarefas, ambiente e colegas." },
+
+                    { q: "O que é dissonância cognitiva no contexto de atitudes?", a: "É o desconforto causado pela inconsistência entre crenças, sentimentos e comportamentos." }
+
+                ],
+
+                c3: [
+
+                    { q: "O que é afeto e qual sua relação com emoções e sentimentos?", a: "Afeto é a categoria guarda-chuva que engloba tanto emoções (estados afetivos breves e intensos) quanto sentimentos ou humores (estados afetivos mais duradouros e difusos)." },
+
+                    { q: "Cite 5 diferenças entre emoções e sentimentos (humores)", a: "1) Duração: emoções segundos/minutos, humores horas/dias; 2) Intensidade: emoções intensas, humores menos intensas; 3) Causa: emoções de evento específico, humores causas vagas; 4) Expressão: emoções com expressões faciais claras, humores sem sinais físicos distintos; 5) Natureza: emoções orientadas para ação, humores orientadas para cognição." },
+
+                    { q: "O que é trabalho emocional? Forneça um exemplo.", a: "É o esforço, planejamento e controle emocional necessário para exibir a emoção desejada pela organização. Exemplo: um recepcionista de hotel que sorri genuinamente para hóspedes mesmo quando está cansado ou frustrado." },
+
+                    { q: "Defina dissonância emocional e explique seu impacto", a: "É a incompatibilidade entre o que se sente internamente e o que é exigido demonstrar pela organização. Impacto: aumenta estresse, reduz bem-estar, eleva risco de burnout e pode prejudicar autenticidade nos relacionamentos de trabalho." },
+
+                    { q: "O que é atuação superficial? Qual é seu custo para o trabalhador?", a: "Atuação superficial é fingir a emoção exigida sem mudar o sentimento interno (colocar uma máscara). Custo: gera maior dissonância emocional, estresse psicológico e risco elevado de exaustão emocional e burnout." },
+
+                    { q: "Diferencie atuação profunda de atuação superficial", a: "Atuação profunda: modificar os sentimentos internos para alinhar com a emoção exigida, requer autorregulação interna. Atuação superficial: manter sentimento genuíno mas modificar apenas a expressão externa, como colocar uma máscara." },
+
+                    { q: "Quais são as 3 dimensões ou componentes da Inteligência Emocional?", a: "1) Perceber ou reconhecer emoções (em si e nos outros); 2) Compreender o significado e origem das emoções; 3) Regulação ou gerenciamento das emoções para responder adequadamente à situação." },
+
+                    { q: "Defina supressão expressiva como estratégia de regulação emocional", a: "Supressão expressiva é inibir ou bloquear a expressão facial ou verbal da emoção sem alterar o sentimento interno. É uma estratégia mais custosa psicologicamente do que reavaliação cognitiva." },
+
+                    { q: "Qual é a principal crítica acadêmica à inteligência emocional?", a: "Que IE pode ser conceitualmente redundante com construtos antigos (traços de personalidade, maturidade psicológica), é vaga em definição, difícil de medir com confiabilidade e sua validade preditiva é menor que a oferecida pelo QI em alguns contextos." },
+
+                    { q: "Como a Inteligência Emocional afeta o desempenho de líderes em mediação de conflitos?", a: "IE permite que o líder perceba as emoções das partes envolvidas, compreenda suas causas subjacentes e regule suas próprias emoções, facilitando mediação mais empática, eficaz e com maior probabilidade de resolução construtiva do conflito." }
+
+                ],
+
+                c4: [
+
+                    { q: "Qual é a diferença entre personalidade e valores?", a: "Personalidade descreve tendências duradouras de pensamento, sentimento e comportamento; valores são convicções profundas sobre o que é importante, desejável e preferível." },
+
+                    { q: "Cite as 5 dimensões do modelo Big Five e uma característica de cada", a: "1) Abertura (curiosidade, criatividade); 2) Conscienciosidade (organização, disciplina); 3) Extroversão (sociabilidade, assertividade); 4) Agradabilidade (empatia, cooperação); 5) Estabilidade Emocional (resiliência, autocontrole)." },
+
+                    { q: "Quais são as 4 dicotomias do MBTI e suas variações?", a: "1) Extroversão/Introversão; 2) Sensação/Intuição; 3) Pensamento/Sentimento; 4) Julgamento/Percepção, resultando em 16 tipos possíveis." },
+
+                    { q: "Qual é a principal diferença entre MBTI e Big Five em termos de medição?", a: "MBTI usa categorias tipo-lógicas (binários dicotômicos), forçando em 16 tipos. Big Five usa escalas contínuas dimensionais, refletindo variabilidade natural sem rotulação extrema." },
+
+                    { q: "O que caracteriza o traço Narcisismo na Tríade Sombria?", a: "Senso exagerado de autoimportância, necessidade de admiração constante, falta de empatia pelos outros e reação defensiva a críticas." },
+
+                    { q: "O que caracteriza o traço Maquiavelismo na Tríade Sombria?", a: "Tendência a enganar, manipular e explorar outros para ganho pessoal, com cálculo estratégico, pragmatismo moral e ausência de culpa." },
+
+                    { q: "O que caracteriza o traço Psicopatia na Tríade Sombria?", a: "Falta de empatia e remorso genuínos, impulsividade, busca de sensações, manipulação interpessoal e comportamentos antissociais sem arrependimento." },
+
+                    { q: "Por que conscienciosidade é o melhor preditor de desempenho no trabalho segundo pesquisas?", a: "Porque está associada a disciplina, cumprimento de prazos, organização, responsabilidade e persistência — comportamentos universalmente desejáveis em qualquer contexto laboral." },
+
+                    { q: "Qual é a crítica central ao uso do MBTI em contextos organizacionais?", a: "Ele tem baixa confiabilidade test-retest (pessoas mudam de tipo), relação fraca com desempenho real, força categorizações extremas que ignoram nuances e pode criar rotulações limitantes." },
+
+                    { q: "Como Abertura no Big Five se relaciona com inovação e resistência a mudanças?", a: "Alta abertura está associada a criatividade, curiosidade por novas ideias e adaptabilidade; baixa abertura a preferência por tradição, processos estabelecidos e resistência a mudanças organizacionais." }
+
+                ],
+
+                c5: [
+
+                    { q: "O que é percepção no contexto organizacional?", a: "Processo pelo qual indivíduos organizam e interpretam impressões sensoriais para dar sentido ao seu ambiente, influenciando comportamento e decisões." },
+
+                    { q: "Qual é a relação fundamental entre percepção e realidade?", a: "O comportamento é baseado na percepção que temos da realidade, não na realidade objetiva. Percepções diferentes levam a comportamentos diferentes, mesmo em situações idênticas." },
+
+                    { q: "O que são heurísticas ou atalhos de julgamento?", a: "Técnicas mentais simplificadas que usamos para julgar rapidamente e tomar decisões, permitindo velocidade cognitiva mas frequentemente resultando em distorções e erros sistemáticos." },
+
+                    { q: "Defina o Efeito Halo e forneça um exemplo organizacional", a: "Tendência de formar impressão positiva geral sobre uma pessoa a partir de uma única característica positiva (ex.: um gerente carismático é presumido ser competente em todas as áreas)." },
+
+                    { q: "Defina o Efeito Horns (Horn Effect) e sua implicação", a: "Tendência a formar impressão negativa geral sobre alguém baseado em uma única característica negativa (ex.: um erro inicial leva a avaliação de incompetência geral)." },
+
+                    { q: "O que é viés de ancoragem?", a: "Tendência cognitiva de se fixar excessivamente em uma informação inicial (o âncora) e falhar ao ajustar adequadamente as informações subsequentes, afetando estimativas e decisões." },
+
+                    { q: "O que é viés de confirmação?", a: "Tendência a buscar, interpretar e lembrar informações que reafirmem nossas opiniões e crenças passadas, enquanto descartamos ou ignoramos informações que nos contrariam." },
+
+                    { q: "Defina satisficing (satisfação) e contraste com maximização", a: "Estratégia de buscar e aceitar a primeira alternativa que atenda aos critérios mínimos (satisfactory + sufficing), em vez de procurar a alternativa ótima. Reduz esforço cognitivo e tempo de decisão." },
+
+                    { q: "Quais são as 6 etapas do modelo racional de decisão?", a: "1) Definir o problema claramente, 2) Identificar os critérios de decisão, 3) Atribuir pesos aos critérios, 4) Desenvolver alternativas, 5) Avaliar as alternativas, 6) Escolher a melhor opção." },
+
+                    { q: "O que é racionalidade limitada segundo Herbert Simon?", a: "Conceito de que os tomadores de decisão têm capacidade cognitiva limitada, informações incompletas e tempo restrito, levando a decisões satisfatórias em vez de ótimas." }
+
+                ]
+
+            };
+
+
+
+            const QUIZ = {
+
+                c1: [
+
+                    {
+
+                        q: "Uma empresa de tecnologia implementa uma política de home office ilimitado visando aumentar a produtividade, mas observa aumento na rotatividade e diminuição na inovação colaborativa. Qual perspectiva do Comportamento Organizacional melhor explica esta contradição e por que a análise apenas técnica seria insuficiente?",
+
+                        opts: ["A) A abordagem de CO integra análise em múltiplos níveis (individual, grupo e estrutural), revelando que autonomia pode reduzir coesão grupal e capital social necessários para inovação", "B) O problema é exclusivamente técnico e deve ser resolvido com melhores ferramentas de software", "C) O Comportamento Organizacional considera apenas o nível individual, ignorando dinâmicas de grupo que sustentam a inovação", "D) A teoria de CO não consegue explicar fenômenos em empresas de tecnologia", "E) O Comportamento Organizacional deveria ter recomendado a eliminação da empresa"],
+
+                        correct: 0,
+
+                        exp: "Este cenário ilustra a contingência em CO: uma prática (home office) adequada para satisfação individual pode prejudicar dinâmicas de grupo e estruturais. A análise integrada em três níveis é essencial para evitar otimizações locais que prejudicam o sistema."
+
+                    },
+
+                    {
+
+                        q: "Compare os papéis e competências de um gerente de nível médio com um executivo sênior à luz da teoria de Mintzberg e das habilidades gerenciais. Qual afirmação melhor reflete a progressão esperada?",
+
+                        opts: ["A) Não há diferença significativa entre os papéis; a diferença é apenas salário", "B) As habilidades técnicas aumentam com a experiência; habilidades conceituais diminuem", "C) O gerente médio enfatiza habilidades técnicas e papéis operacionais, enquanto o executivo sênior investe em papéis informacionais/decisórios e habilidades conceituais", "D) Ambos investem igualmente em papéis decisórios e informacionais ao longo da carreira", "E) O gerente médio tem mais papéis interpessoais; o executivo menos"],
+
+                        correct: 2,
+
+                        exp: "Segundo Mintzberg e o desenvolvimento gerencial, a progressão hierárquica exige mudança de foco: de técnico → humano → conceitual. Papéis informacionais e decisórios crescem em importância conforme se sobe na hierarquia."
+
+                    },
+
+                    {
+
+                        q: "Uma multinacional enfrenta dificuldades ao transferir práticas bem-sucedidas de sua matriz (Holanda) para suas operações no Brasil. Qual disciplina científica seria fundamental para diagnosticar se o problema reside em diferenças de valores e padrões comportamentais entre culturas, e não apenas em questões estruturais?",
+
+                        opts: ["A) Antropologia, que estuda valores culturais, crenças e comportamentos entre sociedades diferentes", "B) Economia, que mede apenas variáveis financeiras", "C) Engenharia de processos, que otimiza fluxos operacionais", "D) Psicologia individual, que foca em motivação pessoal", "E) Sociologia organizacional, que analisa apenas estruturas formais"],
+
+                        correct: 0,
+
+                        exp: "A antropologia é essencial para entender como valores culturais (coletivismo vs. individualismo, distância do poder, tolerância à incerteza) afetam a implementação de práticas gerenciais em contextos diferentes."
+
+                    },
+
+                    {
+
+                        q: "Um diretor geral está focado em 'manter a empresa funcionando' e resolver crises, respondendo reativamente a problemas. De acordo com a tipologia de papéis de Mintzberg, qual crítica pode ser feita sobre seu estilo gerencial e qual oportunidade está sendo negligenciada?",
+
+                        opts: ["A) O problema é que tem muito poder; precisa delegar tudo", "B) Ele enfatiza papéis de gerenciamento de turbulências (reativo) e neglicencia o papel de empreendedor (proativo), perdendo oportunidades de inovação e crescimento", "C) Mintzberg não fornece ferramentas para avaliar desempenho gerencial", "D) Ele está cumprindo seu papel corretamente; não há oportunidade negligenciada", "E) Ele deveria focar apenas em papéis informativos"],
+
+                        correct: 1,
+
+                        exp: "A Regra da Contingência em CO reconhece que contextos dinâmicos exigem equilíbrio entre reatividade (gerenciador de turbulências) e proatividade (empreendedor). Excesso de reatividade prejudica inovação e posicionamento estratégico."
+
+                    },
+
+                    {
+
+                        q: "Um estudo realizado por Fred Luthans mostrou paradoxo importante: gestores bem-sucedidos em promoção rápida investem principalmente em networking e política, enquanto gestores eficazes em resultados organizacionais investem em comunicação e RH. Como a administração baseada em evidências deve interpretar este achado?",
+
+                        opts: ["A) Eliminar ambições de carreira nas organizações", "B) Reconhecer que eficácia organizacional e sucesso pessoal têm drivers diferentes; exigir que gestores alinhem incentivos para favorecer comportamentos organizacionalmente eficazes", "C) Escolher sempre a política interna porque leva a promoção mais rápida", "D) Ignorar o estudo porque contradiz o senso comum", "E) Promover apenas gestores de networking"],
+
+                        correct: 1,
+
+                        exp: "Este achado revela desalinhamento entre recompensas organizacionais (promoção) e desempenho real (eficácia). Administração baseada em evidências usaria este dado para redesenhar sistemas de avaliação e recompensa."
+
+                    },
+
+                    {
+
+                        q: "Suponha que o mesmo programa de treinamento em liderança produz resultados excelentes em uma startup ágil, mas falha completamente em uma empresa burocrática de 50 anos. Como o princípio de contingência em CO explica este fenômeno, e qual seria a consequência de ignorá-lo?",
+
+                        opts: ["A) CO não pode explicar variabilidade em resultados", "B) O treinamento é universalmente bom; a culpa é da empresa que falhou em implementar", "C) Não há diferença entre startups e empresas tradicionais", "D) O contexto organizacional (estrutura, cultura, maturidade, ambiente) modera a eficácia de intervenções; ignorar contingências leva a investimentos desperdiçados em soluções inadequadas ao contexto", "E) O treinamento funciona apenas para empresas privadas"],
+
+                        correct: 3,
+
+                        exp: "A Regra da Contingência é central em CO: a relação entre variável independente (treinamento) e resultado depende de condições contextuais. Ignorar isto leva a fracasso de mudanças organizacionais e desperdício de recursos."
+
+                    },
+
+                    {
+
+                        q: "Uma organização seleciona seus indicadores de eficácia: lucro líquido, satisfação do cliente, tempo de ciclo de produção, número de publicações em redes sociais e variância na cor do uniforme. Qual destes indicadores é problemático de acordo com critérios científicos de CO, e por que?",
+
+                        opts: ["A) Variância na cor do uniforme não tem relação causal com nenhuma dimensão de eficácia organizacional; inclui-la confunde medição com dados irrelevantes", "B) Satisfação do cliente não importa para eficácia", "C) Todos são igualmente importantes para eficácia", "D) Tempo de ciclo é apenas um detalhe operacional", "E) Lucro é o único indicador relevante"],
+
+                        correct: 0,
+
+                        exp: "CO exige que indicadores de eficácia sejam teoricamente fundamentados e causalmente relacionados ao desempenho. Variáveis decorativas prejudicam a avaliação rigorosa e a administração baseada em evidências."
+
+                    },
+
+                    {
+
+                        q: "Um novo CEO quer implementar mudanças radicais, mas consultores alertam sobre a importância dos papéis de Ligação (de Mintzberg) para compreender as reações prováveis. Por que este papel é crítico para prever o sucesso de mudanças organizacionais?",
+
+                        opts: ["A) Mudança só funciona se vir apenas da alta liderança", "B) Executivos devem ignorar redes informais", "C) Redes informais prejudicam sempre a mudança", "D) O papel de ligação mapeia redes de contato internas e externas, influenciadores informais e stakeholders-chave; entender esta rede é essencial para antecipar resistências e potencializar apoiadores de mudança", "E) O papel de ligação é irrelevante para mudança organizacional"],
+
+                        correct: 3,
+
+                        exp: "O papel de Ligação revela a estrutura real de poder e influência (frequentemente diferente do organograma formal). Ignorar redes informais é a razão de muitas mudanças falharem; entendê-las é pré-requisito."
+
+                    },
+
+                    {
+
+                        q: "Uma empresa de consultoria em gestão propõe um 'modelo único de liderança' que promete melhorar eficácia em qualquer setor, tamanho ou contexto. Um crítico argumenta que este modelo viola os fundamentos do CO. Qual seria o argumento mais rigoroso?",
+
+                        opts: ["A) Modelos universais ignoram a Regra da Contingência fundamental em CO: a eficácia de práticas depende de contexto. Sem análise de contingências, recomendações genéricas frequentemente falham", "B) Cada empresa é completamente única sem padrões", "C) CO nunca pode oferecer modelos", "D) Liderança não existe de verdade", "E) Todo modelo único é sempre ruim"],
+
+                        correct: 0,
+
+                        exp: "A Regra da Contingência é o pilar que diferencia CO científica de consultoria pseudocientífica. Qualquer modelo que ignora 'x leva a y, mas apenas sob condições z' é cientificamente fraco."
+
+                    },
+
+                    {
+
+                        q: "Comparando duas organizações (A e B) com mesma produtividade, mas A tem absenteísmo de 2% e B de 15%, qual análise multidisciplinar seria necessária para explicar esta diferença, e por quais disciplinas?",
+
+                        opts: ["A) Absenteísmo é apenas questão de remuneração", "B) Economia deveria ser a única disciplina consultada", "C) Apenas psicologia pode explicar; absenteísmo é problema individual", "D) Não há explicação científica para variações em absenteísmo", "E) Integração de psicologia (motivação individual), psicologia social (clima de equipe), sociologia (normas coletivas de presença) e antropologia (valores culturais sobre trabalho/lazer) são necessárias para diagnóstico completo"],
+
+                        correct: 4,
+
+                        exp: "Este cenário ilustra porque CO é interdisciplinar. Absenteísmo resulta de interação entre motivação individual, dinâmicas de grupo, recompensas estruturais e valores culturais — nenhuma disciplina isolada captura toda a complexidade."
+
+                    }
+
+                ],
+
+                c2: [
+
+                    {
+
+                        q: "Um empregado relata que aprecia a missão da organização, mas também sente que as práticas de promoção são injustas. Segundo a teoria das atitudes, qual componente está mais diretamente relacionado à avaliação de justiça?",
+
+                        opts: ["A) Comportamental, porque reflete a ação do empregado em relação ao sistema de promoções", "B) Afetivo, porque envolve o sentimento de apreço pela missão", "C) Cognitivo, porque envolve uma avaliação racional sobre justiça e procedimentos", "D) Normativo, porque depende da obrigação moral de aceitar decisões", "E) Instrumental, porque busca ganhos pessoais"],
+
+                        correct: 2,
+
+                        exp: "A avaliação de justiça é um julgamento cognitivo sobre a equidade dos processos organizacionais, parte do componente cognitivo da atitude."
+
+                    },
+
+                    {
+
+                        q: "Em uma pesquisa de clima, trabalhadores de um setor afirmam que se sentem motivados a ajudar colegas, mas evitam dar feedback crítico à liderança. No modelo EVLN, qual padrão melhor descreve essa reação?",
+
+                        opts: ["A) Saída, porque preferem deixar o emprego se a liderança não melhorar", "B) Voz, porque estão ativamente comunicando problemas à liderança", "C) Lealdade, porque permanecem confiando na empresa mesmo sem contestar formalmente", "D) Negligência, porque diminuem seu empenho no trabalho diário", "E) Nenhuma, pois o comportamento não se encaixa no modelo"],
+
+                        correct: 2,
+
+                        exp: "A lealdade descreve quem permanece e confia que a direção possa corrigir a situação, sem agir ativamente para reclamar."
+
+                    },
+
+                    {
+
+                        q: "Uma colaboradora continua na empresa porque considera que não encontrará uma posição melhor facilmente, embora não se identifique emocionalmente com a cultura organizacional. Qual tipo de comprometimento predomina?",
+
+                        opts: ["A) Comprometimento afetivo", "B) Comprometimento instrumental", "C) Comprometimento normativo", "D) Comprometimento de comunidade", "E) Comprometimento social"],
+
+                        correct: 1,
+
+                        exp: "Permanecer por necessidade ou falta de alternativas caracteriza comprometimento instrumental, não afetivo."
+
+                    },
+
+                    {
+
+                        q: "Uma empresa decide mensurar a satisfação por facetas e percebe altos índices em autonomia e estilo de liderança, mas baixos índices em recompensas financeiras. Como isso deve influenciar a decisão do gestor?",
+
+                        opts: ["A) Priorizar intervenções específicas em remuneração, já que a satisfação é multifacetada e deve abordar o ponto fraco", "B) Concluir que a satisfação geral é alta e não tomar nenhuma medida", "C) Substituir o modelo multifacetado por uma única questão global", "D) Focar apenas em treinamento de liderança e ignorar fatores financeiros", "E) Aumentar a flexibilidade de horário como solução única"],
+
+                        correct: 0,
+
+                        exp: "Quando a satisfação é medida por facetas, a análise aponta áreas específicas de melhoria; intervenções devem atacar as facetas mais fracas."
+
+                    },
+
+                    {
+
+                        q: "Qual afirmação melhor descreve a diferença entre comprometimento afetivo e comprometimento normativo?",
+
+                        opts: ["A) Afetivo refere-se a permanência por exigência legal; normativo refere-se a vínculo emocional", "B) Afetivo é alinhamento com valores; normativo é sensação de obrigação moral", "C) Afetivo é motivado por benefícios financeiros; normativo por lealdade ao líder", "D) Ambos são equivalentes e indistinguíveis no comportamento", "E) Normativo sempre leva a desempenho superior"],
+
+                        correct: 1,
+
+                        exp: "O comprometimento afetivo nasce do apego emocional à organização, enquanto o comprometimento normativo nasce da percepção de obrigação moral."
+
+                    },
+
+                    {
+
+                        q: "Uma equipe de vendas tem alta satisfação com o ambiente social, mas baixa satisfação com o plano de metas. Se a empresa implementar um novo sistema de recompensas, qual risco existe caso não trate também as crenças sobre justiça do plano?",
+
+                        opts: ["A) Nenhum, pois recompensas resolvem insatisfação financeira automaticamente", "B) A dissonância cognitiva pode aumentar se o empregado perceber o plano como injusto, mesmo com maior recompensa", "C) A satisfação afetiva será substituída pela satisfação cognitiva", "D) O modelo EVLN se tornará inválido para essa equipe", "E) As atitudes comportamentais serão completamente alteradas"],
+
+                        correct: 1,
+
+                        exp: "Recompensas materiais não eliminam sinais de injustiça; quando crenças cognitivas de justiça permanecem conflitantes com ações, a dissonância pode aumentar."
+
+                    },
+
+                    {
+
+                        q: "Para avaliar o efeito de atitudes na intenção de sair da empresa, que tipo de mensuração é mais adequada?",
+
+                        opts: ["A) Medir apenas a satisfação global, pois indica claramente a intenção de saída", "B) Avaliar componentes cognitivo, afetivo e comportamental separadamente, pois a intenção de sair é resultado da interação entre esses componentes", "C) Contar apenas as faltas dos últimos 30 dias", "D) Consultar somente a chefia imediata", "E) Usar um indicador financeiro isolado"],
+
+                        correct: 1,
+
+                        exp: "A intenção de saída é uma função complexa dos componentes da atitude; mensurar cada dimensão oferece diagnóstico mais preciso."
+
+                    },
+
+                    {
+
+                        q: "Qual descrição se alinha melhor a um empregado que concorda que a organização é competente, sente orgulho de seu trabalho e planeja buscar outra vaga nos próximos seis meses?",
+
+                        opts: ["A) Alto comprometimento afetivo com baixa intenção de saída", "B) Baixo comprometimento instrumental com alta satisfação", "C) Alta satisfação com a cultura, mas baixa lealdade e alta intenção de saída", "D) Comprometimento normativo predominante", "E) Atitude comportamental neutra"],
+
+                        correct: 2,
+
+                        exp: "A combinação de orgulho e intenção de buscar outra vaga indica que a atitude afetiva pode estar dissociada da lealdade comportamental."
+
+                    },
+
+                    {
+
+                        q: "Qual decisão caracteriza melhor a resposta 'Voz' quando um grupo sente que a carga de trabalho é injusta?",
+
+                        opts: ["A) Pedir demissão imediatamente", "B) Ignorar o problema e cumprir apenas o mínimo", "C) Reunir evidências e propor mudanças à gestão", "D) Aumentar o número de faltas", "E) Manter silêncio por lealdade"],
+
+                        correct: 2,
+
+                        exp: "Voz envolve ação ativa e construtiva para tentar melhorar a situação, como apresentar propostas fundamentadas à gestão."
+
+                    },
+
+                    {
+
+                        q: "Durante a implementação de um plano de remuneração variável, alguns funcionários demonstram satisfação com o desafio do trabalho, mas relatam frustrações com os critérios de avaliação. Qual interpretação é mais coerente para o gestor?",
+
+                        opts: ["A) A satisfação global será alta independentemente dos critérios de avaliação", "B) Há uma avaliação cognitiva negativa dos critérios, que pode gerar dissonância mesmo com motivação intrínseca", "C) O componente comportamental da atitude é irrelevante", "D) O comprometimento é necessariamente normativo", "E) A insatisfação com critérios não afeta o desempenho"],
+
+                        correct: 1,
+
+                        exp: "Frustrações com critérios de avaliação refletem um julgamento cognitivo negativo, que pode coexistir com motivação intrínseca e gerar conflito attitudinal."
+
+                    }
+
+                ],
+
+                c3: [
+
+                    {
+
+                        q: "Um recepcionista de hotel experimenta frustração interna ao atender um cliente exigente, mas mantém um sorriso genuíno e profissional. Qual conceito melhor explica essa situação e qual seria a diferença se ele apenas fingisse o sorriso?",
+
+                        opts: ["A) Comprometimento afetivo; não haveria diferença no comportamento observado", "B) Atuação profunda resulta em menor dissonância emocional; atuação superficial causaria maior estresse e risco de burnout", "C) Inteligência emocional; seria impossível distinguir entre os dois tipos de atuação", "D) Satisfação no trabalho; ambos os casos geram idêntico impacto no desempenho", "E) Atitude; a expressão facial determina completamente o estado emocional interno"],
+
+                        correct: 1,
+
+                        exp: "Este cenário ilustra que quando o trabalhador consegue ajustar seu sentimento interno (atuação profunda), há menos dissonância. Se apenas fingisse (atuação superficial), mantendo a frustração interna, causaria maior conflito psicológico."
+
+                    },
+
+                    {
+
+                        q: "Considere dois vendedores em uma loja de varejo: um naturalmente extrovertido e entusiasmado, outro introvertido mas extremamente consciencioso. Ambos atingem metas de vendas, mas com estratégias diferentes. Qual afirmação melhor reflete a relação entre afeto, trabalho emocional e performance?",
+
+                        opts: ["A) Apenas o extrovertido realmente trabalha com suas emoções autênticas", "B) Ambos realizam trabalho emocional, mas o introvertido pode pagar custo maior em dissonância se não conseguir alinhar seus sentimentos às exigências", "C) O introvertido não pode realizador trabalho emocional porque não tem personalidade de vendedor", "D) Trabalho emocional é exclusivo de funções de atendimento ao público", "E) A performance em vendas é determinada apenas por traços de personalidade, não por regulação emocional"],
+
+                        correct: 1,
+
+                        exp: "O trabalho emocional é universal, mas seu custo varia. Introvertidos que não conseguem alinhar interno-externo (atuação profunda) enfrentam maior dissonância; aqueles que conseguem adaptam-se com menos custo psicológico."
+
+                    },
+
+                    {
+
+                        q: "Um estudo encontrou que telefonistas que usam atuação profunda relatam maior bem-estar do que aqueles que usam atuação superficial, apesar de ambos manterem emoções consistentes externamente. Como a teoria de regulação emocional explica este achado?",
+
+                        opts: ["A) Atuação superficial é sempre superiora porque poupa energia mental", "B) Ambos devem ter idêntico bem-estar já que os comportamentos observados são iguais", "C) Atuação profunda requer reavaliação cognitiva do evento para ajustar o sentimento interno, reduzindo conflito psicológico e preservando bem-estar", "D) Bem-estar em trabalho emocional é determinado exclusivamente por salário", "E) A expressão comportamental determina absolutamente o estado emocional interno"],
+
+                        correct: 2,
+
+                        exp: "Atuação profunda, embora exija esforço inicial de reavaliação cognitiva, reduz a dissonância emocional porque alinha sentimentos internos com expressão externa, preservando saúde psicológica."
+
+                    },
+
+                    {
+
+                        q: "Um gestor nota que sua equipe mantém produtividade, mas relata exaustão emocional frequente e aumento em comportamentos de negligência no modelo EVLN. Baseado em conhecimento sobre afeto e trabalho emocional, qual diagnóstico e intervenção é mais apropriada?",
+
+                        opts: ["A) O problema é exclusivamente técnico; aumentar controle reduzirá exaustão", "B) Exaustão emocional prolongada leva a negligência (redução de esforço) após falha em voz ou saída; deve-se implementar apoio para regulação emocional e diagnosticar se há dissonância emocional crônica", "C) A equipe está com comprometimento instrumental; basta aumentar salários", "D) Negligência é sinônimo de baixo desempenho técnico", "E) Exaustão emocional não tem relação com comportamentos de trabalho"],
+
+                        correct: 1,
+
+                        exp: "A exaustão emocional crônica é precursora de negligência. Quando trabalhadores não conseguem expressar voz ou saem, recorrem a reduzir esforço. Diagnosticar e intervir em dissonância emocional é essencial."
+
+                    },
+
+                    {
+
+                        q: "Um programa de seleção inclui avaliação de inteligência emocional para líderes de equipes. Um crítico argumenta que IE não deveria ser o critério único. Qual argumento científico melhor suporta essa crítica?",
+
+                        opts: ["A) Inteligência emocional é sempre superior a habilidades técnicas", "B) IE é impossível de medir e não existe de verdade", "C) IE pode se sobrepor conceitualmente com traços de personalidade (agradabilidade) e é mais útil quando combinada com conscienciosidade e estabilidade emocional do que como fator isolado", "D) Líderes nunca precisam de IE; apenas de conhecimento técnico", "E) IE garante desempenho perfeito se o candidato for selecionado"],
+
+                        correct: 2,
+
+                        exp: "IE tem validade, mas sua crítica acadêmica válida é que pode ser redundante com personalidade. Seu poder preditivo aumenta quando combinada com outros construtos psicológicos validados."
+
+                    },
+
+                    {
+
+                        q: "Compare duas estratégias de regulação de conflito: um mediador que 'resiste' emocionalmente ao stress (suprime expressão) versus outro que 'reinterpreta' a situação como oportunidade de crescimento. Qual apresenta melhor resultado a longo prazo segundo literatura em IE?",
+
+                        opts: ["A) Ambas têm idêntico resultado porque o comportamento observado é o mesmo", "B) Supressão expressiva é sempre superior porque economiza energia", "C) Reavaliação cognitiva tende a resultar em menor desgaste psicológico, maior criatividade na resolução e bem-estar mantido porque reduz dissonância emocional", "D) Nem supressão nem reavaliação funcionam; apenas abandonar o conflito é eficaz", "E) O tipo de estratégia não influencia o resultado do conflito"],
+
+                        correct: 2,
+
+                        exp: "Reavaliação cognitiva (componente chave de IE) é menos custosa psicologicamente que supressão expressiva e permite criatividade na resolução. Mediadores com alta IE usam mais reavaliação."
+
+                    },
+
+                    {
+
+                        q: "Um centro de atendimento ao cliente analisa rotatividade e burnout elevados apesar de processarem tickets rapidamente. Como afeto, emoções e humores explicam este paradoxo, e qual intervenção seria apropriada?",
+
+                        opts: ["A) Velocidade de processamento é o único fator que importa; burnout não existe", "B) Embora emoções sejam breves e intensas, o acúmulo de trabalho emocional repetitivo cria humor crônico negativo e baixo bem-estar mesmo com eficiência técnica mantida. Intervenção: pausas, feedback positivo, suporte emocional", "C) Burnout é apenas falta de motivação pessoal, não relacionado a trabalho", "D) Não há explicação para esse paradoxo", "E) Melhorar processamento de tickets eliminaria burnout automaticamente"],
+
+                        correct: 1,
+
+                        exp: "Emoções pontuais podem não danificar, mas humores crônicos negativos gerados por acúmulo de trabalho emocional (dissonância repetitiva) causam burnout mesmo com eficiência mantida. IE e suporte emocional são críticos."
+
+                    },
+
+                    {
+
+                        q: "Um estudo experimental expõe vendedores a dois cenários de treinamento: um ensina supressão expressiva de ansiedade, outro ensina reavaliação cognitiva. Prever qual grupo terá melhor retorno de longo prazo em IE aplicada e por quê.",
+
+                        opts: ["A) Supressão é sempre superior porque parece mais profissional", "B) Ambos trazem resultados idênticos no longo prazo", "C) Reavaliação cognitiva, pois desenvolve a dimensão de compreensão e regulação de IE, reduz dissonância emocional e permite adaptação genuína em vez de apenas controlar expressão", "D) Nem supressão nem reavaliação contribuem para IE", "E) Treinamento não influencia regulação emocional"],
+
+                        correct: 2,
+
+                        exp: "IE se desenvolve com reavaliação (compreender origem, transformar perspectiva), não com supressão. Reavaliação treina regulação emocional real; supressão é apenas máscara temporária."
+
+                    },
+
+                    {
+
+                        q: "Diante de um cliente irado, qual sequência de ações reflete melhor o uso integrado das três dimensões de IE (perceber, compreender, regular)?",
+
+                        opts: ["A) Expressar raiva também para validar o cliente", "B) 1) Reconhecer sinais faciais/verbais do cliente e da própria ansiedade (perceber); 2) Compreender que raiva do cliente vem de frustração, não ataque pessoal; 3) Regular sua ansiedade para responder empático e construtivo", "C) Ignorar completamente as emoções e ir direto para soluções técnicas", "D) Apenas suprimir a expressão de ansiedade sem entender cliente", "E) Conceder qualquer demanda para evitar emoções negativas"],
+
+                        correct: 1,
+
+                        exp: "IE aplicada integra três passos: 1) Autoconsciência das próprias emoções e empatia pelas do outro; 2) Compreensão das causas (frustração != ataque); 3) Regulação apropriada (empatia e solução, não reatividade)."
+
+                    },
+
+                    {
+
+                        q: "Uma organização enfrenta dilema ético: exigir que operadores de teleatendimento demonstrem entusiasmo extremo em vendas aumenta ticket médio, mas acelera exaustão emocional e rotatividade. Como a análise de afeto e trabalho emocional informaria uma decisão sustentável?",
+
+                        opts: ["A) Ganho financeiro justifica qualquer nível de exaustão emocional", "B) A dissonância emocional repetida (sentir frustração, demonstrar entusiasmo extremo) cria burnout crônico, elevando custos de rotatividade, absenteísmo e qualidade. Decisão sustentável: equilibrar metas com suporte em IE, pausas e avaliação de realismo emocional exigido", "C) Trabalho emocional não existe; é apenas fraqueza pessoal", "D) Não há forma de balancear eficiência e bem-estar emocional", "E) Apenas eliminar a função resolveria o problema"],
+
+                        correct: 1,
+
+                        exp: "CO reconhece que dissonância emocional tem custo sistêmico real (turnover, absenteísmo, qualidade). Gestão sustentável balancea metas com regulação emocional realista, não exigências extremas de atuação."
+
+                    }
+
+                ],
+
+                c4: [
+
+                    {
+
+                        q: "Uma organização utiliza MBTI para formar equipes de projeto, mas observa que indivíduos 'do mesmo tipo' frequentemente diferem em desempenho e estilo colaborativo. Qual explicação teórica melhor justifica essa inconsistência?",
+
+                        opts: ["A) O MBTI é perfeito e a culpa é da gestão", "B) Personalidade é determinada apenas por MBTI", "C) Personalidade é multidimensional; MBTI captura apenas 4 dicotomias binarias enquanto Big Five mede 5 dimensões contínuas, refletindo melhor a variação natural", "D) Não existem diferenças reais entre pessoas", "E) MBTI mede inteligência e QI"],
+
+                        correct: 2,
+
+                        exp: "O MBTI força categorias discretas (16 tipos) que ocultam a variação contínua dentro de cada tipo. Big Five oferece resolução maior com dimensões contínuas."
+
+                    },
+
+                    {
+
+                        q: "Um candidato de alta conscienciosidade foi rejeitado para líder de inovação porque 'não tem criatividade'. Qual erro conceitual essa decisão revela e por que seria inadequada?",
+
+                        opts: ["A) Conscienciosidade garante criatividade", "B) Conscienciosidade não é relevante para inovação", "C) Confundir conscienciosidade com baixa abertura; a dimensão relevante para criatividade é Abertura, não conscienciosidade. Um líder pode ser altamente consciente E aberto", "D) Abertura é inútil em liderança", "E) A decisão foi correta"],
+
+                        correct: 2,
+
+                        exp: "Conscienciosidade (disciplina, organização) e Abertura (criatividade, novidade) são dimensões independentes. Alta conscienciosidade pode coexistir com alta criatividade."
+
+                    },
+
+                    {
+
+                        q: "Dois executivos exibem comportamentos de manipulação, mas um foca em ganho político interno enquanto o outro age por falta de remorso genuine. Como a Tríade Sombria diferencia esses padrões?",
+
+                        opts: ["A) São idênticos; não há diferença", "B) O primeiro exemplifica Maquiavelismo (cálculo estratégico); o segundo Psicopatia (falta de empatia genuína). Embora ambos manipulem, as motivações são distintas", "C) Um é ético, outro não", "D) Apenas psicopatas manipulam", "E) Maquiavelismo é mais moral que psicopatia"],
+
+                        correct: 1,
+
+                        exp: "Maquiavelismo envolve manipulação calculada mas com algum julgamento moral (o indivíduo sabe que é errado). Psicopatia envolve ausência genuína de empatia e remorso."
+
+                    },
+
+                    {
+
+                        q: "Um estudo acompanha vendedores por 3 anos e aplicou MBTI na seleção inicial, depois reaplicou o teste 6 meses depois. 35% dos vendedores mudaram de tipo. Qual implicação isso tem para validade preditiva?",
+
+                        opts: ["A) O MBTI é altamente confiável", "B) Mudança de tipo reflete desenvolvimento normal", "C) Baixa confiabilidade test-retest compromete validade preditiva; se o teste muda, como pode prever desempenho futuro estável?", "D) Big Five teria o mesmo problema", "E) Isso prova que tipos são imutáveis"],
+
+                        correct: 2,
+
+                        exp: "Confiabilidade é pré-requisito para validade. Se uma medida não é estável, não pode predizer resultados futuros confiávelmente. Essa é uma crítica forte ao MBTI."
+
+                    },
+
+                    {
+
+                        q: "Em cultura organizacional de alta inovação, qual combinação de traços Big Five seria mais associada ao comportamento de desafiar status quo e propor mudanças?",
+
+                        opts: ["A) Alta conscienciosidade e baixa abertura", "B) Baixa extroversão e alta agradabilidade", "C) Alta abertura e moderada a alta extroversão, mesmo que conscienciosidade não seja máxima", "D) Alta psicopatia", "E) Qualquer traço funciona igualmente"],
+
+                        correct: 2,
+
+                        exp: "Abertura (curiosidade por novidade) + Extroversão (vontade de comunicar ideias) predizem melhor inovação do que conscienciosidade pura, que pode promover conformidade."
+
+                    },
+
+                    {
+
+                        q: "Uma organização descobre que um executivo de alto desempenho exibe traços de narcisismo moderado (admiração pelo seu próprio trabalho). O gestor questiona se deve removê-lo. Qual análise seria mais apropriada?",
+
+                        opts: ["A) Todo narcisismo deve ser eliminado", "B) Narcisismo em líderes é sempre positivo", "C) Avaliar se o narcisismo prejudica decisões éticas, dinâmicas de equipe ou está apenas elevando confiança; narcisismo moderado pode coexistir com performance, mas narcisismo extremo reduz empatia e accountability", "D) Remover qualquer líder com traços sombrios", "E) Personalidade não importa para desempenho"],
+
+                        correct: 2,
+
+                        exp: "Traços da Tríade Sombria não são dicotômicos (presença/ausência). Pessoas podem ter traços moderados e, se gerenciados, contribuir sem prejuízo ético."
+
+                    },
+
+                    {
+
+                        q: "Compare dois candidatos: A) Extrovertido, pouco consciente, altamente concordável. B) Introvertido, altamente consciente, moderadamente concordável. Qual seria melhor para auditor interno e por quê?",
+
+                        opts: ["A) A, porque extrovertidos são sempre melhores", "B) B, porque conscienciosidade e introversão garantem atenção a detalhe sem pressões sociais, apropriado para auditoria crítica", "C) Não há diferença", "D) A, porque concordabilidade é essencial", "E) Agradabilidade alta é sempre melhor"],
+
+                        correct: 1,
+
+                        exp: "Para auditoria, conscienciosidade (rigor) e introversão (menos suscetível a pressão social) são mais preditivas que extroversão ou agradabilidade."
+
+                    },
+
+                    {
+
+                        q: "Qual proposição melhor reflete a relação entre personalidade (Big Five) e valores em contexto organizacional?",
+
+                        opts: ["A) Personalidade e valores são a mesma coisa", "B) Valores são imunes a personalidade", "C) Personalidade influencia como valores são expressos e priorizados, mas não determina valores; um conscencioso pode valorizar tanto segurança quanto inovação dependendo de experiências", "D) Alguém com baixa agradabilidade não pode valorizar justiça social", "E) Valores são apenas comportamentos observáveis"],
+
+                        correct: 2,
+
+                        exp: "Personalidade (tendências) e valores (convicções) são construtos distintos, mas interagem. A personalidade molda como alguém expressa seus valores."
+
+                    },
+
+                    {
+
+                        q: "Uma empresa encontra correlação forte entre Conscienciosidade (Big Five) e desempenho em todos os cargos estudados, mas correlação fraca entre Extroversão e desempenho em vendas. Como explicar essa anomalia?",
+
+                        opts: ["A) Conscienciosidade é o único traço que importa", "B) Extroversão não existe", "C) Conscienciosidade é universalmente valioso (organização, confiabilidade), enquanto Extroversão em vendas pode ser mediada por outras variáveis como conhecimento de produto, confiança do cliente ou técnica de negociação", "D) Vendas não requerem extroversão", "E) Dados devem estar incorretos"],
+
+                        correct: 2,
+
+                        exp: "Um traço pode ter validade universal (conscienciosidade = qualidade do trabalho) enquanto outro é modulado por contexto e outros fatores (extroversão em vendas depende de muitos fatores)."
+
+                    },
+
+                    {
+
+                        q: "Qual crítica central à aplicação de modelos de personalidade (MBTI ou Big Five) em diagnóstico de capacidade para liderança integra evidência científica?",
+
+                        opts: ["A) Personalidade prediz 100% da eficácia de liderança", "B) Personalidade não importa para liderança", "C) Personalidade é um preditor moderado de liderança, mas explicam apenas 10-15% da variância; contexto, experiência, competências técnicas e culturais organizacional explicam mais variância", "D) Apenas MBTI funciona para liderança", "E) Big Five explica 100% de desempenho"],
+
+                        correct: 2,
+
+                        exp: "Personología tem valor, mas seu poder preditivo é limitado. Liderança é multifatorial; personalidade é uma dimensão entre muitas."
+
+                    }
+
+                ],
+
+                c5: [
+
+                    {
+
+                        q: "Em estudos de comportamento organizacional, qual é a implicação mais adequada do viés de confirmação sobre avaliações de desempenho?",
+
+                        opts: ["A) Ele aumenta a probabilidade de considerar opiniões divergentes", "B) Ele incentiva a revisão de todas as evidências", "C) Ele leva a decisões baseadas em referências estatísticas", "D) Ele mantém o avaliador preso a hipóteses iniciais", "E) Ele elimina o efeito de estereótipos"],
+
+                        correct: 3,
+
+                        exp: "O viés de confirmação tende a reforçar hipóteses iniciais, levando avaliadores a buscar ou lembrar apenas evidências que confirmem suas crenças."
+
+                    },
+
+                    {
+
+                        q: "Qual descrição melhor caracteriza a ancoragem em negociações salariais?",
+
+                        opts: ["A) A tendência a rejeitar propostas iniciais", "B) A influência limitada de números iniciais", "C) A seleção de dados sem importância", "D) A fixação em um valor inicial como referência para decisões posteriores", "E) A preferência por alternativas qualitativas"],
+
+                        correct: 3,
+
+                        exp: "A ancoragem ocorre quando um número inicial influencia fortemente as decisões subsequentes, mesmo que seja arbitrário."
+
+                    },
+
+                    {
+
+                        q: "Como a heurística de disponibilidade pode distorcer percepções de risco no ambiente de trabalho?",
+
+                        opts: ["A) Ao fazer avaliações baseadas em regras formais", "B) Ao requerer análise de todos os dados possíveis", "C) Ao considerar somente a informação mais recente ou vívida", "D) Ao priorizar opiniões de especialistas", "E) Ao eliminar memórias pessoais"],
+
+                        correct: 2,
+
+                        exp: "A heurística de disponibilidade faz com que julgamentos sejam baseados nas informações mais facilmente lembradas, não necessariamente nas mais representativas."
+
+                    },
+
+                    {
+
+                        q: "Qual afirmação identifica corretamente a diferença entre intuição e tomada de decisão racional em contextos organizacionais?",
+
+                        opts: ["A) Intuição é sempre mais precisa que análise", "B) A tomada racional ignora dados empíricos", "C) Intuição integra experiência preconsciente; tomada racional segue etapas lógicas explícitas", "D) A intuição não sofre influência de emoções", "E) A tomada racional elimina o risco"],
+
+                        correct: 2,
+
+                        exp: "Intuição refere-se a julgamentos rápidos baseados em experiência acumulada, enquanto a tomada racional envolve um processo deliberado e sequencial."
+
+                    },
+
+                    {
+
+                        q: "Em um projeto onde recursos já investidos aumentam sem resultados, qual conceito explica a tendência de persistir na iniciativa?",
+
+                        opts: ["A) Escalada de comprometimento", "B) Satisficing", "C) Autoeficácia", "D) Teoria da atribuição", "E) Sinergia organizacional"],
+
+                        correct: 0,
+
+                        exp: "A escalada de comprometimento descreve a persistência em um curso de ação devido aos investimentos já realizados, mesmo quando as probabilidades mudam."
+
+                    },
+
+                    {
+
+                        q: "Qual interpretação mais precisa do conceito de percepção seletiva quando aplicado a líderes que recebem feedback?",
+
+                        opts: ["A) Um líder avalia cada ponto com igualdade", "B) Um líder busca ativamente opiniões divergentes", "C) Um líder mantém uma visão neutra do comportamento dos subordinados", "D) Um líder percebe informações que confirmam suas expectativas", "E) Um líder ignora totalmente o feedback"],
+
+                        correct: 3,
+
+                        exp: "Percepção seletiva faz com que indivíduos notem mais facilmente as informações que estão em linha com suas expectativas prévias."
+
+                    },
+
+                    {
+
+                        q: "Qual alternativa representa corretamente um exemplo de profecia autorrealizável no contexto de RH?",
+
+                        opts: ["A) Um gerente muda o plano de carreira sem consultar a equipe", "B) Uma previsão neutra sem impacto no comportamento", "C) Um funcionário evita riscos por falta de recursos", "D) Um gestor diminui avaliações negativas para evitar conflito", "E) Um gestor espera baixo desempenho e, por isso, fornece menos apoio, causando o resultado esperado"],
+
+                        correct: 4,
+
+                        exp: "A profecia autorrealizável ocorre quando expectativas do gestor influenciam o comportamento do funcionário até que o resultado esperado se confirme."
+
+                    },
+
+                    {
+
+                        q: "Para evitar o efeito Halo em entrevistas, qual prática tem maior validade técnica?",
+
+                        opts: ["A) Pedir que o entrevistador escolha sua alternativa preferida", "B) Aplicar perguntas padronizadas e critérios objetivos", "C) Basear-se em primeiras impressões", "D) Selecionar candidatos pelo carisma", "E) Ignorar respostas abertas"],
+
+                        correct: 1,
+
+                        exp: "Entrevistas estruturadas com critérios objetivos reduzem o efeito Halo, porque cada candidato é avaliado segundo os mesmos parâmetros."
+
+                    },
+
+                    {
+
+                        q: "Em decisões estratégicas complexas, qual abordagem descreve melhor o satisficing?",
+
+                        opts: ["A) Buscar a melhor alternativa ideal em todas as situações", "B) Rejeitar alternativas que atendam aos critérios mínimos", "C) Aceitar a primeira alternativa que satisfaça os requisitos básicos", "D) Coletar dados indefinidamente", "E) Adiar a decisão até eliminar todas as incertezas"],
+
+                        correct: 2,
+
+                        exp: "Satisficing consiste em aceitar uma alternativa que atenda aos critérios mínimos, em vez de procurar a opção ótima a todo custo."
+
+                    },
+
+                    {
+
+                        q: "Qual estratégia é mais eficaz para minimizar o groupthink em uma equipe de alta performance?",
+
+                        opts: ["A) Incentivar a unanimidade rápida", "B) Nomear um 'advogado do diabo' e buscar opiniões divergentes", "C) Limitar as informações disponíveis ao grupo", "D) Adiar a análise para depois da decisão", "E) Evitar revisões críticas"],
+
+                        correct: 1,
+
+                        exp: "Nomear um 'advogado do diabo' estimula a discussão crítica e ajuda a identificar riscos ocultos, reduzindo o groupthink."
+
+                    }
+
+                ]
+
+            };
+
+
+
+            // ════════════════════════════════════════
+
+            // STATE
+
+            // ════════════════════════════════════════
+
+            const state = {
+
+                c1: { cards: [...FLASHCARDS.c1], idx: 0, flipped: false, quizAnswered: [], quizScore: 0, quizDone: false, qIdx: 0 },
+
+                c2: { cards: [...FLASHCARDS.c2], idx: 0, flipped: false, quizAnswered: [], quizScore: 0, quizDone: false, qIdx: 0 },
+
+                c3: { cards: [...FLASHCARDS.c3], idx: 0, flipped: false, quizAnswered: [], quizScore: 0, quizDone: false, qIdx: 0 },
+
+                c4: { cards: [...FLASHCARDS.c4], idx: 0, flipped: false, quizAnswered: [], quizScore: 0, quizDone: false, qIdx: 0 },
+
+                c5: { cards: [...FLASHCARDS.c5], idx: 0, flipped: false, quizAnswered: [], quizScore: 0, quizDone: false, qIdx: 0 },
+
+            };
+
+
+
+            // ════════════════════════════════════════
+
+            // CHAPTER / SUB-SECTION NAV
+
+            // ════════════════════════════════════════
+
+            function showChapter(n) {
+
+                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+
+                document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+
+                document.getElementById('chapter-' + n).classList.add('active');
+
+                document.querySelector(`.nav-tab[data-chapter="${n}"]`).classList.add('active');
+
+            }
+
+
+
+            function showSub(cap, sub) {
+
+                const section = document.getElementById('chapter-' + cap.replace('c', ''));
+
+                section.querySelectorAll('.sub-section').forEach(s => s.classList.remove('active'));
+
+                section.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
+
+                document.getElementById(cap + '-' + sub).classList.add('active');
+
+                event.target.classList.add('active');
+
+
+
+                if (sub === 'flashcard') initFlashcard(cap);
+
+                if (sub === 'quiz') initQuiz(cap);
+
+            }
+
+
+
+            // ════════════════════════════════════════
+
+            // FLASHCARDS
+
+            // ════════════════════════════════════════
+
+            function initFlashcard(cap) {
+
+                const s = state[cap];
+
+                s.flipped = false;
+
+                renderCard(cap);
+
+            }
+
+
+
+            function renderCard(cap) {
+
+                const s = state[cap];
+
+                const card = s.cards[s.idx];
+
+                document.getElementById(cap + '-front').textContent = card.q;
+
+                document.getElementById(cap + '-back').textContent = card.a;
+
+                document.getElementById(cap + '-fc-counter').textContent = `${s.idx + 1} / ${s.cards.length}`;
+
+                document.getElementById(cap + '-fc-bar').style.width = ((s.idx + 1) / s.cards.length * 100) + '%';
+
+                const inner = document.getElementById(cap + '-card');
+
+                inner.classList.remove('flipped');
+
+                s.flipped = false;
+
+            }
+
+
+
+            function flipCard(cap) {
+
+                const s = state[cap];
+
+                s.flipped = !s.flipped;
+
+                document.getElementById(cap + '-card').classList.toggle('flipped', s.flipped);
+
+            }
+
+
+
+            function nextCard(cap) {
+
+                const s = state[cap];
+
+                if (s.idx < s.cards.length - 1) { s.idx++; renderCard(cap); }
+
+            }
+
+
+
+            function prevCard(cap) {
+
+                const s = state[cap];
+
+                if (s.idx > 0) { s.idx--; renderCard(cap); }
+
+            }
+
+
+
+            function shuffleCards(cap) {
+
+                const s = state[cap];
+
+                for (let i = s.cards.length - 1; i > 0; i--) {
+
+                    const j = Math.floor(Math.random() * (i + 1));
+
+                    [s.cards[i], s.cards[j]] = [s.cards[j], s.cards[i]];
+
+                }
+
+                s.idx = 0;
+
+                renderCard(cap);
+
+            }
+
+
+
+            // ════════════════════════════════════════
+
+            // QUIZ
+
+            // ════════════════════════════════════════
+
+            function initQuiz(cap) {
+
+                const s = state[cap];
+
+                s.quizAnswered = new Array(QUIZ[cap].length).fill(null);
+
+                s.quizScore = 0;
+
+                s.quizDone = false;
+
+                s.qIdx = 0;
+
+                renderQuiz(cap);
+
+            }
+
+
+
+            function renderQuiz(cap) {
+
+                const s = state[cap];
+
+                const questions = QUIZ[cap];
+
+                const container = document.getElementById(cap + '-quiz-content');
+
+
+
+                if (s.quizDone) {
+
+                    const pct = Math.round(s.quizScore / questions.length * 100);
+
+                    let msg = pct >= 80 ? '🎉 Excelente! Você domina o conteúdo deste capítulo.' :
+
+                        pct >= 60 ? '📚 Bom resultado! Revise os pontos que errou.' :
+
+                            '🔄 Continue estudando! Releia o resumo e tente novamente.';
+
+                    let color = pct >= 80 ? 'var(--success)' : pct >= 60 ? 'var(--accent)' : 'var(--danger)';
+
+                    container.innerHTML = `
+
+      <div class="result-card">
+
+        <div class="result-score" style="color:${color}">${s.quizScore}/${questions.length}</div>
+
+        <div class="result-label">${pct}% de aproveitamento</div>
+
+        <div class="result-msg">${msg}</div>
+
+        <button class="btn btn-primary" onclick="initQuiz('${cap}')">Tentar Novamente</button>
+
+      </div>`;
+
+                    return;
+
+                }
+
+
+
+                const q = questions[s.qIdx];
+
+                const letters = ['A', 'B', 'C', 'D', 'E'];
+
+                const answered = s.quizAnswered[s.qIdx];
+
+
+
+                let optsHTML = q.opts.map((opt, i) => {
+
+                    let cls = '';
+
+                    if (answered !== null) {
+
+                        if (i === q.correct) cls = 'correct';
+
+                        else if (i === answered && i !== q.correct) cls = 'wrong';
+
+                    }
+
+                    return `<button class="option ${cls}" onclick="answerQuiz('${cap}', ${i})" ${answered !== null ? 'disabled' : ''}>
+
+      <span class="opt-letter">${letters[i]}</span>
+
+      <span>${opt.replace(/^[A-E]\) /, '')}</span>
+
+    </button>`;
+
+                }).join('');
+
+
+
+                const expDisplay = answered !== null ? 'show' : '';
+
+
+
+                container.innerHTML = `
+
+    <div class="quiz-header">
+
+      <span class="fc-counter" style="font-family:'DM Mono',monospace;font-size:.8rem;color:var(--text3)">${s.qIdx + 1} de ${questions.length}</span>
+
+      <span class="quiz-score-badge">Acertos: ${s.quizScore}</span>
+
+    </div>
+
+    <div class="fc-progress ${cap}"><div class="fc-progress-bar" style="width:${(s.qIdx / questions.length) * 100}%"></div></div>
+
+    <div class="question-card">
+
+      <div class="q-num">QUESTÃO ${String(s.qIdx + 1).padStart(2, '0')}</div>
+
+      <div class="q-text">${q.q}</div>
+
+      <div class="options">${optsHTML}</div>
+
+      <div class="explanation ${expDisplay}">
+
+        <strong>💡 Comentário:</strong> ${q.exp}
+
+      </div>
+
+    </div>
+
+    <div class="quiz-nav">
+
+      <button class="btn" onclick="prevQuestion('${cap}')" ${s.qIdx === 0 ? 'disabled' : ''}>← Anterior</button>
+
+      ${answered !== null
+
+                        ? s.qIdx < questions.length - 1
+
+                            ? `<button class="btn btn-primary" onclick="nextQuestion('${cap}')">Próxima →</button>`
+
+                            : `<button class="btn btn-primary" onclick="finishQuiz('${cap}')">Ver Resultado ✓</button>`
+
+                        : `<span style="font-size:.78rem;color:var(--text3)">Selecione uma alternativa</span>`
+
+                    }
+
+    </div>`;
+
+            }
+
+
+
+            function answerQuiz(cap, chosen) {
+
+                const s = state[cap];
+
+                if (s.quizAnswered[s.qIdx] !== null) return;
+
+                s.quizAnswered[s.qIdx] = chosen;
+
+                if (chosen === QUIZ[cap][s.qIdx].correct) s.quizScore++;
+
+                renderQuiz(cap);
+
+            }
+
+
+
+            function nextQuestion(cap) {
+
+                state[cap].qIdx++;
+
+                renderQuiz(cap);
+
+            }
+
+
+
+            function prevQuestion(cap) {
+
+                if (state[cap].qIdx > 0) { state[cap].qIdx--; renderQuiz(cap); }
+
+            }
+
+
+
+            function finishQuiz(cap) {
+
+                state[cap].quizDone = true;
+
+                renderQuiz(cap);
+
+            }
+
+
+
+            // ════════════════════════════════════════
+
+            // INIT
+
+            // ════════════════════════════════════════
+
+            initFlashcard('c1');
+
+            initFlashcard('c2');
+
+            initFlashcard('c3');
+
+            initFlashcard('c4');
+
+            initFlashcard('c5');
+
+        </script>
+
+</body>
+
+
+
+</html>

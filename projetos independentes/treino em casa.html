@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Projeto Bolsanaro Gay | Treino</title>
+    <style>
+        :root {
+            --bg-dark: #0b0c10;
+            --bg-card: #1f2833;
+            --neon-accent: #66fcf1;
+            --neon-dim: #45a29e;
+            --text-main: #c5c6c7;
+            --text-muted: #787a7c;
+            --success: #00ff88;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            padding-bottom: 40px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(180deg, #000000 0%, var(--bg-dark) 100%);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--neon-dim);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 {
+            color: var(--neon-accent);
+            text-transform: uppercase;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(102, 252, 241, 0.3);
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+        /* Day Navigation */
+        .day-nav {
+            display: flex;
+            overflow-x: auto;
+            padding: 15px 10px;
+            gap: 10px;
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+        .day-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Chrome */
+
+        .day-btn {
+            background-color: var(--bg-card);
+            color: var(--text-muted);
+            border: 1px solid var(--neon-dim);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .day-btn.active {
+            background-color: var(--neon-accent);
+            color: var(--bg-dark);
+            box-shadow: 0 0 12px rgba(102, 252, 241, 0.6);
+            border-color: var(--neon-accent);
+        }
+
+        /* Main Content */
+        main {
+            padding: 10px 15px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .workout-title {
+            color: var(--text-main);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            border-left: 4px solid var(--neon-accent);
+            padding-left: 10px;
+        }
+
+        /* Exercise Cards */
+        .exercise-card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(69, 162, 158, 0.2);
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (min-width: 600px) {
+            .exercise-card {
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+
+        .ex-img {
+            width: 100%;
+            height: 200px;
+            background-color: #111;
+            object-fit: cover;
+        }
+
+        @media (min-width: 600px) {
+            .ex-img {
+                width: 250px;
+                height: 180px;
+            }
+        }
+
+        .ex-details {
+            padding: 15px;
+            flex: 1;
+        }
+
+        .ex-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .ex-name {
+            font-size: 1.1rem;
+            color: var(--neon-accent);
+            font-weight: bold;
+        }
+
+        .ex-equip {
+            font-size: 0.75rem;
+            background: var(--neon-dim);
+            color: var(--bg-dark);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .ex-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        .meta-item span {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            display: block;
+        }
+
+        /* Set Trackers */
+        .set-tracker {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .set-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .set-bubble {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: 2px solid var(--neon-dim);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .set-bubble.done {
+            background-color: var(--neon-accent);
+            border-color: var(--neon-accent);
+            color: var(--bg-dark);
+            box-shadow: 0 0 8px rgba(102, 252, 241, 0.5);
+        }
+
+        .rest-day-msg {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Projeto Bolsanaro Gay</h1>
+        <p>Acredite. Para mim, nada é impossível.</p>
+    </header>
+
+    <nav class="day-nav" id="dayNav">
+        <button class="day-btn" data-day="1">Seg</button>
+        <button class="day-btn" data-day="2">Ter</button>
+        <button class="day-btn" data-day="3">Qua</button>
+        <button class="day-btn" data-day="4">Qui</button>
+        <button class="day-btn" data-day="5">Sex</button>
+    </nav>
+
+    <main id="workoutContainer">
+        <!-- O conteúdo será injetado pelo JavaScript aqui -->
+    </main>
+
+    <script>
+        // Banco de Dados da Ficha de Treino
+        const workoutData = {
+            1: { // Segunda-feira
+                title: "DIA A: Superiores (Peito, Costas, Ombros e Braços)",
+                exercises: [
+                    { name: "Flexão (Adaptada ou não)", equip: "Chão/Cama/Sofá", sets: 3, reps: "Falha", img: "https://i.pinimg.com/originals/cd/d6/e1/cdd6e1b3ab31e64976660564ad28dcac.gif" },
+                    { name: "Remada Curvada", equip: "Mochila", sets: 4, reps: "10-12", img: "https://www.mundoboaforma.com.br/wp-content/uploads/2020/12/costas-remada-curvada-.gif" },
+                    { name: "Desenvolvimento", equip: "Mochila/Garrafa", sets: 3, reps: "10-12", img: "https://www.mundoboaforma.com.br/wp-content/uploads/2020/12/desenvolvimento-para-ombros-com-halteres.gif" },
+                    { name: "Rosca Direta", equip: "Mochila/Garrafa", sets: 3, reps: "12-15", img: "https://image.tuasaude.com/media/article/gj/wg/exercicios-para-biceps-e-triceps_30542.gif?width=686&height=487" },
+                    { name: "Tríceps Banco", equip: "Cadeira/Sofá", sets: 3, reps: "8-12", img: "https://i.pinimg.com/originals/71/a5/8f/71a58fff86280c49002e0149f8cea3a4.gif" }
+                ]
+            },
+            2: { // Terça-feira
+                title: "DIA B: Inferiores (Quadríceps, Glúteos e Posterior)",
+                exercises: [
+                    { name: "Agachamento Livre", equip: "Peso do Corpo/Mochila", sets: 4, reps: "12-15", img: "https://www.hipertrofia.org/blog/wp-content/uploads/2023/07/bodyweight-squat.gif" },
+                    { name: "Levantamento Terra", equip: "Mochila", sets: 4, reps: "10-12", img: "https://www.mundoboaforma.com.br/wp-content/uploads/2020/12/pernas-e-costas-levantamento-terra-deadlift.gif" },
+                    { name: "Afundo (Passada)", equip: "Peso do Corpo/Garrafa", sets: 3, reps: "8-10 (cada)", img: "https://image.tuasaude.com/media/article/vs/mb/afundo_75588.gif?width=686&height=487" },
+                    { name: "Panturrilha em Pé", equip: "Degrau", sets: 4, reps: "15-20", img: "https://www.hipertrofia.org/blog/wp-content/uploads/2023/03/elevacao-de-panturrilhas-com-o-peso-do-corpo.gif" }
+                ]
+            },
+            3: { // Quarta-feira
+                title: "DIA C: Core, Cardio e Suor",
+                exercises: [
+                    { name: "Prancha", equip: "Chão", sets: 4, reps: "Máximo Tempo", img: "https://pratiquefitness.com.br/blog/wp-content/uploads/2023/07/Por-quanto-tempo-e-necessario-permanecer-na-posicao-da-prancha-existe-um-periodo-ideal-2.jpg" },
+                    { name: "Abdominal", equip: "Chão", sets: 3, reps: "15-20", img: "https://www.hipertrofia.org/blog/wp-content/uploads/2017/09/abdominal-reto.gif" },
+                    { name: "Polichinelos", equip: "Peso do Corpo", sets: 4, reps: "45s atv / 30s desc", img: "https://i0.wp.com/omelhortreino.com.br/wp-content/uploads/2025/07/Polichinelo-Frontal.gif?resize=550%2C550&ssl=1" },
+                    { name: "Burpee", equip: "Peso do Corpo", sets: 3, reps: "10", img: "https://i.pinimg.com/originals/b7/6c/d5/b76cd5cff2452b9b3d839d2018863fbb.gif" }
+                ]
+            },
+            4: { // Quinta-feira (Igual Segunda)
+                title: "DIA A: Superiores (Peito, Costas, Ombros e Braços)",
+                exercises: [
+                    { name: "Flexão (Adaptada ou não)", equip: "Chão/Cama/Sofá", sets: 3, reps: "Falha", img: "https://i.pinimg.com/originals/cd/d6/e1/cdd6e1b3ab31e64976660564ad28dcac.gif" },
+                    { name: "Remada Curvada", equip: "Mochila", sets: 4, reps: "10-12", img: "https://www.mundoboaforma.com.br/wp-content/uploads/2020/12/costas-remada-curvada-.gif" },
+                    { name: "Desenvolvimento", equip: "Mochila/Garrafa", sets: 3, reps: "10-12", img: "https://www.mundoboaforma.com.br/wp-content/uploads/2020/12/desenvolvimento-para-ombros-com-halteres.gif" },
+                    { name: "Rosca Direta", equip: "Mochila/Garrafa", sets: 3, reps: "12-15", img: "https://image.tuasaude.com/media/article/gj/wg/exercicios-para-biceps-e-triceps_30542.gif?width=686&height=487" },
+                    { name: "Tríceps Banco", equip: "Cadeira/Sofá", sets: 3, reps: "8-12", img: "https://i.pinimg.com/originals/71/a5/8f/71a58fff86280c49002e0149f8cea3a4.gif" }
+                ]
+            },
+            5: { // Sexta-feira (Igual Terça)
+                title: "DIA B: Inferiores (Quadríceps, Glúteos e Posterior)",
+                exercises: [
+                    { name: "Agachamento Livre", equip: "Peso do Corpo/Mochila", sets: 4, reps: "12-15", img: "https://www.hipertrofia.org/blog/wp-content/uploads/2023/07/bodyweight-squat.gif" },
+                    { name: "Levantamento Terra", equip: "Mochila", sets: 4, reps: "10-12", img: "https://www.mundoboaforma.com.br/wp-content/uploads/2020/12/pernas-e-costas-levantamento-terra-deadlift.gif" },
+                    { name: "Afundo (Passada)", equip: "Peso do Corpo/Garrafa", sets: 3, reps: "8-10 (cada)", img: "https://image.tuasaude.com/media/article/vs/mb/afundo_75588.gif?width=686&height=487" },
+                    { name: "Panturrilha em Pé", equip: "Degrau", sets: 4, reps: "15-20", img: "https://www.hipertrofia.org/blog/wp-content/uploads/2023/03/elevacao-de-panturrilhas-com-o-peso-do-corpo.gif" }
+                ]
+            }
+        };
+
+        const container = document.getElementById('workoutContainer');
+        const buttons = document.querySelectorAll('.day-btn');
+
+        // Função para renderizar o treino
+        function renderWorkout(dayId) {
+            container.innerHTML = ''; // Limpa container
+
+            // Atualiza botões ativos
+            buttons.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.day == dayId);
+            });
+
+            const data = workoutData[dayId];
+
+            if (!data) {
+                container.innerHTML = `<div class="rest-day-msg">🛠️ Dia de Descanso (Recovery).<br>Vai comer seu arroz e feijão!</div>`;
+                return;
+            }
+
+            // Título do Treino
+            const titleHTML = `<h2 class="workout-title">${data.title}</h2>`;
+            container.insertAdjacentHTML('beforeend', titleHTML);
+
+            // Renderiza Exercícios
+            data.exercises.forEach((ex, index) => {
+
+                // Gera os botões de controle de série (Tracker)
+                let bubblesHTML = '';
+                for (let i = 1; i <= ex.sets; i++) {
+                    bubblesHTML += `<div class="set-bubble" onclick="toggleSet(this)">${i}</div>`;
+                }
+
+                const cardHTML = `
+                    <article class="exercise-card">
+                        <img src="${ex.img}" alt="${ex.name}" class="ex-img" loading="lazy">
+                        <div class="ex-details">
+                            <div class="ex-header">
+                                <div class="ex-name">${index + 1}. ${ex.name}</div>
+                                <div class="ex-equip">${ex.equip}</div>
+                            </div>
+                            <div class="ex-meta">
+                                <div class="meta-item"><span>Séries</span><strong>${ex.sets}x</strong></div>
+                                <div class="meta-item"><span>Repetições</span><strong>${ex.reps}</strong></div>
+                            </div>
+                            <div class="set-tracker">
+                                <span class="set-label">Check:</span>
+                                ${bubblesHTML}
+                            </div>
+                        </div>
+                    </article>
+                `;
+                container.insertAdjacentHTML('beforeend', cardHTML);
+            });
+        }
+
+        // Função interativa para marcar a série como concluída
+        window.toggleSet = function (element) {
+            element.classList.toggle('done');
+
+            // Feedback tátil no celular (vibração leve) se suportado
+            if (element.classList.contains('done') && window.navigator && window.navigator.vibrate) {
+                window.navigator.vibrate(50);
+            }
+        };
+
+        // Event Listeners pros botões de navegação
+        buttons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const day = e.target.dataset.day;
+                renderWorkout(day);
+            });
+        });
+
+        // Inicialização Pró-ativa: Pega o dia de hoje automaticamente
+        // 0 = Dom, 1 = Seg, 2 = Ter, 3 = Qua, 4 = Qui, 5 = Sex, 6 = Sáb
+        let today = new Date().getDay();
+
+        // Se for fim de semana (0 ou 6), joga pra Segunda-feira (1) pra mostrar a ficha padrão
+        if (today === 0 || today === 6) today = 1;
+
+        // Inicia a aplicação
+        renderWorkout(today);
+
+        // Faz o scroll automático no menu de dias se estiver em mobile e for um dia avançado
+        const activeBtn = document.querySelector('.day-btn.active');
+        if (activeBtn) {
+            activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+
+    </script>
+</body>
+
+</html>

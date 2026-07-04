@@ -1,0 +1,2522 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+
+    <!-- ========================================
+                BASIC CONFIGURATION
+    ========================================= -->
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="theme-color" content="#050505">
+
+    <meta name="color-scheme" content="dark">
+
+    <!-- ========================================
+                    SEO
+    ========================================= -->
+
+    <title>NEXORA® — Crafting Digital Experiences</title>
+
+    <meta name="description"
+        content="NEXORA is a premium digital studio focused on building high-performance websites, immersive interfaces and unforgettable digital experiences.">
+
+    <meta name="keywords"
+        content="Frontend, UI Design, UX Design, Web Development, Digital Studio, Portfolio, Creative Developer, JavaScript, HTML, CSS">
+
+    <meta name="author" content="NEXORA Studio">
+
+    <meta name="robots" content="index, follow">
+
+    <link rel="canonical" href="https://nexora.com">
+
+    <!-- ========================================
+                OPEN GRAPH
+    ========================================= -->
+
+    <meta property="og:type" content="website">
+
+    <meta property="og:title" content="NEXORA®">
+
+    <meta property="og:description" content="Premium Digital Experiences.">
+
+    <meta property="og:image" content="assets/preview.jpg">
+
+    <meta property="og:url" content="https://nexora.com">
+
+    <!-- ========================================
+                TWITTER CARD
+    ========================================= -->
+
+    <meta name="twitter:card" content="summary_large_image">
+
+    <meta name="twitter:title" content="NEXORA">
+
+    <meta name="twitter:description" content="Crafting Digital Experiences">
+
+    <meta name="twitter:image" content="assets/preview.jpg">
+
+    <!-- ========================================
+                PERFORMANCE
+    ========================================= -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- ========================================
+                    FONTS
+    ========================================= -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- ========================================
+                ICONS
+    ========================================= -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- ========================================
+                    FAVICON
+    ========================================= -->
+
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <!-- ========================================
+                INTERNAL STYLE
+    ========================================= -->
+
+    <style>
+        /*
+============================================================
+DESIGN SYSTEM (VARIABLES)
+============================================================
+*/
+        :root {
+            --primary: #73F2FF;
+            --bg-main: #050505;
+            --surface: rgba(255, 255, 255, 0.03);
+            --text-main: #FFFFFF;
+            --text-light: #CCCCCC;
+            --text-muted: #888888;
+            --font-title: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /*
+============================================================
+NOISE & MOUSE LIGHT
+============================================================
+*/
+        .noise {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0.04;
+            /* Noise gerado via SVG Base64 para altíssima performance */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .mouse-light {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(115, 242, 255, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            transition: transform 0.1s linear;
+            /* Suaviza o rastro */
+        }
+
+        /*
+    ============================================================
+    CUSTOM CURSOR
+    ============================================================
+    */
+
+        .cursor {
+
+            position: fixed;
+
+            width: 18px;
+
+            height: 18px;
+
+            border: 1px solid var(--primary);
+
+            border-radius: 50%;
+
+            pointer-events: none;
+
+            transform: translate(-50%, -50%);
+
+            transition:
+
+                width .3s,
+
+                height .3s,
+
+                border .3s,
+
+                background .3s;
+
+            z-index: 99999;
+
+        }
+
+        .cursor-dot {
+
+            position: fixed;
+
+            width: 5px;
+
+            height: 5px;
+
+            border-radius: 50%;
+
+            background: var(--primary);
+
+            pointer-events: none;
+
+            transform: translate(-50%, -50%);
+
+            z-index: 999999;
+
+        }
+
+        .cursor.active {
+
+            width: 50px;
+
+            height: 50px;
+
+            background: rgba(115, 242, 255, .08);
+
+        }
+
+        /*
+    ==========================================================
+    LOADER
+    ==========================================================
+    */
+
+        .loader {
+
+            position: fixed;
+
+            inset: 0;
+
+            background: #050505;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            flex-direction: column;
+
+            z-index: 999999;
+
+            transition: opacity .8s ease,
+                visibility .8s ease;
+
+        }
+
+        .loader.hide {
+
+            opacity: 0;
+
+            visibility: hidden;
+
+        }
+
+        .loader-logo {
+
+            font-family: var(--font-title);
+
+            font-size: 4rem;
+
+            font-weight: 700;
+
+            letter-spacing: .25em;
+
+            color: white;
+
+        }
+
+        .loader-logo span {
+
+            color: var(--primary);
+
+        }
+
+        .loader-text {
+
+            margin-top: 24px;
+
+            color: var(--text-muted);
+
+            font-size: .85rem;
+
+            letter-spacing: .35em;
+
+            text-transform: uppercase;
+
+        }
+
+        .loader-progress {
+
+            width: 260px;
+
+            height: 2px;
+
+            margin-top: 40px;
+
+            background: #181818;
+
+            overflow: hidden;
+
+            border-radius: 999px;
+
+        }
+
+        .loader-bar {
+
+            width: 0%;
+
+            height: 100%;
+
+            background: var(--primary);
+
+            box-shadow: 0 0 20px rgba(115, 242, 255, .5);
+
+        }
+
+        /*
+    ==========================================================
+    HERO
+    ==========================================================
+    */
+
+        .hero {
+
+            position: relative;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 0 8%;
+
+            overflow: hidden;
+
+        }
+
+        .hero-content {
+
+            position: relative;
+
+            z-index: 10;
+
+            max-width: 1450px;
+
+            width: 100%;
+
+        }
+
+        .hero-title {
+
+            display: flex;
+
+            flex-direction: column;
+
+            font-family: var(--font-title);
+
+            font-weight: 700;
+
+            line-height: .9;
+
+            letter-spacing: -.05em;
+
+            user-select: none;
+
+        }
+
+        .hero-title {
+
+            font-size: clamp(3rem, 8vw, 7rem);
+
+        }
+
+        .hero-title span {
+
+            font-size: clamp(6rem, 17vw, 18rem);
+
+            color: transparent;
+
+            -webkit-text-stroke: 2px var(--primary);
+
+            text-shadow:
+
+                0 0 60px rgba(115, 242, 255, .15);
+
+        }
+
+        .hero-description {
+
+            margin-top: 50px;
+
+            max-width: 650px;
+
+            font-size: 1.15rem;
+
+            color: var(--text-light);
+
+            line-height: 1.8;
+
+        }
+
+        .hero-buttons {
+
+            display: flex;
+
+            gap: 20px;
+
+            margin-top: 55px;
+
+            flex-wrap: wrap;
+
+        }
+
+        .btn {
+
+            position: relative;
+
+            overflow: hidden;
+
+            padding: 18px 36px;
+
+            border-radius: 999px;
+
+            transition: var(--transition);
+
+            font-weight: 600;
+
+        }
+
+        .btn::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+
+            left: -120%;
+
+            width: 100%;
+
+            height: 100%;
+
+            background:
+
+                linear-gradient(120deg,
+
+                    transparent,
+
+                    rgba(255, 255, 255, .35),
+
+                    transparent);
+
+            transition: .8s;
+
+        }
+
+        .btn:hover::before {
+
+            left: 120%;
+
+        }
+
+        .btn:hover {
+
+            transform: translateY(-4px);
+
+        }
+
+        .btn-primary {
+
+            background: var(--primary);
+
+            color: #000;
+
+            box-shadow:
+
+                0 15px 45px rgba(115, 242, 255, .25);
+
+        }
+
+        .btn-secondary {
+
+            border: 1px solid rgba(255, 255, 255, .08);
+
+            backdrop-filter: blur(18px);
+
+            background: rgba(255, 255, 255, .03);
+
+        }
+
+        .btn-secondary:hover {
+
+            border-color: var(--primary);
+
+        }
+
+        .scroll-indicator {
+
+            position: absolute;
+
+            bottom: 45px;
+
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            gap: 14px;
+
+            letter-spacing: .4em;
+
+            font-size: .7rem;
+
+            color: var(--text-muted);
+
+        }
+
+        .scroll-indicator span {
+
+            width: 2px;
+
+            height: 80px;
+
+            background:
+
+                linear-gradient(transparent,
+
+                    var(--primary),
+
+                    transparent);
+
+            animation: scrollPulse 2.2s ease-in-out infinite;
+
+        }
+
+        .hero-gradient {
+
+            position: absolute;
+
+            width: 900px;
+
+            height: 900px;
+
+            border-radius: 50%;
+
+            background:
+
+                radial-gradient(circle,
+
+                    rgba(115, 242, 255, .20),
+
+                    transparent 70%);
+
+            filter: blur(90px);
+
+            top: 50%;
+
+            left: 55%;
+
+            transform: translate(-50%, -50%);
+
+            animation: gradientFloat 12s ease-in-out infinite;
+
+            z-index: 1;
+
+        }
+
+        .hero-grid {
+
+            position: absolute;
+
+            inset: 0;
+
+            opacity: .25;
+
+            background-image:
+
+                linear-gradient(rgba(255, 255, 255, .02) 1px,
+
+                    transparent 1px),
+
+                linear-gradient(90deg,
+
+                    rgba(255, 255, 255, .02) 1px,
+
+                    transparent 1px);
+
+            background-size: 120px 120px;
+
+        }
+
+        /* ==========================================================
+    HERO
+    ========================================================== */
+
+        .hero {
+
+            position: relative;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            align-items: center;
+
+            padding: 140px 8%;
+
+            overflow: hidden;
+
+        }
+
+        .hero-container {
+
+            width: 100%;
+
+            max-width: 1500px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns: 1.15fr .85fr;
+
+            align-items: center;
+
+            gap: 90px;
+
+            position: relative;
+
+            z-index: 5;
+
+        }
+
+        .hero-left {
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+        .hero-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            align-self: flex-start;
+
+            padding: 12px 20px;
+
+            border-radius: 999px;
+
+            border: 1px solid rgba(255, 255, 255, .08);
+
+            background: rgba(255, 255, 255, .03);
+
+            backdrop-filter: blur(30px);
+
+            font-size: .78rem;
+
+            letter-spacing: .25em;
+
+            color: var(--text-light);
+
+        }
+
+        .hero-badge span {
+
+            width: 8px;
+
+            height: 8px;
+
+            border-radius: 50%;
+
+            background: var(--primary);
+
+            box-shadow:
+
+                0 0 15px var(--primary);
+
+        }
+
+        .hero-title {
+
+            margin-top: 40px;
+
+            font-family: var(--font-title);
+
+            font-size: clamp(4rem, 8vw, 8rem);
+
+            line-height: .9;
+
+            letter-spacing: -.06em;
+
+            font-weight: 700;
+
+        }
+
+        .hero-title span {
+
+            color: var(--primary);
+
+        }
+
+        .hero-description {
+
+            max-width: 620px;
+
+            margin-top: 40px;
+
+            font-size: 1.15rem;
+
+            line-height: 1.9;
+
+            color: var(--text-light);
+
+        }
+
+        .hero-buttons {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 35px;
+
+            margin-top: 55px;
+
+        }
+
+        .btn-primary {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            padding: 18px 30px;
+
+            border-radius: 999px;
+
+            background: var(--primary);
+
+            color: #000;
+
+            font-weight: 600;
+
+            transition: var(--transition);
+
+        }
+
+        .btn-primary:hover {
+
+            transform: translateY(-6px);
+
+            box-shadow:
+
+                0 20px 60px rgba(115, 242, 255, .25);
+
+        }
+
+        .hero-link {
+
+            font-weight: 500;
+
+            color: var(--text);
+
+            transition: var(--transition);
+
+        }
+
+        .hero-link:hover {
+
+            color: var(--primary);
+
+        }
+
+        .hero-stats {
+
+            display: flex;
+
+            gap: 70px;
+
+            margin-top: 80px;
+
+        }
+
+        .hero-stats h3 {
+
+            font-family: var(--font-title);
+
+            font-size: 2.2rem;
+
+            margin-bottom: 8px;
+
+        }
+
+        .hero-stats span {
+
+            color: var(--text-muted);
+
+            text-transform: uppercase;
+
+            letter-spacing: .15em;
+
+            font-size: .75rem;
+
+        }
+
+        .hero-right {
+
+            position: relative;
+
+            height: 700px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+        }
+
+        @media(max-width:1100px) {
+
+            .hero-container {
+
+                grid-template-columns: 1fr;
+
+                gap: 80px;
+
+            }
+
+            .hero-right {
+
+                height: 550px;
+
+            }
+
+            .hero-title {
+
+                font-size: clamp(3.5rem, 12vw, 6rem);
+
+            }
+
+            .hero-stats {
+
+                flex-wrap: wrap;
+
+                gap: 35px;
+
+            }
+
+        }
+
+        /* ==========================================================
+   NAVBAR INTELIGENTE
+========================================================== */
+        .nav-capsule {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translate(-50%, -20px);
+            width: auto;
+            min-width: 600px;
+            max-width: 90%;
+            height: 64px;
+            background: rgba(11, 11, 11, 0.4);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 999px;
+            z-index: 9999;
+            padding: 0 30px;
+            display: flex;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                visibility 0.6s;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        /* Quando ativa pelo JS */
+        .nav-capsule.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, 0);
+        }
+
+        /* Quando o usuário sobe a página rapidamente (esconder) */
+        .nav-capsule.hidden-scroll {
+            opacity: 0;
+            visibility: hidden;
+            transform: translate(-50%, -40px);
+        }
+
+        .nav-container {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .nav-logo {
+            font-family: var(--font-title);
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 0.2em;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .nav-logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-item {
+            position: relative;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 8px 0;
+            transition: var(--transition);
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            color: var(--text-main);
+        }
+
+        /* Underline Animado Sutil */
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background-color: var(--primary);
+            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 0 8px var(--primary);
+        }
+
+        .nav-item:hover::after,
+        .nav-item.active::after {
+            width: 100%;
+            left: 0;
+        }
+
+        /* Botão do Menu Mobile Toggle */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 6px;
+            padding: 10px;
+            z-index: 100001;
+        }
+
+        .nav-toggle .line {
+            width: 22px;
+            height: 1px;
+            background-color: var(--text-main);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s;
+        }
+
+        /* ==========================================================
+   CENA 3: MANIFESTO CINEMATOGRÁFICO
+========================================================== */
+        .manifesto-section {
+            position: relative;
+            height: 220vh;
+            /* Altura estendida para dar peso e tempo ao scroll */
+            background-color: var(--bg-main);
+            padding: 0 10%;
+        }
+
+        .manifesto-container {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            /* Preenche a tela enquanto o usuário rola a seção */
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .manifesto-text {
+            font-family: var(--font-title);
+            font-size: clamp(2.2rem, 5vw, 4.8rem);
+            font-weight: 500;
+            line-height: 1.3;
+            letter-spacing: -0.03em;
+            text-align: left;
+            word-wrap: break-word;
+        }
+
+        /* ==========================================================
+   CENA 4: PROCESSO LINEAR HORIZONTAL
+========================================================== */
+        .process-section {
+            position: relative;
+            height: 400vh;
+            /* Controla o tempo de duração do scroll lateral */
+            background-color: var(--bg-main);
+        }
+
+        .process-sticky {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 8%;
+        }
+
+        .process-header {
+            margin-bottom: 4vh;
+            z-index: 10;
+        }
+
+        .process-badge {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            color: var(--primary);
+            text-transform: uppercase;
+        }
+
+        .process-main-title {
+            font-family: var(--font-title);
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            margin-top: 5px;
+        }
+
+        /* O contêiner longo que desliza para a esquerda */
+        .process-track {
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            gap: 120px;
+            padding-right: 20vw;
+            /* Garante espaço limpo no final da esteira */
+            width: max-content;
+            will-change: transform;
+        }
+
+        /* Linha Técnica Conectora */
+        .process-progress-line {
+            position: absolute;
+            top: 25px;
+            /* Alinha perfeitamente com o centro do círculo (.step-node) */
+            left: 25px;
+            right: 20vw;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.05);
+            z-index: 1;
+        }
+
+        .process-line-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--primary);
+            box-shadow: 0 0 15px var(--primary);
+            will-change: width;
+        }
+
+        /* Bloco Individual de Cada Etapa */
+        .process-step {
+            position: relative;
+            width: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 2;
+            opacity: 0.15;
+            transform: translateY(15px);
+            filter: blur(2px);
+            transition: opacity 0.6s var(--transition),
+                transform 0.6s var(--transition),
+                filter 0.6s var(--transition);
+        }
+
+        /* Círculo com o número da etapa */
+        .step-node {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #050505;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            font-family: var(--font-title);
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .step-title {
+            font-family: var(--font-title);
+            font-size: 1.6rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            color: var(--text-light);
+            transition: color 0.4s;
+        }
+
+        .step-desc {
+            font-size: 0.88rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+            transition: color 0.4s;
+        }
+
+        /* Estado Ativo: Quando a etapa entra em foco no Scroll */
+        .process-step.active {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+
+        .process-step.active .step-node {
+            border-color: var(--primary);
+            color: #000000;
+            background: var(--primary);
+            box-shadow: 0 0 25px rgba(115, 242, 255, 0.5);
+        }
+
+        .process-step.active .step-title {
+            color: var(--text-main);
+        }
+
+        .process-step.active .step-desc {
+            color: var(--text-light);
+        }
+
+        /* Estilo base para cada palavra injetada pelo JS */
+        .m-word {
+            display: inline-block;
+            color: rgba(255, 255, 255, 0.05);
+            /* Praticamente invisível no início */
+            filter: blur(12px);
+            /* Desfoque cinematográfico inicial */
+            transform: scale(0.92) translateY(10px);
+            transition: color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-right: 0.25em;
+        }
+
+        /* Estado ativo quando o scroll atinge o gatilho da palavra */
+        .m-word.active {
+            color: var(--text-main);
+            filter: blur(0);
+            transform: scale(1) translateY(0);
+        }
+
+        /* Efeito Premium: Palavras-chave com destaque em ciano e Glow */
+        .m-word.tech.active {
+            color: var(--primary);
+            text-shadow: 0 0 40px rgba(115, 242, 255, 0.4);
+        }
+
+        /* Efeito Premium: Palavras-chave com ampliação editorial */
+        .m-word.highlight.active {
+            color: #ffffff;
+            font-weight: 700;
+            transform: scale(1.06) translateY(0);
+        }
+
+        /* ==========================================================
+   CENA 5: SERVIÇOS PREMIUM
+========================================================== */
+        .services-section {
+            position: relative;
+            min-height: 100vh;
+            background-color: var(--bg-main);
+            padding: 140px 8%;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .services-container {
+            width: 100%;
+            max-width: 1500px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .services-badge {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            color: var(--primary);
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 40px;
+        }
+
+        .services-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-item {
+            position: relative;
+            padding: 40px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: baseline;
+            gap: 30px;
+            cursor: pointer;
+        }
+
+        .service-num {
+            font-family: var(--font-title);
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .service-title {
+            font-family: var(--font-title);
+            font-size: clamp(2rem, 4vw, 3.8rem);
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: rgba(255, 255, 255, 0.3);
+            /* Apagado por padrão */
+            transition: color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Microinteração ao passar o mouse na linha */
+        .service-item:hover .service-title {
+            color: var(--text-main);
+            transform: translateX(15px);
+        }
+
+        .service-item:hover .service-num {
+            color: var(--primary);
+        }
+
+        /* Área de Meta-Informação (Direita) */
+        .services-right {
+            position: relative;
+            height: 100%;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+        }
+
+        .services-meta-box {
+            max-width: 400px;
+        }
+
+        #service-dynamic-desc {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+            transition: color 0.4s, opacity 0.4s;
+        }
+
+        #service-dynamic-desc.mutating {
+            opacity: 0.2;
+        }
+
+        /* Objeto Visual Flutuante Reativo */
+        .service-floating-visual {
+            position: absolute;
+            width: 280px;
+            height: 340px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.6s var(--transition),
+                transform 0.6s var(--transition);
+            z-index: 5;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+        }
+
+        .service-floating-visual.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .visual-glass-glow {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(115, 242, 255, 0.15) 0%, transparent 60%);
+        }
+
+        .visual-inner-graphic {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid rgba(115, 242, 255, 0.3);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        /* Mutações gráficas internas baseadas no serviço ativo */
+        .services-section[data-active-service="architecture"] .visual-inner-graphic {
+            border-radius: 4px;
+            transform: translate(-50%, -50%) rotate(45deg);
+            background: rgba(115, 242, 255, 0.02);
+        }
+
+        .services-section[data-active-service="frontend"] .visual-inner-graphic {
+            width: 120px;
+            border-radius: 50%;
+            border-style: dashed;
+        }
+
+        .services-section[data-active-service="design"] .visual-inner-graphic {
+            transform: translate(-50%, -50%) scale(1.4);
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            opacity: 0.2;
+        }
+
+        .services-section[data-active-service="engineering"] .visual-inner-graphic {
+            border-left-color: transparent;
+            border-right-color: transparent;
+        }
+
+        /* Responsivo */
+        @media(max-width: 968px) {
+            .services-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .service-floating-visual {
+                display: none;
+            }
+
+            /* Remove peso móvel desnecessário */
+            .service-title {
+                font-size: 2.2rem;
+            }
+        }
+
+        /* ==========================================================
+   MOBILE MENU OVERLAY PREMIUM
+========================================================== */
+        .mobile-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.6s ease, visibility 0.6s;
+            pointer-events: none;
+        }
+
+        .mobile-overlay-bg {
+            position: absolute;
+            inset: 0;
+            background: #050505;
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 0.6s cubic-bezier(0.86, 0, 0.07, 1);
+        }
+
+        .mobile-overlay.open {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .mobile-overlay.open .mobile-overlay-bg {
+            transform: scaleY(1);
+        }
+
+        .mobile-links {
+            position: relative;
+            z-index: 2;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .mobile-item {
+            font-family: var(--font-title);
+            font-size: 2.5rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: color 0.3s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s;
+        }
+
+        .mobile-overlay.open .mobile-item {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Delay cascata elegante nos links mobiles ao abrir */
+        .mobile-overlay.open li:nth-child(1) .mobile-item {
+            transition-delay: 0.2s;
+        }
+
+        .mobile-overlay.open li:nth-child(2) .mobile-item {
+            transition-delay: 0.28s;
+        }
+
+        .mobile-overlay.open li:nth-child(3) .mobile-item {
+            transition-delay: 0.36s;
+        }
+
+        .mobile-overlay.open li:nth-child(4) .mobile-item {
+            transition-delay: 0.44s;
+        }
+
+        .mobile-overlay.open li:nth-child(5) .mobile-item {
+            transition-delay: 0.52s;
+        }
+
+        .mobile-item:hover {
+            color: var(--primary);
+        }
+
+        /* Estado ativo do botão toggle do menu */
+        .nav-toggle.open .line-top {
+            transform: translateY(3.5px) rotate(45deg);
+            background-color: var(--primary);
+        }
+
+        .nav-toggle.open .line-bottom {
+            transform: translateY(-3.5px) rotate(-45deg);
+            background-color: var(--primary);
+        }
+
+        /* RESPONSIVIDADE DA NAVBAR */
+        @media(max-width: 768px) {
+            .nav-capsule {
+                min-width: calc(100% - 40px);
+                height: 56px;
+                padding: 0 20px;
+                top: 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+        }
+
+        /* ==========================================================
+   DIGITAL CORE (HERO RIGHT)
+========================================================== */
+        .digital-core {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .core-glass {
+            position: relative;
+            width: 420px;
+            height: 520px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Grid sutil dentro do vidro */
+        .core-grid-overlay {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(115, 242, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(115, 242, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            mask-image: radial-gradient(circle at center, black 20%, transparent 80%);
+            -webkit-mask-image: radial-gradient(circle at center, black 20%, transparent 80%);
+        }
+
+        /* Esfera e Anéis */
+        .core-sphere-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform-style: preserve-3d;
+        }
+
+        .core-sphere {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary);
+            box-shadow: 0 0 40px var(--primary), 0 0 80px rgba(115, 242, 255, 0.4);
+            animation: pulseCore 4s ease-in-out infinite alternate;
+        }
+
+        .core-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(115, 242, 255, 0.15);
+            border-top: 1px solid var(--primary);
+        }
+
+        .ring-1 {
+            width: 120px;
+            height: 120px;
+            animation: spin 8s linear infinite;
+        }
+
+        .ring-2 {
+            width: 170px;
+            height: 170px;
+            animation: spin 12s linear infinite reverse;
+        }
+
+        .ring-3 {
+            width: 220px;
+            height: 220px;
+            border: 1px dashed rgba(115, 242, 255, 0.2);
+            animation: spin 20s linear infinite;
+        }
+
+        /* Linhas Técnicas */
+        .tech-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, rgba(115, 242, 255, 0.3), transparent);
+        }
+
+        .line-h {
+            width: 100%;
+            height: 1px;
+            top: 50%;
+            left: 0;
+        }
+
+        .line-v {
+            height: 100%;
+            width: 1px;
+            left: 50%;
+            top: 0;
+            background: linear-gradient(0deg, transparent, rgba(115, 242, 255, 0.3), transparent);
+        }
+
+        /* Floating Cards Técnicos */
+        .floating-card {
+            position: absolute;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 16px 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+        }
+
+        .floating-card i {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .floating-card div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .floating-card span {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .floating-card strong {
+            font-size: 0.9rem;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--primary);
+            box-shadow: 0 0 10px var(--primary);
+            animation: blink 2s infinite;
+        }
+
+        /* Posições dos cards */
+        .f-card-1 {
+            top: 15%;
+            left: -10%;
+        }
+
+        .f-card-2 {
+            bottom: 20%;
+            right: -15%;
+        }
+
+        /* Animações */
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg) scale(1) rotateX(70deg);
+            }
+
+            50% {
+                transform: rotate(180deg) scale(1.05) rotateX(70deg);
+            }
+
+            100% {
+                transform: rotate(360deg) scale(1) rotateX(70deg);
+            }
+        }
+
+        @keyframes pulseCore {
+            0% {
+                transform: scale(0.9);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1.1);
+                opacity: 1;
+                box-shadow: 0 0 60px var(--primary), 0 0 120px rgba(115, 242, 255, 0.6);
+            }
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        /* Responsivo para o Core */
+        @media(max-width: 1100px) {
+            .core-glass {
+                width: 320px;
+                height: 400px;
+            }
+
+            .f-card-1 {
+                left: -5%;
+            }
+
+            .f-card-2 {
+                right: -5%;
+            }
+        }
+
+        /* Badge animation rules removed along with hero styles */
+
+        /*
+    ============================================================
+    NEXT SECTION
+    ============================================================
+
+    Loader
+    Cursor
+    Noise
+    Background
+    Navigation
+    Hero
+
+    */
+    </style>
+
+</head>
+
+<body>
+
+    <div class="loader">
+
+        <div class="loader-logo">
+
+            NEX<span>ORA</span>
+
+        </div>
+
+        <div class="loader-text">
+
+            INITIALIZING
+
+        </div>
+
+        <div class="loader-progress">
+
+            <div class="loader-bar"></div>
+
+        </div>
+
+    </div>
+
+    <header id="navbar" class="nav-capsule">
+        <nav class="nav-container">
+            <a href="#" class="nav-logo">NEX<span>ORA</span></a>
+
+            <ul class="nav-links">
+                <li><a href="#" class="nav-item active">Home</a></li>
+                <li><a href="#manifesto" class="nav-item">Manifesto</a></li>
+                <li><a href="#services" class="nav-item">Services</a></li>
+                <li><a href="#portfolio" class="nav-item">Work</a></li>
+                <li><a href="#contact" class="nav-item">Contact</a></li>
+            </ul>
+
+            <button class="nav-toggle" aria-label="Toggle Menu" aria-expanded="false">
+                <span class="line line-top"></span>
+                <span class="line line-bottom"></span>
+            </button>
+        </nav>
+    </header>
+
+    <div id="mobile-menu" class="mobile-overlay">
+        <div class="mobile-overlay-bg"></div>
+        <ul class="mobile-links">
+            <li><a href="#" class="mobile-item">Home</a></li>
+            <li><a href="#manifesto" class="mobile-item">Manifesto</a></li>
+            <li><a href="#services" class="mobile-item">Services</a></li>
+            <li><a href="#portfolio" class="mobile-item">Work</a></li>
+            <li><a href="#contact" class="mobile-item">Contact</a></li>
+        </ul>
+    </div>
+
+    <section class="hero">
+
+        <div class="hero-background"></div>
+
+        <div class="hero-container">
+
+            <div class="hero-left">
+
+                <div class="hero-badge">
+
+                    <span></span>
+
+                    DIGITAL EXPERIENCE STUDIO
+
+                </div>
+
+                <h1 class="hero-title">
+
+                    THE FUTURE
+
+                    <br>
+
+                    ISN'T
+
+                    <br>
+
+                    BUILT.
+
+                    <br>
+
+                    IT'S
+
+                    <span>
+
+                        DESIGNED.
+
+                    </span>
+
+                </h1>
+
+                <p class="hero-description">
+
+                    We create premium digital products through strategy,
+                    engineering and timeless design.
+
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a href="#" class="btn-primary">
+
+                        Start a Project
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </a>
+
+                    <a href="#" class="hero-link">
+
+                        View Work
+
+                    </a>
+
+                </div>
+
+                <div class="hero-stats">
+
+                    <div>
+
+                        <h3>250+</h3>
+
+                        <span>Projects</span>
+
+                    </div>
+
+                    <div>
+
+                        <h3>12</h3>
+
+                        <span>Countries</span>
+
+                    </div>
+
+                    <div>
+
+                        <h3>99%</h3>
+
+                        <span>Retention</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="hero-right">
+                <div class="digital-core">
+
+                    <div class="core-glass parallax-layer" data-speed="0.01">
+                        <div class="core-grid-overlay"></div>
+
+                        <div class="core-sphere-container">
+                            <div class="core-ring ring-1"></div>
+                            <div class="core-ring ring-2"></div>
+                            <div class="core-ring ring-3"></div>
+                            <div class="core-sphere"></div>
+                        </div>
+
+                        <div class="tech-line line-h"></div>
+                        <div class="tech-line line-v"></div>
+                    </div>
+
+                    <div class="floating-card f-card-1 parallax-layer" data-speed="-0.03">
+                        <i class="fa-solid fa-code"></i>
+                        <div>
+                            <span>Architecture</span>
+                            <strong>Stable</strong>
+                        </div>
+                    </div>
+
+                    <div class="floating-card f-card-2 parallax-layer" data-speed="0.04">
+                        <div class="status-dot"></div>
+                        <div>
+                            <span>Rendering</span>
+                            <strong>120 FPS</strong>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section id="manifesto" class="manifesto-section">
+        <div class="manifesto-container">
+            <p class="manifesto-text">
+                We believe code is art. Technology shouldn't scream; it must whisper. Every sub-pixel has a strict
+                purpose. Elegance is found in the dark, where invisible engineering shapes the uncompromised future.
+            </p>
+        </div>
+    </section>
+
+    <section id="process" class="process-section">
+        <div class="process-sticky">
+            <div class="process-header">
+                <span class="process-badge">METHODOLOGY</span>
+                <h2 class="process-main-title">How we shape ideas.</h2>
+            </div>
+
+            <div id="process-track" class="process-track">
+
+                <div class="process-progress-line">
+                    <div id="process-line-fill" class="process-line-fill"></div>
+                </div>
+
+                <div class="process-step" data-step="0">
+                    <div class="step-node">01</div>
+                    <h3 class="step-title">Discover</h3>
+                    <p class="step-desc">Immersion into your business model, mapping vulnerabilities, unfair advantages,
+                        and core architecture requirements.</p>
+                </div>
+
+                <div class="process-step" data-step="1">
+                    <div class="step-node">02</div>
+                    <h3 class="step-title">Research</h3>
+                    <p class="step-desc">Deep technical benchmarking. High-fidelity analysis of global competitors,
+                        interactions, and performance gaps.</p>
+                </div>
+
+                <div class="process-step" data-step="2">
+                    <div class="step-node">03</div>
+                    <h3 class="step-title">Strategy</h3>
+                    <p class="step-desc">Defining UX architecture, structural hierarchies, and cutting-edge engineering
+                        stacks for absolute scale.</p>
+                </div>
+
+                <div class="process-step" data-step="3">
+                    <div class="step-node">04</div>
+                    <h3 class="step-title">Prototype</h3>
+                    <p class="step-desc">Crafting micro-interactions, layout physics, and luxury visual interfaces down
+                        to the exact sub-pixel.</p>
+                </div>
+
+                <div class="process-step" data-step="4">
+                    <div class="step-node">05</div>
+                    <h3 class="step-title">Development</h3>
+                    <p class="step-desc">Writing pristine, semantic, and ultra-optimized front-end architecture. Zero
+                        bloat. Production-ready engineering.</p>
+                </div>
+
+                <div class="process-step" data-step="5">
+                    <div class="step-node">06</div>
+                    <h3 class="step-title">Launch</h3>
+                    <p class="step-desc">Global CDN orchestration, absolute asset caching optimization, and automated
+                        quality assurance deployment.</p>
+                </div>
+
+                <div class="process-step" data-step="6">
+                    <div class="step-node">07</div>
+                    <h3 class="step-title">Optimization</h3>
+                    <p class="step-desc">Continuous monitoring of Core Web Vitals, real-user data conversion heatmaps,
+                        and systematic speed refining.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services-section">
+        <div class="services-container">
+
+            <div class="services-left">
+                <span class="services-badge">CAPABILITIES</span>
+                <div class="services-list">
+
+                    <div class="service-item" data-service="architecture" data-bg="#070c0e"
+                        data-desc="We design robust systems, high-scale file structures, and performance frameworks ready to sustain high-traffic international digital products.">
+                        <span class="service-num">01</span>
+                        <h3 class="service-title">Digital Architecture</h3>
+                    </div>
+
+                    <div class="service-item" data-service="frontend" data-bg="#09070d"
+                        data-desc="Pristine front-end engineering using pure javascript, complex layout physics, and micro-interactions optimized for pixel-perfect fidelity.">
+                        <span class="service-num">02</span>
+                        <h3 class="service-title">Immersive Frontend</h3>
+                    </div>
+
+                    <div class="service-item" data-service="design" data-bg="#0c0a06"
+                        data-desc="High-end interface design inspired by Apple and Stripe. Maximum focus on negative space, typography weights, and elite user experiences.">
+                        <span class="service-num">03</span>
+                        <h3 class="service-title">UX/UI Design</h3>
+                    </div>
+
+                    <div class="service-item" data-service="engineering" data-bg="#050907"
+                        data-desc="Automated continuous integration, strict SEO configurations, serverless performance, and digital solutions with Lighthouse scores close to 100.">
+                        <span class="service-num">04</span>
+                        <h3 class="service-title">Creative Engineering</h3>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="services-right">
+                <div class="services-meta-box">
+                    <p id="service-dynamic-desc">Hover over a capability to explore our execution vector and structural
+                        philosophy.</p>
+                </div>
+
+                <div id="service-floating-visual" class="service-floating-visual">
+                    <div class="visual-glass-glow"></div>
+                    <div class="visual-inner-graphic"></div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="noise"></div>
+
+    <div class="mouse-light"></div>
+
+    <div class="cursor"></div>
+
+    <div class="cursor-dot"></div>
+
+
+
+    <script>
+
+        /* =======================================================
+LOADER
+======================================================= */
+
+        document.body.style.overflow = "hidden";
+
+        const loader = document.querySelector(".loader");
+
+        const loaderBar = document.querySelector(".loader-bar");
+
+        const loaderText = document.querySelector(".loader-text");
+
+        const loadingMessages = [
+
+            "INITIALIZING",
+
+            "LOADING COMPONENTS",
+
+            "PREPARING EXPERIENCE",
+
+            "RENDERING INTERFACE",
+
+            "READY"
+
+        ];
+
+        let progress = 0;
+
+        let index = 0;
+
+        const loadingInterval = setInterval(() => {
+
+            progress += 1;
+
+            loaderBar.style.width = progress + "%";
+
+            if (progress % 25 === 0 && index < loadingMessages.length - 1) {
+
+                index++;
+
+                loaderText.textContent = loadingMessages[index];
+
+            }
+
+            if (progress >= 100) {
+
+                clearInterval(loadingInterval);
+
+                setTimeout(() => {
+
+                    loader.classList.add("hide");
+
+                    document.body.style.overflow = "auto";
+
+                }, 400);
+
+            }
+
+        }, 22);
+
+        /*==================================================
+HERO PARALLAX
+==================================================*/
+
+        const layers = document.querySelectorAll(".parallax-layer");
+
+        window.addEventListener("mousemove", (e) => {
+
+            const x = (window.innerWidth / 2 - e.clientX);
+
+            const y = (window.innerHeight / 2 - e.clientY);
+
+            layers.forEach(layer => {
+
+                const speed = layer.dataset.speed;
+
+                layer.style.transform = `
+        translate(
+        ${x * speed}px,
+        ${y * speed}px
+        )`;
+
+            });
+
+        });
+        /* ==========================================================
+                CURSOR
+========================================================== */
+
+        const cursor = document.querySelector(".cursor");
+
+        const dot = document.querySelector(".cursor-dot");
+
+        const mouseLight = document.querySelector(".mouse-light");
+
+        let mouseX = 0;
+
+        let mouseY = 0;
+
+        window.addEventListener("mousemove", (e) => {
+
+            mouseX = e.clientX;
+
+            mouseY = e.clientY;
+
+            cursor.style.left = mouseX + "px";
+
+            cursor.style.top = mouseY + "px";
+
+            dot.style.left = mouseX + "px";
+
+            dot.style.top = mouseY + "px";
+
+            mouseLight.style.left = mouseX + "px";
+
+            mouseLight.style.top = mouseY + "px";
+
+        });
+
+        document.querySelectorAll("a,button").forEach(item => {
+
+            item.addEventListener("mouseenter", () => {
+
+                cursor.classList.add("active");
+
+            });
+
+            item.addEventListener("mouseleave", () => {
+
+                cursor.classList.remove("active");
+
+            });
+
+        });
+
+        /* =======================================================
+   SMART NAVBAR LOGIC (HIGH PERFORMANCE)
+======================================================= */
+        const navbarElement = document.getElementById("navbar");
+        const toggleBtn = document.querySelector(".nav-toggle");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        let lastScrollPosition = 0;
+        let isScrollingActive = false;
+
+        window.addEventListener("scroll", () => {
+            if (!isScrollingActive) {
+                window.requestAnimationFrame(() => {
+                    handleNavbarScrollBehavior();
+                    isScrollingActive = false;
+                });
+                isScrollingActive = true;
+            }
+        }, { passive: true });
+
+        function handleNavbarScrollBehavior() {
+            const currentScrollPosition = window.scrollY;
+
+            // 1. Mostrar a navbar apenas após iniciar o scroll (> 60px)
+            if (currentScrollPosition > 60) {
+                navbarElement.classList.add("visible");
+            } else {
+                navbarElement.classList.remove("visible");
+                navbarElement.classList.remove("hidden-scroll");
+                return;
+            }
+
+            // 2. Detecta se o usuário está subindo a página muito rápido
+            const scrollDelta = currentScrollPosition - lastScrollPosition;
+
+            if (scrollDelta < -25) {
+                // Subida rápida: esconde a cápsula para dar espaço à experiência editorial
+                navbarElement.classList.add("hidden-scroll");
+            } else if (scrollDelta > 0) {
+                // Rolando para baixo normalmente: garante que ela reapareça/permaneça
+                navbarElement.classList.remove("hidden-scroll");
+            }
+
+            lastScrollPosition = currentScrollPosition;
+        }
+
+        /* INTERAÇÃO MENU MOBILE OVERLAY */
+        toggleBtn.addEventListener("click", () => {
+            const isOpen = mobileMenu.classList.toggle("open");
+            toggleBtn.classList.toggle("open");
+
+            // Altera o atributo ARIA para acessibilidade sênior
+            toggleBtn.setAttribute("aria-expanded", isOpen);
+
+            // Bloqueia o scroll do body quando o menu fullscreen está ativo
+            document.body.style.overflow = isOpen ? "hidden" : "auto";
+        });
+
+        // Fecha o menu mobile ao clicar em um link
+        document.querySelectorAll(".mobile-item").forEach(link => {
+            link.addEventListener("click", () => {
+                mobileMenu.classList.remove("open");
+                toggleBtn.classList.remove("open");
+                toggleBtn.setAttribute("aria-expanded", "false");
+                document.body.style.overflow = "auto";
+            });
+        });
+
+        // Adiciona os links da Navbar nas microinterações do cursor que você já tinha criado
+        document.querySelectorAll(".nav-item, .mobile-item, .nav-logo").forEach(item => {
+            item.addEventListener("mouseenter", () => cursor.classList.add("active"));
+            item.addEventListener("mouseleave", () => cursor.classList.remove("active"));
+        });
+
+        /* =======================================================
+   MANIFESTO ENGINE (SCROLL-DRIVEN WORDS)
+======================================================= */
+        let manifestoWords = [];
+        let manifestoSection = null;
+
+        // Inicializa a quebra de texto para o Manifesto
+        function initManifesto() {
+            manifestoSection = document.getElementById("manifesto");
+            const textContainer = document.querySelector(".manifesto-text");
+
+            if (!textContainer) return;
+
+            // Remove espaços extras e quebra o texto em um array de palavras
+            const wordsArray = textContainer.textContent.trim().split(/\s+/);
+            textContainer.innerHTML = ""; // Limpa o contêiner original
+
+            // Reconstrói o HTML injetando spans com tratamentos customizados
+            wordsArray.forEach((word) => {
+                const span = document.createElement("span");
+                span.classList.add("m-word");
+                span.textContent = word;
+
+                // Limpa pontuações para conferir palavras-chave puras
+                const cleanWord = word.toLowerCase().replace(/[^a-z]/g, "");
+
+                // Regras de estilização condicional (Estilo Awwwards)
+                if (cleanWord === "technology" || cleanWord === "engineering") {
+                    span.classList.add("tech");
+                }
+                if (cleanWord === "art" || cleanWord === "future" || cleanWord === "invisible") {
+                    span.classList.add("highlight");
+                }
+
+                textContainer.appendChild(span);
+            });
+
+            // Armazena a lista de nós na memória global para alta performance no scroll
+            manifestoWords = document.querySelectorAll(".m-word");
+        }
+
+        function handleManifestoScroll() {
+            if (!manifestoSection || manifestoWords.length === 0) return;
+
+            const rect = manifestoSection.getBoundingClientRect();
+            const viewHeight = window.innerHeight;
+
+            // Calcula a área total em que o scroll atuará dentro da seção sticky
+            const totalScrollableSpace = rect.height - viewHeight;
+            // Captura o quanto o topo da seção já subiu além do topo da viewport
+            const currentScrollProgress = -rect.top;
+
+            // Normaliza o progresso em um fator estrito entre 0.0 e 1.0
+            let progress = currentScrollProgress / totalScrollableSpace;
+            progress = Math.max(0, Math.min(1, progress));
+
+            const totalWords = manifestoWords.length;
+
+            manifestoWords.forEach((word, index) => {
+                // Mapeamento matemático do ponto de ativação de cada palavra
+                // Adicionamos um multiplicador sutil de atraso para criar um efeito de transição suave em cadeia
+                const activationThreshold = index / totalWords;
+
+                if (progress >= activationThreshold) {
+                    word.classList.add("active");
+                } else {
+                    word.classList.remove("active");
+                }
+            });
+        }
+
+        // Executa a preparação assim que o DOM carregar
+        document.addEventListener("DOMContentLoaded", () => {
+            initManifesto();
+        });
+
+        // ATUALIZAÇÃO DO SEU EVENT LISTENER DE SCROLL EXISTENTE:
+        // Certifique-se de incluir a chamada do Manifesto dentro do loop requestAnimationFrame que criamos na Etapa 3:
+        window.addEventListener("scroll", () => {
+            if (!isScrollingActive) {
+                window.requestAnimationFrame(() => {
+                    handleNavbarScrollBehavior(); // Da etapa anterior
+                    handleManifestoScroll();      // Nova engine do Manifesto
+                    isScrollingActive = false;
+                });
+                isScrollingActive = true;
+            }
+        }, { passive: true });
+
+        /* =======================================================
+   HORIZONTAL PROCESS ENGINE (TIMELINE TRAVERSAL)
+======================================================= */
+        let processSection = null;
+        let processTrack = null;
+        let processLineFill = null;
+        let processSteps = [];
+
+        function initProcess() {
+            processSection = document.getElementById("process");
+            processTrack = document.getElementById("process-track");
+            processLineFill = document.getElementById("process-line-fill");
+            processSteps = document.querySelectorAll(".process-step");
+        }
+
+        function handleProcessScroll() {
+            if (!processSection || !processTrack) return;
+
+            const rect = processSection.getBoundingClientRect();
+            const viewHeight = window.innerHeight;
+
+            // Calcula o espaço total de rolagem do trilho
+            const totalScrollableSpace = rect.height - viewHeight;
+            let progress = -rect.top / totalScrollableSpace;
+            progress = Math.max(0, Math.min(1, progress));
+
+            // Descobre a largura máxima excedente do contêiner para saber o quanto transladar no eixo X
+            const maxTranslateX = processTrack.scrollWidth - window.innerWidth + (window.innerWidth * 0.08); // 8% de compensação do padding esquerdo
+
+            // Move a esteira horizontalmente baseada no progresso estrito do scroll vertical
+            const currentTranslateX = progress * maxTranslateX;
+            processTrack.style.transform = `translateX(-${currentTranslateX}px)`;
+
+            // Atualiza a linha de preenchimento de progresso técnico
+            if (processLineFill) {
+                processLineFill.style.width = `${progress * 100}%`;
+            }
+
+            // Gerencia o acendimento cirúrgico de cada etapa individual
+            const totalSteps = processSteps.length;
+            processSteps.forEach((step, index) => {
+                // Define o gatilho matemático de entrada de cada card
+                const triggerPoint = index / (totalSteps - 0.5);
+
+                if (progress >= triggerPoint) {
+                    step.classList.add("active");
+                } else {
+                    step.classList.remove("active");
+                }
+            });
+        }
+
+        // Inicializa no carregamento do DOM
+        document.addEventListener("DOMContentLoaded", () => {
+            initProcess();
+        });
+
+        // ATUALIZAÇÃO DO SEU EVENT LISTENER DE SCROLL:
+        // Certifique-se de injetar a execução 'handleProcessScroll()' dentro da sua thread 'requestAnimationFrame':
+        window.addEventListener("scroll", () => {
+            if (!isScrollingActive) {
+                window.requestAnimationFrame(() => {
+                    handleNavbarScrollBehavior();
+                    handleManifestoScroll();
+                    handleProcessScroll();        // Nova injeção da esteira lateral
+                    isScrollingActive = false;
+                });
+                isScrollingActive = true;
+            }
+        }, { passive: true });
+
+        /* =======================================================
+   REACTIVE SERVICES ENGINE (LAYOUT MUTATION)
+======================================================= */
+        document.addEventListener("DOMContentLoaded", () => {
+            initReactiveServices();
+        });
+
+        function initReactiveServices() {
+            const servicesSection = document.getElementById("services");
+            const serviceItems = document.querySelectorAll(".service-item");
+            const dynamicDesc = document.getElementById("service-dynamic-desc");
+            const floatingVisual = document.getElementById("service-floating-visual");
+
+            if (!servicesSection || serviceItems.length === 0) return;
+
+            const defaultDesc = dynamicDesc.textContent;
+
+            serviceItems.forEach(item => {
+                item.addEventListener("mouseenter", (e) => {
+                    const bg = item.getAttribute("data-bg");
+                    const desc = item.getAttribute("data-desc");
+                    const serviceType = item.getAttribute("data-service");
+
+                    // 1. Altera o fundo da seção inteira de forma fluida
+                    servicesSection.style.backgroundColor = bg;
+                    servicesSection.setAttribute("data-active-service", serviceType);
+
+                    // 2. Transição sutil de opacidade no texto descritivo
+                    dynamicDesc.classList.add("mutating");
+                    setTimeout(() => {
+                        dynamicDesc.textContent = desc;
+                        dynamicDesc.style.color = "var(--text-light)";
+                        dynamicDesc.classList.remove("mutating");
+                    }, 150);
+
+                    // 3. Ativa o elemento visual flutuante
+                    floatingVisual.classList.add("active");
+                });
+
+                item.addEventListener("mouseleave", () => {
+                    // Retorna ao estado neutro de fábrica
+                    servicesSection.style.backgroundColor = "var(--bg-main)";
+                    servicesSection.removeAttribute("data-active-service");
+
+                    dynamicDesc.classList.add("mutating");
+                    setTimeout(() => {
+                        dynamicDesc.textContent = defaultDesc;
+                        dynamicDesc.style.color = "var(--text-muted)";
+                        dynamicDesc.classList.remove("mutating");
+                    }, 150);
+
+                    floatingVisual.classList.remove("active");
+                });
+
+                // Mecanismo Magnético: Faz o card flutuante seguir o ponteiro dentro do item
+                item.addEventListener("mousemove", (e) => {
+                    const rect = servicesSection.getBoundingClientRect();
+                    // Calcula a posição do mouse relativa à seção pai
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    // Move o card com um deslocamento elegante (offset de 40px para não ficar colado)
+                    floatingVisual.style.transform = `translate(${x - 140}px, ${y - 170}px)`;
+
+                    // Atualiza o gradiente interno do vidro para simular refração de luz física
+                    const itemRect = item.getBoundingClientRect();
+                    const localX = ((e.clientX - itemRect.left) / itemRect.width) * 100;
+                    const localY = ((e.clientY - itemRect.top) / itemRect.height) * 100;
+
+                    floatingVisual.style.setProperty('--mouse-x', `${localX}%`);
+                    floatingVisual.style.setProperty('--mouse-y', `${localY}%`);
+                });
+            });
+        }
+    </script>
+
+</body>
+
+</html>

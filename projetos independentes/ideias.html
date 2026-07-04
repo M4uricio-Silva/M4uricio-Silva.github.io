@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academia - Musculação, Pilates, Karatê e HIIT</title>
+
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <meta name="description"
+        content="Transforme seu corpo na Academia. Musculação, Pilates, Karatê e HIIT. Primeira semana grátis!">
+    <meta name="robots" content="index, follow">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#C9A84C">
+
+    <meta property="og:site_name" content="Academia">
+    <meta property="og:title" content="Academia - Musculação, Pilates, Karatê e HIIT">
+    <meta property="og:description" content="Transforme seu corpo na Academia. Primeira semana grátis!">
+    <meta property="og:image" content="https://roberta-silva.github.io/landing-page-academia/og-image.jpg">
+    <meta property="og:url" content="https://roberta-silva.github.io/landing-page-academia/">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap"
+        rel="stylesheet">
+    <script>document.documentElement.className += ' js';</script>
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --font-display: 'Bebas Neue', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+
+            --color-gold: #c9a84c;
+            --color-gold-dark: #332705;
+            --color-gold-light: #fff7e0;
+            --color-bg: #0a0a0a;
+            --color-bg-secondary: #202020;
+            --color-text-muted: #aaa;
+        }
+
+        body {
+            background: var(--color-bg);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 6rem 1rem;
+        }
+
+        .subtitle {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            letter-spacing: 0.02em;
+            line-height: 1;
+            color: #fff;
+        }
+
+        .info-texts {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            max-width: 35ch;
+            color: var(--color-text-muted);
+        }
+
+        .section-description {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        /* header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 99;
+            background: var(--color-bg);
+            border-bottom: 1px solid var(--color-gold-dark);
+        }
+
+        .menu-btn {
+            display: none;
+        }
+
+        .header-nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 2.25rem;
+            color: #fff;
+        }
+
+        .header-nav ul {
+            display: flex;
+            gap: 1.25rem;
+        }
+
+        .header-nav li a {
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            color: #efe5ca;
+            padding: 0.2rem 0.4rem;
+            position: relative;
+        }
+
+        .header-nav li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: currentColor;
+            transition: width 0.3s ease;
+        }
+
+        .header-nav a:hover::after {
+            width: 100%;
+        }
+
+        .header-btn {
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            background: var(--color-gold);
+            color: var(--color-gold-dark);
+            padding: 0.4rem 0.8rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-btn:hover {
+            background-color: var(--color-gold-light);
+        }
+
+        /* hero */
+        .hero {
+            margin-top: 80px;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .bg-hero {
+            width: 100%;
+            height: 180px;
+            background: url('../img/bg.jpg') no-repeat center;
+            background-size: cover;
+        }
+
+        .hero-left h1 {
+            font-family: var(--font-display);
+            font-size: 7rem;
+            text-transform: uppercase;
+            line-height: 1;
+            letter-spacing: 0.05em;
+            color: #fff;
+        }
+
+        .highlight {
+            color: var(--color-gold);
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-primary,
+        .btn-ghost {
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--color-gold);
+            color: var(--color-gold-dark);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-gold-light);
+        }
+
+        .btn-ghost {
+            border: 1px solid var(--color-text-muted);
+            color: #fff;
+        }
+
+        .btn-ghost:hover {
+            background: var(--color-gold-dark);
+        }
+
+        .hero-right {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .hero-right li {
+            display: grid;
+            grid-template-columns: 6rem auto;
+            font-family: var(--font-body);
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            background: var(--color-gold-light);
+            color: var(--color-gold-dark);
+            padding: 0.875rem;
+            margin-bottom: 2rem;
+            box-shadow: 8px 8px 0 var(--color-gold);
+            transition:
+                background-color 0.4s ease,
+                transform 0.4s ease;
+        }
+
+        .hero-right li:hover {
+            background: #ffeebf;
+            transform: scale(1.04);
+        }
+
+        .hero-right span {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            line-height: 1;
+            color: var(--color-gold);
+        }
+
+        /* aulas */
+        .classes-text {
+            text-align: right;
+        }
+
+        .classes-cards {
+            display: flex;
+        }
+
+        .class-card {
+            height: 400px;
+            width: 100%;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .class-name {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: #fff;
+        }
+
+        .class-desc {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: #fff;
+            height: 0;
+            overflow: hidden;
+            transition: height 0.3s ease;
+        }
+
+        .class-card:hover .class-desc {
+            height: max-content;
+        }
+
+        #hiit {
+            background:
+                linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.5)),
+                url('../img/hiit.jpg') no-repeat center;
+            background-size: cover;
+        }
+
+        #pilates {
+            background:
+                linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.5)),
+                url('../img/pilates.jpg') no-repeat center;
+            background-size: cover;
+        }
+
+        #musculacao {
+            background:
+                linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.5)),
+                url('../img/musculacao-1.jpg') no-repeat center;
+            background-size: cover;
+        }
+
+        #karate {
+            background:
+                linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.5)),
+                url('../img/karate.jpg') no-repeat center;
+
+            background-size: cover;
+        }
+
+        /* personal */
+        .personal {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .personal-img img {
+            max-height: 40rem;
+            box-shadow: 8px 8px 0 var(--color-gold);
+            justify-self: center;
+        }
+
+        .personal-content {
+            margin-left: 2rem;
+        }
+
+        .personal-text {
+            margin-bottom: 2rem;
+        }
+
+        .personal ul {
+            margin-bottom: 4rem;
+        }
+
+        .personal li {
+            display: flex;
+            align-items: center;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            text-transform: uppercase;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .personal li::before {
+            content: '';
+            display: inline-block;
+            width: 30px;
+            height: 2px;
+            background: var(--color-gold);
+            margin-right: 12px;
+        }
+
+        /* infraestrutura */
+        .infra-cards {
+            display: grid;
+            grid-template-columns: 31.03% 1fr 1fr;
+        }
+
+        .infra-card {
+            position: relative;
+        }
+
+        #area-musculacao {
+            grid-row: 1 / 3;
+        }
+
+        .infra-name {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: #fff;
+            z-index: 9;
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+        }
+
+        .infra-text {
+            text-align: right;
+        }
+
+        /* contato */
+        .contato h2 {
+            margin-bottom: 2rem;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .contact-info li {
+            display: grid;
+            margin-bottom: 2rem;
+        }
+
+        .contact-info p,
+        .contact-info span {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .contact-info p {
+            text-transform: uppercase;
+            color: var(--color-gold);
+            margin-bottom: 0.2rem;
+            display: flex;
+        }
+
+        .contact-info span {
+            color: var(--color-text-muted);
+        }
+
+        .social-media-icons {
+            grid-column: 1 / 2;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .contact-form {
+            grid-column: 2 / 3;
+            grid-row: 1;
+            justify-self: center;
+        }
+
+        .contact-form-text {
+            display: flex;
+            align-items: center;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-gold);
+            margin-bottom: 1rem;
+        }
+
+        .contact-form-text::before {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 2px;
+            background: var(--color-gold);
+            margin-right: 1rem;
+        }
+
+        .contact-form label {
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-text-muted);
+            margin-bottom: 0.2rem;
+        }
+
+        .contact-form input,
+        .contact-form select,
+        .contact-form textarea {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            padding: 0.4rem 0.8rem;
+            background: var(--color-bg-secondary);
+            color: var(--color-text-muted);
+            border: 1px solid #3d3d3d;
+        }
+
+        .contact-form :is(input, select, textarea):is(:hover, :focus) {
+            outline: none;
+            border: 1px solid var(--color-gold);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: grid;
+            margin-bottom: 1rem;
+        }
+
+        .contact-form button {
+            width: 100%;
+        }
+
+        .form-success {
+            grid-column: 2 / 3;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            text-align: center;
+            color: var(--color-gold);
+            margin-top: 0.4rem;
+        }
+
+        input.invalid,
+        textarea.invalid {
+            border-color: #b52521;
+        }
+
+        .char-counter {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            text-align: end;
+            color: var(--color-text-muted);
+        }
+
+        /* footer */
+        footer {
+            border-top: 1px solid var(--color-gold-dark);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2rem 1rem;
+        }
+
+        .footer-content ul {
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+        }
+
+        .footer-content li a {
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            padding: 0.2rem 0.4rem;
+            color: var(--color-gold);
+            position: relative;
+        }
+
+        .footer-content li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: currentColor;
+            transition: width 0.3s ease;
+        }
+
+        .footer-content a:hover::after {
+            width: 100%;
+        }
+
+        .footer-copy {
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+            text-align: center;
+        }
+
+        @keyframes show-down {
+            from {
+                opacity: 0;
+                transform: translate3d(0, -30px, 0);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        .js [data-anime='scroll'] {
+            opacity: 0;
+            transform: translate3d(0, -30px, 0);
+            transition: 0.13s;
+        }
+
+        .js [data-anime='scroll'].ativo {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+        }
+
+        /* responsivo */
+        @media (max-width: 800px) {
+            .container {
+                padding: 2.25rem 1rem;
+            }
+
+            .hero {
+                margin-top: 70px;
+            }
+
+            .subtitle {
+                font-size: 3rem;
+            }
+
+            .section-description {
+                display: grid;
+            }
+
+            .info-texts {
+                font-size: 0.875rem;
+            }
+
+            .logo {
+                font-size: 1.875rem;
+            }
+
+            .header-btn {
+                display: none;
+            }
+
+            .menu-btn {
+                display: flex;
+                background: var(--color-bg);
+                border: none;
+                padding: 0.5rem 1rem;
+                cursor: pointer;
+                z-index: 200;
+                /* transition: transform 0.3s; */
+            }
+
+            .menu-btn::before {
+                margin-right: 4px;
+                content: '';
+                display: inline-block;
+                height: 2px;
+                width: 20px;
+                background: var(--color-gold);
+                box-shadow:
+                    0 6px var(--color-gold),
+                    0 -6px var(--color-gold);
+                transition: transform 0.3s;
+            }
+
+            .menu-btn.active::before {
+                transform: rotate(90deg);
+            }
+
+            .header-nav ul {
+                display: none;
+            }
+
+            .header-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(10, 10, 10, 0.95);
+                padding: 1rem;
+                flex-direction: column;
+            }
+
+            .header-links.open {
+                display: flex;
+                animation: show-down 0.3s forwards;
+            }
+
+            /* hero */
+            .bg-hero {
+                height: 100px;
+                background: url('../img/bg-mobile.jpg') no-repeat center;
+                background-size: cover;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-left {
+                margin-bottom: 2rem;
+            }
+
+            .hero-left h1 {
+                font-size: 5rem;
+            }
+
+            .hero-right {
+                justify-content: start;
+            }
+
+            .hero-right ul {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .hero-right li {
+                grid-template-columns: 1fr;
+                max-width: 15ch;
+                font-size: 0.75rem;
+                padding: 0.5rem;
+                margin-bottom: 1rem;
+                box-shadow: 4px 4px 0 var(--color-gold);
+            }
+
+            .hero-right span {
+                font-size: 1.2rem;
+            }
+
+            /* aulas */
+            .classes-text {
+                text-align: left;
+            }
+
+            .classes-cards {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .class-card {
+                height: 200px;
+            }
+
+            .class-desc {
+                font-size: 0.875rem;
+            }
+
+            .class-card:hover .class-desc {
+                height: auto;
+                max-height: 10rem;
+            }
+
+            /* personal */
+            .personal-content {
+                grid-column: 1 / 3;
+                margin-left: 0;
+            }
+
+            .personal-img {
+                display: none;
+            }
+
+            .personal ul {
+                grid-column: 1 / 3;
+                margin-bottom: 2rem;
+            }
+
+            .personal li {
+                font-size: 0.875rem;
+            }
+
+            /* infraestrutura */
+            .infra-text {
+                text-align: left;
+            }
+
+            .infra-cards {
+                grid-template-columns: 47.4% 1fr;
+            }
+
+            .infra-img img {
+                width: 100%;
+                min-height: 142px;
+                object-fit: cover;
+            }
+
+            .infra-name {
+                font-size: 1.75rem;
+            }
+
+            /* contato */
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info p,
+            .contact-info span {
+                font-size: 0.875rem;
+            }
+
+            .contact-form {
+                grid-column: 1 / 3;
+                margin-bottom: 1rem;
+            }
+
+            .contact-form input {
+                width: 100%;
+            }
+
+            .form-success {
+                grid-column: 1 / 3;
+                grid-row: 2;
+                margin: 0.2rem 0 0.4rem 0;
+            }
+
+            /* footer */
+            .footer-content {
+                flex-direction: column-reverse;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="header-nav" data-menu="suave" aria-label="Navegação principal">
+            <a class="logo" href="#">ACADEMIA</a>
+            <ul class="header-links">
+                <li><a href="#aulas">AULAS</a></li>
+                <li><a href="#personal">PERSONAL</a></li>
+                <li><a href="#infraestrutura">ESTRUTURA</a></li>
+                <li><a href="#contato">CONTATO</a></li>
+            </ul>
+            <a class="header-btn" href="#contato">COMEÇAR AGORA</a>
+            <button class="menu-btn" aria-label="Abrir menu"></button>
+        </nav>
+    </header>
+
+    <section class="hero" data-anime="scroll">
+        <div class="bg-hero"></div>
+        <div class="hero-content  container">
+            <div class="hero-left">
+                <h1><span class="highlight">supere</span><br>
+                    seus<br>
+                    limites</h1>
+                <p class="info-texts">Treinamento de elite, infraestrutura premium e personais certificados para levar
+                    seu corpo e mente ao próximo nível.</p>
+                <div class="hero-cta">
+                    <a class="btn-primary" href="#contato">agende uma visita</a>
+                    <a class="btn-ghost" href="#aulas">ver aulas</a>
+                </div>
+            </div>
+
+            <div class="hero-right">
+                <ul>
+                    <li><span>1200+</span>alunos matriculados</li>
+                    <li><span>18+</span>personais certificados</li>
+                    <li><span>12+</span>anos de excelência</li>
+                    <li><span>98%</span>de satisfação</li>
+                </ul>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="classes container" data-anime="scroll" id="aulas" aria-labelledby="titulo-aulas">
+        <div class="section-description">
+            <h2 class="subtitle" id="titulo-aulas">nossas aulas</h2>
+            <p class="classes-text info-texts">Escolha entre diversas modalidades guiadas por instrutores de alto nível.
+                Cada aula é desenhada para maximizar seus resultados.</p>
+        </div>
+
+        <div class="classes-cards">
+            <div class="class-card" id="hiit">
+                <p class="class-name">HIIT</p>
+                <span class="class-desc">Treino de alta intensidade com intervalos que aceleram o metabolismo e queimam
+                    gordura em tempo recorde.</span>
+            </div>
+
+            <div class="class-card" id="pilates">
+                <p class="class-name">Pilates</p>
+                <span class="class-desc">Fortalecimento do core e melhora da postura com exercícios de precisão e
+                    controle muscular profundo.</span>
+            </div>
+
+            <div class="class-card" id="musculacao">
+                <p class="class-name">Musculação</p>
+                <span class="class-desc">Ganho de massa, força e definição com equipamentos profissionais e
+                    acompanhamento especializado.</span>
+            </div>
+
+            <div class="class-card" id="karate">
+                <p class="class-name">Karatê</p>
+                <span class="class-desc">Disciplina, força e autodefesa com faixas certificadas em tradição marcial
+                    japonesa autêntica.</span>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="personal container" data-anime="scroll" id="personal" aria-labelledby="titulo-personal">
+        <div class="personal-img"><img src="./src/img/personal.jpg"
+                alt="Atleta segurando kettlebell durante treino funcional"></div>
+        <div class="personal-content">
+            <h2 class="subtitle" id="titulo-personal">personal trainers<br> <span class="highlight">elite</span></h2>
+            <p class="personal-text info-texts">Nossos personais são selecionados pelo mais alto critério técnico e
+                pedagógico. Cada profissional possui certificação CREF e especializações reconhecidas
+                internacionalmente.</p>
+            <ul>
+                <li>Avaliação física completa</li>
+                <li>Treinos personalizados por objetivo</li>
+                <li>Acompanhamento contínuo de resultados</li>
+                <li>Planejamento de treinos evolutivo</li>
+                <li>Suporte e orientação nutricional</li>
+                <li>Atendimento individualizado</li>
+            </ul>
+            <a class="btn-primary" href="#contato">Falar com um personal</a>
+        </div>
+    </section>
+
+    <section class="infraestrutura container" data-anime="scroll" id="infraestrutura"
+        aria-labelledby="titulo-infraestrutura">
+        <div class="section-description">
+            <h2 class="subtitle" id="titulo-infraestrutura">Infraestrutura<br> <span class="highlight">completa</span>
+            </h2>
+            <p class="info-texts infra-text">Infraestrutura completa com equipamentos modernos e ambientes planejados
+                para oferecer conforto, segurança e desempenho em cada treino.</p>
+        </div>
+
+        <div class="infra-cards">
+            <div class="infra-card" id="area-musculacao">
+                <p class="infra-name">Área de musculação</p>
+                <div class="infra-img"><img src="./src/img/musculacao.jpg"
+                        alt="Rack com halteres organizados na área de musculação"></div>
+            </div>
+
+            <div class="infra-card" id="cardio-zone">
+                <p class="infra-name">Cardio zone</p>
+                <div class="infra-img"><img src="./src/img/cardio.jpg"
+                        alt="Área de cardio com fileiras de bicicletas e equipamentos modernos"></div>
+            </div>
+
+            <div class="infra-card" id="sala-aulas">
+                <p class="infra-name">Sala de aulas</p>
+                <div class="infra-img"><img src="./src/img/salas.jpg"
+                        alt="Sala de aulas equipada com halteres, battle ropes e medicine balls"></div>
+            </div>
+
+            <div class="infra-card" id="vestiarios">
+                <p class="infra-name">Vestiários</p>
+                <div class="infra-img"><img src="./src/img/vestiario.jpg" alt="Armários azuis no vestiário da academia">
+                </div>
+            </div>
+
+            <div class="infra-card" id="espaco-nutri">
+                <p class="infra-name">Espaço nutri</p>
+                <div class="infra-img"><img src="./src/img/nutri.jpg"
+                        alt="Scoop com suplemento em pó apoiado sobre anilha"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contato container" data-anime="scroll" id="contato" aria-labelledby="titulo-contato">
+        <h2 class="subtitle" id="titulo-contato">Entre em <span class="highlight">contato</span></h2>
+        <div class="contact-content">
+
+            <div class="contact-side">
+                <ul class="contact-info">
+                    <li>
+                        <p>Endereço</p>
+                        <span>Avenida das Academias, 3900</span>
+                        <span>Centro — Cidade/RS</span>
+                    </li>
+                    <li>
+                        <p>Horário de funcionamento</p>
+                        <span>Seg–Sex: 05h às 23h</span>
+                        <span>Sábado: 05h às 12h</span>
+                    </li>
+                    <li>
+                        <p>Telefone / WhatsApp</p>
+                        <span>(51) 99999-0000</span>
+                    </li>
+                    <li>
+                        <p>E-mail</p>
+                        <span>contato@academia.com.br</span>
+                    </li>
+                </ul>
+
+                <ul class="social-media-icons">
+                    <li><a href="#contato"><img src="./src/img/whatsapp.svg" alt="WhatsApp"></a></li>
+                    <li><a href="#contato"><img src="./src/img/instagram.svg" alt="Instagram"></a></li>
+                </ul>
+            </div>
+
+            <form class="contact-form">
+                <p class="contact-form-text">Deixe uma mensagem</p>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nome">Nome</label>
+                        <input type="text" name="nome" id="nome">
+                    </div>
+                    <div class="form-group">
+                        <label for="telefone">Telefone</label>
+                        <input type="tel" name="telefone" id="telefone" placeholder="(00) 00000-0000">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" name="email" id="email" placeholder="seu@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="interesse">Interesse</label>
+                    <select id="interesse" name="interesse">
+                        <option value="" disabled selected hidden>Selecione</option>
+                        <option value="hiit">HIIT</option>
+                        <option value="pilates">Pilates</option>
+                        <option value="musculacao">Musculação</option>
+                        <option value="karate">Karatê</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="mensagem">Mensagem</label>
+                    <textarea name="mensagem" id="mensagem" maxlength="300"></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary">Enviar</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <a class="logo" href="#">ACADEMIA</a>
+            <p class="footer-copy"></p>
+
+            <nav aria-label="Links do rodapé">
+                <ul>
+                    <li><a href="#aulas">Aulas</a></li>
+                    <li><a href="#personal">Personal</a></li>
+                    <li><a href="#infraestrutura">Estrutura</a></li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
+    <script>
+        import ScrollAnima from './modules/scroll-anima.js';
+        import ScrollSuave from './modules/scroll-suave.js';
+        import MenuMobile from './modules/menu-mobile.js';
+        import Form from './modules/form.js';
+
+        const scrollAnima = new ScrollAnima('[data-anime="scroll"]');
+        scrollAnima.init();
+
+        const scrollsuave = new ScrollSuave('[data-menu="suave"] a[href^="#"]');
+        scrollsuave.init();
+
+        const menuMobile = new MenuMobile('.menu-btn', '.header-links');
+        menuMobile.init();
+
+        const form = new Form('form', 'button[type="submit"]', 'input[type="tel"]');
+        form.init();
+
+        document.querySelector('.footer-copy').textContent =
+            `ACADEMIA © ${new Date().getFullYear()} • Todos os direitos reservados`;
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memorizador de Apresentação</title>
+    <style>
+        :root {
+            --bg-color: #f4f4f9;
+            --text-color: #333;
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+            color: var(--primary-color);
+        }
+
+        .slide-section {
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-left: 5px solid var(--accent-color);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .speech-text {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .hidden-concept {
+            display: inline-block;
+            background-color: #e0e0e0;
+            color: transparent;
+            padding: 2px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+            border: 1px dashed #999;
+        }
+
+        .hidden-concept.revealed {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            cursor: default;
+        }
+
+        .hint {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 10px;
+            text-align: right;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>📝 Ensaio da Apresentação</h1>
+    <p style="text-align: center;">Clique nas áreas cinzas para revelar o conteúdo do PDF que você precisa memorizar.
+    </p>
+
+    <div class="slide-section">
+        <h2>Slide 1: Impacto do Setor Externo</h2>
+
+        <div class="card">
+            <div class="speech-text">
+                Agora vamos falar sobre a utilidade para gestores, começando pelo seu impacto do setor externo e os
+                riscos cambiais. Enfim, agora trazendo toda essa teoria para a mesa do gestor, a primeira coisa que
+                precisamos entender é que o câmbio não é só um número no jornal, ele mexe no caixa da empresa. E temos
+                um termo pra isso, que é justamente a exposição cambial, onde <span class="hidden-concept"
+                    onclick="revealText(this)">variações no câmbio afetam diretamente os preços, as margens de lucro, a
+                    concorrência e o planejamento da empresa.</span>
+            </div>
+            <div class="hint">Dica: O que afeta? (4 coisas)</div>
+        </div>
+
+        <div class="card">
+            <div class="speech-text">
+                E indo para o segundo ponto, que é a importação contra exportação. Que ocorre quando <span
+                    class="hidden-concept" onclick="revealText(this)">a depreciação cambial (dólar alto) eleva os custos
+                    das importadoras; exportadoras ganham receita, mas podem sofrer se usarem insumos importados.</span>
+                Ou seja, quando o dólar sobe, a empresa que importa toma um susto porque seus custos de reposição
+                disparam. A empresa que exporta até acha bom porque ganha mais em reais, mas ela tem que tomar cuidado
+                se os materiais que ela usa vierem de fora.
+            </div>
+            <div class="hint">Dica: Custo de quem sobe? E de quem ganha receita?</div>
+        </div>
+
+        <div class="card">
+            <div class="speech-text">
+                Agora o maior pesadelo aqui, e que o professor destaca bem no texto, é o "descasamento cambial", que é o
+                <span class="hidden-concept" onclick="revealText(this)">risco gerado quando a empresa possui dívidas em
+                    moeda estrangeira, mas suas receitas entram apenas em moeda nacional.</span> Pensa o seguinte: a
+                empresa pegou um empréstimo em dólar para crescer, mas ela só vende no Brasil, ganhando em real. Se o
+                dólar disparar, o tamanho dessa dívida explode da noite para o dia, sem a empresa ter feito nada de
+                errado na sua operação.
+            </div>
+            <div class="hint">Dica: Dívida em X, receita em Y.</div>
+        </div>
+    </div>
+
+    <div class="slide-section">
+        <h2>Slide 2: Estratégias de Gestão e Decisão</h2>
+
+        <div class="card">
+            <div class="speech-text">
+                Agora vamos falar sobre as estratégias de gestão e decisão. Bom, diante desses problemas, o que o gestor
+                faz na prática? De braços cruzados que não é, né. Pois bem, o primeiro ponto fala sobre os mecanismos de
+                proteção, como o <span class="hidden-concept" onclick="revealText(this)">uso de hedge (proteção
+                    financeira ou natural), diversificação de fornecedores e criação de estoques estratégicos.</span>
+                enfim, o material mostra que ele precisa se proteger usando ferramentas como o hedge (que funciona como
+                um seguro contra a variação do dólar), comprando estoques de forma antecipada para garantir preço velho,
+                ou buscando fornecedores diferentes.
+            </div>
+            <div class="hint">Dica: São 3 mecanismos (Hedge, Fornecedores, Estoques).</div>
+        </div>
+
+        <div class="card">
+            <div class="speech-text">
+                Outra grande dor de cabeça é o pass-through, que é <span class="hidden-concept"
+                    onclick="revealText(this)">a difícil decisão do gestor entre repassar o aumento do dólar para o
+                    preço final ou absorver o custo reduzindo a margem de lucro.</span> funciona bem como um dilema de
+                repassar ou não o custo para o cliente. Se o custo subiu, o gestor tem que escolher: ou ele aumenta o
+                preço e corre o risco de perder a venda para o concorrente, ou ele segura o preço e engole um prejuízo
+                na sua margem de lucro.
+            </div>
+            <div class="hint">Dica: O dilema do repasse vs. margem.</div>
+        </div>
+
+        <div class="card">
+            <div class="speech-text">
+                E para fechar a nossa apresentação sobre estratégias, a lição mais importante para o administrador:
+                competitividade real. <span class="hidden-concept" onclick="revealText(this)">Um câmbio favorável ajuda
+                    no curto prazo, mas não substitui a necessidade de investir em produtividade, inovação e
+                    qualidade.</span> Não dá para depender só do dólar estar favorável para ganhar mercado. O que mantém
+                a empresa viva no longo prazo é a competitividade real, ou seja, melhorar a logística, inovar nos
+                produtos e aumentar a produtividade.
+            </div>
+            <div class="hint">Dica: Curto prazo vs. Investimentos necessários.</div>
+        </div>
+    </div>
+
+    <script>
+        function revealText(element) {
+            if (!element.classList.contains('revealed')) {
+                element.classList.add('revealed');
+            } else {
+                // Opcional: Permite esconder novamente ao clicar
+                element.classList.remove('revealed');
+            }
+        }
+    </script>
+</body>
+
+</html>

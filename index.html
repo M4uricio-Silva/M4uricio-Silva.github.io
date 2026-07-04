@@ -1,455 +1,671 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Mauricio Silva - Desenvolvedor Web Front-End e Designer focado em gerar resultados reais para o seu negócio.">
-    <title>Mauricio Silva | Soluções Digitais de Alta Conversão</title>
+    <title>Mauricio Silva — Digital Freelancer & Creator</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none;
+        }
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        body {
+            background: #050505;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
 
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        canvas {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            pointer-events: none;
+        }
 
-    <script>
-        tailwind.config = {
-            darkMode: 'class', // Habilita o modo escuro por classe
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#2563eb',
-                        dark: '#0f172a',
-                    },
-                    fontFamily: {
-                        sans: ['Poppins', 'sans-serif'],
-                    },
-                }
+        /* LOADER */
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: #050505;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #loader-text {
+            letter-spacing: 5px;
+            font-size: 12px;
+            color: #777;
+            font-family: monospace;
+        }
+
+        .loader-line {
+            margin-top: 30px;
+            width: 250px;
+            height: 1px;
+            background: #222;
+            overflow: hidden;
+        }
+
+        .loader-progress {
+            height: 100%;
+            width: 0;
+            background: white;
+        }
+
+        /* CUSTOM CURSOR */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            mix-blend-mode: difference;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background-color 0.3s;
+        }
+
+        .cursor.hover-effect {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        /* HUD & INTERFACE */
+        .hud-text {
+            color: #555;
+            letter-spacing: 4px;
+            font-size: 12px;
+            font-family: monospace;
+            z-index: 100;
+        }
+
+        #archive-interface {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            right: 30px;
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
+        }
+
+        /* TERMINAL MELHORADO */
+        #terminal {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(0, 0, 0, .7);
+            border: 1px solid #222;
+            padding: 20px;
+            color: #777;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+            max-height: 120px;
+            width: 320px;
+            overflow-y: auto;
+            pointer-events: auto;
+            scrollbar-width: none;
+        }
+
+        #terminal::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* MENU BUTTON */
+        #menu-trigger {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            z-index: 100;
+            background: transparent;
+            border: none;
+            color: white;
+            transition: color 0.3s;
+        }
+
+        #menu-trigger:hover {
+            color: #aaa;
+        }
+
+        /* RESPONSIVIDADE MOBILE */
+        @media (max-width: 768px) {
+            #terminal {
+                bottom: 80px;
+                left: 20px;
+                width: calc(100vw - 40px);
+                max-height: 100px;
+            }
+
+            #menu-trigger {
+                bottom: 25px;
+                right: 20px;
+            }
+
+            #archive-interface {
+                top: 20px;
+                left: 20px;
+                right: 20px;
+            }
+
+            .content-container {
+                max-height: 75vh;
             }
         }
-    </script>
-    <style>
-        /* Glassmorphism responsivo ao tema */
-        .glass {
-            background: rgba(255, 255, 255, 0.90);
-            backdrop-filter: blur(12px);
+
+        /* TYPOGRAPHY STYLES */
+        .name-style-0 .main-name {
+            background: linear-gradient(90deg, #ffffff, #666666);
+            -webkit-background-clip: text;
+            color: transparent;
+            font-weight: 900;
         }
 
-        .dark .glass {
-            background: rgba(15, 23, 42, 0.90);
+        .name-style-1 .main-name {
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.8);
+            font-weight: 900;
         }
 
-        .hero-gradient {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        .name-style-2 .main-name {
+            color: #fff;
+            font-weight: 300;
+            letter-spacing: 15px;
+            transform: scale(0.9);
         }
 
-        .project-card:hover .project-overlay {
-            opacity: 1;
+        .main-name {
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Cursor customizado do Typed.js */
-        .typed-cursor {
-            font-size: 1.5em;
-            color: #2563eb;
+        /* FULLSCREEN OVERLAYS */
+        .fullscreen-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 5, 5, 0.98);
+            backdrop-filter: blur(15px);
+            z-index: 500;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .overlay-active {
+            pointer-events: auto;
+        }
+
+        .menu-link {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: transparent;
+            -webkit-text-stroke: 1px #555;
+            margin: 12px 0;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+        }
+
+        @media (min-width: 768px) {
+            .menu-link {
+                font-size: 3rem;
+            }
+        }
+
+        .menu-link:hover {
+            color: white;
+            -webkit-text-stroke: 0px;
+            padding-left: 20px;
+        }
+
+        .content-container {
+            max-width: 900px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            opacity: 0;
+            transform: translateY(30px);
+            scrollbar-width: none;
+            padding-right: 10px;
+        }
+
+        .content-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            font-size: 14px;
+            font-family: monospace;
+            letter-spacing: 2px;
+            color: white;
+            border: 1px solid #333;
+            padding: 10px 20px;
+            border-radius: 30px;
+            background: transparent;
+            transition: 0.3s;
+            z-index: 510;
+        }
+
+        .close-btn:hover {
+            background: white;
+            color: black;
         }
     </style>
 </head>
 
-<body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 font-sans transition-colors duration-300">
+<body>
 
-    <header
-        class="fixed w-full z-50 glass border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-primary tracking-tighter">MAURICIO<span
-                    class="text-slate-900 dark:text-white transition-colors">SILVA</span></a>
-
-            <div class="hidden md:flex items-center space-x-8 font-medium">
-                <a href="#sobre" class="hover:text-primary transition">Sobre</a>
-                <a href="#servicos" class="hover:text-primary transition">Serviços</a>
-                <a href="#projetos" class="hover:text-primary transition">Projetos</a>
-                <a href="#contato"
-                    class="bg-primary text-white px-6 py-2 rounded-full hover:shadow-lg hover:shadow-primary/30 transition">Vamos
-                    Conversar?</a>
-
-                <button id="theme-toggle"
-                    class="text-xl text-slate-600 dark:text-slate-300 hover:text-primary transition"
-                    aria-label="Alternar Tema">
-                    <i class="fas fa-moon" id="theme-icon"></i>
-                </button>
-            </div>
-
-            <div class="md:hidden flex items-center space-x-4">
-                <button id="theme-toggle-mobile" class="text-xl text-slate-600 dark:text-slate-300"
-                    aria-label="Alternar Tema">
-                    <i class="fas fa-moon" id="theme-icon-mobile"></i>
-                </button>
-                <button class="text-2xl dark:text-white" onclick="toggleMenu()">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
-        </nav>
-    </header>
-
-    <div id="mobileMenu"
-        class="fixed inset-0 bg-dark text-white z-[60] hidden flex-col justify-center items-center space-y-8 text-2xl transition-all">
-        <button onclick="toggleMenu()" class="absolute top-6 right-6 text-3xl"><i class="fas fa-times"></i></button>
-        <a href="#sobre" onclick="toggleMenu()" class="hover:text-primary">Sobre</a>
-        <a href="#servicos" onclick="toggleMenu()" class="hover:text-primary">Serviços</a>
-        <a href="#projetos" onclick="toggleMenu()" class="hover:text-primary">Projetos</a>
-        <a href="#contato" onclick="toggleMenu()" class="hover:text-primary">Contato</a>
-    </div>
-
-    <section class="hero-gradient pt-32 pb-20 px-6 overflow-hidden">
-        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between">
-            <div class="md:w-1/2 text-white space-y-6" data-aos="fade-right" data-aos-duration="1000">
-                <span
-                    class="bg-primary/20 text-primary-300 px-4 py-1 rounded-full text-sm font-semibold border border-primary/30 uppercase tracking-widest inline-block mb-2">Disponível
-                    para Projetos</span>
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight min-h-[120px] md:min-h-[144px]">
-                    Transformo ideias em <br>
-                    <span id="typed-text" class="text-primary"></span>
-                </h1>
-                <p class="text-slate-400 text-lg max-w-lg" data-aos="fade-up" data-aos-delay="200">
-                    Desenvolvedor Web e Designer focado em UX/UI para conversão. Unindo estratégia administrativa e
-                    código moderno para alavancar negócios.
-                </p>
-                <div class="flex flex-wrap gap-4 pt-4" data-aos="fade-up" data-aos-delay="400">
-                    <a href="#contato"
-                        class="bg-primary hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-xl shadow-primary/20 transition-all transform hover:-translate-y-1">
-                        Iniciar um Projeto <i class="fas fa-arrow-right ml-2 text-sm"></i>
-                    </a>
-                    <a href="#projetos"
-                        class="bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-xl font-bold text-lg backdrop-blur-sm transition">
-                        Ver Portfólio
-                    </a>
-                </div>
-            </div>
-            <div class="md:w-1/2 mt-16 md:mt-0 flex justify-center relative" data-aos="zoom-in"
-                data-aos-duration="1200">
-                <div class="absolute inset-0 bg-primary rounded-full blur-[100px] opacity-20 animate-pulse"></div>
-                <img src="imagens/foto de perfil.png" alt="Mauricio Silva"
-                    class="relative w-64 h-64 md:w-80 md:h-80 object-cover rounded-3xl border-4 border-white/10 shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500">
-            </div>
-        </div>
-    </section>
-
-    <div
-        class="bg-white dark:bg-slate-800 py-8 border-y border-slate-100 dark:border-slate-700 shadow-sm transition-colors">
-        <div class="container mx-auto px-6 overflow-hidden">
-            <p class="text-center text-slate-500 dark:text-slate-400 text-sm font-semibold uppercase tracking-widest mb-6"
-                data-aos="fade-up">Expertise em Tecnologias Modernas</p>
-            <div
-                class="flex flex-wrap justify-center gap-8 md:gap-16 text-slate-400 dark:text-slate-500 transition duration-500">
-                <i class="fab fa-html5 text-4xl hover:text-[#E34F26] hover:scale-110 transition cursor-pointer"
-                    data-aos="fade-up" data-aos-delay="100"></i>
-                <i class="fab fa-css3-alt text-4xl hover:text-[#1572B6] hover:scale-110 transition cursor-pointer"
-                    data-aos="fade-up" data-aos-delay="200"></i>
-                <i class="fab fa-js-square text-4xl hover:text-[#F7DF1E] hover:scale-110 transition cursor-pointer"
-                    data-aos="fade-up" data-aos-delay="300"></i>
-                <i class="fab fa-bootstrap text-4xl hover:text-[#7952B3] hover:scale-110 transition cursor-pointer"
-                    data-aos="fade-up" data-aos-delay="400"></i>
-                <i class="fas fa-pencil-ruler text-4xl hover:text-primary hover:scale-110 transition cursor-pointer"
-                    data-aos="fade-up" data-aos-delay="500"></i>
-            </div>
+    <div id="loader">
+        <div id="loader-text">INITIALIZING CORE_SYS...</div>
+        <div class="loader-line">
+            <div class="loader-progress"></div>
         </div>
     </div>
 
-    <section id="sobre" class="py-20 bg-white dark:bg-slate-900 transition-colors overflow-hidden">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row gap-12 items-center">
-                <div class="md:w-1/2" data-aos="fade-right">
-                    <h2 class="text-3xl font-bold mb-6">Visão Técnica e <span class="text-primary">Estratégia de
-                            Negócio</span></h2>
-                    <p class="text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
-                        Sou graduando em <strong>Administração na UFRN</strong> e Programador Web pelo
-                        <strong>IFRN</strong>. Essa combinação me permite entender não apenas o código, mas como um site
-                        deve se comportar para gerar lucro e autoridade.
-                    </p>
-                    <div class="grid grid-cols-2 gap-4 mt-8">
-                        <div
-                            class="p-4 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700 transition-colors">
-                            <i class="fas fa-check-circle text-primary mb-2 text-xl"></i>
-                            <h4 class="font-bold text-slate-800 dark:text-white italic">Clean Code</h4>
-                        </div>
-                        <div
-                            class="p-4 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-100 dark:border-slate-700 transition-colors">
-                            <i class="fas fa-bolt text-primary mb-2 text-xl"></i>
-                            <h4 class="font-bold text-slate-800 dark:text-white italic">Fast Load</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="md:w-1/2 bg-slate-900 dark:bg-slate-800 border dark:border-slate-700 rounded-3xl p-8 text-white shadow-xl"
-                    data-aos="fade-left">
-                    <h3 class="text-xl font-bold mb-6 italic"><i class="fas fa-graduation-cap mr-2 text-primary"></i>
-                        Jornada Acadêmica</h3>
-                    <div class="space-y-6">
-                        <div class="border-l-2 border-primary pl-4 relative">
-                            <div class="absolute w-3 h-3 bg-primary rounded-full -left-[7px] top-1"></div>
-                            <p class="text-sm text-primary-300">2025 - Presente</p>
-                            <p class="font-semibold text-lg mt-1">Bacharelado em Administração</p>
-                            <p class="text-slate-400 text-sm">UFRN</p>
-                        </div>
-                        <div class="border-l-2 border-slate-700 pl-4 relative">
-                            <div class="absolute w-3 h-3 bg-slate-700 rounded-full -left-[7px] top-1"></div>
-                            <p class="text-sm text-slate-400">2025</p>
-                            <p class="font-semibold text-slate-300 text-lg mt-1">Programador Web</p>
-                            <p class="text-slate-500 text-sm">IFRN</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div id="archive-interface" class="hud-text">
+        <span>DEV // FREELANCE</span>
+        <span>STATUS: ONLINE</span>
+    </div>
+
+    <div id="terminal" class="hud-text">
+        <p>> connection established_</p>
+        <p>> origin: Natal, RN_</p>
+        <p>> awaiting command...</p>
+    </div>
+
+    <button id="menu-trigger" class="hud-text hover-target" onclick="toggleMenu()">[ OPEN ARCHIVE ]</button>
+
+    <div class="cursor"></div>
+    <canvas id="core"></canvas>
+
+    <main class="w-full h-full flex flex-col items-center justify-center px-6 relative z-10" id="hero-section">
+        <div class="text-center name-style-0" id="name-container">
+            <p class="tracking-[.6em] text-gray-500 mb-8 text-xs md:text-sm uppercase">Versatile Digital Freelancer</p>
+            <h1 class="main-name text-6xl md:text-9xl tracking-tighter leading-none mb-4">
+                MAURICIO<br>SILVA
+            </h1>
+            <p class="mt-8 text-lg md:text-xl text-gray-400 h-8 font-light">
+                <span id="typing"></span><span class="animate-pulse">_</span>
+            </p>
+
+            <button
+                class="hover-target mt-16 px-8 py-3 border border-gray-700 rounded-full hover:bg-white hover:text-black transition duration-500 tracking-widest text-xs uppercase"
+                onclick="changeEnvironment()">
+                Shift Environment
+            </button>
         </div>
-    </section>
+    </main>
 
-    <section id="servicos" class="py-20 bg-slate-50 dark:bg-slate-800/50 transition-colors">
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-3xl md:text-4xl font-bold">O Que Posso Fazer Pelo Seu <span
-                        class="text-primary">Negócio</span></h2>
-                <div class="w-20 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
-            </div>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700 group hover:-translate-y-2"
-                    data-aos="fade-up" data-aos-delay="100">
-                    <div
-                        class="w-14 h-14 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center text-primary text-2xl mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
-                        <i class="fas fa-laptop-code"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 dark:text-white">Desenvolvimento Web</h3>
-                    <p class="text-slate-500 dark:text-slate-400">Criação de sites institucionais e landing pages
-                        focadas em conversão, utilizando HTML5, CSS3 e JS moderno.</p>
-                </div>
-                <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700 group hover:-translate-y-2"
-                    data-aos="fade-up" data-aos-delay="200">
-                    <div
-                        class="w-14 h-14 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center text-primary text-2xl mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
-                        <i class="fas fa-pencil-ruler"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 dark:text-white">UI/UX Design</h3>
-                    <p class="text-slate-500 dark:text-slate-400">Design focado na experiência do usuário, garantindo
-                        que a interface seja intuitiva e atraente em qualquer tela.</p>
-                </div>
-                <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700 group hover:-translate-y-2"
-                    data-aos="fade-up" data-aos-delay="300">
-                    <div
-                        class="w-14 h-14 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center text-primary text-2xl mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 dark:text-white">Sites Responsivos</h3>
-                    <p class="text-slate-500 dark:text-slate-400">Otimização completa para dispositivos móveis,
-                        garantindo que você nunca perca um cliente que acessa pelo celular.</p>
-                </div>
-            </div>
+    <div id="menu-overlay" class="fullscreen-overlay">
+        <button class="close-btn hover-target" onclick="toggleMenu()">[ CLOSE ]</button>
+        <div class="flex flex-col text-left">
+            <span class="text-gray-600 font-mono text-sm tracking-widest mb-4">SYSTEM INDEX</span>
+            <button class="menu-link hover-target text-left" onclick="openSection('about')">01. Propósito</button>
+            <button class="menu-link hover-target text-left" onclick="openSection('projects')">02. Arquivos</button>
+            <button class="menu-link hover-target text-left" onclick="openSection('stack')">03. Stack</button>
+            <button class="menu-link hover-target text-left" onclick="openSection('contact')">04. Contato</button>
         </div>
-    </section>
+    </div>
 
-    <section id="projetos" class="py-20 bg-white dark:bg-slate-900 transition-colors">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold mb-12 text-center" data-aos="fade-up">Projetos em <span
-                    class="text-primary">Destaque</span></h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                <div class="group relative overflow-hidden rounded-2xl bg-slate-900 h-72 shadow-lg" data-aos="zoom-in"
-                    data-aos-delay="100">
-                    <img src="imagens/projeto_vortex_digital.png"
-                        class="w-full h-full object-cover group-hover:scale-110 transition duration-700 opacity-60 group-hover:opacity-40">
-                    <div
-                        class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <h4 class="text-white font-bold text-xl mb-1">Vortex Digital</h4>
-                        <p
-                            class="text-slate-300 text-sm mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
-                            Website Institucional & UX Moderno construído com alta performance.</p>
-                        <div class="flex gap-3">
-                            <a href="projeto_vortex_digital.html"
-                                class="bg-primary text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-600 transition">Ver
-                                Site</a>
-                            <a href="https://github.com/M4uricio-Silva/M4uricio-Silva.github.io/blob/main/projeto_vortex_digital.html"
-                                target="_blank"
-                                class="bg-white/20 backdrop-blur-sm text-white text-sm px-4 py-2 rounded-lg hover:bg-white/30 transition"><i
-                                    class="fab fa-github"></i> Código</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="group relative overflow-hidden rounded-2xl bg-slate-900 h-72 shadow-lg" data-aos="zoom-in"
-                    data-aos-delay="200">
-                    <img src="imagens/projeto_matematica.png"
-                        class="w-full h-full object-cover group-hover:scale-110 transition duration-700 opacity-60 group-hover:opacity-40">
-                    <div
-                        class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <h4 class="text-white font-bold text-xl mb-1">Math ENEM</h4>
-                        <p
-                            class="text-slate-300 text-sm mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
-                            Plataforma interativa para revisão de matemática com JS puro.</p>
-                        <div class="flex gap-3">
-                            <a href="projeto_matematica.html"
-                                class="bg-primary text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-600 transition">Ver
-                                Site</a>
-                            <a href="https://github.com/M4uricio-Silva/M4uricio-Silva.github.io/blob/main/projeto_matematica.html"
-                                target="_blank"
-                                class="bg-white/20 backdrop-blur-sm text-white text-sm px-4 py-2 rounded-lg hover:bg-white/30 transition"><i
-                                    class="fab fa-github"></i> Código</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="group relative overflow-hidden rounded-2xl bg-slate-900 h-72 shadow-lg" data-aos="zoom-in"
-                    data-aos-delay="300">
-                    <img src="imagens/projeto_gym_kaiser.png" alt="Gym Kaiser"
-                        class="w-full h-full object-cover group-hover:scale-110 transition duration-700 opacity-60 group-hover:opacity-40">
-                    <div
-                        class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        <h4 class="text-white font-bold text-xl mb-1">Gym Kaiser</h4>
-                        <p
-                            class="text-slate-300 text-sm mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
-                            PWA para registro de treinos com banco de dados local (IndexedDB) e backup.</p>
-                        <div class="flex gap-3">
-                            <a href="projeto_gym.html"
-                                class="bg-primary text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-600 transition">Ver
-                                App</a>
-                            <a href="https://github.com/M4uricio-Silva/M4uricio-Silva.github.io/blob/main/projeto_gym.html"
-                                target="_blank"
-                                class="bg-white/20 backdrop-blur-sm text-white text-sm px-4 py-2 rounded-lg hover:bg-white/30 transition"><i
-                                    class="fab fa-github"></i> Código</a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+    <div id="content-overlay" class="fullscreen-overlay">
+        <button class="close-btn hover-target" onclick="closeContent()">[ RETURN ]</button>
+        <div id="dynamic-content" class="content-container">
         </div>
-    </section>
-
-    <section id="contato" class="py-20 px-6 bg-slate-50 dark:bg-slate-800/50 transition-colors">
-        <div class="container mx-auto max-w-4xl bg-primary rounded-[3rem] p-10 md:p-16 text-center text-white shadow-2xl shadow-primary/40 relative overflow-hidden"
-            data-aos="fade-up">
-            <div class="absolute -top-24 -right-24 w-64 h-64 bg-white opacity-10 rounded-full blur-2xl"></div>
-            <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-black opacity-10 rounded-full blur-2xl"></div>
-
-            <h2 class="text-3xl md:text-5xl font-bold mb-6 relative z-10">Pronto para transformar sua presença digital?
-            </h2>
-            <p class="text-blue-100 text-lg mb-10 relative z-10">Estou disponível para novos projetos. Vamos criar uma
-                solução que converte de verdade.</p>
-
-            <div class="flex flex-col md:flex-row justify-center gap-6 relative z-10">
-                <a href="https://wa.me/5584999465017" target="_blank"
-                    class="bg-white text-primary px-8 py-4 rounded-2xl font-bold hover:bg-blue-50 transition shadow-lg flex items-center justify-center transform hover:scale-105">
-                    <i class="fab fa-whatsapp mr-2 text-xl"></i> Chamar no WhatsApp
-                </a>
-                <a href="mailto:mauriciosilvafariasbr@email.com"
-                    class="bg-primary-dark border-2 border-white/30 text-white px-8 py-4 rounded-2xl font-bold hover:bg-white/10 transition flex items-center justify-center">
-                    <i class="fas fa-envelope mr-2"></i> Enviar E-mail
-                </a>
-            </div>
-
-            <div class="mt-12 flex justify-center space-x-8 text-2xl relative z-10">
-                <a href="https://github.com/M4uricio-Silva" target="_blank"
-                    class="hover:text-blue-200 transition hover:-translate-y-1 transform"><i
-                        class="fab fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/mauricio-silva-9201942a5" target="_blank"
-                    class="hover:text-blue-200 transition hover:-translate-y-1 transform"><i
-                        class="fab fa-linkedin"></i></a>
-                <a href="https://www.instagram.com/_zak._/" target="_blank"
-                    class="hover:text-blue-200 transition hover:-translate-y-1 transform"><i
-                        class="fab fa-instagram"></i></a>
-            </div>
-        </div>
-    </section>
-
-    <footer
-        class="py-10 text-center text-slate-500 dark:text-slate-400 text-sm bg-white dark:bg-slate-900 transition-colors">
-        <div class="container mx-auto px-6 border-t border-slate-200 dark:border-slate-800 pt-10">
-            <p>&copy; <span id="year"></span> Mauricio Silva. Feito com <i
-                    class="fas fa-heart text-red-500 mx-1 animate-pulse"></i> no Brasil.</p>
-        </div>
-    </footer>
-
-    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    </div>
 
     <script>
-        // 1. Atualiza o ano no rodapé
-        document.getElementById('year').textContent = new Date().getFullYear();
+        // --- DATA ARCHITECTURE ---
+        const PROJECTS = [
+            {
+                title: "Vortex Digital",
+                image: "imagens/projeto_vortex_digital.png",
+                description: "Website Institucional & UX Moderno construído com alta performance e Tailwind CSS.",
+                site: "projeto_vortex_digital.html",
+                github: "https://github.com/M4uricio-Silva/M4uricio-Silva.github.io/blob/main/projeto_vortex_digital.html"
+            },
+            {
+                title: "Math ENEM",
+                image: "imagens/projeto_matematica.png",
+                description: "Plataforma interativa educacional focada em revisão de matemática com JS puro.",
+                site: "projeto_matematica.html",
+                github: "https://github.com/M4uricio-Silva/M4uricio-Silva.github.io/blob/main/projeto_matematica.html"
+            },
+            {
+                title: "Gym Kaiser",
+                image: "imagens/projeto_gym_kaiser.png",
+                description: "PWA para registro de treinos com banco de dados local (IndexedDB) e backup.",
+                site: "projeto_gym.html",
+                github: "https://github.com/M4uricio-Silva/M4uricio-Silva.github.io/blob/main/projeto_gym.html"
+            }
+        ];
 
-        // 2. Menu Mobile Toggle
-        function toggleMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('hidden');
-            menu.classList.toggle('flex');
-        }
+        const SOCIAL_LINKS = [
+            { label: "WHATSAPP", url: "https://wa.me/5584999465017" },
+            { label: "E-MAIL", url: "mailto:mauriciosilvafariasbr@email.com" },
+            { label: "GITHUB", url: "https://github.com/M4uricio-Silva" },
+            { label: "LINKEDIN", url: "https://www.linkedin.com/in/mauricio-silva-9201942a5" },
+            { label: "INSTAGRAM", url: "https://www.instagram.com/_zak._/" }
+        ];
 
-        // 3. Smooth scroll for anchors
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+        // --- CURSOR CUSTOMIZADO ---
+        const cursor = document.querySelector(".cursor");
+        document.addEventListener("mousemove", (e) => {
+            gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1, ease: "power2.out" });
+        });
+
+        function initHoverEffects() {
+            document.querySelectorAll('button, a, .hover-target').forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('hover-effect'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('hover-effect'));
             });
-        });
-
-        // 4. Inicializa Typed.js (Efeito de Máquina de Escrever)
-        const typed = new Typed('#typed-text', {
-            strings: [
-                'Interfaces de Alta Performance',
-                'Soluções Focadas em Conversão',
-                'Experiências Digitais Únicas'
-            ],
-            typeSpeed: 50,
-            backSpeed: 30,
-            backDelay: 2000,
-            loop: true,
-            showCursor: true,
-            cursorChar: '|'
-        });
-
-        // 5. Inicializa AOS (Animações de Scroll)
-        AOS.init({
-            once: true,       // Anima apenas uma vez ao descer
-            offset: 100,      // Começa a animar 100px antes de aparecer na tela
-            duration: 800,    // Duração padrão das animações
-            easing: 'ease-out-cubic'
-        });
-
-        // 6. Lógica de Dark Mode com LocalStorage
-        const htmlClass = document.documentElement.classList;
-        const themeBtnDesktop = document.getElementById('theme-toggle');
-        const themeBtnMobile = document.getElementById('theme-toggle-mobile');
-        const iconDesktop = document.getElementById('theme-icon');
-        const iconMobile = document.getElementById('theme-icon-mobile');
-
-        // Verifica o tema salvo ou a preferência do sistema
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            htmlClass.add('dark');
-            updateIcons(true);
-        } else {
-            htmlClass.remove('dark');
-            updateIcons(false);
         }
+        initHoverEffects();
 
-        function toggleTheme() {
-            if (htmlClass.contains('dark')) {
-                htmlClass.remove('dark');
-                localStorage.theme = 'light';
-                updateIcons(false);
+        // --- LOADER ---
+        let progress = 0;
+        let load = setInterval(() => {
+            progress += Math.floor(Math.random() * 20) + 5;
+            if (progress > 100) progress = 100;
+            document.querySelector(".loader-progress").style.width = progress + "%";
+            if (progress >= 100) {
+                clearInterval(load);
+                gsap.to("#loader", {
+                    opacity: 0, duration: 1, delay: 0.2, ease: "power2.inOut",
+                    onComplete: () => document.querySelector("#loader").style.display = 'none'
+                });
+            }
+        }, 120);
+
+        // --- TYPING EFFECT ---
+        const words = [
+            "Transformando lógica em interfaces reais.",
+            "Foco no mercado de serviços digitais.",
+            "Minimalismo & Performance."
+        ];
+        let wi = 0, ci = 0, isDeleting = false;
+        function type() {
+            const currentWord = words[wi];
+            const typingElement = document.getElementById("typing");
+
+            if (isDeleting) {
+                typingElement.innerHTML = currentWord.substring(0, ci - 1);
+                ci--;
             } else {
-                htmlClass.add('dark');
-                localStorage.theme = 'dark';
-                updateIcons(true);
+                typingElement.innerHTML = currentWord.substring(0, ci + 1);
+                ci++;
+            }
+
+            let typeSpeed = isDeleting ? 20 : 60;
+            if (!isDeleting && ci === currentWord.length) {
+                typeSpeed = 2500;
+                isDeleting = true;
+            } else if (isDeleting && ci === 0) {
+                isDeleting = false;
+                wi = (wi + 1) % words.length;
+                typeSpeed = 500;
+            }
+            setTimeout(type, typeSpeed);
+        }
+        type();
+
+        // --- SISTEMA DE ROTEAMENTO (MENU E SEÇÕES) ---
+        let menuOpen = false;
+
+        function toggleMenu() {
+            menuOpen = !menuOpen;
+            const menu = document.getElementById("menu-overlay");
+            if (menuOpen) {
+                menu.classList.add("overlay-active");
+                gsap.to(menu, { opacity: 1, duration: 0.5, ease: "power3.out" });
+                gsap.fromTo(".menu-link", { y: 30, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.1, duration: 0.6, delay: 0.2, ease: "power3.out" });
+            } else {
+                menu.classList.remove("overlay-active");
+                gsap.to(menu, { opacity: 0, duration: 0.5, ease: "power3.in" });
             }
         }
 
-        function updateIcons(isDark) {
-            const className = isDark ? 'fas fa-sun' : 'fas fa-moon';
-            iconDesktop.className = className;
-            iconMobile.className = className;
+        // Banco de dados de conteúdo gerado dinamicamente
+        const sectionsData = {
+            about: `
+                <div class="pb-20">
+                    <p class="text-gray-500 tracking-[.5em] text-sm mb-6 uppercase">01 — O PROPÓSITO</p>
+                    <h2 class="text-4xl md:text-6xl font-black leading-tight mb-8">Antes do código,<br>existe a estratégia.</h2>
+                    <p class="text-lg text-gray-400 leading-relaxed mb-6">Sou graduando em Administração e Programador Web. Essa combinação me permite entender não apenas o código, mas como um projeto deve se comportar para gerar conversão e autoridade.</p>
+                    <p class="text-lg text-gray-400 leading-relaxed">Atuo no mercado combinando desenvolvimento front-end moderno, suporte administrativo e design prático. O código constrói. O design comunica. A versatilidade resolve problemas.</p>
+                </div>
+            `,
+            projects: `
+                <div class="pb-20 pt-8">
+                    <p class="text-gray-500 tracking-[.5em] text-sm mb-6 uppercase">02 — PROJECT ARCHIVE</p>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        ${PROJECTS.map(p => `
+                            <div class="border border-gray-800 rounded-xl overflow-hidden hover:border-gray-500 transition-colors bg-black/40 group flex flex-col">
+                                <div class="h-48 w-full overflow-hidden bg-gray-900">
+                                    <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover opacity-50 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700">
+                                </div>
+                                <div class="p-6 flex flex-col flex-grow">
+                                    <h3 class="text-2xl font-bold text-white mb-2">${p.title}</h3>
+                                    <p class="text-gray-400 text-sm mb-6 flex-grow">${p.description}</p>
+                                    <div class="flex gap-3 mt-auto">
+                                        <a href="${p.site}" target="_blank" class="hover-target text-xs font-mono border border-gray-700 px-4 py-2 rounded-full hover:bg-white hover:text-black transition">LIVE_SITE</a>
+                                        <a href="${p.github}" target="_blank" class="hover-target text-xs font-mono border border-gray-700 px-4 py-2 rounded-full hover:bg-white hover:text-black transition">SOURCE_CODE</a>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `,
+            stack: `
+                <div class="pb-20">
+                    <p class="text-gray-500 tracking-[.5em] text-sm mb-6 uppercase">03 — CREATOR SYSTEM</p>
+                    <h2 class="text-4xl md:text-5xl font-black leading-tight mb-10">Stack & Tools</h2>
+                    <div class="grid md:grid-cols-2 gap-12">
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-4 border-b border-gray-800 pb-3">DEVELOPMENT</h3>
+                            <ul class="text-gray-400 space-y-3 font-mono text-sm">
+                                <li>> HTML5 / Semantic CSS</li>
+                                <li>> Tailwind CSS</li>
+                                <li>> JavaScript Moderno (ES6+)</li>
+                                <li>> GSAP & Three.js</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white mb-4 border-b border-gray-800 pb-3">SERVICES</h3>
+                            <ul class="text-gray-400 space-y-3 font-mono text-sm">
+                                <li>> Suporte Administrativo</li>
+                                <li>> Estratégia UX/UI</li>
+                                <li>> Edição Visual Básica</li>
+                                <li>> Posicionamento Freelance</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `,
+            contact: `
+                <div class="pb-20">
+                    <p class="text-gray-500 tracking-[.5em] text-sm mb-6 uppercase">04 — SYSTEM LINK</p>
+                    <h2 class="text-4xl md:text-6xl font-black leading-tight mb-12">Iniciar Protocolo<br>de Contato.</h2>
+                    <div class="flex flex-col gap-6 font-mono text-lg md:text-xl">
+                        ${SOCIAL_LINKS.map(link => `
+                            <a href="${link.url}" target="_blank" class="hover-target text-gray-400 hover:text-white transition-colors w-max relative group">
+                                [ <span class="group-hover:tracking-widest transition-all duration-300">${link.label}</span> ]
+                            </a>
+                        `).join('')}
+                    </div>
+                </div>
+            `
+        };
+
+        function openSection(id) {
+            toggleMenu();
+
+            setTimeout(() => {
+                const contentOverlay = document.getElementById("content-overlay");
+                const dynamicContent = document.getElementById("dynamic-content");
+
+                // Reseta o scroll para o topo sempre que abrir uma nova aba
+                dynamicContent.scrollTop = 0;
+
+                dynamicContent.innerHTML = sectionsData[id];
+                contentOverlay.classList.add("overlay-active");
+                initHoverEffects();
+
+                gsap.to(contentOverlay, { opacity: 1, duration: 0.5, ease: "power3.out" });
+                gsap.to(dynamicContent, { y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: "power3.out" });
+            }, 600);
         }
 
-        themeBtnDesktop.addEventListener('click', toggleTheme);
-        themeBtnMobile.addEventListener('click', toggleTheme);
+        function closeContent() {
+            const contentOverlay = document.getElementById("content-overlay");
+            const dynamicContent = document.getElementById("dynamic-content");
+
+            gsap.to(dynamicContent, { y: 30, opacity: 0, duration: 0.4, ease: "power3.in" });
+            gsap.to(contentOverlay, {
+                opacity: 0, duration: 0.5, delay: 0.2, ease: "power3.in", onComplete: () => {
+                    contentOverlay.classList.remove("overlay-active");
+                }
+            });
+        }
+
+        // --- THREE.JS ENGINE ---
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x050505, 0.15);
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 5;
+
+        const renderer = new THREE.WebGLRenderer({ canvas: document.querySelector("#core"), alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        let currentGeometryMesh;
+
+        function createParticles() {
+            const geo = new THREE.BufferGeometry();
+            let pos = [];
+            for (let i = 0; i < 3000; i++) {
+                let r = Math.random() * 2.5, theta = Math.random() * 2 * Math.PI, phi = Math.acos(Math.random() * 2 - 1);
+                pos.push(r * Math.sin(phi) * Math.cos(theta) * 3, r * Math.sin(phi) * Math.sin(theta) * 3, r * Math.cos(phi) * 3);
+            }
+            geo.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
+            const mat = new THREE.PointsMaterial({ size: 0.015, color: 0xffffff, transparent: true, opacity: 0.5 });
+            currentGeometryMesh = new THREE.Points(geo, mat);
+            scene.add(currentGeometryMesh);
+        }
+
+        function createGrid() {
+            const geo = new THREE.PlaneGeometry(20, 20, 40, 40);
+            const pos = geo.attributes.position;
+            for (let i = 0; i < pos.count; i++) {
+                pos.setZ(i, Math.random() * 0.5);
+            }
+            const mat = new THREE.MeshBasicMaterial({ color: 0x333333, wireframe: true, transparent: true, opacity: 0.3 });
+            currentGeometryMesh = new THREE.Mesh(geo, mat);
+            currentGeometryMesh.rotation.x = -Math.PI / 2;
+            currentGeometryMesh.position.y = -2;
+            scene.add(currentGeometryMesh);
+        }
+
+        function createCore() {
+            const geo = new THREE.IcosahedronGeometry(2, 1);
+            const mat = new THREE.MeshBasicMaterial({ color: 0x555555, wireframe: true, transparent: true, opacity: 0.4 });
+            currentGeometryMesh = new THREE.Mesh(geo, mat);
+            scene.add(currentGeometryMesh);
+        }
+
+        createParticles();
+
+        let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
+        const windowHalfX = window.innerWidth / 2, windowHalfY = window.innerHeight / 2;
+        document.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX - windowHalfX);
+            mouseY = (event.clientY - windowHalfY);
+        });
+
+        function animate() {
+            requestAnimationFrame(animate);
+            if (currentGeometryMesh) {
+                currentGeometryMesh.rotation.y += 0.001;
+                currentGeometryMesh.rotation.x += 0.0005;
+            }
+            targetX = mouseX * 0.001;
+            targetY = mouseY * 0.001;
+            camera.position.x += (targetX - camera.position.x) * 0.05;
+            camera.position.y += (-targetY - camera.position.y) * 0.05;
+            camera.lookAt(scene.position);
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // --- SISTEMA DE TROCA DE AMBIENTE ---
+        let currentEnvironment = 0;
+        const totalEnvironments = 3;
+
+        function changeEnvironment() {
+            gsap.to(currentGeometryMesh.material, {
+                opacity: 0, duration: 0.5, onComplete: () => {
+                    scene.remove(currentGeometryMesh);
+                    currentGeometryMesh.geometry.dispose();
+                    currentGeometryMesh.material.dispose();
+
+                    currentEnvironment = (currentEnvironment + 1) % totalEnvironments;
+                    const nameContainer = document.getElementById("name-container");
+                    const terminal = document.getElementById("terminal");
+
+                    nameContainer.className = "text-center";
+
+                    if (currentEnvironment === 0) {
+                        createParticles();
+                        nameContainer.classList.add("name-style-0");
+                        terminal.innerHTML += "<p>> sys: restored default environment</p>";
+                    } else if (currentEnvironment === 1) {
+                        createGrid();
+                        nameContainer.classList.add("name-style-1");
+                        terminal.innerHTML += "<p>> sys: topographical mesh initiated</p>";
+                    } else if (currentEnvironment === 2) {
+                        createCore();
+                        nameContainer.classList.add("name-style-2");
+                        terminal.innerHTML += "<p>> sys: geometric core isolated</p>";
+                    }
+
+                    // AUTO-SCROLL DO TERMINAL PARA A ÚLTIMA LINHA
+                    terminal.scrollTop = terminal.scrollHeight;
+
+                    currentGeometryMesh.material.opacity = 0;
+                    gsap.to(currentGeometryMesh.material, { opacity: 0.5, duration: 1 });
+                }
+            });
+
+            gsap.fromTo(event.target, { scale: 0.95 }, { scale: 1, duration: 0.4, ease: "back.out(1.7)" });
+        }
     </script>
 </body>
 

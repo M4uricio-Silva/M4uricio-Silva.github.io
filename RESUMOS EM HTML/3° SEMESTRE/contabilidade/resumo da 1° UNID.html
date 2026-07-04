@@ -1,0 +1,2005 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Estudos — Contabilidade de Custos</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #08101f;
+            --surface: #121b2e;
+            --surface2: #172438;
+            --surface3: #1e2d43;
+            --border: #2e4f77;
+            --accent: #71c7ff;
+            --accent2: #f2a86f;
+            --accent3: #8be0b5;
+            --danger: #ff7c74;
+            --success: #7adca7;
+            --text: #ecf3ff;
+            --text2: #acc4dd;
+            --text3: #6b85a1;
+            --cap1: #71c7ff;
+            --cap2: #f2a86f;
+            --cap3: #8be0b5;
+            --cap4: #d4a5ff;
+            --cap5: #ffd166;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ─── BACKGROUND NOISE ─── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ─── HERO ─── */
+        .hero {
+            position: relative;
+            padding: 80px 24px 60px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -120px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(ellipse, rgba(113, 199, 255, 0.16) 0%, transparent 72%);
+            pointer-events: none;
+        }
+
+        .hero-eyebrow {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeUp 0.6s 0.1s forwards;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 6vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.05;
+            color: var(--text);
+            margin-bottom: 16px;
+            opacity: 0;
+            animation: fadeUp 0.6s 0.2s forwards;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        .hero-sub {
+            font-size: 1rem;
+            color: var(--text2);
+            max-width: 480px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+            opacity: 0;
+            animation: fadeUp 0.6s 0.3s forwards;
+        }
+
+        /* ─── NAV TABS ─── */
+        .nav-wrap {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(13, 15, 20, 0.92);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 16px;
+            opacity: 0;
+            animation: fadeUp 0.6s 0.4s forwards;
+        }
+
+        .nav-tabs {
+            display: flex;
+            max-width: 900px;
+            margin: 0 auto;
+            overflow-x: auto;
+            scrollbar-width: none;
+            gap: 4px;
+        }
+
+        .nav-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-tab {
+            flex-shrink: 0;
+            padding: 16px 20px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: var(--text3);
+            cursor: pointer;
+            border: none;
+            background: none;
+            border-bottom: 2px solid transparent;
+            transition: all 0.25s;
+            white-space: nowrap;
+        }
+
+        .nav-tab:hover {
+            color: var(--text2);
+        }
+
+        .nav-tab.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        /* ─── MAIN CONTENT ─── */
+        .main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px 100px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeUp 0.4s forwards;
+        }
+
+        /* ─── CHAPTER HEADER ─── */
+        .chapter-header {
+            margin-bottom: 40px;
+            padding: 32px;
+            background: var(--surface);
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chapter-header::before {
+            content: attr(data-num);
+            position: absolute;
+            right: -10px;
+            top: -20px;
+            font-family: 'Playfair Display', serif;
+            font-size: 9rem;
+            font-weight: 900;
+            opacity: 0.04;
+            color: var(--text);
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        .chapter-tag {
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 14px;
+        }
+
+        /* Cores Capítulo 1 */
+        .cap1 .chapter-tag {
+            background: rgba(113, 199, 255, 0.15);
+            color: var(--cap1);
+        }
+
+        .cap1 .sub-tab.active {
+            background: var(--cap1);
+            border-color: var(--cap1);
+            color: #000;
+        }
+
+        .cap1 .card-num {
+            background: rgba(113, 199, 255, 0.2);
+            color: var(--cap1);
+        }
+
+        .cap1 .fc-progress-bar {
+            background: var(--cap1);
+        }
+
+        .cap1 .fc-label {
+            background: rgba(113, 199, 255, 0.15);
+            color: var(--cap1);
+        }
+
+        /* Cores Capítulo 2 */
+        .cap2 .chapter-tag {
+            background: rgba(242, 168, 111, 0.15);
+            color: var(--cap2);
+        }
+
+        .cap2 .sub-tab.active {
+            background: var(--cap2);
+            border-color: var(--cap2);
+            color: #000;
+        }
+
+        .cap2 .card-num {
+            background: rgba(242, 168, 111, 0.2);
+            color: var(--cap2);
+        }
+
+        .cap2 .fc-progress-bar {
+            background: var(--cap2);
+        }
+
+        .cap2 .fc-label {
+            background: rgba(242, 168, 111, 0.15);
+            color: var(--cap2);
+        }
+
+        /* Cores Capítulo 3 */
+        .cap3 .chapter-tag {
+            background: rgba(139, 224, 181, 0.15);
+            color: var(--accent3);
+        }
+
+        .cap3 .sub-tab.active {
+            background: var(--accent3);
+            border-color: var(--accent3);
+            color: #000;
+        }
+
+        .cap3 .card-num {
+            background: rgba(139, 224, 181, 0.2);
+            color: var(--accent3);
+        }
+
+        .cap3 .fc-progress-bar {
+            background: var(--accent3);
+        }
+
+        .cap3 .fc-label {
+            background: rgba(139, 224, 181, 0.15);
+            color: var(--accent3);
+        }
+
+        /* Cores Capítulo 4 */
+        .cap4 .chapter-tag {
+            background: rgba(212, 165, 255, 0.15);
+            color: var(--cap4);
+        }
+
+        .cap4 .sub-tab.active {
+            background: var(--cap4);
+            border-color: var(--cap4);
+            color: #000;
+        }
+
+        .cap4 .card-num {
+            background: rgba(212, 165, 255, 0.2);
+            color: var(--cap4);
+        }
+
+        .cap4 .fc-progress-bar {
+            background: var(--cap4);
+        }
+
+        .cap4 .fc-label {
+            background: rgba(212, 165, 255, 0.15);
+            color: var(--cap4);
+        }
+
+        /* Cores Capítulo 5 */
+        .cap5 .chapter-tag {
+            background: rgba(255, 209, 102, 0.15);
+            color: var(--cap5);
+        }
+
+        .cap5 .sub-tab.active {
+            background: var(--cap5);
+            border-color: var(--cap5);
+            color: #000;
+        }
+
+        .cap5 .card-num {
+            background: rgba(255, 209, 102, 0.2);
+            color: var(--cap5);
+        }
+
+        .cap5 .fc-progress-bar {
+            background: var(--cap5);
+        }
+
+        .cap5 .fc-label {
+            background: rgba(255, 209, 102, 0.15);
+            color: var(--cap5);
+        }
+
+        .chapter-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.4rem, 3.5vw, 2rem);
+            font-weight: 700;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .chapter-header p {
+            color: var(--text2);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        /* ─── SUBSECTION TABS ─── */
+        .sub-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+
+        .sub-tab {
+            padding: 9px 20px;
+            border-radius: 50px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1.5px solid var(--border);
+            background: transparent;
+            color: var(--text2);
+            transition: all 0.2s;
+        }
+
+        .sub-tab:hover {
+            border-color: var(--text3);
+            color: var(--text);
+        }
+
+        .sub-section {
+            display: none;
+        }
+
+        .sub-section.active {
+            display: block;
+        }
+
+        /* ─── SUMMARY CARDS ─── */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+        }
+
+        .summary-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px;
+            transition: transform 0.2s, border-color 0.2s;
+            min-width: 0;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--text3);
+        }
+
+        .summary-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-num {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .summary-card p,
+        .summary-card li {
+            color: var(--text2);
+            font-size: 0.88rem;
+            line-height: 1.75;
+        }
+
+        .summary-card ul {
+            padding-left: 18px;
+            margin-top: 8px;
+        }
+
+        .summary-card li {
+            margin-bottom: 8px;
+        }
+
+        .alert-box {
+            margin-top: 14px;
+            padding: 12px 16px;
+            background: rgba(255, 124, 116, 0.1);
+            border-left: 3px solid var(--danger);
+            border-radius: 6px;
+            font-size: 0.82rem;
+            color: #ffb1ab;
+            line-height: 1.6;
+        }
+
+        .info-box {
+            margin-top: 14px;
+            padding: 12px 16px;
+            background: rgba(113, 199, 255, 0.08);
+            border-left: 3px solid var(--accent);
+            border-radius: 6px;
+            font-size: 0.82rem;
+            color: #add8f7;
+            line-height: 1.6;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            margin-top: 14px;
+            border-radius: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+        }
+
+        th {
+            background: var(--surface3);
+            color: var(--text2);
+            font-weight: 600;
+            padding: 10px 14px;
+            text-align: left;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 12px 14px;
+            border-top: 1px solid var(--border);
+            color: var(--text2);
+            line-height: 1.6;
+        }
+
+        tr:hover td {
+            background: var(--surface2);
+        }
+
+        /* ─── FLASHCARDS ─── */
+        .flashcard-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .fc-counter {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text3);
+        }
+
+        .fc-progress {
+            height: 3px;
+            background: var(--surface3);
+            border-radius: 2px;
+            margin-bottom: 28px;
+            overflow: hidden;
+        }
+
+        .fc-progress-bar {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 0.4s ease;
+        }
+
+        .flashcard-scene {
+            perspective: 1200px;
+            height: 260px;
+            cursor: pointer;
+            margin-bottom: 24px;
+            user-select: none;
+        }
+
+        @media (max-width: 480px) {
+            .flashcard-scene {
+                height: 280px;
+            }
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1);
+        }
+
+        .flashcard-inner.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-face {
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
+            border-radius: 28px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 28px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .flashcard-front {
+            background: var(--surface);
+        }
+
+        .flashcard-back {
+            background: var(--surface2);
+            transform: rotateY(180deg);
+        }
+
+        .fc-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        .fc-question {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            font-weight: 700;
+            line-height: 1.4;
+            color: var(--text);
+        }
+
+        .fc-answer {
+            font-size: 0.88rem;
+            color: var(--text2);
+            line-height: 1.7;
+        }
+
+        .fc-hint {
+            margin-top: 14px;
+            font-size: 0.72rem;
+            color: var(--text3);
+            font-style: italic;
+        }
+
+        .fc-nav {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 11px 24px;
+            border-radius: 999px;
+            font-size: 0.83rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1.5px solid var(--border);
+            background: transparent;
+            color: var(--text);
+            transition: all 0.2s;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .btn:hover {
+            background: var(--surface2);
+            border-color: var(--text3);
+        }
+
+        .btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .btn-primary {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-primary:hover {
+            background: rgba(113, 199, 255, 0.1);
+        }
+
+        /* ─── QUIZ ─── */
+        .quiz-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .quiz-score-badge {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.75rem;
+            padding: 6px 14px;
+            border-radius: 24px;
+            background: var(--surface3);
+            color: var(--text2);
+        }
+
+        .question-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 28px;
+            margin-bottom: 20px;
+            animation: fadeUp 0.35s forwards;
+        }
+
+        .q-num {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--text3);
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .q-text {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
+            font-weight: 700;
+            line-height: 1.5;
+            color: var(--text);
+            margin-bottom: 22px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 13px 18px;
+            border-radius: 16px;
+            border: 1.5px solid var(--border);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.87rem;
+            color: var(--text2);
+            line-height: 1.5;
+            background: transparent;
+            text-align: left;
+            font-family: 'DM Sans', sans-serif;
+            width: 100%;
+        }
+
+        .option:hover:not(:disabled) {
+            border-color: var(--text3);
+            background: var(--surface2);
+            color: var(--text);
+        }
+
+        .option .opt-letter {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.72rem;
+            font-weight: 500;
+            min-width: 26px;
+            height: 26px;
+            border-radius: 10px;
+            background: var(--surface3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text3);
+            flex-shrink: 0;
+            margin-top: 1px;
+            transition: all 0.2s;
+        }
+
+        .option.correct {
+            border-color: var(--success);
+            background: rgba(122, 220, 167, 0.08);
+            color: #a3d9b1;
+        }
+
+        .option.correct .opt-letter {
+            background: var(--success);
+            color: #000;
+        }
+
+        .option.wrong {
+            border-color: var(--danger);
+            background: rgba(255, 124, 116, 0.08);
+            color: #ffb1ab;
+        }
+
+        .option.wrong .opt-letter {
+            background: var(--danger);
+            color: #fff;
+        }
+
+        .option:disabled {
+            cursor: default;
+        }
+
+        .explanation {
+            margin-top: 16px;
+            padding: 14px 18px;
+            background: var(--surface2);
+            border-radius: 10px;
+            border-left: 3px solid var(--accent3);
+            font-size: 0.82rem;
+            color: var(--text2);
+            line-height: 1.7;
+            display: none;
+        }
+
+        .explanation.show {
+            display: block;
+            animation: fadeUp 0.3s forwards;
+        }
+
+        .quiz-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .result-card {
+            text-align: center;
+            padding: 48px 28px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            animation: fadeUp 0.5s forwards;
+        }
+
+        .result-score {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .result-label {
+            font-size: 0.85rem;
+            color: var(--text2);
+            margin-bottom: 24px;
+        }
+
+        .result-msg {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text2);
+            margin-bottom: 28px;
+            max-width: 380px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ─── ANIMATIONS ─── */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ─── MISC ─── */
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 10px;
+        }
+
+        .key-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .chip {
+            font-size: 0.75rem;
+            padding: 5px 12px;
+            border-radius: 20px;
+            background: var(--surface3);
+            color: var(--text2);
+            border: 1px solid var(--border);
+            font-weight: 500;
+        }
+
+        .section-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--text3);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* ─── MOBILE TWEAKS ─── */
+        @media (max-width: 800px) {
+            .hero {
+                padding: 60px 16px 40px;
+            }
+
+            .hero h1 {
+                font-size: clamp(2rem, 10vw, 3.2rem);
+            }
+
+            .hero-sub {
+                max-width: 100%;
+                margin-bottom: 32px;
+            }
+
+            .nav-wrap {
+                padding: 0 10px;
+            }
+
+            .nav-tab {
+                padding: 12px 14px;
+                font-size: 0.78rem;
+            }
+
+            .main {
+                padding: 24px 12px 80px;
+            }
+
+            .chapter-header {
+                padding: 20px;
+            }
+
+            .chapter-header::before {
+                font-size: 5rem;
+                right: 0;
+                top: 0;
+            }
+
+            .sub-tabs {
+                gap: 6px;
+            }
+
+            .sub-tab {
+                flex: 1 1 auto;
+                min-width: 0;
+                padding: 10px 14px;
+                font-size: 0.78rem;
+            }
+
+            .summary-card {
+                padding: 18px;
+            }
+
+            .table-wrap {
+                margin-top: 12px;
+            }
+
+            .flashcard-controls,
+            .quiz-nav {
+                justify-content: flex-start;
+            }
+
+            .flashcard-scene {
+                height: 280px;
+            }
+
+            .flashcard-face {
+                padding: 20px;
+            }
+
+            .question-card {
+                padding: 20px;
+            }
+
+            .btn {
+                padding: 10px 16px;
+                font-size: 0.78rem;
+            }
+
+            .option {
+                padding: 12px 16px;
+                gap: 12px;
+            }
+
+            .result-card {
+                padding: 30px 20px;
+            }
+
+            .result-score {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="hero">
+        <div class="hero-eyebrow">Contabilidade de Custos</div>
+        <h1>Perspectivas e<br><em>Entidades de Custeio</em></h1>
+        <p class="hero-sub">Material de estudo interativo — resumos, flashcards e
+            simulado baseados nos fundamentos da informação de custos.</p>
+    </div>
+
+    <div class="nav-wrap">
+        <div class="nav-tabs">
+            <button class="nav-tab active" data-chapter="1" onclick="showChapter(1)">Módulo 01</button>
+            <button class="nav-tab" data-chapter="2" onclick="showChapter(2)">Módulo 02</button>
+            <button class="nav-tab" data-chapter="3" onclick="showChapter(3)">Módulo 03</button>
+            <button class="nav-tab" data-chapter="4" onclick="showChapter(4)">Módulo 04</button>
+            <button class="nav-tab" data-chapter="5" onclick="showChapter(5)">Módulo 05</button>
+        </div>
+    </div>
+
+    <div class="main">
+
+        <div class="section cap1 active" id="chapter-1">
+            <div class="chapter-header cap1" data-num="01">
+                <span class="chapter-tag">Módulo Único</span>
+                <h2>Fundamentos da Informação de Custos</h2>
+                <p>Aprenda as três frentes da informação de custos e compreenda a fundo o que são as entidades objeto de
+                    custeio, sua granularidade e classificação.</p>
+            </div>
+
+            <div class="sub-tabs cap1">
+                <button class="sub-tab active" onclick="showSub('c1','resumo')">📋 Resumo</button>
+                <button class="sub-tab" onclick="showSub('c1','flashcard')">🃏 Flashcards</button>
+                <button class="sub-tab" onclick="showSub('c1','quiz')">✏️ Questões</button>
+            </div>
+
+            <div class="sub-section active" id="c1-resumo">
+                <div class="section-label">Pontos Principais</div>
+                <div class="summary-grid">
+                    <div class="summary-card cap1">
+                        <h3><span class="card-num">01</span>As Três Perspectivas</h3>
+                        <p>A informação de custos atende a três frentes principais dentro de uma organização:</p>
+                        <ul>
+                            <li><strong>Contabilidade Societária (Financeira):</strong> Elabora demonstrações contábeis
+                                para usuários externos (ex: mercado de capitais).</li>
+                            <li><strong>Contabilidade Tributária (Fiscal):</strong> Foca em mensurar o lucro/patrimônio
+                                para o pagamento de impostos.</li>
+                            <li><strong>Contabilidade Gerencial (Controladoria):</strong> Dá suporte ao planejamento e
+                                controle interno para as decisões dos administradores.</li>
+                        </ul>
+                    </div>
+
+                    <div class="summary-card cap1">
+                        <h3><span class="card-num">02</span>O Foco Societário</h3>
+                        <p>Voltado para o público externo, possui finalidades rigorosas e normatizadas. Fique atento a
+                            estas aplicações práticas:</p>
+                        <ul>
+                            <li><strong>Valoração de Estoques:</strong> Essencial para fechar o Balanço Patrimonial.
+                            </li>
+                            <li><strong>CPV:</strong> Essencial para o lucro bruto na DRE.</li>
+                            <li><strong>Danos e Lucros Cessantes:</strong> Apuração de sinistros.</li>
+                        </ul>
+                        <div class="alert-box">⚠️ <strong>Atenção à IFRS 18 (2027):</strong> Nova norma do IASB que
+                            mudará a DRE.</div>
+                    </div>
+
+                    <div class="summary-card cap1">
+                        <h3><span class="card-num">03</span>O Foco Gerencial</h3>
+                        <p>A contabilidade deixa de ser obrigação legal e vira ferramenta estratégica interna.</p>
+                        <div class="key-chips">
+                            <span class="chip">Formação de Preços</span>
+                            <span class="chip">Análise de Terceirização</span>
+                            <span class="chip">Gestão do Portfólio</span>
+                            <span class="chip">Gestão da Capacidade</span>
+                        </div>
+                        <div class="alert-box">⚠️ <strong>O Grande Perigo:</strong> Informações distorcidas geram
+                            vieses.</div>
+                    </div>
+
+                    <div class="summary-card cap1" style="grid-column: 1 / -1;">
+                        <h3><span class="card-num">04</span>Entidades Objeto de Custeio</h3>
+                        <p>O conceito mais importante: <strong>Tudo aquilo que necessita de uma mensuração de
+                                custos.</strong></p>
+                        <div class="table-wrap">
+                            <table>
+                                <tr>
+                                    <th>Classificação</th>
+                                    <th>O que representa?</th>
+                                    <th>Exemplos Clássicos</th>
+                                </tr>
+                                <tr>
+                                    <td><strong>Primárias</strong></td>
+                                    <td>A origem do gasto, recursos básicos e fatores consumidos.</td>
+                                    <td>Matéria-prima, horas de MOD, energia elétrica.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Intermediárias</strong></td>
+                                    <td>Centros que acumulam custos transitoriamente.</td>
+                                    <td>Departamentos, centros de custos, processos.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Finais</strong></td>
+                                    <td>O destino final dos custos entregues ao mercado.</td>
+                                    <td>Produtos acabados, serviços prestados, clientes.</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sub-section" id="c1-flashcard">
+                <div class="section-label">Flashcards — Clique para revelar</div>
+                <div class="flashcard-controls cap1">
+                    <span class="fc-counter" id="c1-fc-counter">1 / 7</span>
+                    <button class="btn btn-primary" onclick="shuffleCards('c1')">⇄ Embaralhar</button>
+                </div>
+                <div class="fc-progress cap1">
+                    <div class="fc-progress-bar" id="c1-fc-bar" style="width:100%"></div>
+                </div>
+                <div class="flashcard-scene" onclick="flipCard('c1')">
+                    <div class="flashcard-inner" id="c1-card">
+                        <div class="flashcard-face flashcard-front cap1">
+                            <span class="fc-label">Pergunta</span>
+                            <div class="fc-question" id="c1-front"></div>
+                            <div class="fc-hint">Toque para ver a resposta</div>
+                        </div>
+                        <div class="flashcard-face flashcard-back cap1">
+                            <span class="fc-label">Resposta</span>
+                            <div class="fc-answer" id="c1-back"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fc-nav">
+                    <button class="btn" onclick="prevCard('c1')">← Anterior</button>
+                    <button class="btn btn-primary" onclick="nextCard('c1')">Próximo →</button>
+                </div>
+            </div>
+
+            <div class="sub-section" id="c1-quiz">
+                <div class="section-label">Simulado — Compreensão de Custos</div>
+                <div id="c1-quiz-content"></div>
+            </div>
+        </div>
+
+        <div class="section cap2" id="chapter-2">
+            <div class="chapter-header cap2" data-num="02">
+                <span class="chapter-tag">Módulo Dois</span>
+                <h2>A Evolução da Contabilidade de Custos</h2>
+                <p>Da antiguidade à Indústria 4.0: entenda como as necessidades de negócio transformaram a ciência
+                    contábil e consolidaram suas áreas Financeira, Gerencial e de Custos.</p>
+            </div>
+
+            <div class="sub-tabs cap2">
+                <button class="sub-tab active" onclick="showSub('c2','resumo')">📋 Resumo</button>
+                <button class="sub-tab" onclick="showSub('c2','flashcard')">🃏 Flashcards</button>
+                <button class="sub-tab" onclick="showSub('c2','quiz')">✏️ Questões</button>
+            </div>
+
+            <div class="sub-section active" id="c2-resumo">
+                <div class="section-label">Pontos Principais da Evolução</div>
+                <div class="summary-grid">
+
+                    <div class="summary-card cap2">
+                        <h3><span class="card-num">01</span>O Início: Era Mercantilista</h3>
+                        <p>Apesar dos registros na Suméria Antiga, o salto ocorreu em 1494 quando <strong>Luca
+                                Pacioli</strong> (o Pai da Contabilidade) desenvolveu o <em>método das partidas
+                                dobradas</em>.</p>
+                        <p style="margin-top: 10px;">Até a Era Mercantilista, o mundo era dominado pelo
+                            <strong>comércio</strong>. A fórmula básica para apurar o custo baseava-se unicamente nas
+                            mercadorias:
+                        </p>
+                        <div class="info-box" style="margin-top: 10px;">
+                            <strong>CMV = Estoque Inicial (EI) + Compras - Estoque Final (EF)</strong>
+                        </div>
+                        <p style="margin-top: 10px;">Demais gastos (juros, honorários) eram lançados direto como despesa
+                            do período.</p>
+                    </div>
+
+                    <div class="summary-card cap2">
+                        <h3><span class="card-num">02</span>A Revolução Industrial</h3>
+                        <p>A Contabilidade de Custos não existia até o século XVIII. Com o nascimento das indústrias, as
+                            empresas deixaram de apenas comprar/revender e <strong>passaram a fabricar</strong>.</p>
+                        <p style="margin-top: 10px;">O valor de "Compras" some do cálculo, exigindo inventariar fatores
+                            de produção para fechar o balanço patrimonial:</p>
+                        <ul>
+                            <li><strong>In / MP:</strong> Insumos e Materiais Diretos</li>
+                            <li><strong>MOD:</strong> Mão de Obra Direta</li>
+                            <li><strong>GGF / CIF:</strong> Gastos ou Custos Indiretos de Fabricação</li>
+                        </ul>
+                        <div class="alert-box" style="margin-top: 10px;">
+                            <strong>A Nova Fórmula:</strong><br>
+                            CPV = EI + (In + MOD + GGF) - EF
+                        </div>
+                    </div>
+
+                    <div class="summary-card cap2">
+                        <h3><span class="card-num">03</span>A Nova Missão Gerencial</h3>
+                        <p>O aumento da competitividade exigiu mais do que avaliar estoques societariamente. A
+                            Contabilidade de Custos ganhou duas funções com foco interno:</p>
+                        <ul>
+                            <li><strong>Auxílio ao Controle:</strong> Estabelecer padrões, orçamentos e comparar o
+                                planejado vs executado.</li>
+                            <li><strong>Tomada de Decisões:</strong> Dados para introduzir/cortar produtos, terceirizar,
+                                etc.</li>
+                        </ul>
+                        <div class="info-box">💡 Hoje, o Fisco usa os supercomputadores T-Rex e Harpia para cruzamento
+                            de dados, enquanto empresas usam IA (4ª Revolução Industrial) reduzindo margens para
+                            amadorismos.</div>
+                    </div>
+
+                    <div class="summary-card cap2">
+                        <h3><span class="card-num">04</span>Custos no Setor de Serviços</h3>
+                        <p>Custo não é só "chão de fábrica". Hoje, clínicas, bancos e escritórios também aplicam a
+                            contabilidade para apurar o <strong>Custo dos Serviços Vendidos (CSV)</strong>, avaliando
+                            Estoques de Serviços em Andamento:</p>
+                        <div class="info-box" style="margin-top: 10px;">
+                            <strong>CSV = Saldo Inicial + (MOD + Gastos Diretos + Indiretos) - Saldo Final</strong>
+                        </div>
+                    </div>
+
+                    <div class="summary-card cap2" style="grid-column: 1 / -1;">
+                        <h3><span class="card-num">05</span>Resumo de Ouro: A Diferenciação Clássica</h3>
+                        <p>As bancas de concurso adoram misturar esses conceitos. Compreenda a distinção fundamental:
+                        </p>
+                        <div class="table-wrap">
+                            <table>
+                                <tr>
+                                    <th>Ramo da Contabilidade</th>
+                                    <th>Público-Alvo e Foco</th>
+                                    <th>Características Principais</th>
+                                </tr>
+                                <tr>
+                                    <td><strong>Contabilidade Financeira</strong></td>
+                                    <td>Usuários Externos (Fisco, Investidores)</td>
+                                    <td>Elabora DRE/Balanços. É rígida e baseada em princípios e normas contábeis
+                                        (CPCs).</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Contabilidade Gerencial</strong></td>
+                                    <td>Usuários Internos (Administradores)</td>
+                                    <td>Focada em estratégia. Relata informações financeiras e não-financeiras para
+                                        decisões.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Contabilidade de Custos</strong></td>
+                                    <td>Ambos (O Elo de ligação)</td>
+                                    <td>Fornece dados à Financeira (avaliar estoques/lucro) e à Gerencial (controle e
+                                        decisão).</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="sub-section" id="c2-flashcard">
+                <div class="section-label">Flashcards — Clique para revelar</div>
+                <div class="flashcard-controls cap2">
+                    <span class="fc-counter" id="c2-fc-counter">1 / 7</span>
+                    <button class="btn btn-primary" onclick="shuffleCards('c2')">⇄ Embaralhar</button>
+                </div>
+                <div class="fc-progress cap2">
+                    <div class="fc-progress-bar" id="c2-fc-bar" style="width:100%"></div>
+                </div>
+                <div class="flashcard-scene" onclick="flipCard('c2')">
+                    <div class="flashcard-inner" id="c2-card">
+                        <div class="flashcard-face flashcard-front cap2">
+                            <span class="fc-label">Pergunta</span>
+                            <div class="fc-question" id="c2-front"></div>
+                            <div class="fc-hint">Toque para ver a resposta</div>
+                        </div>
+                        <div class="flashcard-face flashcard-back cap2">
+                            <span class="fc-label">Resposta</span>
+                            <div class="fc-answer" id="c2-back"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fc-nav">
+                    <button class="btn" onclick="prevCard('c2')">← Anterior</button>
+                    <button class="btn btn-primary" onclick="nextCard('c2')">Próximo →</button>
+                </div>
+            </div>
+
+            <div class="sub-section" id="c2-quiz">
+                <div class="section-label">Simulado — História e Evolução</div>
+                <div id="c2-quiz-content"></div>
+            </div>
+        </div>
+
+        <div class="section cap3" id="chapter-3">
+            <div class="chapter-header cap3" data-num="03">
+                <span class="chapter-tag">Módulo Três</span>
+                <h2>Terminologia e Classificação de Gastos</h2>
+                <p>Domine os 6 conceitos sagrados da contabilidade de custos, a linha do tempo financeira e o tratamento
+                    contábil das perdas e estoques.</p>
+            </div>
+
+            <div class="sub-tabs cap3">
+                <button class="sub-tab active" onclick="showSub('c3','resumo')">📋 Resumo</button>
+                <button class="sub-tab" onclick="showSub('c3','flashcard')">🃏 Flashcards</button>
+                <button class="sub-tab" onclick="showSub('c3','quiz')">✏️ Questões</button>
+            </div>
+
+            <div class="sub-section active" id="c3-resumo">
+                <div class="section-label">Pontos Principais</div>
+                <div class="summary-grid">
+
+                    <div class="summary-card cap3">
+                        <h3><span class="card-num">01</span>Por que Importa?</h3>
+                        <p>Evita ruídos entre a gestão e a operação. Erros em sistemas ERP podem mascarar a realidade.
+                        </p>
+                        <div class="alert-box">⚠️ Se um custo fabril (ex: horas extras) for lançado como Despesa
+                            Administrativa:
+                            <br>1. O Custo do Produto fica subavaliado.
+                            <br>2. A Margem de Contribuição fica ilusória (alta).
+                            <br>3. As Despesas Operacionais ficam infladas na DRE.
+                        </div>
+                    </div>
+
+                    <div class="summary-card cap3">
+                        <h3><span class="card-num">02</span>Os 6 Conceitos Sagrados</h3>
+                        <ul>
+                            <li><strong>Gasto:</strong> Compra de produto/serviço que gera sacrifício financeiro (termo
+                                mais amplo).</li>
+                            <li><strong>Desembolso:</strong> Pagamento efetivo (saída do caixa).</li>
+                            <li><strong>Investimento:</strong> Gasto ativado no Balanço em função de vida
+                                útil/benefícios futuros.</li>
+                            <li><strong>Custo:</strong> Gasto relativo ao bem/serviço utilizado na <em>produção</em>.
+                            </li>
+                            <li><strong>Despesa:</strong> Bem/serviço consumido para obter receitas (vendas,
+                                administração).</li>
+                            <li><strong>Perda:</strong> Consumo anormal e involuntário, sem intenção de gerar receita.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="summary-card cap3">
+                        <h3><span class="card-num">03</span>A Linha do Tempo Contábil</h3>
+                        <p>Veja como o dinheiro se transforma na organização:</p>
+                        <div class="table-wrap">
+                            <table>
+                                <tr>
+                                    <th>Fase</th>
+                                    <th>Classificação</th>
+                                </tr>
+                                <tr>
+                                    <td>1. Compra</td>
+                                    <td><strong>Gasto</strong> (Gera Desembolso)</td>
+                                </tr>
+                                <tr>
+                                    <td>2. Almoxarifado</td>
+                                    <td><strong>Investimento</strong> (Estoque de MP)</td>
+                                </tr>
+                                <tr>
+                                    <td>3. Produção</td>
+                                    <td><strong>Custo</strong> (Consumo na fábrica)</td>
+                                </tr>
+                                <tr>
+                                    <td>4. Expedição</td>
+                                    <td><strong>Investimento</strong> (Estoque de Produto Acabado)</td>
+                                </tr>
+                                <tr>
+                                    <td>5. Vendas</td>
+                                    <td><strong>Despesa</strong> (Vira CPV na DRE)</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="summary-card cap3">
+                        <h3><span class="card-num">04</span>Regras Práticas</h3>
+                        <div class="key-chips">
+                            <span class="chip">Fábrica = Custo</span>
+                            <span class="chip">Escritório = Despesa</span>
+                        </div>
+                        <p style="margin-top:14px"><strong>Materialidade:</strong> Gastos pequenos ou de rateio muito
+                            arbitrário na fábrica podem ir direto como <em>Despesa</em> do período.</p>
+                        <p><strong>Setor de Serviços:</strong> O gasto para prestar o serviço (ex: salário do médico no
+                            hospital) é classificado como Custo (CSV).</p>
+                    </div>
+
+                    <div class="summary-card cap3" style="grid-column: 1 / -1;">
+                        <h3><span class="card-num">05</span>Perdas & Avaliação de Estoques</h3>
+                        <p><strong>Tratamento das Perdas:</strong></p>
+                        <ul>
+                            <li><strong>Normal (Produtiva):</strong> Inerente ao processo (ex: pó de serra).
+                                Classificada como <em>Custo de Produção</em>.</li>
+                            <li><strong>Anormal (Improdutiva):</strong> Fator extraordinário (ex: incêndio). Vai direto
+                                para a DRE como <em>Perda do Período</em>.</li>
+                        </ul>
+                        <div class="info-box" style="margin-top:14px">
+                            <strong>NBC TG 16 (R2) - Avaliação de Estoques:</strong><br>
+                            Devem ser mensurados pelo <em>Valor de Custo</em> ou pelo <em>Valor Realizável Líquido
+                                (VRL)</em>, <strong>dos dois, o menor</strong>.<br>
+                            <span style="font-size:0.75rem">*VRL = Preço de Venda Estimado (-) Gastos Estimados de Venda
+                                (-) Custos Estimados de Conclusão.</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="sub-section" id="c3-flashcard">
+                <div class="section-label">Flashcards — Clique para revelar</div>
+                <div class="flashcard-controls cap3">
+                    <span class="fc-counter" id="c3-fc-counter">1 / 7</span>
+                    <button class="btn btn-primary" onclick="shuffleCards('c3')">⇄ Embaralhar</button>
+                </div>
+                <div class="fc-progress cap3">
+                    <div class="fc-progress-bar" id="c3-fc-bar" style="width:100%"></div>
+                </div>
+                <div class="flashcard-scene" onclick="flipCard('c3')">
+                    <div class="flashcard-inner" id="c3-card">
+                        <div class="flashcard-face flashcard-front cap3">
+                            <span class="fc-label">Pergunta</span>
+                            <div class="fc-question" id="c3-front"></div>
+                            <div class="fc-hint">Toque para ver a resposta</div>
+                        </div>
+                        <div class="flashcard-face flashcard-back cap3">
+                            <span class="fc-label">Resposta</span>
+                            <div class="fc-answer" id="c3-back"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fc-nav">
+                    <button class="btn" onclick="prevCard('c3')">← Anterior</button>
+                    <button class="btn btn-primary" onclick="nextCard('c3')">Próximo →</button>
+                </div>
+            </div>
+
+            <div class="sub-section" id="c3-quiz">
+                <div class="section-label">Simulado — Terminologia e Gastos</div>
+                <div id="c3-quiz-content"></div>
+            </div>
+        </div>
+
+        <div class="section cap4" id="chapter-4">
+            <div class="chapter-header cap4" data-num="04">
+                <span class="chapter-tag">Módulo Quatro</span>
+                <h2>Princípios e Postulados Contábeis</h2>
+                <p>Compreenda a "Metáfora da Casa": os alicerces, paredes e o teto que sustentam as regras da
+                    contabilidade e protegem o patrimônio.</p>
+            </div>
+
+            <div class="sub-tabs cap4">
+                <button class="sub-tab active" onclick="showSub('c4','resumo')">📋 Resumo</button>
+                <button class="sub-tab" onclick="showSub('c4','flashcard')">🃏 Flashcards</button>
+                <button class="sub-tab" onclick="showSub('c4','quiz')">✏️ Questões</button>
+            </div>
+
+            <div class="sub-section active" id="c4-resumo">
+                <div class="section-label">A Metáfora da Casa</div>
+                <div class="summary-grid">
+
+                    <div class="summary-card cap4">
+                        <h3><span class="card-num">01</span>A Estrutura Básica</h3>
+                        <p>Diferencie os conceitos que formam o ambiente contábil:</p>
+                        <ul>
+                            <li><strong>Teoria Contábil:</strong> É livre; explica reconhecimento e mensuração.</li>
+                            <li><strong>Estrutura Conceitual:</strong> Base escolhida pelo órgão regulador.</li>
+                            <li><strong>Norma Contábil:</strong> A regra específica (a lei) de registro.</li>
+                        </ul>
+                    </div>
+
+                    <div class="summary-card cap4">
+                        <h3><span class="card-num">02</span>Os Alicerces: Postulados</h3>
+                        <p>São verdades incontestáveis, o ambiente de operação:</p>
+                        <ul>
+                            <li><strong>Entidade:</strong> O patrimônio da empresa NÃO se mistura com o dos sócios.</li>
+                            <li><strong>Continuidade:</strong> A empresa é um "going concern" (em andamento por tempo
+                                indefinido), logo, avalia-se ativos pelo benefício futuro e não por liquidação.</li>
+                        </ul>
+                        <div class="alert-box">⚠️ <strong>Regra de Ouro:</strong> Prevalência da Essência sobre a Forma!
+                            Se a forma jurídica divergir da essência econômica (ex: Leasing), a essência prevalece no
+                            balanço.</div>
+                    </div>
+
+                    <div class="summary-card cap4" style="grid-column: 1 / -1;">
+                        <h3><span class="card-num">03</span>As Paredes: Princípios</h3>
+                        <p>As regras que guiam o registro na prática:</p>
+                        <div class="table-wrap">
+                            <table>
+                                <tr>
+                                    <th>Princípio</th>
+                                    <th>O que determina?</th>
+                                </tr>
+                                <tr>
+                                    <td><strong>Realização da Receita</strong></td>
+                                    <td>O lucro só nasce no momento da VENDA (transferência do bem). Diferente da
+                                        Economia, onde o lucro nasce na fabricação.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Competência (Confrontação)</strong></td>
+                                    <td>Confronta a receita com as despesas que a geraram. É aqui que o custo vira CPV
+                                        na DRE.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Custo Histórico</strong></td>
+                                    <td>Ativos são registrados pelo valor original. Corrigir pela inflação transforma a
+                                        moeda, mas NÃO abandona o custo histórico.</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="summary-card cap4">
+                        <h3><span class="card-num">04</span>O Teto: Convenções (Limites)</h3>
+                        <p>Limitam a conduta do contador em caso de escolhas:</p>
+                        <div class="key-chips">
+                            <span class="chip">Consistência (Uniformidade)</span>
+                            <span class="chip">Prudência (Conservadorismo)</span>
+                            <span class="chip">Materialidade (Relevância)</span>
+                            <span class="chip">Objetividade</span>
+                        </div>
+                        <p style="margin-top: 14px"><strong>Prudência:</strong> Na dúvida, escolha a opção mais
+                            pessimista para o Patrimônio Líquido (ex: Custo ou Mercado, o menor).</p>
+                    </div>
+
+                    <div class="summary-card cap4">
+                        <h3><span class="card-num">05</span>Resumo de Ouro</h3>
+                        <p><strong>Custos de Produção vs. Despesas:</strong></p>
+                        <p style="margin-top:8px">Somente os gastos para obter bens destinados à venda são Custos de
+                            Produção. Bancas amam misturar:</p>
+                        <div class="info-box" style="margin-top: 8px">
+                            Despesas financeiras (JUROS), vendas e administração <strong>NÃO</strong> entram no custo de
+                            produção. Juros são acréscimos por prazo, não esforço fabril.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="sub-section" id="c4-flashcard">
+                <div class="section-label">Flashcards — Clique para revelar</div>
+                <div class="flashcard-controls cap4">
+                    <span class="fc-counter" id="c4-fc-counter">1 / 7</span>
+                    <button class="btn btn-primary" onclick="shuffleCards('c4')">⇄ Embaralhar</button>
+                </div>
+                <div class="fc-progress cap4">
+                    <div class="fc-progress-bar" id="c4-fc-bar" style="width:100%"></div>
+                </div>
+                <div class="flashcard-scene" onclick="flipCard('c4')">
+                    <div class="flashcard-inner" id="c4-card">
+                        <div class="flashcard-face flashcard-front cap4">
+                            <span class="fc-label">Pergunta</span>
+                            <div class="fc-question" id="c4-front"></div>
+                            <div class="fc-hint">Toque para ver a resposta</div>
+                        </div>
+                        <div class="flashcard-face flashcard-back cap4">
+                            <span class="fc-label">Resposta</span>
+                            <div class="fc-answer" id="c4-back"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fc-nav">
+                    <button class="btn" onclick="prevCard('c4')">← Anterior</button>
+                    <button class="btn btn-primary" onclick="nextCard('c4')">Próximo →</button>
+                </div>
+            </div>
+
+            <div class="sub-section" id="c4-quiz">
+                <div class="section-label">Simulado — Princípios Aplicados</div>
+                <div id="c4-quiz-content"></div>
+            </div>
+        </div>
+
+        <div class="section cap5" id="chapter-5">
+            <div class="chapter-header cap5" data-num="05">
+                <span class="chapter-tag">Módulo Cinco</span>
+                <h2>Sistemas e Métodos de Custeio</h2>
+                <p>O mapa da mina: entenda os sistemas de acumulação, os métodos de custeio exigidos pelo Fisco e as
+                    regras para lidar com os rateios e as famosas zonas cinzentas entre Custos e Despesas.</p>
+            </div>
+
+            <div class="sub-tabs cap5">
+                <button class="sub-tab active" onclick="showSub('c5','resumo')">📋 Resumo</button>
+                <button class="sub-tab" onclick="showSub('c5','flashcard')">🃏 Flashcards</button>
+                <button class="sub-tab" onclick="showSub('c5','quiz')">✏️ Questões</button>
+            </div>
+
+            <div class="sub-section active" id="c5-resumo">
+                <div class="section-label">O Mapa da Mina</div>
+                <div class="summary-grid">
+
+                    <div class="summary-card cap5" style="grid-column: 1 / -1;">
+                        <h3><span class="card-num">01</span>Diferenciando os Conceitos Básicos</h3>
+                        <p>Para não cair em pegadinhas, grave a diferença estrutural entre estes pilares:</p>
+                        <ul>
+                            <li><strong>Sistemas de Acumulação (Onde acumular?):</strong> Define a "entidade". <em>Por
+                                    Ordem/Lotes</em> foca em encomendas heterogêneas (ex: auditoria, móveis sob medida).
+                                <em>Por Processo</em> foca nas fases de produções contínuas/homogêneas (ex: celulose,
+                                bebidas).
+                            </li>
+                            <li><strong>Métodos de Custeio (O que apropriar?):</strong> Define quais gastos vão para o
+                                produto (ex: Absorção vs. Variável).</li>
+                            <li><strong>Critérios de Atribuição (Como ratear?):</strong> Define como os CIFs chegam aos
+                                produtos (ex: VBC vs. ABC).</li>
+                        </ul>
+                    </div>
+
+                    <div class="summary-card cap5">
+                        <h3><span class="card-num">02</span>O Método por Absorção</h3>
+                        <p>É a estrela das provas pois é o <strong>único aceito no Brasil</strong> (CPC 16, Fisco e
+                            Auditorias).</p>
+                        <p style="margin-top:8px"><strong>A Regra de Ouro:</strong> Apropria TODOS os custos de produção
+                            (fixos, variáveis, diretos ou indiretos) aos produtos elaborados.</p>
+                        <div class="alert-box">⚠️ <strong>O Limite:</strong> Apropria SOMENTE gastos de produção. As
+                            despesas (administrativas/vendas) vão direto para a DRE!</div>
+                    </div>
+
+                    <div class="summary-card cap5">
+                        <h3><span class="card-num">03</span>Rateio dos CIFs</h3>
+                        <p>Como o Absorção exige ratear os indiretos, temos duas vias principais:</p>
+                        <ul>
+                            <li><strong>VBC (Volume Based):</strong> Baseado em volume (horas-máquina, etc). É permeado
+                                por subjetivismo e arbitrariedade.</li>
+                            <li><strong>ABC (Activity-Based):</strong> Baseado em atividades. Os recursos são consumidos
+                                pelas atividades, e os produtos consomem atividades. É mais preciso e reduz distorções.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="summary-card cap5" style="grid-column: 1 / -1;">
+                        <h3><span class="card-num">04</span>Pegadinhas: A Zona Cinzenta</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <tr>
+                                    <th>Gasto</th>
+                                    <th>Classificação e Tratamento</th>
+                                </tr>
+                                <tr>
+                                    <td><strong>Encargos Financeiros (Juros)</strong></td>
+                                    <td><strong>Sempre Despesa.</strong> Não é esforço de produção, mas gasto por falta
+                                        de capital.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Pesquisa e Desenvolvimento (P&D)</strong></td>
+                                    <td>A regra geral (Fisco/Auditoria) é lançar como <strong>Despesa do
+                                            Período</strong> devido à incerteza.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Embalagens</strong></td>
+                                    <td>Fabricada com o produto (ex: lata) = <strong>Custo</strong>. Colocada só na
+                                        venda a granel = <strong>Despesa</strong>.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Rateios Irrelevantes</strong></td>
+                                    <td>Se o departamento atende a fábrica de forma irrelevante (ex: 0,3%) =
+                                        <strong>Despesa Direta</strong> (Conservadorismo).
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="summary-card cap5">
+                        <h3><span class="card-num">05</span>Estoques e Valoração</h3>
+                        <p>A indústria possui 3 tipos de estoques: Materiais Diretos, Produtos em Processo e Produtos
+                            Acabados.</p>
+                        <div class="info-box">💡 <strong>Dica de Ouro:</strong> Se a prova falar de IR ou CPC, a
+                            resposta é <em>Custeio por Absorção</em>. Se falar em evitar distorções de rateio, procure
+                            por <em>Custeio ABC</em>. A valoração primária adota o Custo Histórico.</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="sub-section" id="c5-flashcard">
+                <div class="section-label">Flashcards — Clique para revelar</div>
+                <div class="flashcard-controls cap5">
+                    <span class="fc-counter" id="c5-fc-counter">1 / 7</span>
+                    <button class="btn btn-primary" onclick="shuffleCards('c5')">⇄ Embaralhar</button>
+                </div>
+                <div class="fc-progress cap5">
+                    <div class="fc-progress-bar" id="c5-fc-bar" style="width:100%"></div>
+                </div>
+                <div class="flashcard-scene" onclick="flipCard('c5')">
+                    <div class="flashcard-inner" id="c5-card">
+                        <div class="flashcard-face flashcard-front cap5">
+                            <span class="fc-label">Pergunta</span>
+                            <div class="fc-question" id="c5-front"></div>
+                            <div class="fc-hint">Toque para ver a resposta</div>
+                        </div>
+                        <div class="flashcard-face flashcard-back cap5">
+                            <span class="fc-label">Resposta</span>
+                            <div class="fc-answer" id="c5-back"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="fc-nav">
+                    <button class="btn" onclick="prevCard('c5')">← Anterior</button>
+                    <button class="btn btn-primary" onclick="nextCard('c5')">Próximo →</button>
+                </div>
+            </div>
+
+            <div class="sub-section" id="c5-quiz">
+                <div class="section-label">Simulado — Sistemas e Rateios</div>
+                <div id="c5-quiz-content"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // ════════════════════════════════════════
+        // DATA
+        // ════════════════════════════════════════
+
+        const FLASHCARDS = {
+            c1: [
+                { q: "Quais são as três perspectivas principais da informação de custos?", a: "Contabilidade Societária (Financeira), Contabilidade Tributária (Fiscal) e Contabilidade Gerencial (Controladoria)." },
+                { q: "Na contabilidade societária, quais são as duas principais aplicações para fechamento contábil?", a: "Valoração de Estoques (para o Balanço Patrimonial) e o Custo dos Bens e Serviços Vendidos (para a DRE)." },
+                { q: "Em casos de sinistros, o que a contabilidade define como 'Lucros Cessantes'?", a: "Representam aquilo que a empresa deixou de lucrar devido a um evento danoso." },
+                { q: "O que exigirá a nova norma IFRS 18 a partir de 2027?", a: "Mudará a estrutura da DRE em 5 categorias: Operacional, Investimento, Financiamento, Tributos sobre o lucro e Operações descontinuadas." },
+                { q: "O que é uma 'Entidade Objeto de Custeio'?", a: "É tudo aquilo que necessita de uma mensuração de custos (produtos, serviços, clientes, projetos, filiais, etc)." },
+                { q: "Qual é a 'Regra de Ouro' sobre a granularidade (detalhamento) de custos?", a: "O nível de detalhe deve respeitar a relação Custo x Benefício." },
+                { q: "Qual a diferença entre uma Entidade Intermediária e uma Entidade Final?", a: "As intermediárias acumulam os custos para transferi-los adiante, já as finais são o destino final entregue ao mercado." }
+            ],
+            c2: [
+                { q: "Quem é considerado o Pai da Contabilidade e qual método ele desenvolveu em 1494?", a: "Frei Luca Pacioli, que desenvolveu o método das partidas dobradas." },
+                { q: "Qual a fórmula clássica do CMV (Custo da Mercadoria Vendida) na Era Mercantilista?", a: "CMV = Estoque Inicial (EI) + Compras - Estoque Final (EF)." },
+                { q: "O que provocou o surgimento da Contabilidade de Custos?", a: "A Revolução Industrial, que mudou o foco das empresas de apenas comprar/revender para a fabricação." },
+                { q: "Na indústria, como é a fórmula do Custo dos Produtos Vendidos (CPV)?", a: "CPV = Estoque Inicial + (Materiais Diretos + MOD + CIF) - Estoque Final." },
+                { q: "Quais são as duas novas funções vitais que a Contabilidade de Custos ganhou com o foco gerencial?", a: "Auxílio ao Controle (orçamentos e padrões) e Ajuda na Tomada de Decisões." },
+                { q: "Como é apurado o custo no setor de prestação de serviços?", a: "Através do CSV = Saldo Inicial + (MOD + Gastos Diretos + Gastos Indiretos) - Saldo Final." },
+                { q: "Qual o papel principal da Contabilidade de Custos no resumo das três áreas contábeis?", a: "Ela é o 'elo', fornecendo informações para a Financeira (avaliar estoques/lucro) e para a Gerencial (suporte a decisões)." }
+            ],
+            c3: [
+                { q: "O que é um 'Gasto' na terminologia contábil?", a: "É o termo mais amplo. Representa a compra de um produto ou serviço que gera um sacrifício financeiro (entrega ou promessa de ativos)." },
+                { q: "Qual a diferença entre Gasto e Desembolso?", a: "O gasto é a aquisição que gera o compromisso. O desembolso é o pagamento efetivo, ou seja, a saída de dinheiro do caixa." },
+                { q: "Quando um gasto é considerado um 'Investimento'?", a: "Quando é ativado no Balanço Patrimonial em função de sua vida útil futura ou benefícios (ex: máquina, matéria-prima no almoxarifado)." },
+                { q: "Qual a regra prática de ouro para diferenciar Custo de Despesa?", a: "Gasto ocorrido na fábrica/produção = Custo. Gasto ocorrido no escritório/administração/vendas = Despesa." },
+                { q: "Como a contabilidade trata as Perdas Normais (ex: pó de serra) e Anormais (ex: incêndio)?", a: "Perda Normal = Absorvida como Custo de Produção. Perda Anormal = Reconhecida diretamente na DRE como Perda do Período." },
+                { q: "O que diz a Regra do Conservadorismo/Materialidade sobre pequenos gastos fabris?", a: "Se um gasto na produção tem valor irrelevante ou rateio muito arbitrário, ele não vira custo; é lançado direto como Despesa do período." },
+                { q: "Segundo a NBC TG 16, como os estoques devem ser mensurados?", a: "Pelo Valor de Custo ou pelo Valor Realizável Líquido (VRL), sempre escolhendo dos dois, o menor." }
+            ],
+            c4: [
+                { q: "Qual a diferença entre Teoria Contábil, Estrutura Conceitual e Norma Contábil?", a: "Teoria é livre; Estrutura Conceitual é a base escolhida pelo regulador; Norma Contábil é a regra (lei) específica de registro." },
+                { q: "Quais são os dois Postulados fundamentais (alicerces) da Contabilidade?", a: "Entidade (o patrimônio da empresa não se mistura com o dos sócios) e Continuidade (a empresa é vista como em andamento)." },
+                { q: "O que dita a regra da 'Prevalência da Essência sobre a Forma'?", a: "Se houver divergência entre a forma jurídica e a essência econômica (ex: leasing), a Contabilidade deve privilegiar a essência." },
+                { q: "Segundo o Princípio da Realização da Receita, quando o lucro é reconhecido?", a: "Somente no momento da venda (transferência do bem/serviço), diferentemente da Economia, onde o lucro surge na fabricação." },
+                { q: "O que o Princípio da Competência (Confrontação) exige em relação aos custos?", a: "Exige que a receita da venda seja confrontada com os esforços gerados para obtê-la. É aí que o Custo vira Despesa (CPV) na DRE." },
+                { q: "Como a convenção da Prudência (Conservadorismo) atua na prática?", a: "Na dúvida entre duas opções, escolhe-se a mais pessimista para o Patrimônio Líquido (ex: avaliar estoques por 'Custo ou Mercado, o menor')." },
+                { q: "Juros e despesas de vendas entram no Custo de Produção?", a: "NÃO. Juros são despesas financeiras. O custo de produção envolve apenas gastos para obter bens e serviços destinados à venda." }
+            ],
+            c5: [
+                { q: "Qual a diferença entre Sistemas de Acumulação e Métodos de Custeio?", a: "Sistemas definem *onde* acumular (Por Ordem ou Processo). Métodos definem *o que* apropriar (Absorção ou Variável)." },
+                { q: "Qual é o único método de custeio aceito pela legislação societária e pelo Fisco no Brasil?", a: "O Método de Custeio por Absorção." },
+                { q: "O Custeio por Absorção apropria as despesas operacionais (administração, vendas) aos produtos?", a: "Não. Ele apropria TODOS os custos (fixos e variáveis), mas as despesas vão direto para a DRE." },
+                { q: "Qual a diferença fundamental entre os critérios de rateio VBC e ABC?", a: "O VBC (Baseado em Volume) usa critérios volumétricos e é mais arbitrário. O ABC foca nas atividades que consomem os recursos, sendo mais preciso." },
+                { q: "Os juros pagos em um empréstimo para comprar matéria-prima são considerados Custo de Produção?", a: "Não! Encargos financeiros decorrem da falta de capital próprio e são sempre classificados como Despesa." },
+                { q: "Como a contabilidade trata os gastos com embalagens?", a: "Se o produto é fabricado com a embalagem (ex: lata de refri), é Custo. Se a embalagem é colocada só na venda a granel, é Despesa." },
+                { q: "Quais são os três tipos básicos de estoque encontrados em uma indústria?", a: "Estoque de Materiais Diretos (insumos), Estoque de Produtos em Processo e Estoque de Produtos Acabados." }
+            ]
+
+        };
+
+        const QUIZ = {
+            c1: [
+                { q: "A perspectiva focada em dar suporte ao planejamento e controle interno para a tomada de decisões dos administradores é conhecida como:", opts: ["A) Contabilidade Societária", "B) Contabilidade Tributária", "C) Contabilidade Gerencial", "D) Contabilidade Internacional"], correct: 2, exp: "A Contabilidade Gerencial tem como foco o público interno da empresa." },
+                { q: "Sobre a nova norma IFRS 18, que entrará em vigor em 2027, é correto afirmar que:", opts: ["A) Ela foca apenas na mensuração tributária.", "B) Mudará a estrutura da DRE em cinco categorias.", "C) Extinguirá o uso da DRE.", "D) Substituirá a Contabilidade Gerencial."], correct: 1, exp: "A IFRS 18 mudará a estrutura da DRE para melhorar a comparabilidade." },
+                { q: "Em relação aos sinistros, os 'lucros cessantes' representam:", opts: ["A) Os gastos preventivos.", "B) O prejuízo direto.", "C) O que a empresa deixou de lucrar devido ao dano.", "D) O lucro obtido após a recuperação."], correct: 2, exp: "Referem-se ao ganho futuro que foi interrompido, enquanto o dano emergente é o prejuízo direto." },
+                { q: "No Foco Gerencial, qual é o 'grande perigo' apontado na mensuração de custos?", opts: ["A) Pagar impostos a mais.", "B) A complexidade da DRE.", "C) Informações distorcidas que geram vieses.", "D) A falha na auditoria."], correct: 2, exp: "Custos distorcidos prejudicam a análise de lucratividade e levam a decisões erradas." },
+                { q: "O nível de detalhamento de um sistema de custos é chamado de:", opts: ["A) Valoração Físico-Financeira", "B) Entidade Final", "C) Granularidade", "D) Classificação Intermediária"], correct: 2, exp: "Quanto maior o rol de entidades detalhadas, maior a granularidade do sistema." },
+                { q: "De acordo com a Regra de Ouro, o detalhamento das entidades de custos deve sempre:", opts: ["A) Ser o mais profundo possível.", "B) Respeitar a relação Custo x Benefício.", "C) Seguir as normas internacionais.", "D) Focar em entidades intermediárias."], correct: 1, exp: "Sistemas excessivamente detalhados geram alto custo de manutenção." },
+                { q: "Em sistemas de software, a hierarquia de detalhamento é organizada pela:", opts: ["A) Planilha interna", "B) DRE", "C) Máscara do plano de contas", "D) Ficha de prateleira"], correct: 2, exp: "A Máscara do plano de contas é a estrutura lógica utilizada em softwares." },
+                { q: "Matéria-prima, horas de mão de obra direta e energia elétrica consumida são exemplos de:", opts: ["A) Entidades Finais", "B) Entidades Secundárias", "C) Entidades Intermediárias", "D) Entidades Primárias"], correct: 3, exp: "Representam a origem do gasto e os recursos básicos consumidos." },
+                { q: "Departamentos, centros de custos e processos são exemplos de entidades:", opts: ["A) Primárias", "B) Intermediárias", "C) Finais", "D) Societárias"], correct: 1, exp: "São centros que acumulam custos transitoriamente para repassá-los adiante." },
+                { q: "Qual é a diferença entre 'Produto' e 'Unidade de Produto'?", opts: ["A) Produto é bens físicos; Unidade é serviços.", "B) Produto é o item físico individual; Unidade é a teoria.", "C) Produto é a ideia geral; Unidade é o exemplar individual e físico.", "D) Não existe diferença técnica."], correct: 2, exp: "Produto é a ideia; Unidade de Produto (ex: um carro com chassi) é o bem físico individualizado." }
+            ],
+            c2: [
+                { q: "Em qual período histórico ocorreu o grande salto técnico da Contabilidade com o desenvolvimento do método das partidas dobradas?", opts: ["A) Na Revolução Industrial, no século XVIII.", "B) Na Era Mercantilista, com Frei Luca Pacioli no século XV.", "C) Na Revolução Francesa, no século XIX.", "D) Na Suméria, com os primeiros registros em argila."], correct: 1, exp: "O método das partidas dobradas foi publicado em 1494 pelo Frei Luca Pacioli." },
+                { q: "Antes da Revolução Industrial, o foco das empresas era comercial. Qual fórmula era usada para apurar o Custo da Mercadoria Vendida (CMV)?", opts: ["A) CMV = MP + MOD + CIF", "B) CMV = Estoque Inicial + Compras - Estoque Final", "C) CMV = Saldo Inicial + Gastos Diretos - Saldo Final", "D) CMV = Estoque em Processo + Insumos"], correct: 1, exp: "No comércio (comprar/revender), não há produção fabril, o custo baseia-se nas Compras." },
+                { q: "Qual evento histórico foi o estopim para o nascimento da Contabilidade de Custos moderna?", opts: ["A) A criação dos computadores.", "B) A Revolução Industrial.", "C) A invenção da escrita na Suméria.", "D) A publicação das normas IFRS."], correct: 1, exp: "Com a Revolução Industrial, a necessidade de avaliar a fabricação de produtos gerou a contabilidade de custos." },
+                { q: "Na indústria, o CPV substitui o antigo CMV. Quais são os três elementos básicos do custo de fabricação?", opts: ["A) Compras, Fretes e Impostos.", "B) Materiais Diretos (MP), Mão de Obra Direta (MOD) e Custos Indiretos (CIF/GGF).", "C) Despesas Operacionais, Juros e Mão de Obra.", "D) Estoque Inicial, Lucros Cessantes e Matéria-Prima."], correct: 1, exp: "O custo fabril é a soma do material, esforço humano e gastos gerais fabris." },
+                { q: "Por que a Contabilidade de Custos nasceu primariamente (sua finalidade original)?", opts: ["A) Para definir estratégias de marketing.", "B) Para atender à necessidade de avaliar estoques industriais societária e fiscalmente.", "C) Para apurar o CSV em bancos.", "D) Para calcular lucros cessantes em caso de sinistro."], correct: 1, exp: "Surgiu da necessidade de inventariar produtos na indústria para o fechamento contábil." },
+                { q: "Com a competitividade, a Contabilidade de Custos ganhou novas funções de foco interno. Quais são elas?", opts: ["A) Auditoria Externa e Valoração Societária.", "B) Apuração de impostos e guias.", "C) Auxílio ao Controle e Ajuda na Tomada de Decisão.", "D) Relacionamento com investidores."], correct: 2, exp: "Envolve o controle de operações (orçamentos) e o processo decisório interno." },
+                { q: "Sobre os sistemas do Fisco (T-Rex e Harpia), podemos afirmar que:", opts: ["A) Dependem de livros em papel.", "B) Substituem a contabilidade gerencial privada.", "C) Cruzam dados instantaneamente, reduzindo margem para gestão amadora.", "D) Atuam só nas prefeituras municipais."], correct: 2, exp: "Esses supercomputadores automatizam o controle e cruzamento de informações governamentais." },
+                { q: "Em empresas de serviços, como se apura o Custo dos Serviços Vendidos (CSV)?", opts: ["A) CSV = Saldo Inicial + (MOD + Gastos Diretos + Indiretos) - Saldo Final.", "B) CSV = Compras - Devoluções.", "C) CSV = Receita - Despesas.", "D) O setor não utiliza custos."], correct: 0, exp: "Serviços também têm custos, somando-se esforços humanos e gastos gerais ajustados pelos saldos em andamento." },
+                { q: "Ao diferenciar os ramos contábeis, a Contabilidade Financeira destaca-se por:", opts: ["A) Ser flexível e voltada à gestão interna.", "B) Atuar apenas no setor de serviços.", "C) Focar exclusivamente no Custo dos Produtos Vendidos.", "D) Ser focada em usuários externos e seguir normas rígidas (CPCs)."], correct: 3, exp: "A Financeira tem foco externo e é normatizada formalmente." },
+                { q: "Podemos dizer que a Contabilidade de Custos é o 'elo' porque:", opts: ["A) Fornece informações tanto para a Contabilidade Financeira quanto para a Gerencial.", "B) Une fornecedores e clientes finais.", "C) Transforma despesas em ativos.", "D) Substitui a gestão financeira."], correct: 0, exp: "Ela alimenta a Financeira para o estoque/lucro e a Gerencial para estratégia." }
+            ],
+            c3: [
+                { q: "Se o contador de uma indústria classificar as horas extras dos operários da fábrica como 'Despesa Administrativa' em vez de Custo, qual será o impacto?", opts: ["A) O lucro líquido da empresa aumentará.", "B) O Custo do Produto ficará subavaliado e a Margem de Contribuição ficará artificialmente alta.", "C) As despesas operacionais da DRE diminuirão.", "D) O Balanço Patrimonial ficará travado."], correct: 1, exp: "Horas extras da fábrica são custos. Jogá-las em despesas tira esse valor do custo do produto, subavaliando-o e inflando a margem." },
+                { q: "A compra de uma máquina para o parque industrial a prazo, e o seu posterior pagamento, representam, na terminologia de custos, respectivamente:", opts: ["A) Gasto e Investimento.", "B) Custo e Despesa.", "C) Gasto e Desembolso.", "D) Investimento e Custo."], correct: 2, exp: "A aquisição que gera o compromisso financeiro é o Gasto; a saída do dinheiro do caixa para quitar a dívida é o Desembolso." },
+                { q: "Qual o conceito de 'Despesa' na contabilidade de custos?", opts: ["A) Bem ou serviço consumido de forma anormal e involuntária.", "B) Bem ou serviço consumido direta ou indiretamente para a obtenção de receitas (esforço de vendas/adm).", "C) Gasto ativado em função de vida útil futura.", "D) Gasto relativo a bem ou serviço utilizado na produção."], correct: 1, exp: "Despesa é o consumo voltado para a geração de receita, fora do ambiente fabril (ex: comissões, administração)." },
+                { q: "Na 'Linha do Tempo' contábil de uma indústria, a matéria-prima comprada que está estocada no almoxarifado é considerada um(a):", opts: ["A) Despesa", "B) Custo", "C) Perda", "D) Investimento"], correct: 3, exp: "Enquanto a matéria-prima aguarda no almoxarifado (Ativo), ela é um Investimento. Só vira Custo quando vai para a fábrica." },
+                { q: "Assinale a alternativa que apresenta APENAS custos em uma indústria têxtil:", opts: ["A) Energia da fábrica, salário das costureiras e depreciação das máquinas de costura.", "B) Salário dos vendedores, tecido consumido e aluguel do escritório.", "C) Comissão de vendas, energia da fábrica e juros de empréstimo.", "D) Fio de algodão, frete na venda e salário do diretor financeiro."], correct: 0, exp: "Custo = gasto na fábrica. Vendedores, juros e diretoria são despesas." },
+                { q: "A evaporação normal de líquidos num processo químico e a perda de mercadorias por uma enchente não intencional são classificadas, respectivamente, como:", opts: ["A) Despesa e Custo.", "B) Perda do Período e Investimento.", "C) Custo de Produção e Perda do Período.", "D) Custo de Produção e Despesa."], correct: 2, exp: "Perdas normais inerentes ao processo vão para os Custos. Perdas anormais/extraordinárias vão direto para o resultado como Perdas do Período." },
+                { q: "Em relação ao setor de serviços (empresas não-industriais), é correto afirmar que:", opts: ["A) Não existe a figura do custo, pois não há fábrica.", "B) Todos os gastos são imediatamente considerados despesas.", "C) Custo não é exclusividade de indústrias; os materiais aplicados e mão de obra do serviço são Custos (CSV).", "D) O serviço prestado é lançado como Investimento perpétuo."], correct: 2, exp: "Empresas de serviços apuram o Custo dos Serviços Vendidos (CSV)." },
+                { q: "De acordo com a Regra do Conservadorismo/Materialidade, o que deve ser feito com gastos industriais de valor muito irrelevante (ex: graxa para portão da fábrica)?", opts: ["A) Devem ser imobilizados e depreciados.", "B) Devem ser rigorosamente rateados entre todos os produtos.", "C) Devem ser tratados como Perda Anormal.", "D) Podem ser lançados diretamente como Despesa do período."], correct: 3, exp: "Gastos pequenos, cujo rateio não compensa (custo x benefício), são tratados diretamente como despesa." },
+                { q: "Segundo a NBC TG 16 (R2), os estoques devem ser mensurados de que forma?", opts: ["A) Pelo Custo de Aquisição ou pelo Valor de Reposição, dos dois, o maior.", "B) Pelo Valor de Custo ou pelo Valor Realizável Líquido, dos dois, o menor.", "C) Apenas pelo Valor Justo deduzido das despesas de venda.", "D) Pelo Custo Histórico atualizado pela inflação."], correct: 1, exp: "A regra de ouro da NBC TG 16 manda avaliar pelo Custo ou VRL, escolhendo sempre o menor valor." },
+                { q: "Na venda de um Produto Acabado que estava no estoque, o valor deste bem transita da conta de Estoque no Ativo para a DRE. Nesse momento, ele recebe qual classificação terminológica final?", opts: ["A) Perda", "B) Despesa (CPV)", "C) Receita Bruta", "D) Investimento a Longo Prazo"], correct: 1, exp: "Quando vendido, o investimento (estoque) se transforma no Custo dos Produtos Vendidos (CPV), que na teoria contábil ampla é uma classificação de Despesa na DRE." }
+            ],
+            c4: [
+                { q: "Na 'Metáfora da Casa' da contabilidade, os postulados, princípios e convenções representam, respectivamente:", opts: ["A) Teto, Alicerces e Paredes.", "B) Alicerces, Paredes e Teto.", "C) Paredes, Teto e Alicerces.", "D) Teto, Paredes e Alicerces."], correct: 1, exp: "Postulados são os alicerces (ambiente); Princípios são as paredes (regras); Convenções são o teto (limites)." },
+                { q: "O postulado da Entidade determina que:", opts: ["A) A empresa deve ser registrada no CNPJ.", "B) O patrimônio da empresa não se mistura com o patrimônio pessoal dos sócios.", "C) A empresa deve durar para sempre.", "D) Todas as entidades devem pagar tributos."], correct: 1, exp: "Entidade significa autonomia patrimonial: o dinheiro da empresa não é a carteira do dono." },
+                { q: "Um contrato de Leasing (arrendamento mercantil) é juridicamente um aluguel, mas na prática é uma compra financiada. A contabilidade o registra como ativo. Isso obedece a qual regra?", opts: ["A) Princípio do Custo Histórico.", "B) Convenção da Objetividade.", "C) Prevalência da Essência sobre a Forma.", "D) Postulado da Continuidade."], correct: 2, exp: "Sempre que a essência econômica divergir da forma jurídica, a essência fala mais alto." },
+                { q: "Para a Economia, o valor (e o lucro) é agregado enquanto o produto é fabricado. Para a Contabilidade, o lucro só é reconhecido no momento em que o produto é:", opts: ["A) Inserido no almoxarifado.", "B) Vendido (transferência para o cliente).", "C) Financiado.", "D) Pago à vista pelo cliente."], correct: 1, exp: "Isso é ditado pelo Princípio da Realização da Receita." },
+                { q: "Em épocas de alta inflação, o Princípio do Custo Histórico pode gerar uma distorção conhecida como 'lucro ilusório'. Para corrigir isso, o que o contador faz?", opts: ["A) Abandona o custo histórico e usa o valor de liquidação.", "B) Transforma a moeda (correção monetária) para que tenha poder de compra comparável, sem abandonar a base do custo histórico.", "C) Elimina o princípio da realização da receita.", "D) Usa a convenção da materialidade para ignorar a inflação."], correct: 1, exp: "Corrigir a inflação atualiza o poder de compra, mas a base de valor ainda é o custo original (histórico)." },
+                { q: "O fato de que, ao reconhecer uma venda, devemos deduzir dela o Custo dos Produtos Vendidos (CPV) na DRE para apurar o lucro, decorre diretamente do Princípio da:", opts: ["A) Entidade.", "B) Materialidade.", "C) Competência (Confrontação).", "D) Continuidade."], correct: 2, exp: "A Confrontação (Competência) exige abater da receita todos os esforços (despesas) que a geraram." },
+                { q: "Se a fábrica adota o método de rateio de manutenção por horas-máquina, ela não deve mudar para outro método no mês seguinte sem motivo justificado. Isso reflete a Convenção da:", opts: ["A) Prudência.", "B) Materialidade.", "C) Objetividade.", "D) Consistência (Uniformidade)."], correct: 3, exp: "A Consistência evita distorções ao exigir a manutenção dos mesmos critérios contábeis ao longo do tempo." },
+                { q: "A regra de avaliar os estoques pelo 'Custo de Aquisição ou Valor de Mercado, dos dois, o menor' é uma aplicação direta da Convenção da:", opts: ["A) Prudência (Conservadorismo).", "B) Entidade.", "C) Uniformidade.", "D) Essência sobre a Forma."], correct: 0, exp: "A Prudência exige escolher a hipótese que não infle os ativos ou que seja mais pessimista para o Patrimônio Líquido." },
+                { q: "Uma indústria compra pequenos parafusos para as máquinas. Por ter valor muito irrisório, o contador lança direto como despesa em vez de controlar no estoque. Que convenção permite isso?", opts: ["A) Objetividade.", "B) Consistência.", "C) Materialidade (Relevância).", "D) Prudência."], correct: 2, exp: "A Materialidade diz que o custo do controle não pode ser maior que o benefício da informação para itens irrelevantes." },
+                { q: "Uma empresa pagou Juros decorrentes de um financiamento para comprar matéria-prima. Esses Juros devem ser classificados como:", opts: ["A) Custo de Produção Indireto.", "B) Custo da Matéria-Prima.", "C) Despesa Financeira, não entrando no custo do produto.", "D) Perda do Período."], correct: 2, exp: "Juros remuneram o tempo de pagamento (financiamento) e NÃO fazem parte do custo de fabricação." }
+            ],
+            c5: [
+                { q: "Qual sistema de acumulação de custos é o mais indicado para produções contínuas, homogêneas e em massa, como na indústria de celulose?", opts: ["A) Por Ordem de Produção.", "B) Por Processo.", "C) Baseado em Atividades (ABC).", "D) Custeio Variável."], correct: 1, exp: "O sistema Por Processo é utilizado quando a produção é contínua e passa por fases (processos) sucessivas." },
+                { q: "O Método de Custeio por Absorção, amplamente exigido no Brasil, tem como característica principal:", opts: ["A) Apropriar aos produtos apenas os custos diretos e variáveis.", "B) Apropriar todos os custos de produção (fixos e variáveis) aos produtos elaborados.", "C) Ratear despesas administrativas e de vendas aos produtos.", "D) Não realizar o rateio de Custos Indiretos de Fabricação."], correct: 1, exp: "A regra de ouro do Custeio por Absorção é absorver TODOS os gastos fabris, sejam eles fixos ou variáveis." },
+                { q: "Nas provas de concursos, qual é a principal limitação apontada ao se utilizar o critério VBC (Volume Based Costing) para o rateio dos Custos Indiretos?", opts: ["A) A impossibilidade de uso em indústrias de pequeno porte.", "B) O alto nível de arbitrariedade e subjetivismo nos rateios.", "C) A não aceitação do método pelo Fisco brasileiro.", "D) A obrigatoriedade de ratear despesas financeiras."], correct: 1, exp: "O VBC usa bases de volume (horas, unidades) que muitas vezes não refletem o esforço real exigido pelo produto, gerando arbitrariedade." },
+                { q: "Uma indústria contratou um empréstimo bancário para conseguir honrar a folha de pagamento do mês. Os juros decorrentes dessa operação são classificados como:", opts: ["A) Custos Indiretos de Fabricação.", "B) Despesa Administrativa.", "C) Despesa Financeira.", "D) Custo de Produção da Mão de Obra."], correct: 2, exp: "Juros e encargos financeiros NUNCA entram no custo do produto. São sempre tratados como Despesa Financeira." },
+                { q: "Em relação aos gastos do departamento de Pesquisa e Desenvolvimento (P&D) focado na invenção de novos produtos, a regra geral aceita para fins de Imposto de Renda determina que sejam:", opts: ["A) Lançados diretamente como Despesa do período atual.", "B) Apropriados integralmente ao custo dos produtos já em linha.", "C) Rateados pelo método VBC.", "D) Registrados como Custo Variável."], correct: 0, exp: "Devido à incerteza sobre o sucesso futuro da pesquisa, a regra geral é descarregar esses gastos diretamente como despesa na DRE." },
+                { q: "De acordo com o princípio da Materialidade, se um departamento misto (ex: RH) atende à fábrica em uma proporção ínfima (ex: 0,3%) e o rateio for extremamente trabalhoso, o contador deve:", opts: ["A) Ratear rigorosamente o valor entre todos os estoques em processo.", "B) Tratar todo o valor do RH como Custo Indireto.", "C) Tratar o valor não material diretamente como Despesa do período.", "D) Omitir o gasto do balanço."], correct: 2, exp: "O custo do controle não justifica o rateio. Gastos ínfimos e arbitrários devem ir direto para a conta de despesa." },
+                { q: "A equipe de manutenção, que é da fábrica, precisou gastar um dia de trabalho consertando o encanamento exclusivo do escritório administrativo da empresa. A mão de obra usada nesse serviço específico:", opts: ["A) Permanece como Custo Indireto de Fabricação.", "B) Deve ser contabilizada como Despesa.", "C) É classificada como Custo de Mão de Obra Direta.", "D) Transforma-se em Ativo Imobilizado."], correct: 1, exp: "Apesar de os funcionários serem da fábrica, o serviço prestado beneficiou apenas o setor administrativo (fora da produção), configurando Despesa." },
+                { q: "O método que busca reduzir as distorções do VBC partindo da premissa de que 'os recursos são consumidos pelas atividades, e os produtos consomem as atividades' é o:", opts: ["A) Custeio Variável.", "B) Custeio Baseado em Volume.", "C) Custeio por Processo.", "D) Custeio ABC."], correct: 3, exp: "O Custeio ABC (Activity-Based Costing) foca nas atividades como elo de ligação para rastrear melhor o consumo dos custos." },
+                { q: "A valoração primária dos estoques em uma indústria (Materiais, Processo e Acabados) é feita, por regra geral da teoria, utilizando-se o:", opts: ["A) Valor Presente Líquido.", "B) Custo de Oportunidade.", "C) Custo Histórico.", "D) Valor de Liquidação Forçada."], correct: 2, exp: "O Custo Histórico é a base valorativa original, podendo sofrer correções inflacionárias quando aplicável." },
+                { q: "Quando uma questão de prova cita explicitamente a exigência do Pronunciamento Técnico CPC 16 (Estoques) e das regras do Imposto de Renda no Brasil, ela está se referindo ao uso obrigatório do:", opts: ["A) Custeio Variável.", "B) Custeio Padrão.", "C) Custeio ABC.", "D) Custeio por Absorção."], correct: 3, exp: "O Custeio por Absorção é o único método plenamente aceito pelos órgãos reguladores societários e fiscais no Brasil." }
+            ]
+        };
+
+        // ════════════════════════════════════════
+        // STATE
+        // ════════════════════════════════════════
+        const state = {
+            c1: { cards: [...FLASHCARDS.c1], idx: 0, flipped: false, quizAnswered: [], quizScore: 0, quizDone: false, qIdx: 0 },
+            c2: { cards: [...FLASHCARDS.c2], idx: 0, flipped: false, quizAnswered: [], quizScore: 0, quizDone: false, qIdx: 0 },
+            c3: { cards: [...FLASHCARDS.c3], idx: 0, flipped: false, quizAnswered: [], quizScore: 0, quizDone: false, qIdx: 0 },
+            c4: { cards: [...FLASHCARDS.c4], idx: 0, flipped: false, quizAnswered: [], quizScore: 0, quizDone: false, qIdx: 0 },
+            c5: { cards: [...FLASHCARDS.c5], idx: 0, flipped: false, quizAnswered: [], quizScore: 0, quizDone: false, qIdx: 0 }
+        };
+
+        // ════════════════════════════════════════
+        // CHAPTER / SUB-SECTION NAV
+        // ════════════════════════════════════════
+        function showChapter(n) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('chapter-' + n).classList.add('active');
+            document.querySelector(`.nav-tab[data-chapter="${n}"]`).classList.add('active');
+
+            // Inicia os flashcards e reset estado do quiz do capítulo se não foi inicializado
+            if (!state['c' + n].initialized) {
+                initFlashcard('c' + n);
+                state['c' + n].initialized = true;
+            }
+        }
+
+        function showSub(cap, sub) {
+            const section = document.getElementById('chapter-' + cap.replace('c', ''));
+            section.querySelectorAll('.sub-section').forEach(s => s.classList.remove('active'));
+            section.querySelectorAll('.sub-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(cap + '-' + sub).classList.add('active');
+            event.target.classList.add('active');
+
+            if (sub === 'flashcard') initFlashcard(cap);
+            if (sub === 'quiz') initQuiz(cap);
+        }
+
+        // ════════════════════════════════════════
+        // FLASHCARDS
+        // ════════════════════════════════════════
+        function initFlashcard(cap) {
+            const s = state[cap];
+            s.flipped = false;
+            renderCard(cap);
+        }
+
+        function renderCard(cap) {
+            const s = state[cap];
+            const card = s.cards[s.idx];
+            document.getElementById(cap + '-front').textContent = card.q;
+            document.getElementById(cap + '-back').textContent = card.a;
+            document.getElementById(cap + '-fc-counter').textContent = `${s.idx + 1} / ${s.cards.length}`;
+            document.getElementById(cap + '-fc-bar').style.width = ((s.idx + 1) / s.cards.length * 100) + '%';
+            const inner = document.getElementById(cap + '-card');
+            inner.classList.remove('flipped');
+            s.flipped = false;
+        }
+
+        function flipCard(cap) {
+            const s = state[cap];
+            s.flipped = !s.flipped;
+            document.getElementById(cap + '-card').classList.toggle('flipped', s.flipped);
+        }
+
+        function nextCard(cap) {
+            const s = state[cap];
+            if (s.idx < s.cards.length - 1) { s.idx++; renderCard(cap); }
+        }
+
+        function prevCard(cap) {
+            const s = state[cap];
+            if (s.idx > 0) { s.idx--; renderCard(cap); }
+        }
+
+        function shuffleCards(cap) {
+            const s = state[cap];
+            for (let i = s.cards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [s.cards[i], s.cards[j]] = [s.cards[j], s.cards[i]];
+            }
+            s.idx = 0;
+            renderCard(cap);
+        }
+
+        // ════════════════════════════════════════
+        // QUIZ
+        // ════════════════════════════════════════
+        function initQuiz(cap) {
+            const s = state[cap];
+            s.quizAnswered = new Array(QUIZ[cap].length).fill(null);
+            s.quizScore = 0;
+            s.quizDone = false;
+            s.qIdx = 0;
+            renderQuiz(cap);
+        }
+
+        function renderQuiz(cap) {
+            const s = state[cap];
+            const questions = QUIZ[cap];
+            const container = document.getElementById(cap + '-quiz-content');
+
+            if (s.quizDone) {
+                const pct = Math.round(s.quizScore / questions.length * 100);
+                let msg = pct >= 80 ? '🎉 Excelente! Você domina o conteúdo deste módulo.' :
+                    pct >= 60 ? '📚 Bom resultado! Revise os pontos que errou.' :
+                        '🔄 Continue estudando! Releia o resumo e tente novamente.';
+                let color = pct >= 80 ? 'var(--success)' : pct >= 60 ? 'var(--accent)' : 'var(--danger)';
+                container.innerHTML = `
+      <div class="result-card">
+        <div class="result-score" style="color:${color}">${s.quizScore}/${questions.length}</div>
+        <div class="result-label">${pct}% de aproveitamento</div>
+        <div class="result-msg">${msg}</div>
+        <button class="btn btn-primary" onclick="initQuiz('${cap}')">Tentar Novamente</button>
+      </div>`;
+                return;
+            }
+
+            const q = questions[s.qIdx];
+            const letters = ['A', 'B', 'C', 'D', 'E'];
+            const answered = s.quizAnswered[s.qIdx];
+
+            let optsHTML = q.opts.map((opt, i) => {
+                let cls = '';
+                if (answered !== null) {
+                    if (i === q.correct) cls = 'correct';
+                    else if (i === answered && i !== q.correct) cls = 'wrong';
+                }
+                return `<button class="option ${cls}" onclick="answerQuiz('${cap}', ${i})" ${answered !== null ? 'disabled' : ''}>
+      <span class="opt-letter">${letters[i]}</span>
+      <span>${opt.replace(/^[A-E]\) /, '')}</span>
+    </button>`;
+            }).join('');
+
+            const expDisplay = answered !== null ? 'show' : '';
+
+            container.innerHTML = `
+    <div class="quiz-header">
+      <span class="fc-counter" style="font-family:'DM Mono',monospace;font-size:.8rem;color:var(--text3)">${s.qIdx + 1} de ${questions.length}</span>
+      <span class="quiz-score-badge">Acertos: ${s.quizScore}</span>
+    </div>
+    <div class="fc-progress ${cap}"><div class="fc-progress-bar" style="width:${((s.qIdx + (answered !== null ? 1 : 0)) / questions.length) * 100}%"></div></div>
+    <div class="question-card">
+      <div class="q-num">QUESTÃO ${String(s.qIdx + 1).padStart(2, '0')}</div>
+      <div class="q-text">${q.q}</div>
+      <div class="options">${optsHTML}</div>
+      <div class="explanation ${expDisplay}">
+        <strong>💡 Comentário:</strong> ${q.exp}
+      </div>
+    </div>
+    <div class="quiz-nav">
+      <button class="btn" onclick="prevQuestion('${cap}')" ${s.qIdx === 0 ? 'disabled' : ''}>← Anterior</button>
+      ${answered !== null
+                    ? s.qIdx < questions.length - 1
+                        ? `<button class="btn btn-primary" onclick="nextQuestion('${cap}')">Próxima →</button>`
+                        : `<button class="btn btn-primary" onclick="finishQuiz('${cap}')">Ver Resultado ✓</button>`
+                    : `<span style="font-size:.78rem;color:var(--text3)">Selecione uma alternativa</span>`
+                }
+    </div>`;
+        }
+
+        function answerQuiz(cap, chosen) {
+            const s = state[cap];
+            if (s.quizAnswered[s.qIdx] !== null) return;
+            s.quizAnswered[s.qIdx] = chosen;
+            if (chosen === QUIZ[cap][s.qIdx].correct) s.quizScore++;
+            renderQuiz(cap);
+        }
+
+        function nextQuestion(cap) {
+            state[cap].qIdx++;
+            renderQuiz(cap);
+        }
+
+        function prevQuestion(cap) {
+            if (state[cap].qIdx > 0) { state[cap].qIdx--; renderQuiz(cap); }
+        }
+
+        function finishQuiz(cap) {
+            state[cap].quizDone = true;
+            renderQuiz(cap);
+        }
+
+        // ════════════════════════════════════════
+        // INIT
+        // ════════════════════════════════════════
+        initFlashcard('c1');
+        state.c1.initialized = true;
+    </script>
+</body>
+
+</html>

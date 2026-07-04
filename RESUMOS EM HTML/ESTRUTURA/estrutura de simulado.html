@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template de Simulado Acadêmico</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            /* Paleta baseada no design do Guia de Estudos */
+            --bg: #08101f;
+            --surface: #121b2e;
+            --surface2: #172438;
+            --surface3: #1e2d43;
+            --border: #2e4f77;
+            --accent: #71c7ff;
+            /* Azul principal */
+            --accent-hover: rgba(113, 199, 255, 0.1);
+            --danger: #ff7c74;
+            --success: #7adca7;
+            --text: #ecf3ff;
+            --text2: #acc4dd;
+            --text3: #6b85a1;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ─── BACKGROUND NOISE ─── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ─── HERO ─── */
+        .hero {
+            position: relative;
+            padding: 80px 24px 60px;
+            text-align: center;
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -120px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(ellipse, rgba(113, 199, 255, 0.12) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-eyebrow {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 20px;
+            animation: fadeUp 0.6s 0.1s forwards;
+            opacity: 0;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 6vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.05;
+            color: var(--text);
+            margin-bottom: 16px;
+            animation: fadeUp 0.6s 0.2s forwards;
+            opacity: 0;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        .hero-sub {
+            font-size: 1rem;
+            color: var(--text2);
+            max-width: 480px;
+            margin: 0 auto 20px;
+            line-height: 1.7;
+            animation: fadeUp 0.6s 0.3s forwards;
+            opacity: 0;
+        }
+
+        /* ─── MAIN CONTENT ─── */
+        .main {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 20px 20px 100px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ─── QUIZ STYLES ─── */
+        .quiz-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 12px;
+            animation: fadeUp 0.4s 0.4s forwards;
+            opacity: 0;
+        }
+
+        .q-progress-text {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text3);
+            letter-spacing: 1px;
+        }
+
+        .quiz-score-badge {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.8rem;
+            padding: 6px 14px;
+            border-radius: 24px;
+            background: var(--surface3);
+            color: var(--text2);
+        }
+
+        .progress-bar-container {
+            height: 3px;
+            background: var(--surface3);
+            border-radius: 2px;
+            margin-bottom: 32px;
+            overflow: hidden;
+            animation: fadeUp 0.4s 0.4s forwards;
+            opacity: 0;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--accent);
+            transition: width 0.4s ease;
+        }
+
+        .question-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: fadeUp 0.35s forwards;
+        }
+
+        .q-text {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+            font-weight: 700;
+            line-height: 1.6;
+            color: var(--text);
+            margin-bottom: 28px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px 20px;
+            border-radius: 16px;
+            border: 1.5px solid var(--border);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+            color: var(--text2);
+            line-height: 1.5;
+            background: transparent;
+            text-align: left;
+            font-family: 'DM Sans', sans-serif;
+            width: 100%;
+        }
+
+        .option:hover:not(:disabled) {
+            border-color: var(--text3);
+            background: var(--surface2);
+            color: var(--text);
+        }
+
+        .option .opt-letter {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 600;
+            min-width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: var(--surface3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text3);
+            flex-shrink: 0;
+            margin-top: 1px;
+            transition: all 0.2s;
+        }
+
+        /* Status das Respostas */
+        .option.correct {
+            border-color: var(--success);
+            background: rgba(122, 220, 167, 0.08);
+            color: #a3d9b1;
+        }
+
+        .option.correct .opt-letter {
+            background: var(--success);
+            color: #000;
+        }
+
+        .option.wrong {
+            border-color: var(--danger);
+            background: rgba(255, 124, 116, 0.08);
+            color: #ffb3ae;
+        }
+
+        .option.wrong .opt-letter {
+            background: var(--danger);
+            color: #fff;
+        }
+
+        .option:disabled {
+            cursor: default;
+        }
+
+        .explanation {
+            margin-top: 24px;
+            padding: 18px 24px;
+            background: var(--surface2);
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+            font-size: 0.9rem;
+            color: var(--text2);
+            line-height: 1.7;
+            display: none;
+            animation: fadeUp 0.3s forwards;
+        }
+
+        .explanation.show {
+            display: block;
+        }
+
+        .explanation strong {
+            color: var(--text);
+        }
+
+        .quiz-nav {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 24px;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1.5px solid var(--accent);
+            background: transparent;
+            color: var(--accent);
+            transition: all 0.2s;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .btn:hover {
+            background: var(--accent-hover);
+        }
+
+        .btn-solid {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 4px 15px rgba(113, 199, 255, 0.2);
+        }
+
+        .btn-solid:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(113, 199, 255, 0.3);
+        }
+
+        /* ─── RESULTADO FINAL ─── */
+        .result-card {
+            text-align: center;
+            padding: 60px 40px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: fadeUp 0.5s ease;
+        }
+
+        .result-score {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(4rem, 10vw, 6rem);
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+
+        .result-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--text2);
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .result-msg {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text);
+            margin-bottom: 40px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ─── SCROLLBAR ─── */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 10px;
+        }
+
+        /* ─── MOBILE TWEAKS ─── */
+        @media (max-width: 600px) {
+            .hero {
+                padding: 60px 16px 30px;
+            }
+
+            .hero h1 {
+                font-size: clamp(2rem, 10vw, 2.5rem);
+            }
+
+            .question-card {
+                padding: 24px 20px;
+            }
+
+            .option {
+                padding: 14px 16px;
+                gap: 12px;
+                font-size: 0.85rem;
+            }
+
+            .result-card {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="hero">
+        <div class="hero-eyebrow">Simulador Base</div>
+        <h1>Avaliação de <em>Conhecimentos</em></h1>
+        <p class="hero-sub">Teste seu nível de estudos. Responda às questões abaixo e receba seu diagnóstico ao final do
+            simulado.</p>
+    </div>
+
+    <div class="main" id="app-container">
+    </div>
+
+    <script>
+        // ════════════════════════════════════════
+        // DADOS DO SIMULADO (Insira suas questões aqui)
+        // ════════════════════════════════════════
+        const QUESTIONS = [
+            {
+                q: "Insira aqui o enunciado da sua primeira questão. Qual é a alternativa correta?",
+                opts: [
+                    "Alternativa incorreta de exemplo.",
+                    "Alternativa correta de exemplo.",
+                    "Outra alternativa incorreta.",
+                    "Mais uma alternativa incorreta."
+                ],
+                correct: 1, // O índice começa no 0. Portanto, '1' equivale à segunda alternativa (B).
+                exp: "Aqui você insere a explicação do porquê a alternativa B está correta. Este texto só aparecerá após o usuário clicar em uma opção."
+            },
+            {
+                q: "Enunciado da segunda questão base do seu simulado. É possível adicionar quantas opções quiser?",
+                opts: [
+                    "Sim, a estrutura se adapta automaticamente ao número de opções no array.",
+                    "Não, o limite é estritamente de 4 opções.",
+                    "Apenas se modificar o CSS do sistema inteiro.",
+                    "Sim, mas requer criação de novas classes no HTML."
+                ],
+                correct: 0,
+                exp: "A opção A está correta porque o mapeamento no JavaScript (.map) gera um botão para cada string presente no array de opções (opts)."
+            },
+            {
+                q: "Terceira questão de exemplo. Como finalizo o preenchimento das questões?",
+                opts: [
+                    "Deletando a variável QUESTIONS.",
+                    "Substituindo os textos destes objetos pelas minhas próprias perguntas.",
+                    "Não é possível alterar este código.",
+                    "Baixando um software de terceiros."
+                ],
+                correct: 1,
+                exp: "Basta substituir o conteúdo das strings de 'q' (pergunta), 'opts' (opções) e ajustar o índice 'correct'."
+            }
+            // Para adicionar mais questões, basta colocar uma vírgula após a chave } acima e adicionar um novo bloco { q: "...", opts: [...], correct: X, exp: "..." }
+        ];
+
+        // ════════════════════════════════════════
+        // ESTADO DO APLICATIVO E LÓGICA
+        // ════════════════════════════════════════
+        let currentQuestion = 0;
+        let score = 0;
+        let hasAnsweredCurrent = false;
+
+        const container = document.getElementById('app-container');
+
+        function renderQuestion() {
+            if (currentQuestion >= QUESTIONS.length) {
+                renderResult();
+                return;
+            }
+
+            const q = QUESTIONS[currentQuestion];
+            const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G']; // Suporta até 7 alternativas (expansível)
+            const progressPct = (currentQuestion / QUESTIONS.length) * 100;
+
+            let html = `
+                <div class="quiz-header">
+                    <span class="q-progress-text">QUESTÃO ${String(currentQuestion + 1).padStart(2, '0')} DE ${QUESTIONS.length}</span>
+                    <span class="quiz-score-badge">Acertos: ${score}</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: ${progressPct}%"></div>
+                </div>
+
+                <div class="question-card">
+                    <div class="q-text">${q.q}</div>
+                    <div class="options" id="options-container">
+                        ${q.opts.map((opt, i) => `
+                            <button class="option" id="opt-${i}" onclick="selectAnswer(${i})">
+                                <span class="opt-letter">${letters[i]}</span>
+                                <span>${opt}</span>
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div class="explanation" id="explanation">
+                        <strong>🎯 Resolução:</strong> <span id="exp-text"></span>
+                    </div>
+                    <div class="quiz-nav">
+                        <button class="btn btn-solid" id="next-btn" style="display: none;" onclick="nextQuestion()">Próxima Questão →</button>
+                    </div>
+                </div>
+            `;
+
+            // Usando uma pequena transição limpa
+            container.style.opacity = '0';
+            setTimeout(() => {
+                container.innerHTML = html;
+                container.style.opacity = '1';
+                hasAnsweredCurrent = false;
+            }, 150);
+        }
+
+        window.selectAnswer = function (index) {
+            if (hasAnsweredCurrent) return;
+            hasAnsweredCurrent = true;
+
+            const q = QUESTIONS[currentQuestion];
+            const buttons = document.querySelectorAll('.option');
+            const explanation = document.getElementById('explanation');
+            const expText = document.getElementById('exp-text');
+            const nextBtn = document.getElementById('next-btn');
+
+            // Desabilita todos os botões após a escolha
+            buttons.forEach(btn => btn.disabled = true);
+
+            // Verifica acerto e aplica classes CSS
+            if (index === q.correct) {
+                document.getElementById(`opt-${index}`).classList.add('correct');
+                score++;
+                document.querySelector('.quiz-score-badge').textContent = `Acertos: ${score}`;
+            } else {
+                document.getElementById(`opt-${index}`).classList.add('wrong');
+                document.getElementById(`opt-${q.correct}`).classList.add('correct');
+            }
+
+            // Mostra a explicação estruturada
+            expText.innerHTML = q.exp;
+            explanation.classList.add('show');
+
+            // Ajusta o botão de navegação
+            if (currentQuestion === QUESTIONS.length - 1) {
+                nextBtn.textContent = "Ver Resultado Final ✓";
+            }
+            nextBtn.style.display = 'block';
+        }
+
+        window.nextQuestion = function () {
+            currentQuestion++;
+            renderQuestion();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderResult() {
+            const pct = Math.round((score / QUESTIONS.length) * 100);
+            let msg, color;
+
+            // Personalize as mensagens de feedback aqui baseadas na porcentagem de acertos
+            if (pct >= 85) {
+                msg = "Excepcional! Você tem pleno domínio dos assuntos cobrados. Mantenha o ritmo para a prova real.";
+                color = "var(--success)";
+            } else if (pct >= 60) {
+                msg = "Bom resultado! Seu conhecimento está sólido, mas revise as questões que errou e leia atentamente as resoluções.";
+                color = "var(--accent)";
+            } else {
+                msg = "Continue treinando. Este é o momento ideal para identificar lacunas teóricas e voltar aos resumos antes de tentar novamente.";
+                color = "var(--danger)";
+            }
+
+            container.style.opacity = '0';
+            setTimeout(() => {
+                container.innerHTML = `
+                    <div class="result-card">
+                        <div class="result-score" style="color: ${color}">${score}/${QUESTIONS.length}</div>
+                        <div class="result-label">Aproveitamento de ${pct}%</div>
+                        <div class="result-msg">${msg}</div>
+                        <button class="btn btn-solid" onclick="restartQuiz()">Refazer Simulado ↺</button>
+                    </div>
+                `;
+                container.style.opacity = '1';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 150);
+        }
+
+        window.restartQuiz = function () {
+            currentQuestion = 0;
+            score = 0;
+            renderQuestion();
+        }
+
+        // Inicializa o simulado na primeira carga da página
+        renderQuestion();
+    </script>
+</body>
+
+</html>
